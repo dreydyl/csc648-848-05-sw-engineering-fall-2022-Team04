@@ -1,0 +1,35 @@
+{
+<<<<<<< HEAD
+  "dependencies": {
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6",
+    "handlebars": "^4.7.7"
+=======
+  "name": "csc648-848-05-sw-engineering-fall-2022-team04",
+  "version": "1.0.0",
+  "description": "[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=8347655&assignment_repo_type=AssignmentRepo) # CSC648-848 Repository",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sfsu-joseo/csc648-848-05-sw-engineering-fall-2022-Team04.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sfsu-joseo/csc648-848-05-sw-engineering-fall-2022-Team04/issues"
+  },
+  "homepage": "https://github.com/sfsu-joseo/csc648-848-05-sw-engineering-fall-2022-Team04#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+>>>>>>> master
+  }
+}
