@@ -7,16 +7,24 @@
 
 # Below is a list of items required. Missing items will causes points to be deducted from multiple milestone submissions.
 
-1. Server URL or IP
-2. SSH username
+1. Server URL or IP: 50.18.226.23
+2. SSH username: ec2-user
 3. SSH password or key.
+    Using SSH key "csc648-team4.cer"
     <br> If a ssh key is used please upload the key to the credentials folder.
 4. Database URL or IP and port used.
+    URL: csc648-team4.cwpgbxyiuu7u.us-west-1.rds.amazonaws.com
+    Port: 3306
     <br><strong> NOTE THIS DOES NOT MEAN YOUR DATABASE NEEDS A PUBLIC FACING PORT.</strong> But knowing the IP and port number will help with SSH tunneling into the database. The default port is more than sufficient for this class.
-5. Database username
-6. Database password
-7. Database name (basically the name that contains all your tables)
+5. Database username: admin
+6. Database password: password
+7. Database name (basically the name that contains all your tables): landlord-app
 8. Clear instructions with examples on how to use all the above information.
+
+    - Open MySQL Workbench application, clicking the plus sign (+). A Setup New Connection tab open
+    - When a tab open, navigate to <strong>Connection Method</strong>, choose "Standard TCP/IP over SSH" then fill out all the informations above. For the SSH key, click (...) icon and use the "csc648-team4.cer" key that is in with the credentials folder. <br><strong>NOTE</strong>: Connection name can be any of yours choice.
+    - After filling out all the information, click <strong>Test Connection</strong>. If successfull connection, continue clicking <strong>Ok</strong>, then you are in the database UI. In the left tab, choose <strong>Schemas</strong> and right lick <strong>landlord-app</strong> and choose <strong>Set as Default Schema</strong>.
+    - <strong>NOTE</strong>: If the connection is unsuccessfull, check the information again, if the problem still occur, contract team leader for assistance. 
 
 # Most important things to Remember
 ## These values need to kept update to date throughout the semester. <br>

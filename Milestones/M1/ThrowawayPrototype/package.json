@@ -3,6 +3,8 @@
     "express": "^4.18.1",
     "express-handlebars": "^6.0.6",
     "handlebars": "^4.7.7",
+    "handlebars-server": "^0.0.0",
+    "mysql2": "^2.3.3",
     "nodemon": "^2.0.19",
     "path": "^0.12.7",
     "router": "^1.3.7"
@@ -13,7 +15,11 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+<<<<<<< HEAD
     "start": "node app.js"
+=======
+    "start": "nodemon app.js"
+>>>>>>> 645fe60447cc7ca0ac48f9fafad3e7fbf295088c
   },
   "keywords": [],
   "author": "",

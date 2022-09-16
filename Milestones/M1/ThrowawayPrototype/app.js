@@ -2,11 +2,26 @@ var express = require('express');
 var app = express();
 const port = 8080;
 
-const handlebars = require('express-handlebars');
+var handlebars = require('express-handlebars');
 
 app.set('view engine', 'handlebars');
 app.set("views", `${__dirname}/views`);
 app.use(express.static(`${__dirname}/public`));
+app.use(express.json());
+
+// Redirect requests to endpoint starting with /posts to postRoutes.js
+app.use("/posts", require("./route/postRoutes"));
+
+// Global Error Handler. Important function params must start with err
+app.use((err, req, res, next) => {
+    console.log(err.stack);
+    console.log(err.name);
+    console.log(err.code);
+
+    res.status(500).json({
+        message: "Something went wrong",
+    });
+})
 
 app.engine('handlebars', handlebars.engine({
     layoutsDir: `${__dirname}/views/layouts`,
@@ -50,3 +65,4 @@ app.get('/ricardoAbout', (req, res) => {
 app.listen(port, () => {
     console.log(`App listening to port ${port}`);
 });
+
