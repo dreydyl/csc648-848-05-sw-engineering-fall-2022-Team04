@@ -15,11 +15,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-<<<<<<< HEAD
-    "start": "node app.js"
-=======
     "start": "nodemon app.js"
->>>>>>> 645fe60447cc7ca0ac48f9fafad3e7fbf295088c
   },
   "keywords": [],
   "author": "",
