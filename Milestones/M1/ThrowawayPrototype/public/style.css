@@ -88,3 +88,35 @@ h1
 {
     text-decoration: underline;
 }
+
+.about_wrapper
+{
+  display: flex;
+  padding: 10px;
+}
+
+.paragraph
+{
+  font-family: Bradley Hand;
+  font-size: 30px;
+  padding-left: 20px;
+}
+
+.devonimg,
+.youssefimg,
+.ricardoimg
+{
+  width: 20%;
+}
+
+.issaimg,
+.tungimg
+{
+  width: 25%;
+}
+
+.praiseimg
+{
+  width: 20%;
+  height: 10%;
+}
