@@ -7,8 +7,8 @@
 
 # Below is a list of items required. Missing items will causes points to be deducted from multiple milestone submissions.
 
-1. Server URL or IP: 50.18.226.23
-2. SSH username: ec2-user
+1. Server URL or IP: 54.214.191.203
+2. SSH username: ubuntu
 3. SSH password or key.
     Using SSH key "csc648-team4.cer"
     <br> If a ssh key is used please upload the key to the credentials folder.
