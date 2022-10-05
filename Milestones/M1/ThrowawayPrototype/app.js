@@ -38,6 +38,10 @@ app.get('/', (req, res) => {
     res.render('partials/main');
 });
 
+app.get('/about', (req, res) => {
+    res.render('partials/about');
+});
+
 app.get('/devAbout', (req, res) => {
     res.render('partials/devAbout');
 });
