@@ -42,6 +42,14 @@ app.get('/about', (req, res) => {
     res.render('partials/about');
 });
 
+app.get('/loginpage', (req, res) => {
+    res.render('partials/loginpage');
+});
+
+app.get('/helppage', (req, res) => {
+    res.render('partials/helppage');
+});
+
 app.get('/devAbout', (req, res) => {
     res.render('partials/devAbout');
 });
