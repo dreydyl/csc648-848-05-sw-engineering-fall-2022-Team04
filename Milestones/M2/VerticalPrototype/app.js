@@ -12,6 +12,10 @@ app.use(express.json());
 // Redirect requests to endpoint starting with /posts to postRoutes.js
 app.use("/posts", require("./route/postRoutes"));
 
+// Redirect requests to endpoint starting with /registered to registeredRoutes.js
+app.use("/registers", require("./route/registeredRoutes"));
+
+
 // Global Error Handler. Important function params must start with err
 app.use((err, req, res, next) => {
     console.log(err.stack);
