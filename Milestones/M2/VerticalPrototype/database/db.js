@@ -1,11 +1,12 @@
 let mysql = require('mysql2');
 
 let connection = mysql.createConnection({
-    host: 'csc648-team4.cwpgbxyiuu7u.us-west-1.rds.amazonaws.com',
-    port:'3306',
+    host: 'database-1.cwpgbxyiuu7u.us-west-1.rds.amazonaws.com',
+    port: '3306',
     user: 'admin',
     password: 'password',
-    database: "landlord-app",
+    database: 'ezRent'
+    
 });
 
 connection.connect(function(err) {
