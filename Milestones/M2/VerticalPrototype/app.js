@@ -15,6 +15,8 @@ app.use("/posts", require("./route/postRoutes"));
 // Redirect requests to endpoint starting with /registered to registeredRoutes.js
 app.use("/registers", require("./route/registeredRoutes"));
 
+// Redirect requests to endpoint starting with /registered to registeredRoutes.js
+app.use("/listing", require("./route/listingRoutes"));
 
 // Global Error Handler. Important function params must start with err
 app.use((err, req, res, next) => {
