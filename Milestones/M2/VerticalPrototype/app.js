@@ -56,6 +56,10 @@ app.get('/helppage', (req, res) => {
     res.render('partials/helppage');
 });
 
+app.get('/searchresults', (req, res) => {
+    res.render('partials/searchresults');
+});
+
 app.get('/devAbout', (req, res) => {
     res.render('partials/devAbout');
 });

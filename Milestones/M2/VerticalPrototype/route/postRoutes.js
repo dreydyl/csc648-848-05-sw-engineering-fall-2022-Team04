@@ -4,6 +4,6 @@ const router = express.Router();
 
 router.route("/").get(postControllers.getAllPosts).post(postControllers.createNewPost);
 
-router.route("/:id").get(postControllers.getPostById); 
+router.route(":title").get(postControllers.getPostByTitle);
 
 module.exports = router;

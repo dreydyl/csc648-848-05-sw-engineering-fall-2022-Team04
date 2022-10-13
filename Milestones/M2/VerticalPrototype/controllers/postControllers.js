@@ -25,10 +25,10 @@
     }
  }
 
- exports.getPostById = async (req, res, next) => {
+ exports.getPostByTitle = async (req, res, next) => {
     try {
-        let postId = req.params.id;
-        let [post, _] = await Post.findById(postId);
+        let postTitle = req.params.title;
+        let [post, _] = await Post.findByTitle(postTitle);
          
         res.status(200).json({post: post[0]});
     } catch (error) {

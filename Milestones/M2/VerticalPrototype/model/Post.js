@@ -40,8 +40,8 @@ class Post {
         return db.execute(sql); 
     }
 
-    static findById(id) {
-        let sql = `SELECT * FROM posts WHERE id = ${id};`;
+    static findByTitle(title) {
+        let sql = `SELECT * FROM posts WHERE title LIKE '${title}';`;
 
         return db.execute(sql); 
     }
