@@ -6,7 +6,7 @@
         <form>
             <input id="search-text" name="search-text" type="search"
                 placeholder="Search for properties or landlords...">
-            <input type="button" value="search" id="search-button" onclick="executeSearch()"/>
+            <input type="button" value="search" id="search-button" />
         </form>
     </div>
     <div class="home-reviews-section">
@@ -22,11 +22,27 @@
     function createCard(postData) {
         return `<div class="container">
     <di class="container-profile">
-        <p class="landlord-name">Sarah Therrien</p>
-        <p class="landlord-rating">9.9</p>
+        <p class="landlord-name">${postData.post.body}</p>
+        <p class="landlord-rating">${postData.post.rating}</p>
     </di>
     <img class="landlord-img"
         src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80">
+</div>`;
+    }
+
+    function searchResults(newContent) {
+        return `<div id="search_results_main">
+    <div id="search_results_filters">
+        <h1>Filters</h1>
+        <p>price</p>
+        <p>rating</p>
+    </div>
+    <div id="search_results_card_section">
+        <h1>Search Results</h1>
+        <div id="search_results_cards">
+            ${newContent}
+        </div>
+    </div>
 </div>`;
     }
 
@@ -37,20 +53,23 @@
             return;
         }
         let mainContent = document.getElementById("main-content");
-        let searchURL = `/posts/?search-text=${searchTerm}`;
-        location.replace(`http://localhost:8080${searchURL}`);
-        fetch(searchURL)
-            .then((data) => {
+        let newContent = '';
+        let newMainContent = '';
+        let searchURL = `/posts/${searchTerm}`;
+        fetch(`http://localhost:8080${searchURL}`)
+            .then(res => res.json())
+            .then(data => {
                 console.log(data);
-                return data.json();
+                if (data.post.title != undefined) {
+                    newContent += createCard(data);
+                    newMainContent += searchResults(newContent);
+                    mainContent.innerHTML = newMainContent;
+                }
             })
-            .then((data_json) => {
-                let newMainContentHTML = '';
-                data_json.results.forEach((row) => {
-                    newMainContentHTML += createCard(row);
-                });
-                mainContent.innerHTML = newMainContentHTML;
+            .catch(err => {
+                console.log('Data not found in database.');
             })
-            .catch((err) => console.log(err));
     }
+
+    searchButton.onclick = executeSearch;
 </script>
