@@ -1,7 +1,7 @@
 const db = require('../database/db');
 
 class Register {
-    constructor(landlord_id, price, description, street_num, street, city, state, zipcode, room_num, bath_num, review_id) {
+    constructor(landlord_id, price, description, street_num, street, city, state, zipcode, room_num, bath_num, picture) {
         this.landlord_id = landlord_id;
         this.price = price;
         this.description = description;
@@ -12,7 +12,7 @@ class Register {
         this.zipcode = zipcode;
         this.room_num = room_num;
         this.bath_num = bath_num;
-        this. review_id = review_id;
+        this.picture = picture;
     }
 
     save() {
@@ -36,7 +36,7 @@ class Register {
             num_room, 
             num_bath,
             time_created,
-            review_id
+            picture
         )
         VALUES (
             '${this.landlord_id}',
@@ -50,7 +50,7 @@ class Register {
             '${this.room_num}',
             '${this.bath_num}',
             '${createdAtDate}',
-            '${this.review_id}' 
+            '${this.picture}' 
         )
         `;
 
