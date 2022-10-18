@@ -5,7 +5,7 @@
         <p class="search-section-sentence">Avoid bad landlord experiences.</p>
         <form>
             <input id="search-text" name="search-text" type="search"
-                placeholder="Search for properties or landlords...">
+                placeholder="Enter an address...">
             <input type="button" value="search" id="search-button" />
         </form>
     </div>
@@ -33,9 +33,12 @@
     function searchResults(newContent) {
         return `<div id="search_results_main">
     <div id="search_results_filters">
-        <h1>Filters</h1>
-        <p>price</p>
-        <p>rating</p>
+       <button class="btn active" onclick="filterSelect"('all')>Search Filters</button>
+
+    <button class="btn" onclick="filterSelect" ('Price')>Price</button>
+    <button class="btn" onclick="filterSelect" ('Rating')>Rating</button>
+    <button class="btn" onclick="filterSelect" ('Beds')>Beds</button>
+    <button class="btn" onclick="filterSelect" ('Baths')>Baths</button>
     </div>
     <div id="search_results_card_section">
         <h1>Search Results</h1>
