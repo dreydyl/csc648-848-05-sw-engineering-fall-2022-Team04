@@ -58,6 +58,18 @@ class Register {
  
     }
 
+    static getListByZipcode(zipcode) {
+        let sql = `SELECT * FROM listing WHERE zipcode LIKE '${zipcode}';`;
+
+        return db.execute(sql); 
+    }
+
+    static getListByCity(city) {
+        let sql = `SELECT * FROM listing WHERE city LIKE '${city}';`;
+        
+        return db.execute(sql); 
+    }
+
     static findAll() {
         let sql = `SELECT * FROM listing;`;
 

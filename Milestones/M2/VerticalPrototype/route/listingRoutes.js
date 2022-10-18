@@ -16,6 +16,8 @@ const upload = multer({
 })
 
 router.route("/").get(listingControllers.getAllUsers).post(upload.single('picture'),listingControllers.createNewUser);
+router.route("/:zipcode").get(listingControllers.getListByZipcode);
+//router.route("/:city").get(listingControllers.getListByCity);
 
 
 module.exports = router;
