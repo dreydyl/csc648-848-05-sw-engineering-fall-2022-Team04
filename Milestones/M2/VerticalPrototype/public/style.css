@@ -291,3 +291,9 @@ footer p {
 #search_results_filters {
     border-right: solid black;
 }
+.container:hover{
+    background-color: rgb(62, 62, 62);
+    color: #ffff;
+    cursor: pointer;
+    transform: scale(1.3);
+}
