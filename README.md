@@ -25,7 +25,11 @@
 
 |             Name of the Project               |                            URL of the Project                          | 
 |                    :---:                      |                                 :---:                                  |
+<<<<<<< HEAD
 |   EzRent  |              http://54.215.144.148:8080       |                                                        
+=======
+|   EzRent                                      |                        http://54.215.191.203:8080/                     |                                                        
+>>>>>>> 3376d8a6a74e4d0cdb4fe7a1c303b70589d8361a
  
 
 ## NO code needs to be stored in the root of your repository. You may rename the application folder if you like to your team's application name. But all source code related to your team's application should be stored inside the application folder.
