@@ -19,6 +19,19 @@ window.onload = function () {
 </div>`;
     }
 
+    function createLandlordCard(data) {
+        return `<div class="container">
+        <di class="container-profile">
+            <p class="landlord-name">${data.title}</p>
+            <p class="landlord-rating">${data.rating}</p>
+        </di>
+        <a href="#">
+        <img class="landlord-img"
+            src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"></a>
+    </div>`;
+    }
+
+
     function searchResults(newContent) {
         return `<div id="search_results_main">
     <div id="search_results_filters">
@@ -99,7 +112,43 @@ window.onload = function () {
                 console.log('Data not found in database.');
             })
     }
-    //console.log(searchButton);
 
-    searchButton.onclick = executeSearch;
+    function executeLandlordSearch() {
+        let searchTerm = document.getElementById("search-text").value;
+        if (!searchTerm) {
+            location.replace('/');
+            return;
+        }
+        let mainContent = document.getElementById("main-content");
+        let newContent = '';
+        let newMainContent = '';
+        let searchURL = `/posts/${searchTerm}`;
+        fetch(`http://localhost:8080${searchURL}`)
+            .then(res => res.json())
+            .then(data => {
+                let temp = data;
+                console.log(temp);
+                for (const temp1 in temp) {
+                    newContent += createLandlordCard(temp[temp1]);
+                }
+                newMainContent += searchResults(newContent);
+                mainContent.innerHTML = newMainContent;
+            })
+            .catch(err => {
+                console.log('Data not found in database.');
+            })
+    }
+
+    const sb = document.getElementById('search-select');
+
+    searchButton.onclick = (event) => {
+        event.preventDefault;
+        if (sb.selectedIndex == 2) {
+            executeSearch();
+        } else if(sb.selectedIndex == 1) {
+            executeLandlordSearch();
+        } else {
+            location.replace('/');
+        }
+    }
 }

@@ -207,26 +207,25 @@ input[type="search"]:focus {
 }
 
 .home-reviews-section {
-
     padding: 10px;
     text-align: center;
     font-size: 40px;
-    margin-bottom: 130px;
 }
 
 .top-landlords {
     display: flex;
     justify-content: space-between;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 0 90px;
+    margin-top: 30px;
 }
 
 .container {
-    width: 350px;
-    height: 350px;
+    width: 300px;
+    height: 300px;
     position: relative;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.315);
-    margin-top: 20px;
+    margin-bottom: 120px;
+    margin-left: 30px;
 }
 
 .container-profile {
@@ -387,4 +386,23 @@ footer p {
     cursor: pointer;
     font-family: inherit;
     font-size: inherit;
+}
+
+.search-select {
+    padding: 8px 12px;
+    color: #333333;
+    background-color: #eeeeeec9;
+    border: 1px solid rgb(116, 116, 116);
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: inherit;
+    margin: 5px;
+}
+
+.search-select:focus,
+.search-select:hover {
+    outline: none;
+    background-color: #cecece;
+    border: 1px solid black;
 }
