@@ -1,0 +1,10 @@
+<body id="main-content">
+    <h1>{{header}}</h1>
+    <div class="centered-flex">
+        <div id="container">
+            {{#each results}}
+            {{> listingCard this}}
+            {{/each}}
+        </div>
+    </div>
+</body>
