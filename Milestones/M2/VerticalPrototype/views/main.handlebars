@@ -1,10 +1,14 @@
-{{> header}}
 <div id="main-content">
     <div class="search-form">
         <p class="search-section-sentence">Search. Find. Contact. Rate.</p>
         <p class="search-section-sentence">Avoid bad landlord experiences.</p>
+        <select id="search-select" class="search-select">
+            <option disabled selected>Category</option>
+            <option id="landlord-option" value="Landlords">Landlords</option>
+            <option id="listing-option" value="Listings">Listings</option>
+        </select>
         <form>
-            <input id="search-text" name="search-text" type="search" placeholder="Enter an address...">
+            <input id="search-text" name="search-text" type="search" placeholder="Search">
             <input type="button" value="search" id="search-button" />
         </form>
     </div>
@@ -13,6 +17,5 @@
         {{> cards}}
     </div>
 </div>
-{{>footer}}
 
-<script src="/homepage.js"></script>
+<script src="/public/js/homepage.js"></script>

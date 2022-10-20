@@ -27,8 +27,11 @@ router.route("/").get(listingControllers.getAllUsers).post(upload.single('pictur
     res.send('');
 });
 
+router.get("/:id(\\d+)", listingControllers.getListing, (req, res, next) => {
+    res.render('partials/listingPage');
+});
 
-router.route("/:search").get(listingControllers.getListBySearch);
+router.route("/search/:search").get(listingControllers.getListBySearch);
 
 
 module.exports = router;

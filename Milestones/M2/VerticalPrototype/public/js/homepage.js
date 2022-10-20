@@ -3,7 +3,8 @@ window.onload = function () {
     let searchButton = document.getElementById("search-button");
 
     function createCard(data) {
-        return `<div class="listing-container">
+        let html = `<a href="/listing/${data.listing_id}" class="post-anchor">
+        <div class="listing-container" id="listing-card${data.listing_id}">
     <img class="listing-img"
         src="./images/picture_1666042712023.jpeg">
     <di class="listing-container-profile">
@@ -16,8 +17,23 @@ window.onload = function () {
             <p class="listing-card-city"><b>${data.city}</b></p>
         </div>
     </di>
-</div>`;
+</div>
+</a>`;
+        return html;
     }
+
+    function createLandlordCard(data) {
+        return `<div class="container">
+        <di class="container-profile">
+            <p class="landlord-name">${data.title}</p>
+            <p class="landlord-rating">${data.rating}</p>
+        </di>
+        <a href="#">
+        <img class="landlord-img"
+            src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"></a>
+    </div>`;
+    }
+
 
     function searchResults(newContent) {
         return `<div id="search_results_main">
@@ -66,7 +82,7 @@ window.onload = function () {
     <input type="button" value="Apply" id="apply-filters-button" />
     </div>
     <div id="search_results_card_section">
-        <h1>Search Results</h1>
+        <h1>Listings</h1>
         <div id="search_results_cards">
             ${newContent}
         </div>
@@ -83,7 +99,7 @@ window.onload = function () {
         let mainContent = document.getElementById("main-content");
         let newContent = '';
         let newMainContent = '';
-        let searchURL = `/listing/${searchTerm}`;
+        let searchURL = `/listing/search/${searchTerm}`;
         fetch(`http://localhost:8080${searchURL}`)
             .then(res => res.json())
             .then(data => {
@@ -96,10 +112,47 @@ window.onload = function () {
                 mainContent.innerHTML = newMainContent;
             })
             .catch(err => {
+                console.log(err);
                 console.log('Data not found in database.');
             })
     }
-    //console.log(searchButton);
 
-    searchButton.onclick = executeSearch;
+    function executeLandlordSearch() {
+        let searchTerm = document.getElementById("search-text").value;
+        if (!searchTerm) {
+            location.replace('/');
+            return;
+        }
+        let mainContent = document.getElementById("main-content");
+        let newContent = '';
+        let newMainContent = '';
+        let searchURL = `/posts/${searchTerm}`;
+        fetch(`http://localhost:8080${searchURL}`)
+            .then(res => res.json())
+            .then(data => {
+                let temp = data;
+                console.log(temp);
+                for (const temp1 in temp) {
+                    newContent += createLandlordCard(temp[temp1]);
+                }
+                newMainContent += searchResults(newContent);
+                mainContent.innerHTML = newMainContent;
+            })
+            .catch(err => {
+                console.log('Data not found in database.');
+            })
+    }
+
+    const sb = document.getElementById('search-select');
+
+    searchButton.onclick = (event) => {
+        event.preventDefault;
+        if (sb.selectedIndex == 2) {
+            executeSearch();
+        } else if(sb.selectedIndex == 1) {
+            executeLandlordSearch();
+        } else {
+            location.replace('/');
+        }
+    }
 }

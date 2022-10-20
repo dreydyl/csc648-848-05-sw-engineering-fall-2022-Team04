@@ -35,13 +35,13 @@ class Post {
     }
 
     static findAll() {
-        let sql = `SELECT * FROM posts;`;
+        let sql = `SELECT * FROM posts WHERE id BETWEEN '3' AND '10';`;
 
         return db.execute(sql); 
     }
 
     static findByTitle(title) {
-        let sql = `SELECT * FROM posts WHERE title LIKE '${title}';`;
+        let sql = `SELECT * FROM posts WHERE title LIKE '%${title}%';`;
 
         return db.execute(sql); 
     }
