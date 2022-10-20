@@ -7,18 +7,18 @@
 
 # Below is a list of items required. Missing items will causes points to be deducted from multiple milestone submissions.
 
-1. Server URL or IP: 54.214.191.203
+1. Server URL or IP: 54.215.201.38
 2. SSH username: ubuntu
 3. SSH password or key.
-    Using SSH key "csc648-team4.cer"
+    Using SSH key "csc648-team4.pem"
     <br> If a ssh key is used please upload the key to the credentials folder.
 4. Database URL or IP and port used.
-    URL: csc648-team4.cwpgbxyiuu7u.us-west-1.rds.amazonaws.com
+    URL: database-1.cwpgbxyiuu7u.us-west-1.rds.amazonaws.com
     Port: 3306
     <br><strong> NOTE THIS DOES NOT MEAN YOUR DATABASE NEEDS A PUBLIC FACING PORT.</strong> But knowing the IP and port number will help with SSH tunneling into the database. The default port is more than sufficient for this class.
 5. Database username: admin
 6. Database password: password
-7. Database name (basically the name that contains all your tables): landlord-app
+7. Database name: ezRent
 8. Clear instructions with examples on how to use all the above information.
 
     - Open MySQL Workbench application, clicking the plus sign (+). A Setup New Connection tab open

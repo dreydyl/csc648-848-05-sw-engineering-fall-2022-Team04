@@ -1,0 +1,18 @@
+{{> header}}
+<div id="main-content">
+    <div class="search-form">
+        <p class="search-section-sentence">Search. Find. Contact. Rate.</p>
+        <p class="search-section-sentence">Avoid bad landlord experiences.</p>
+        <form>
+            <input id="search-text" name="search-text" type="search" placeholder="Enter an address...">
+            <input type="button" value="search" id="search-button" />
+        </form>
+    </div>
+    <div class="home-reviews-section">
+        <h1 class="search-section-sentence">Top 3 Landlords</h1>
+        {{> cards}}
+    </div>
+</div>
+{{>footer}}
+
+<script src="/homepage.js"></script>
