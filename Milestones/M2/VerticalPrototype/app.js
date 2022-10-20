@@ -2,7 +2,10 @@ var express = require('express');
 var app = express();
 const port = 8080;
 
+const path = require('path');
+
 var handlebars = require('express-handlebars');
+const exp = require('constants');
 
 app.set('view engine', 'handlebars');
 app.set("views", `${__dirname}/views`);
@@ -17,6 +20,10 @@ app.use("/registers", require("./route/registeredRoutes"));
 
 // Redirect requests to endpoint starting with /registered to registeredRoutes.js
 app.use("/listing", require("./route/listingRoutes"));
+
+app.use(express.static((path.join(__dirname, "js"))));
+
+app.use(express.static('model'));
 
 // Global Error Handler. Important function params must start with err
 app.use((err, req, res, next) => {

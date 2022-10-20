@@ -5,6 +5,7 @@ const router = express.Router();
 const path = require('path');
 const crypto = require('crypto');
 
+
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, './public/images');
@@ -25,8 +26,9 @@ router.route("/").get(listingControllers.getAllUsers).post(upload.single('pictur
     console.log(req);
     res.send('');
 });
-router.route("/:zipcode").get(listingControllers.getListByZipcode);
-//router.route("/:city").get(listingControllers.getListByCity);
+
+
+router.route("/:search").get(listingControllers.getListBySearch);
 
 
 module.exports = router;

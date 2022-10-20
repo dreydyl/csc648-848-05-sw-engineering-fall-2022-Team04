@@ -59,19 +59,25 @@ class Register {
     }
 
     static getListByZipcode(zipcode) {
-        let sql = `SELECT * FROM listing WHERE zipcode LIKE '${zipcode}';`;
+        let sql = `SELECT * FROM listing WHERE zipcode LIKE '${zipcode}' OR street_number LIKE '${zipcode}';`;
 
         return db.execute(sql); 
     }
 
     static getListByCity(city) {
-        let sql = `SELECT * FROM listing WHERE city LIKE '${city}';`;
+        let sql = `SELECT * FROM listing WHERE city LIKE '%${city}%' OR street LIKE '%${city}%';`;
+        
+        return db.execute(sql); 
+    }
+
+    static getListByAddress(city) {
+        let sql = `SELECT * FROM listing WHERE address LIKE '%${city}%';`;
         
         return db.execute(sql); 
     }
 
     static findAll() {
-        let sql = `SELECT * FROM listing;`;
+        let sql = `SELECT * FROM listing WHERE listing_id BETWEEN '0' AND '7';`;
 
         return db.execute(sql); 
     }
