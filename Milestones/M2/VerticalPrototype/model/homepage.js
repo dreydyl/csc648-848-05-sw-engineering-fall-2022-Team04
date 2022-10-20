@@ -97,7 +97,7 @@ window.onload = function () {
         let newContent = '';
         let newMainContent = '';
         let searchURL = `/listing/${searchTerm}`;
-        fetch(`http://localhost:8080${searchURL}`)
+        fetch(`http://18.144.162.119:8080${searchURL}`)
             .then(res => res.json())
             .then(data => {
                 let temp = data.listing;
