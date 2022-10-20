@@ -47,6 +47,8 @@ app.use(express.static('views/layouts'));
 
 app.use(express.static('views/partials'));
 
+app.use("/public", express.static(path.join(__dirname, 'public')));
+
 app.get('/', (req, res) => {
     res.render('partials/main');
 });

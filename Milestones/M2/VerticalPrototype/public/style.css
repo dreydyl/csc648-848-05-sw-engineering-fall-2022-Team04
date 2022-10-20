@@ -297,6 +297,21 @@ footer p {
     transform: scale(1.1);
 }
 
+#search_results_card_section {
+    width: 1200px;
+}
+
+#search_results_cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-auto-rows: 1fr;
+    grid-auto-columns: 1fr;
+    gap: .5em;
+    margin-bottom: 20px;
+    width: 90%;
+    justify-content: left;
+}
+
 .listing-container {
     width: 300px;
     height: 300px;

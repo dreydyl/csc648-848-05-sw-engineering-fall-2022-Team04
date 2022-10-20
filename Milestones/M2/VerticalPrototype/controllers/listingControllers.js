@@ -26,6 +26,24 @@ exports.createNewUser = async (req, res, next) => {
     }
 }
 
+exports.getListing = async(req, res, next) => {
+    try {
+        let results = req.params.id;
+        if(results && results.length) {
+            let listing = results[0];
+            listing = "To be implemented";
+            res.status(200).json(listing);
+        } else {
+            console.log("Cannot find listing"); //should be 404
+            //req.flash('error', 'This is not the post you are looking for');
+            res.redirect('/');
+        }
+    } catch(err) {
+        console.log(error);
+        next(err);
+    }
+}
+
 exports.getListBySearch = async (req, res, next) => {
     let search = req.params.search;
     let temp = search.split(" ");

@@ -25,7 +25,7 @@ class Register {
 
         let sql = `
         INSERT INTO listing(
-            landlord_id, 
+            listing_id, 
             price, 
             description, 
             street_number, 
@@ -39,7 +39,7 @@ class Register {
             picture
         )
         VALUES (
-            '${this.landlord_id}',
+            '${this.listing_id}',
             '${this.price}',
             '${this.description}',
             '${this.street_num}',
@@ -80,6 +80,11 @@ class Register {
         let sql = `SELECT * FROM listing WHERE listing_id BETWEEN '0' AND '7';`;
 
         return db.execute(sql); 
+    }
+
+    static getListingById(id) {
+        let sql = `SELECT * FROM posts WHERE listing_id=${id}`;
+        return db.execute(sql);
     }
 
 }

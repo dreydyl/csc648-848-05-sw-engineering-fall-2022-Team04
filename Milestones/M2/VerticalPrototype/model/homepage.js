@@ -3,7 +3,8 @@ window.onload = function () {
     let searchButton = document.getElementById("search-button");
 
     function createCard(data) {
-        return `<div class="listing-container">
+        let html = `<a href="/listing/${data.listing_id}" class="post-anchor">
+        <div class="listing-container" id="listing-card${data.listing_id}">
     <img class="listing-img"
         src="./images/picture_1666042712023.jpeg">
     <di class="listing-container-profile">
@@ -16,7 +17,9 @@ window.onload = function () {
             <p class="listing-card-city"><b>${data.city}</b></p>
         </div>
     </di>
-</div>`;
+</div>
+</a>`;
+        return html;
     }
 
     function createLandlordCard(data) {
@@ -79,7 +82,7 @@ window.onload = function () {
     <input type="button" value="Apply" id="apply-filters-button" />
     </div>
     <div id="search_results_card_section">
-        <h1>Search Results</h1>
+        <h1>Listings</h1>
         <div id="search_results_cards">
             ${newContent}
         </div>
@@ -96,7 +99,7 @@ window.onload = function () {
         let mainContent = document.getElementById("main-content");
         let newContent = '';
         let newMainContent = '';
-        let searchURL = `/listing/${searchTerm}`;
+        let searchURL = `/listing/search/${searchTerm}`;
         fetch(`http://localhost:8080${searchURL}`)
             .then(res => res.json())
             .then(data => {
@@ -109,6 +112,7 @@ window.onload = function () {
                 mainContent.innerHTML = newMainContent;
             })
             .catch(err => {
+                console.log(err);
                 console.log('Data not found in database.');
             })
     }
