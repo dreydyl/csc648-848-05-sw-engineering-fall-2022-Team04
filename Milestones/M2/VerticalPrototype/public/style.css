@@ -207,26 +207,25 @@ input[type="search"]:focus {
 }
 
 .home-reviews-section {
-
     padding: 10px;
     text-align: center;
     font-size: 40px;
-    margin-bottom: 130px;
 }
 
 .top-landlords {
     display: flex;
     justify-content: space-between;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 0 90px;
+    margin-top: 30px;
 }
 
 .container {
-    width: 350px;
-    height: 350px;
+    width: 300px;
+    height: 300px;
     position: relative;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.315);
-    margin-top: 20px;
+    margin-bottom: 120px;
+    margin-left: 30px;
 }
 
 .container-profile {
@@ -290,4 +289,135 @@ footer p {
 
 #search_results_filters {
     border-right: solid black;
+}
+.container:hover{
+    background-color: rgb(62, 62, 62);
+    color: #ffff;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+#search_results_card_section {
+    width: 1200px;
+}
+
+#search_results_cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-auto-rows: 1fr;
+    grid-auto-columns: 1fr;
+    gap: .5em;
+    margin-bottom: 20px;
+    width: 90%;
+    justify-content: left;
+}
+
+.listing-container {
+    width: 300px;
+    height: 300px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.315);
+    margin-bottom: 120px;
+    margin-left: 30px;
+}
+
+.listing-container:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.listing-container-profile {
+    background-color: rgb(240, 240, 240);
+    display: flex;
+    align-items: center;
+    padding: 0 10px 0 10px;
+}
+
+.listing-card-profile-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-position: center;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.listing-card-profile-section {
+    border-right: solid black;
+}
+
+.listing-card-price {
+    color: black;
+    font-size: 1.2rem;
+    margin-left: 10px;
+}
+
+.listing-card-city {
+    color: gray;
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-left: 10px;
+}
+
+.listing-img {
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover;
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+}
+
+.select {
+    padding: 8px 12px;
+    color: #333333;
+    background-color: #eeeeeec9;
+    border: 1px solid rgb(116, 116, 116);
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: inherit;
+    width: 50%;
+    margin: 5px;
+}
+
+.select:focus,
+.select:hover {
+    outline: none;
+    border: 1px solid black;
+}
+
+.select option {
+    background: white;
+}
+
+#apply-filters-button {
+    text-decoration: none;
+    margin: 10px;
+    padding: 5px;
+    color: black;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.search-select {
+    padding: 8px 12px;
+    color: #333333;
+    background-color: #eeeeeec9;
+    border: 1px solid rgb(116, 116, 116);
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: inherit;
+    margin: 5px;
+}
+
+.search-select:focus,
+.search-select:hover {
+    outline: none;
+    background-color: #cecece;
+    border: 1px solid black;
 }

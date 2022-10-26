@@ -29,6 +29,21 @@
     try {
         let postTitle = req.params.title;
         let [post, _] = await Post.findByTitle(postTitle);
+
+        if (post.length == 0) {
+            try {
+                let postTitle = req.params.title;
+                let temp = Array.from(postTitle);
+                let [post, _] = await Post.findByTitle(temp[0].toUpperCase());
+                 
+                res.status(200).json({post: post[0]});
+            } catch (error) {
+                console.log(error);  
+                next(error);  
+            } 
+            return;
+        }
+        
          
         res.status(200).json({post: post[0]});
     } catch (error) {
