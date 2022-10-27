@@ -24,7 +24,11 @@ exports.register = async (req, res, next) => {
         console.log(error);
         next(error);   
     }
+}
 
+//TODO
+exports.login = async (req, res, next) => {
+    //use sessions
 }
 
 //TODO
