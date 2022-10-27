@@ -1,6 +1,6 @@
 const Listing = require('../model/Listing');
 
-exports.getAllUsers = async (req, res, next) => {
+exports.getAllListings = async (req, res, next) => {
     try {
         const [listing, _] = await Listing.findAll();
 
@@ -12,7 +12,7 @@ exports.getAllUsers = async (req, res, next) => {
 
 }
 
-exports.createNewUser = async (req, res, next) => {
+exports.createNewListing = async (req, res, next) => {
     try {
         let { landlord_id, price, description, street_num, street, city, state, zipcode, room_num, bath_num, picture } = req.body;
         let listing = new Listing(landlord_id, price, description, street_num, street, city, state, zipcode, room_num, bath_num, picture);
@@ -41,6 +41,53 @@ exports.getListing = async(req, res, next) => {
     } catch(err) {
         console.log(error);
         next(err);
+    }
+}
+
+//TODO
+/*  search algorithm
+    check empty search
+    if address format
+        split address
+        if listing appears set first listing
+    split search
+    12345 abc st sf ca 94588
+    12345
+    if one item
+        if number
+            if 5 digits
+                search zip code OR st#
+            else search st#
+        else
+            if 2 letters
+                get city or state from map
+                search city OR state
+            else
+                search street OR city OR state
+                search street
+ */
+exports.searchListings = async (req, res, next) => {
+    let search = req.query.search;
+    if (!search) {
+        res.send({
+            resultsStatus: "info",
+            message: "No search term given",
+            results: []
+        });
+    } else {
+        let results = await PostModel.search(searchTerm);
+        if (results.length) {
+            req.flash('success', `${results.length} result${results.length == 1 ? `` : `s`} found`);
+            res.locals.results = results;
+            results.forEach(row => {
+                row.thumbnail = "../" + row.thumbnail;
+            });
+            res.render('index', { title: "PhotoBase " + searchTerm, header: "Results" });
+        } else {
+            errorPrint('no results');
+            req.flash('error', 'No results were found for your search');
+            res.redirect('/');
+        }
     }
 }
 

@@ -31,7 +31,11 @@ router.get("/:id(\\d+)", listingControllers.getListing, (req, res, next) => {
     res.render('partials/listingPage');
 });
 
-router.route("/search/:search").get(listingControllers.getListBySearch);
+router.get("/search", listingControllers.searchListings, (req, res, next) => {
+    res.render("listingResults");
+});
+
+//router.route("/search/:search").get(listingControllers.getListBySearch);
 
 
 module.exports = router;
