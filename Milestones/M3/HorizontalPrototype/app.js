@@ -12,14 +12,11 @@ app.set("views", `${__dirname}/views`);
 app.use(express.static(`${__dirname}/public`));
 app.use(express.json());
 
-// Redirect requests to endpoint starting with /posts to postRoutes.js
-app.use("/posts", require("./route/postRoutes"));
+// Redirect requests to endpoint starting with /registered to registeredRoutes.js
+app.use("/users", require("./route/userRoutes"));
 
 // Redirect requests to endpoint starting with /registered to registeredRoutes.js
-app.use("/registers", require("./route/registeredRoutes"));
-
-// Redirect requests to endpoint starting with /registered to registeredRoutes.js
-app.use("/listing", require("./route/listingRoutes"));
+app.use("/listings", require("./route/listingRoutes"));
 
 app.use(express.static((path.join(__dirname, "js"))));
 

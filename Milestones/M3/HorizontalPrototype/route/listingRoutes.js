@@ -22,10 +22,12 @@ const upload = multer({
     storage: storage
 });
 
+/*
 router.route("/").get(listingControllers.getAllUsers).post(upload.single('picture'),listingControllers.createNewUser, (req, res, next) => {
     console.log(req);
     res.send('');
 });
+*/
 
 router.get("/:id(\\d+)", listingControllers.getListing, (req, res, next) => {
     res.render('partials/listingPage');
