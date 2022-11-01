@@ -7,7 +7,7 @@ router.get("/", userControllers.getFeaturedLandlords, (req, res, next) => {
 });
 
 /* Frontend Tests */
-//to test page, use localhost:8080/route
+//to test page, use localhost:8080/(route_name)
 //e.g. localhost:8080/postlisting to go to postListingPage
 //will be renamed and migrated to userRoutes.js and listingRoutes.js
 
