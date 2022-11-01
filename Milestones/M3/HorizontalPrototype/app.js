@@ -12,11 +12,8 @@ app.set("views", `${__dirname}/views`);
 app.use(express.static(`${__dirname}/public`));
 app.use(express.json());
 
-// Redirect requests to endpoint starting with /posts to postRoutes.js
-app.use("/posts", require("./route/postRoutes"));
-
 // Redirect requests to endpoint starting with /registered to registeredRoutes.js
-app.use("/registers", require("./route/registeredRoutes"));
+app.use("/registers", require("./route/userRoutes"));
 
 // Redirect requests to endpoint starting with /registered to registeredRoutes.js
 app.use("/listing", require("./route/listingRoutes"));
@@ -54,10 +51,6 @@ app.engine('handlebars', handlebars.engine({
          */
     }
 }));
-
-//app.use(express.static('views/layouts'));
-
-//app.use(express.static('views/partials'));
 
 app.use(express.static('views'));
 

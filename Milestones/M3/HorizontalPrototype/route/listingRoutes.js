@@ -22,7 +22,7 @@ const upload = multer({
     storage: storage
 });
 
-router.route("/").get(listingControllers.getAllUsers).post(upload.single('picture'),listingControllers.createNewUser, (req, res, next) => {
+router.route("/").get(listingControllers.getAllListings).post(upload.single('picture'),listingControllers.createNewListing, (req, res, next) => {
     console.log(req);
     res.send('');
 });

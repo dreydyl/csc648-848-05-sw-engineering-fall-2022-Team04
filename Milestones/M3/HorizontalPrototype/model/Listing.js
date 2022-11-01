@@ -58,6 +58,12 @@ class Register {
  
     }
 
+    static search(search) {
+        let sql = `SELECT * FROM listing WHERE listing_id BETWEEN '0' AND '7';`;
+
+        return db.execute(sql); 
+    }
+
     static getListByZipcode(zipcode) {
         let sql = `SELECT * FROM listing WHERE zipcode LIKE '${zipcode}' OR street_number LIKE '${zipcode}';`;
 
