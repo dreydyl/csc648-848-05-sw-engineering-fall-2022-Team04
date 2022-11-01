@@ -16,7 +16,7 @@ router.get("/postlisting", (req, res, next) => {
 });
 
 router.get("/listingpage", (req, res, next) => {
-    res.render("postListingPage",{title:"EZRent Listing"});
+    res.render("listingPage",{title:"EZRent Listing"});
 });
 
 router.get("/login", (req, res, next) => {
@@ -28,19 +28,19 @@ router.get("/register", (req, res, next) => {
 });
 
 router.get("/renter", (req, res, next) => {
-    res.render("profilePage",{title:"EZRent New Account"});
+    res.render("profilePage",{title:"EZRent Renter"});
 });
 
 router.get("/landlord", (req, res, next) => {
-    res.render("landlordPage",{title:"EZRent New Account"});
+    res.render("landlordPage",{title:"EZRent Landlord"});
 });
 
 router.get("/help", (req, res, next) => {
-    res.render("helppage",{title:"EZRent New Account"});
+    res.render("helppage",{title:"EZRent Help"});
 });
 
 router.get("/searchresults", (req, res, next) => {
-    res.render("searchpage",{title:"EZRent New Account"});
+    res.render("searchpage",{title:"EZRent Search"});
 });
 
 module.exports = router;
