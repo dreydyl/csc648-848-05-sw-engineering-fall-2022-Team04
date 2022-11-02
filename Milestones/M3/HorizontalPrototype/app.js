@@ -12,6 +12,8 @@ app.set("views", `${__dirname}/views`);
 app.use(express.static(`${__dirname}/public`));
 app.use(express.json());
 
+app.use('/', require("./route/routeIndex"));
+
 // Redirect requests to endpoint starting with /registered to registeredRoutes.js
 app.use("/users", require("./route/userRoutes"));
 
@@ -59,10 +61,6 @@ app.engine('handlebars', handlebars.engine({
 app.use(express.static('views'));
 
 app.use("/public", express.static(path.join(__dirname, 'public')));
-
-app.get('/', (req, res) => {
-    res.render('main');
-});
 
 app.get('/about', (req, res) => {
     res.render('about/about');
