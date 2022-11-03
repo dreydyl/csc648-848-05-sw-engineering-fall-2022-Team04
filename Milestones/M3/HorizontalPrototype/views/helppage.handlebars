@@ -1,5 +1,113 @@
-<div>
-    <h1>
-        Help page will be implimented in the next milestone.
-    </h1>
-</div>
+<!DOCTYPE html>
+<html>
+<style>
+    .FAQ-container{
+display: flex;
+justify-content: center;
+flex-direction: column;
+}
+    .help-page {
+    /*background-color: #f0f0f0; */
+    color: #444;
+    cursor: pointer;
+    padding: 30px 20px;
+    width: 60%;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    margin: auto;
+}
+.help-body{
+    margin: auto;
+    /* text-align: center; */
+   width: 50%; 
+   padding: auto;
+   
+}
+.active,
+.help-page:hover {
+    background-color: #80B494;
+}
+.help-body {
+    padding: 0 18px;
+    background-color: #f0f0f0;
+    display: none;
+    overflow: hidden;
+}
+.help-page:after {
+    content: '\2796';
+    font-size: 15px;
+    color: #f0f0f0;
+    float: right;
+    margin-left: 5px;
+}
+.active:after {
+    content: "\2796";
+    /* Unicode character for "minus" sign (-) */
+}
+</style>
+
+<h1 style="text-align:center">FAQ</h1>
+
+<body>
+    <div>
+        <section class="FAQ-container">
+            <div class="FAQ-one">
+                <h1 class="help-page">Question 1</h1>
+                <div class="help-body">
+                    <p> Answer 1</p>
+                </div>
+            </div>
+            <hr class="hr-line">
+
+            <div class="FAQ-two">
+                <h1 class="help-page">Question 2</h1>
+                <div class="help-body">
+                    <p>Answer 2</p>
+                </div>
+            </div>
+            <hr class="hr-line">
+            <div class="FAQ-three">
+                <h1 class="help-page">Question 3</h1>
+                <div class="help-body">
+                    <p>Answer 3</p>
+                </div>
+            </div>
+            <hr class="hr-line">
+            <div class="FAQ-four">
+                <h1 class="help-page">Question 4</h1>
+                <div class="help-body">
+                    <p>Answer 4</p>
+                </div>
+            </div>
+            <hr class="hr-line">
+            <div class="FAQ-five">
+                <h1 class="help-page">Question 5</h1>
+                <div class="help-body">
+                    <p>Answer 5</p>
+                </div>
+            </div>
+            <hr class="hr-line">
+        </section>
+    </div>    
+</body>
+<script>
+var faq = document.getElementsByClassName("help-page");
+var i;
+
+for (i = 0; i < faq.length; i++) {
+    faq[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+
+        /* between hiding and showing the active panel */
+        var body = this.nextElementSibling;
+        if (body.style.display === "block") {
+            body.style.display = "none";
+        } else {
+            body.style.display = "block";
+        }
+    });
+}
+</script>
+
+</html>
