@@ -1,7 +1,12 @@
-<div class="listing review" id="top-review">
-    {{> rating rating}}
+<div class="review" id="top-review">
     <div class="author">
         {{author}}
+    </div>
+    <div class="review-title-line">
+        <div class="review-title">
+            {{title}}
+        </div>
+        {{> rating rating}}
     </div>
     <div class="description">
         {{description}}

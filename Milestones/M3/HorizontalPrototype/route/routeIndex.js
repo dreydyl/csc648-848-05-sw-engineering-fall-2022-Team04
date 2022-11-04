@@ -44,6 +44,7 @@ router.get("/", (req, res, next) => {
             "rooms":2,
             "baths":1,
             "top_review":{
+                "title":"Love it",
                 "rating":4,
                 "author":"Staniel Chaniel",
                 "description":"Love this place"
@@ -61,8 +62,9 @@ router.get("/", (req, res, next) => {
             "rooms":4,
             "baths":3,
             "top_review":{
+                "title":"Horrendous",
                 "rating":2,
-                "author":"Wacko Fall",
+                "author":"Dennis Dennis",
                 "description":"Not a cool place"
             }
         },
@@ -78,6 +80,7 @@ router.get("/", (req, res, next) => {
             "rooms":4,
             "baths":2,
             "top_review":{
+                "title":"Wowow",
                 "rating":5,
                 "author":"Alonzo Aball",
                 "description":"My family loves this place"

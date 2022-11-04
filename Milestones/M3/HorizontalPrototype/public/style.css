@@ -13,7 +13,7 @@ body {
 }
 
 .home-section {
-    min-height: 70vh;
+    min-height: 95vh;
 }
 
 .hook-padding {
@@ -21,19 +21,23 @@ body {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
+    /* position: -webkit-sticky; /* Safari */
+    /* position: sticky; */
     top: 75px;
     padding-top: 20px;
     padding-bottom: 10px;
-    font-size: 50px;
+    font-size: 48px;
+    z-index: 99;
 }
 
 .hook {
     background-color: #f0f0f0;
     border-color: #f0f0f0;
     border-style: solid;
+    border-radius: 3px;
+    /*
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    */
     width: fit-content;
     text-align: center;
     margin-left: auto;
@@ -44,6 +48,10 @@ body {
     padding-bottom: 10px;
     font-size: 50px;
     font-weight: bold;
+}
+
+#welcome-section {
+    min-height: 75vh;
 }
 
 #welcome {
@@ -89,7 +97,7 @@ body {
     cursor: pointer;
 }
 
-.dropdown:hover .dropdown-button{
+.dropdown:hover .dropdown-button {
     background-color: #f0f0f0;
 }
 
@@ -183,24 +191,59 @@ body {
 
 #listing-section {
     position: relative;
+    height: fit-content;
+}
+
+#listing {
+    position: absolute;
+    left: 50%;
+    margin-left: -265px;
+}
+
+.featured-listings {
+    position: absolute;
+    top: 0;
+    height: fit-content;
 }
 
 .featured-listing {
-    position: absolute;
+    height: fit-content;
+    position: relative;
     top: 0;
+    margin-bottom: -4px;
 }
 
 .listing-picture {
     width: 100vw;
     height: 100vh;
-    object-fit: fill;
-    position: relative;
-    top: 0;
+    object-fit: cover;
+    /* position: absolute;
+    top: 0; */
 }
 
 .listing-info {
     position: absolute;
-    top: 8vh;
+    top: 15vh;
+    left: 5vw;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    height: 300px;
+    padding: 7px;
+}
+
+.review {
+    position: absolute;
+    top: 20vh;
+    right: 5vw;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    height: 300px;
+    padding: 7px;
+}
+
+.rating, .review-title-line {
+    display: flex;
+    flex-direction: row;
 }
 
 a.home-button {
