@@ -12,15 +12,10 @@ app.set("views", `${__dirname}/views`);
 app.use(express.static(`${__dirname}/public`));
 app.use(express.json());
 
-<<<<<<< HEAD
-// Redirect requests to endpoint starting with /registered to registeredRoutes.js
-app.use("/registers", require("./route/userRoutes"));
-=======
 app.use('/', require("./route/routeIndex"));
 
 // Redirect requests to endpoint starting with /registered to registeredRoutes.js
 app.use("/users", require("./route/userRoutes"));
->>>>>>> frontend3
 
 // Redirect requests to endpoint starting with /registered to registeredRoutes.js
 app.use("/listings", require("./route/listingRoutes"));

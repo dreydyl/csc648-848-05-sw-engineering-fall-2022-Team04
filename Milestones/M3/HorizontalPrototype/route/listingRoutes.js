@@ -22,12 +22,8 @@ const upload = multer({
     storage: storage
 });
 
-<<<<<<< HEAD
-router.route("/").get(listingControllers.getAllListings).post(upload.single('picture'),listingControllers.createNewListing, (req, res, next) => {
-=======
 /*
 router.route("/").get(listingControllers.getAllUsers).post(upload.single('picture'),listingControllers.createNewUser, (req, res, next) => {
->>>>>>> frontend3
     console.log(req);
     res.send('');
 });
