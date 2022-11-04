@@ -89,7 +89,7 @@ router.get("/", (req, res, next) => {
     };
     res.locals.listings = listings;
     res.locals.hooks = hooks;
-    res.render("main",{title:"EZRent Home"});
+    res.render("main",{title:"EZRent Home",style:"main"});
 });
 
 /* Frontend Tests */
