@@ -45,6 +45,16 @@ app.engine('handlebars', handlebars.engine({
     helpers: {
         emptyObject: (obj) => { //for flash messages
             return !(obj.constructor === Object && Object.keys(obj).length == 0);
+        },
+        log: (obj) => {
+            console.log(obj);
+        },
+        for: (times, obj) => {
+            var result = '';
+            for(var i = 0;i < times;i++) {
+                result += obj.fn(i);
+            }
+            return result;
         }
         /**
          * if you need more helpers, add them here

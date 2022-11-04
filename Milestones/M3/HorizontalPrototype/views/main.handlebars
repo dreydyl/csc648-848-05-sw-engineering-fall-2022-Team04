@@ -1,54 +1,26 @@
 <div id="main-content">
     <div class="home">
-        <div class="home-section" id="welcome-section">
-            {{> hook}}
-            {{> search}}
-        </div>
-        <div class="home-section" id="listing-section">
-            <div class="hook">
-                Find the perfect home.
+        <div class="home-sections">
+            <div class="home-section" id="welcome-section">
+                {{> hook hooks.welcome}}
+                {{> search}}
             </div>
-        </div>
-        <div class="section" id="landlord-section">
-            <div class="hook">
-
+            <div class="home-section" id="listing-section">
+                {{> hook hooks.listing}}
+                {{> featuredListings listings}}
             </div>
-        </div>
-        <div class="section" id="review-section">
-            <div class="hook">
-
+            <div class="home-section" id="landlord-section">
+                {{> hook hooks.landlord}}
             </div>
-        </div>
-        <div class="section" id="signup-section">
-            <div class="hook">
-
+            <!-- <div class="home-section" id="review-section">
+                {{> hook hooks.review}}
             </div>
+            <div class="home-section" id="signup-section">
+                {{> hook hooks.signup}}
+            </div> -->
         </div>
+        {{> quicknav}}
     </div>
-</div>
-
-
-
-
-
-
-<div class="search-form">
-    <p class="search-section-sentence">Search. Find. Contact. Rate.</p>
-    <p class="search-section-sentence">Avoid bad landlord experiences.</p>
-    <select id="search-select" class="search-select">
-        <option disabled selected>Category</option>
-        <option id="landlord-option" value="Landlords">Landlords</option>
-        <option id="listing-option" value="Listings">Listings</option>
-    </select>
-    <form>
-        <input id="search-text" name="search-text" type="search" placeholder="Search">
-        <input type="button" value="search" id="search-button" />
-    </form>
-</div>
-<div class="home-reviews-section">
-    <h1 class="search-section-sentence">Top 3 Landlords</h1>
-    {{> cards}}
-</div>
 </div>
 
 <script src="/public/js/homepage.js"></script>
