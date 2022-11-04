@@ -200,6 +200,11 @@ body {
     margin-left: -265px;
 }
 
+#listing-section {
+    overflow: auto;
+    height: auto;
+}
+
 .featured-listings {
     position: absolute;
     top: 0;
