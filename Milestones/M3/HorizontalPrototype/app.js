@@ -12,11 +12,18 @@ app.set("views", `${__dirname}/views`);
 app.use(express.static(`${__dirname}/public`));
 app.use(express.json());
 
+<<<<<<< HEAD
 // Redirect requests to endpoint starting with /registered to registeredRoutes.js
 app.use("/registers", require("./route/userRoutes"));
+=======
+app.use('/', require("./route/routeIndex"));
 
 // Redirect requests to endpoint starting with /registered to registeredRoutes.js
-app.use("/listing", require("./route/listingRoutes"));
+app.use("/users", require("./route/userRoutes"));
+>>>>>>> frontend3
+
+// Redirect requests to endpoint starting with /registered to registeredRoutes.js
+app.use("/listings", require("./route/listingRoutes"));
 
 app.use(express.static((path.join(__dirname, "js"))));
 
@@ -43,6 +50,16 @@ app.engine('handlebars', handlebars.engine({
     helpers: {
         emptyObject: (obj) => { //for flash messages
             return !(obj.constructor === Object && Object.keys(obj).length == 0);
+        },
+        log: (obj) => {
+            console.log(obj);
+        },
+        for: (times, obj) => {
+            var result = '';
+            for(var i = 0;i < times;i++) {
+                result += obj.fn(i);
+            }
+            return result;
         }
         /**
          * if you need more helpers, add them here
@@ -55,10 +72,6 @@ app.engine('handlebars', handlebars.engine({
 app.use(express.static('views'));
 
 app.use("/public", express.static(path.join(__dirname, 'public')));
-
-app.get('/', (req, res) => {
-    res.render('main');
-});
 
 app.get('/about', (req, res) => {
     res.render('about/about');

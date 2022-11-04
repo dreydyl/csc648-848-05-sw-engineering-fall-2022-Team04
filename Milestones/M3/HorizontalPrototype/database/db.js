@@ -1,21 +1,28 @@
-let mysql = require('mysql2');
+function createPool() {
+  try {
+    const mysql = require('mysql2');
 
-let connection = mysql.createConnection({
-    host: 'database-1.cwpgbxyiuu7u.us-west-1.rds.amazonaws.com',
-    port: '3306',
-    user: 'admin',
-    password: 'password',
-    database: 'ezRent'
+    const pool = mysql.createPool({
+      host: 'database-csc648-team4.cwpgbxyiuu7u.us-west-1.rds.amazonaws.com',
+      port: 3306,
+      user: 'team4_db_admin',
+      password: 'Csc648-team4',
+      database: 'mydb',
+      connectionLimit: 10,
+      waitForConnections: true,
+      queueLimit: 0
+    });
+    const promisePool = pool.promise();
     
-});
+    return promisePool;
+  } catch (error) {
+    return console.log(`Could not connect - ${error}`);
+  }
+}
 
-connection.connect(function(err) {
-    if (err) {
-      return console.error('error: ' + err.message);
-    }
-  
-    console.log('Connected to the MySQL server.\n');
-  });
-  
+const pool = createPool();
 
-  module.exports = connection.promise();
+module.exports = {
+  connection: async () => pool.getConnection(),
+  execute: (...params) => pool.execute(...params)
+};
