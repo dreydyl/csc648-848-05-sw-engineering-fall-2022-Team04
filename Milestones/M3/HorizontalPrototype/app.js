@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express();
+var sessions = require('express-session');
+var mysqlSession = require ('express-mysql-session')(sessions);
 const port = 8080;
 
 const path = require('path');
@@ -103,6 +105,28 @@ app.get('/praiseAbout', (req, res) => {
 app.get('/ricardoAbout', (req, res) => {
     res.render('about/ricardoAbout');
 });
+
+var mysqlSessionStore = new mysqlSession (
+    {
+        /* Default option here .... */
+    },
+    require('./database/db')
+    );
+
+    app.use(sessions({
+        key: "csid",
+        secret: "this is a secret",
+        store: mysqlSessionStore,
+        resave: false,
+        saveUninitialized: false
+    }));
+
+    app.use((req, res, next) => {
+        if(req.session.username){
+            res.locals.logged = true;
+        }
+        next();
+    })
 
 app.listen(port, () => {
     console.log(`App listening to port ${port}`);
