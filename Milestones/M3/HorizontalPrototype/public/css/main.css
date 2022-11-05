@@ -203,13 +203,12 @@
 
 #listing-section {
     position: relative;
-    height: fit-content;
 }
 
 #listing {
     position: absolute;
     left: 50%;
-    margin-left: -265px;
+    transform: translate(-50%, -50%);
 }
 
 .featured-listings {
