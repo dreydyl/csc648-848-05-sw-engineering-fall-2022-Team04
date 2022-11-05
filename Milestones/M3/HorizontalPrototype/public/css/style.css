@@ -28,8 +28,8 @@ html {
 }
 
 body {
-    background-color: #f0f0f0;
-    color: #031424;
+    background-color: var(--background-light-mode);
+    color: var(--text-light-mode);
     min-height: 100%;
     display: flex;
     flex-direction: column;
