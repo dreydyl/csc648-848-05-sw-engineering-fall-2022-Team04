@@ -1,11 +1,51 @@
+:root {
+    --white: #f0f0f0;
+    --light-grey: #ebebeb;
+    --white-green: #e3fff0;
+    --green-white: #80b494;
+    --green: #3c885b;
+    --green-2: #247464;
+    --black: #031424;
+    --gold: #d1ac0a;
+    --background-light-mode: #f0f0f0;
+    --background-dark-mode: #031424;
+    --text-light-mode: #031424;
+    --text-light-mode-1: #247464;
+    --text-dark-mode: #f0f0f0;
+    --text-dark-mode-1: #80b494;
+    --text-dark-mode-2: #e3fff0;
+    --border-light-mode: #247464;
+    --border-dark-mode: #80b494;
+    --border-light-mode-1: #3c885b;
+    --border-dark-mode-1: #247464;
+    --button-background: #f0f0f0;
+    --button-background-1: #3c885b;
+    --button-background-2: #031424;
+    --button-background-3: #247464;
+}
+
+.home-section {
+    min-height: 95vh;
+}
+
+.hook-padding {
+    width: fit-content;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    /* position: -webkit-sticky; /* Safari */
+    /* position: sticky; */
+    top: 75px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    font-size: 48px;
+    z-index: 99;
+}
+
 .hook {
-    background-color: #f0f0f0;
-    border-color: #f0f0f0;
-    border-style: solid;
+    background-color: var(--background-light-mode);
     border-radius: 3px;
-    /*
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-    */
+    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px; */
     width: fit-content;
     text-align: center;
     margin-left: auto;
@@ -26,8 +66,12 @@
     margin-top: 30vh;
 }
 
+#listing {
+    margin-top: -2vh;
+}
+
 .search {
-    color: #031424;
+    color: var(--black);
     width: fit-content;
     text-align: center;
     margin-left: auto;
@@ -38,7 +82,7 @@
     display: flex;
     flex-direction: row;
     position: relative;
-    z-index: -1;
+    z-index: 0;
 }
 
 .search-prompt {
@@ -51,7 +95,7 @@
     flex-direction: row;
     border-style: solid;
     border-width: 1.5px;
-    border-color: #247464;
+    border-color: var(--border-light-mode);
     border-radius: 2px 0 0 2px;
     width: 120px;
     height: 30px;
@@ -61,12 +105,12 @@
 }
 
 .dropdown:hover {
-    background-color: #80B494;
+    background-color: var(--green-white);
     cursor: pointer;
 }
 
 .dropdown:hover .dropdown-button {
-    background-color: #f0f0f0;
+    background-color: var(--white);
 }
 
 #landlords-option {
@@ -95,7 +139,7 @@
     content: "";
     width: 0.8em;
     height: 0.5em;
-    background-color: #247464;
+    background-color: var(--border-light-mode);
     clip-path: polygon(100% 0%, 0 0%, 50% 100%);
     right: 4px;
 }
@@ -127,7 +171,7 @@
 }
 
 .dropdown-menu-container:hover {
-    background-color: #80B494;
+    background-color: var(--green-white);
     cursor: pointer;
 }
 
@@ -148,7 +192,7 @@
     margin-left: 10px;
     border-style: solid;
     border-width: 1.5px;
-    border-color: #247464;
+    border-color: var(--border-light-mode);
     border-radius: 0 2px 2px 0;
     width: 600px;
     height: 45px;
@@ -168,13 +212,7 @@
     margin-left: -265px;
 }
 
-#listing-section {
-    overflow: auto;
-    height: auto;
-}
-
 .featured-listings {
-    position: absolute;
     top: 0;
     height: fit-content;
 }
@@ -190,15 +228,13 @@
     width: 100vw;
     height: 100vh;
     object-fit: cover;
-    /* position: absolute;
-    top: 0; */
 }
 
 .listing-info {
     position: absolute;
     top: 15vh;
     left: 5vw;
-    background-color: #f0f0f0;
+    background-color: var(--white);
     border-radius: 10px;
     height: 300px;
     padding: 7px;
@@ -208,7 +244,7 @@
     position: absolute;
     top: 20vh;
     right: 5vw;
-    background-color: #f0f0f0;
+    background-color: var(--white);
     border-radius: 10px;
     height: 300px;
     padding: 7px;
@@ -217,4 +253,64 @@
 .rating, .review-title-line {
     display: flex;
     flex-direction: row;
+}
+
+.star {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+	background: var(--gold);
+	clip-path: polygon(50% 5%, 61% 40%, 98% 40%, 68% 62%, 79% 96%, 50% 75%, 21% 96%, 32% 62%, 2% 40%, 39% 40%);
+}
+
+.featured-listing .star {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}
+
+#landlord {
+    padding-top: 60px;
+}
+
+.featured-landlord {
+    margin-top: 5rem;
+    margin-left: 8rem;
+    margin-right: 8rem;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--light-grey);
+}
+
+.featured-landlord-right {
+    margin-left: auto;
+}
+
+.landlord-name {
+    font-size: 3.5em;
+    margin: 4px;
+    text-align: center;
+}
+
+.landlord-picture {
+    width: 28rem;
+    height: 28rem;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 2rem;
+}
+
+.landlord-info {
+    margin: 5rem;
+}
+
+.bio {
+    font-size: 1.5em;
+    margin-top: 2.2rem;
+}
+
+#featured-landlord-3 {
+    margin-bottom: 5rem;
 }

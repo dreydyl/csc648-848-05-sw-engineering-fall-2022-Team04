@@ -1,3 +1,28 @@
+:root {
+    --white: #f0f0f0;
+    --white-green: #e3fff0;
+    --green-white: #80b494;
+    --green: #3c885b;
+    --green-2: #247464;
+    --black: #031424;
+    --gold: #d1ac0a;
+    --background-light-mode: #f0f0f0;
+    --background-dark-mode: #031424;
+    --text-light-mode: #031424;
+    --text-light-mode-1: #247464;
+    --text-dark-mode: #f0f0f0;
+    --text-dark-mode-1: #80b494;
+    --text-dark-mode-2: #e3fff0;
+    --border-light-mode: #247464;
+    --border-dark-mode: #80b494;
+    --border-light-mode-1: #3c885b;
+    --border-dark-mode-1: #247464;
+    --button-background: #f0f0f0;
+    --button-background-1: #3c885b;
+    --button-background-2: #031424;
+    --button-background-3: #247464;
+}
+
 html {
     height: 100%;
 }
@@ -9,25 +34,7 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
-    font-family: 'Montserrat';
-}
-
-.home-section {
-    min-height: 95vh;
-}
-
-.hook-padding {
-    width: fit-content;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    /* position: -webkit-sticky; /* Safari */
-    /* position: sticky; */
-    top: 75px;
-    padding-top: 20px;
-    padding-bottom: 10px;
-    font-size: 48px;
-    z-index: 99;
+    font-family: 'Verdana';
 }
 
 a.home-button {

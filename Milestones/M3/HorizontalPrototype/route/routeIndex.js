@@ -12,7 +12,7 @@ router.get("/", (req, res, next) => {
     let hooks = {
         "welcome": {
             name:"welcome",
-            hook:"Renting Made EZ."
+            hook:"Rule to the Renters."
         },
         "listing": {
             name:"listing",
@@ -32,7 +32,7 @@ router.get("/", (req, res, next) => {
         },
     };
     let listings = {
-        "listing":{
+        "listing1":{
             "landlord":"Bob John",
             "price":"40,000",
             "description":"Basically a resort",
@@ -45,7 +45,7 @@ router.get("/", (req, res, next) => {
             "baths":1,
             "top_review":{
                 "title":"Love it",
-                "rating":4,
+                "rating":5,
                 "author":"Staniel Chaniel",
                 "description":"Love this place"
             }
@@ -62,10 +62,10 @@ router.get("/", (req, res, next) => {
             "rooms":4,
             "baths":3,
             "top_review":{
-                "title":"Horrendous",
-                "rating":2,
+                "title":"Beautiful",
+                "rating":5,
                 "author":"Dennis Dennis",
-                "description":"Not a cool place"
+                "description":"There's a nice view"
             }
         },
         "listing3":{
@@ -81,14 +81,38 @@ router.get("/", (req, res, next) => {
             "baths":2,
             "top_review":{
                 "title":"Wowow",
-                "rating":5,
+                "rating":4,
                 "author":"Alonzo Aball",
                 "description":"My family loves this place"
             }
         }
     };
-    res.locals.listings = listings;
+    let landlords = {
+        "landlord1":{
+            "name":"Bob John",
+            "rating":5,
+            "bio":"I own multiple houses in the city. I've been faithfully serving tenants for 30 years."
+        },
+        "landlord2":{
+            "name":"John Bob",
+            "rating":5,
+            "bio":"I own a condo downtown. I would love to meet you."
+        },
+        "landlord3":{
+            "name":"Job Bohn",
+            "rating":5,
+            "bio":"I let my reviews speak for themselves."
+        }
+    };
+    let badReview = {
+        "rating":2,
+        "title":"Horrendous. No compassion",
+        "description":`I have a sick mother. This landlord raised my rent 3 times in the last 14 months because of the "economy".`
+    }
     res.locals.hooks = hooks;
+    res.locals.listings = listings;
+    res.locals.landlords = landlords;
+    res.locals.badReview = badReview;
     res.render("main",{title:"EZRent Home",style:"main"});
 });
 

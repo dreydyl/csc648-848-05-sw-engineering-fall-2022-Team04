@@ -2,20 +2,22 @@
     <div class="home">
         <div class="home-sections">
             <div class="home-section" id="welcome-section">
-                <!-- {{> hook hooks.welcome}} -->
+                {{> hook hooks.welcome}}
                 {{> search}}
             </div>
-            <!-- <div class="home-section" id="listing-section">
+            <div class="home-section" id="listing-section">
                 {{> hook hooks.listing}}
                 {{> featuredListings listings}}
             </div>
             <div class="home-section" id="landlord-section">
                 {{> hook hooks.landlord}}
+                {{> featuredLandlords landlords}}
             </div>
             <div class="home-section" id="review-section">
                 {{> hook hooks.review}}
+                {{> badReview badReview}}
             </div>
-            <div class="home-section" id="signup-section">
+            <!-- <div class="home-section" id="signup-section">
                 {{> hook hooks.signup}}
             </div> -->
         </div>
