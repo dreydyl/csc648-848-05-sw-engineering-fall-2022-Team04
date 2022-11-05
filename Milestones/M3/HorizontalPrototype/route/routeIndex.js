@@ -129,6 +129,10 @@ router.get("/listingpage", (req, res, next) => {
     res.render("listingPage",{title:"EZRent Listing"});
 });
 
+router.get("/profilepage", (req, res, next) => {
+    res.render("profilePage",{title:"EZRent Profile"});
+});
+
 router.get("/login", (req, res, next) => {
     res.render("loginpage",{title:"EZRent Login"});
 });
