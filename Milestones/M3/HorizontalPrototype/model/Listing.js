@@ -1,18 +1,18 @@
 const db = require('../database/db');
 
 class Register {
-    constructor(landlord_id, price, description, street_num, street, city, state, zipcode, room_num, bath_num, picture) {
+    constructor(landlord_id, street_num, street_name, city, state, zipcode, description, bed, bath, price, file_name) {
         this.landlord_id = landlord_id;
-        this.price = price;
-        this.description = description;
         this.street_num = street_num;
-        this.street = street;
+        this.street_name = street_name;
         this.city = city;
         this.state = state;
         this.zipcode = zipcode;
-        this.room_num = room_num;
-        this.bath_num = bath_num;
-        this.picture = picture;
+        this.description = description;
+        this.bed = bed;
+        this.bath = bath;
+        this.price = price;
+        this.file_name = file_name;
     }
 
     save() {
@@ -25,32 +25,33 @@ class Register {
 
         let sql = `
         INSERT INTO listing(
-            listing_id, 
-            price, 
-            description, 
+            landlord_id,
             street_number, 
-            street, 
+            street_name, 
             city, 
             state, 
             zipcode, 
-            num_room, 
-            num_bath,
-            time_created,
-            picture
+            description,
+            bed, 
+            bath,
+            price, 
+            created_at,
+            file_name
+            
         )
         VALUES (
-            '${this.listing_id}',
-            '${this.price}',
-            '${this.description}',
+            '${this.landlord_id}',
             '${this.street_num}',
-            '${this.street}',
+            '${this.street_name}',
             '${this.city}',
             '${this.state}',
             '${this.zipcode}',
-            '${this.room_num}',
-            '${this.bath_num}',
+            '${this.description}',
+            '${this.bed}',
+            '${this.bath}',
+            '${this.price}',
             '${createdAtDate}',
-            '${this.picture}' 
+            '${file_name}'
         )
         `;
 
