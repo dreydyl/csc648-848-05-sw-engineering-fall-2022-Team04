@@ -108,6 +108,10 @@
                 .form-registration .input-name ::placeholder{
                         color: black;
 }
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:active { text-decoration: none; }
         </style>
 
     <h1>Register</h1>
@@ -116,13 +120,13 @@
         <input type = "text" name="" placeholder="Username" id ="loginUser" required>
         
         <input type = "email" name="" placeholder="E-mail Address" id ="email" required>
-        <input type = "password" name="" placeholder="Password" id ="loginPassword" required>
+        <input type = "password" name="" placeholder="Password" id ="loginPassword" required >
         <input type = "password" name="" placeholder="Confirm password" id ="loginPassword" required>
         
         
     </div>
-
-    <input type ="submit" name="" value="Sign Up" class ="submit-btn-registration">
+    <a class="submit-btn-registration" href="/">Sign up</a>
+    {{!-- <input type ="submit" name="" value="Sign Up" class ="submit-btn-registration" href ="/"> --}}
     <div class = toRegisterr>
         <p class="txt-registration">Already Have an account? <a href="login" class = "bud-registration">Login</a></p>
     </div>
