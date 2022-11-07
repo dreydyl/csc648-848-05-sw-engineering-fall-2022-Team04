@@ -14,6 +14,13 @@ window.onload = function () {
     let currentOption = "listings";
     let menuOpen = false;
 
+    window.onclick = (event) => {
+        if(event.target.contains(dropdown) && event.target !== dropdown) {
+            menuOpen = false;
+            dropdownMenu.style.display = "none";
+            dropdownButton.style.clipPath = "polygon(100% 0%, 0 0%, 50% 100%)";
+        }
+    }
     dropdown.onclick = () => {
         if(menuOpen) {
             menuOpen = false;
