@@ -106,27 +106,27 @@ app.get('/ricardoAbout', (req, res) => {
     res.render('about/ricardoAbout');
 });
 
-var mysqlSessionStore = new mysqlSession (
-    {
-        /* Default option here .... */
-    },
-    require('./database/db')
-    );
+// var mysqlSessionStore = new mysqlSession (
+//     {
+//         /* Default option here .... */
+//     },
+//     require('./database/db')
+//     );
 
-    app.use(sessions({
-        key: "csid",
-        secret: "this is a secret",
-        store: mysqlSessionStore,
-        resave: false,
-        saveUninitialized: false
-    }));
+//     app.use(sessions({
+//         key: "csid",
+//         secret: "this is a secret",
+//         store: mysqlSessionStore,
+//         resave: false,
+//         saveUninitialized: false
+//     }));
 
-    app.use((req, res, next) => {
-        if(req.session.username){
-            res.locals.logged = true;
-        }
-        next();
-    })
+//     app.use((req, res, next) => {
+//         if(req.session.username){
+//             res.locals.logged = true;
+//         }
+//         next();
+//     })
 
 app.listen(port, () => {
     console.log(`App listening to port ${port}`);

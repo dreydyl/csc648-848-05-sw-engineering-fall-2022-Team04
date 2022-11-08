@@ -14,8 +14,8 @@ exports.getAllListings = async (req, res, next) => {
 
 exports.createNewListing = async (req, res, next) => {
     try {
-        let { landlord_id, price, description, street_num, street, city, state, zipcode, room_num, bath_num, picture } = req.body;
-        let listing = new Listing(landlord_id, price, description, street_num, street, city, state, zipcode, room_num, bath_num, picture);
+        let { landlord_id, street_num, street, city, state, zipcode, description, bed, bath, price, file_name } = req.body;
+        let listing = new Listing(landlord_id, street_num, street, city, state, zipcode, description, bed, bath, price, file_name);
 
         listing = await listing.save();
 

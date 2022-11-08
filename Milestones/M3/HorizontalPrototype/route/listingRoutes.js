@@ -33,8 +33,7 @@ router.post("/", listingControllers.createNewListing, upload.single('file_name')
     res.send('POST Request Called');
 })
 
-
-router.get("/", listingControllers.getAllListings, (req, res, next) => {
+router.get("/:id", listingControllers.getListBySearch, (req, res, next) => {
     res.render('partials/listingPage');
 });
 
