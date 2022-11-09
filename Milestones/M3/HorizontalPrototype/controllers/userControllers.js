@@ -15,17 +15,53 @@ const bcrypt = require("bcrypt");
 exports.createUser = async (req, res, next) => {
     try{
         let {name, password, email, picture_id, bio, renter_rating} = req.body;
-        const hashedpassword = await bcrypt.hash(req.body.password,10);
-
+        const hashedpassword = await bcrypt.hash(password,10);
         let register = new User(name, hashedpassword, email, picture_id, bio, renter_rating);
+        let count = await User.checkEmail(email);
         
-        register = await register.save();
-        res.status(201).json({ message: "User created " });
+        if(count[0] != 0){
+            //req.flash('error',"Email already exists")
+            res.status(409).json({ message: "Email already exists! " });
+        }
+        else{
+            register = await register.save();
+            res.status(201).json({ message: "User created " });
+        }
     }
     catch (error) {
         console.log(error);
         next(error);
     }
+}
+
+exports.login = async(req, res, next) => {
+    try{
+        let {password, email} = req.body;
+        let count = await User.checkEmail(email);
+        if(count[0].length == 0){
+            res.status(404).json({ message: "User Not Found" });
+        }
+        else{
+            
+            const hashedpassword = await User.getPassword(email);
+            hashedpassword = JSON.stringify(hashedpassword[0]);
+
+            console.log(hashedpassword);
+            if (await bcrypt.compare(password, hashedpassword)) {
+                res.send(`${email} is logged in!`);
+                res.end;
+            } 
+            else {
+                res.send("Password incorrect!");
+                res.end;
+            }
+        }
+    }
+    catch (error) {
+        console.log(error);
+        next(error);
+    }
+
 }
 
 // const checkUsername = (username) => {

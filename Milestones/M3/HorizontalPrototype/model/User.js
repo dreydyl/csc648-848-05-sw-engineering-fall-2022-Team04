@@ -183,5 +183,14 @@ class Register {
             return db.execute(sql); 
 
     }
+
+    static checkEmail(email){
+        let sql = `SELECT email FROM registeredUser WHERE email = '${email}';`;
+        return db.execute(sql);
+    }
+    static getPassword(email){
+        let sql = `SELECT password FROM registeredUser WHERE email = '${email}';`;
+        return db.execute(sql);
+    }
 }
 module.exports = Register;
