@@ -12,10 +12,10 @@
         grid-template-columns: 1fr, 1fr;
         grid-gap: -100px;
         width: 60vw;
-        height: 120vh;
+        height: 140vh;
         border: 10px solid #444;
         border-radius: 50px;
-        box-shadow: 6px 6px 2px 8px #80B494;
+        
     }
     .grid{
         
@@ -33,19 +33,18 @@
     }*/
     .form-wrapper {
         position: relative;
-        height: 150vh;
+        height: 170vh;
         width: 100vw;
         margin: auto;
     }
 
     form {
-        position: absolute;
-        margin-left: -43vh;
-        margin-right: auto;
+        
+        
         margin-top: 12vh;
-        margin-bottom: auto;
-        width: 485px;
-        height: 200px;
+        
+        width: 50vw;
+        
         border: 3px dashed rgb(0, 0, 0);
     }
 
@@ -127,8 +126,9 @@
     }
 
     .Post-one {
-
-        color: blue;
+        height: 30px;
+        margin-top: 280px;
+        margin-left: 0px;
     }
 </style>
 
@@ -181,5 +181,12 @@
         </div>
     </div>
 </body>
+<script>
+    $(document).ready(function(){
+  $('form input').change(function () {
+    $('form p').text(this.files.length + " file(s) selected");
+  });
+});
+</script>
 
 </html>
