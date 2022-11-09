@@ -11,40 +11,17 @@
             </div>
             <div class="home-section" id="landlord-section">
                 {{> hook hooks.landlord}}
+                {{> featuredLandlords landlords}}
             </div>
-            <!-- <div class="home-section" id="review-section">
+            <div class="home-section" id="review-section">
                 {{> hook hooks.review}}
+                {{> badReview badReview}}
             </div>
-            <div class="home-section" id="signup-section">
+            <!-- <div class="home-section" id="signup-section">
                 {{> hook hooks.signup}}
             </div> -->
         </div>
         {{> quicknav}}
-    <div class="search-form">
-        <p class="search-section-sentence">Search. Find. Contact. Rate.</p>
-        <p class="search-section-sentence">Avoid bad landlord experiences.</p>
-        <select id="search-select" class="search-select">
-            <option disabled selected>Category</option>
-            <option id="landlord-option" value="Landlords">Landlords</option>
-            <option id="listing-option" value="Listings">Listings</option>
-        </select>
-        <form>
-            <input id="search-text" name="search-text" type="search" placeholder="Search">
-            <input type="button" value="search" id="search-button" />
-        </form>
-        
-    </div>
-    <select id="search-option" class="search-option">
-            <option disabled selected>Category</option>
-            <option id="landlord-option" value="Landlords">Landlords</option>
-            <option id="listing-option" value="Listings">Listings</option>
-        </select>
-        <div class="autocomplete-container" id="autocomplete-container"></div>
-
-    <div class="home-reviews-section">
-        <h1 class="search-section-sentence">Top 3 Landlords</h1>
-        {{> cards}}
     </div>
 </div>
-
-<script type = "module" src="/public/js/homepage.js"></script>
+<script type="module" src="/public/js/homepage.js"></script>

@@ -1,0 +1,315 @@
+:root {
+    --white: #f0f0f0;
+    --light-grey: #ebebeb;
+    --white-green: #e3fff0;
+    --green-white: #80b494;
+    --green: #3c885b;
+    --green-2: #247464;
+    --black: #031424;
+    --gold: #d1ac0a;
+    --background-light-mode: #f0f0f0;
+    --background-dark-mode: #031424;
+    --text-light-mode: #031424;
+    --text-light-mode-1: #247464;
+    --text-dark-mode: #f0f0f0;
+    --text-dark-mode-1: #80b494;
+    --text-dark-mode-2: #e3fff0;
+    --border-light-mode: #247464;
+    --border-dark-mode: #80b494;
+    --border-light-mode-1: #3c885b;
+    --border-dark-mode-1: #247464;
+    --button-background: #f0f0f0;
+    --button-background-1: #3c885b;
+    --button-background-2: #031424;
+    --button-background-3: #247464;
+}
+
+.home-section {
+    min-height: 95vh;
+}
+
+.hook-padding {
+    width: fit-content;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    /* position: -webkit-sticky; /* Safari */
+    /* position: sticky; */
+    top: 75px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    font-size: 48px;
+    z-index: 99;
+}
+
+.hook {
+    background-color: var(--background-light-mode);
+    border-radius: 3px;
+    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px; */
+    width: fit-content;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    top: 65px;
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+#welcome-section {
+    min-height: 75vh;
+}
+
+#welcome {
+    margin-top: 30vh;
+}
+
+#listing {
+    margin-top: -2vh;
+}
+
+.search {
+    color: var(--black);
+    width: fit-content;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5vh;
+    margin-bottom: auto;
+    padding-bottom: 11px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    z-index: 0;
+}
+
+.search-prompt {
+    font-size: smaller;
+    text-align: left;
+}
+
+.dropdown {
+    display: flex;
+    flex-direction: row;
+    border-style: solid;
+    border-width: 1.5px;
+    border-color: var(--border-light-mode);
+    border-radius: 2px 0 0 2px;
+    width: 120px;
+    height: 30px;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.dropdown:hover {
+    background-color: var(--green-white);
+    cursor: pointer;
+}
+
+.dropdown:hover .dropdown-button {
+    background-color: var(--white);
+}
+
+#landlords-option {
+    display: none;
+}
+
+.dropdown-options {
+    position: relative;
+    width: fit-content;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 4px;
+}
+
+.dropdown-options:hover {
+    color: #031424;
+}
+
+.dropdown-option {
+    margin: auto;
+    height: 100%;
+}
+
+.dropdown-button {
+    position: absolute;
+    content: "";
+    width: 0.8em;
+    height: 0.5em;
+    background-color: var(--border-light-mode);
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    right: 4px;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    bottom: -45px;
+    border-style: solid;
+    border-width: 1.5px;
+    border-color: #247464;
+    border-radius: 0 0 2px 2px;
+    width: 120px;
+    height: 62px;
+    align-items: center;
+    overflow: hidden;
+}
+
+.dropdown-menu-container {
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: #247464;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 30px;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.dropdown-menu-container:hover {
+    background-color: var(--green-white);
+    cursor: pointer;
+}
+
+.dropdown-menu-item {
+    position: relative;
+    width: fit-content;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-left: 4px;
+}
+
+.dropdown-menu-content {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.search-bar {
+    margin-left: 10px;
+    border-style: solid;
+    border-width: 1.5px;
+    border-color: var(--border-light-mode);
+    border-radius: 0 2px 2px 0;
+    width: 600px;
+    height: 45px;
+    font-size: 26px;
+    text-align: left;
+    margin-top: 5.5px;
+}
+
+#listing-section {
+    position: relative;
+}
+
+#listing {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.featured-listings {
+    top: 0;
+    height: fit-content;
+}
+
+.featured-listing {
+    height: fit-content;
+    position: relative;
+    top: 0;
+    margin-bottom: -4px;
+}
+
+.listing-picture {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.listing-info {
+    position: absolute;
+    top: 15vh;
+    left: 5vw;
+    background-color: var(--white);
+    border-radius: 10px;
+    height: 300px;
+    padding: 7px;
+}
+
+.review {
+    position: absolute;
+    top: 20vh;
+    right: 5vw;
+    background-color: var(--white);
+    border-radius: 10px;
+    height: 300px;
+    padding: 7px;
+}
+
+.rating, .review-title-line {
+    display: flex;
+    flex-direction: row;
+}
+
+.star {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+	background: var(--gold);
+	clip-path: polygon(50% 5%, 61% 40%, 98% 40%, 68% 62%, 79% 96%, 50% 75%, 21% 96%, 32% 62%, 2% 40%, 39% 40%);
+}
+
+.featured-listing .star {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}
+
+#landlord {
+    padding-top: 60px;
+}
+
+.featured-landlord {
+    margin-top: 5rem;
+    margin-left: 8rem;
+    margin-right: 8rem;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--light-grey);
+}
+
+.featured-landlord-right {
+    margin-left: auto;
+}
+
+.landlord-name {
+    font-size: 3.5em;
+    margin: 4px;
+    text-align: center;
+}
+
+.landlord-picture {
+    width: 28rem;
+    height: 28rem;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 2rem;
+}
+
+.landlord-info {
+    margin: 5rem;
+}
+
+.bio {
+    font-size: 1.5em;
+    margin-top: 2.2rem;
+}
+
+#featured-landlord-3 {
+    margin-bottom: 5rem;
+}
