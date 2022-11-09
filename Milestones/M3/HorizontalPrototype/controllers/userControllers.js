@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 // exports.getAllUsers =  async  (req, res, next ) => {
 //     try {
 //         const [registeredUser, _] = await Register.getAll();
-        
+
 //         res.status(200).json({count: registeredUser.length, registeredUser}); 
 //     } catch (error) {
 //         console.log(error);
@@ -13,17 +13,17 @@ const bcrypt = require("bcrypt");
 // }
 
 exports.createUser = async (req, res, next) => {
-    try{
-        let {name, password, email, picture_id, bio, renter_rating} = req.body;
-        const hashedpassword = await bcrypt.hash(password,10);
+    try {
+        let { name, password, email, picture_id, bio, renter_rating } = req.body;
+        const hashedpassword = await bcrypt.hash(password, 10);
         let register = new User(name, hashedpassword, email, picture_id, bio, renter_rating);
         let count = await User.checkEmail(email);
-        
-        if(count[0] != 0){
+
+        if (count[0] != 0) {
             //req.flash('error',"Email already exists")
             res.status(409).json({ message: "Email already exists! " });
         }
-        else{
+        else {
             register = await register.save();
             res.status(201).json({ message: "User created " });
         }
@@ -34,24 +34,30 @@ exports.createUser = async (req, res, next) => {
     }
 }
 
-exports.login = async(req, res, next) => {
-    try{
-        let {password, email} = req.body;
+exports.demoLogin = async (req, res, next) => {
+    let { password, email } = req.body;
+    //start session with email
+    
+}
+
+exports.login = async (req, res, next) => {
+    try {
+        let { password, email } = req.body;
         let count = await User.checkEmail(email);
-        if(count[0].length == 0){
+        if (count[0].length == 0) {
             res.status(404).json({ message: "User Not Found" });
         }
-        else{
-            
+        else {
+
             const hashedpassword = await User.getPassword(email);
-            
+
             const newHashedPassword = hashedpassword[0];
-            res.status(200).json({newHashedPassword});
-             
+            res.status(200).json({ newHashedPassword });
+
             if (await bcrypt.compare(password, newHashedPassword)) {
                 res.send(`${email} is logged in!`);
                 res.end;
-            } 
+            }
             else {
                 res.send("Password incorrect!");
                 res.end;
@@ -65,64 +71,64 @@ exports.login = async(req, res, next) => {
 
 }
 
-// const checkUsername = (username) => {
+const checkUsername = (username) => {
 
-//     let usernameChecker = /^\D\w{2,}$/;
-//     return usernameChecker.test(username);
-//     }
-    
-//     const checkPassword = (password) => {
-//         let passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-//         return passwordChecker.test(password);
-//     }
-    
-//     const checkEmail = (email) => {
-//         let emailChecker = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-//         return emailChecker.test(email);
-//     }
-    
+    let usernameChecker = /^\D\w{2,}$/;
+    return usernameChecker.test(username);
+}
 
-// exports.register = async (req, res, next) => {
-//     try {
-//         //parse json
-//         let {name, email, password} = req.body;
-//         // hash password
-//         const hashedPassword = await bcrypt.hash(req.body.password,10);
-//         //TODO server-side validation here
-//         if(!checkUsername(username)){
-//             req.flash('error',"invalid username!!!");
-//             req.session.save(err => {
-//                 res.redirect("/registration");
-//         });
-//         }else if(!checkEmail(email)){
-//             req.flash('error',"invalid Email!!!");
-//             req.session.save(err => {
-//                 res.redirect("/registration");
-//         });
-            
-//         }else if(!checkPassword(password)){
-//             req.flash('error', "Password must be at least8 characters long, contains Upper and lower case characters, and a special character");
-//             req.session.save(err => {
-//                 res.redirect("/registration");
-//             })
-    
-//         }else if (password != cpassword){
-//             req.flash('error', "password did not match");
-//             req.session.save(err => {
-//                 res.redirect("/registration");
-//         });
-//         }else{
-//             next();
-//         }
+const checkPassword = (password) => {
+    let passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    return passwordChecker.test(password);
+}
 
-//         register = await User.register(name, email, password);
+const checkEmail = (email) => {
+    let emailChecker = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return emailChecker.test(email);
+}
 
-//         res.status(201).json({ message: "User created "});
-//     } catch (error) {
-//         console.log(error);
-//         next(error);   
-//     }
-// }
+
+exports.register = async (req, res, next) => {
+    try {
+        //parse json
+        let { name, email, password } = req.body;
+        // hash password
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        //TODO server-side validation here
+        if (!checkUsername(username)) {
+            req.flash('error', "invalid username!!!");
+            req.session.save(err => {
+                res.redirect("/registration");
+            });
+        } else if (!checkEmail(email)) {
+            req.flash('error', "invalid Email!!!");
+            req.session.save(err => {
+                res.redirect("/registration");
+            });
+
+        } else if (!checkPassword(password)) {
+            req.flash('error', "Password must be at least8 characters long, contains Upper and lower case characters, and a special character");
+            req.session.save(err => {
+                res.redirect("/registration");
+            })
+
+        } else if (password != cpassword) {
+            req.flash('error', "password did not match");
+            req.session.save(err => {
+                res.redirect("/registration");
+            });
+        } else {
+            next();
+        }
+
+        register = await User.register(name, email, password);
+
+        res.status(201).json({ message: "User created " });
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
 
 // //TODO
 // exports.login = async (req, res, next) => {

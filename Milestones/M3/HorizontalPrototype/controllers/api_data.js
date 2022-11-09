@@ -30,9 +30,26 @@ let search = {
         "beds": "",
         "baths": "",
         "min-price": "",
-        "max-price": ""
+        "max-price": "",
+        "rating": ""
+    },
+    "sort": {
+        "price":"",
+        "rating":"",
+        "time-posted":"",
+        "number-of-reviews":""
     }
 };
+
+//login TODO M3
+let login = {
+    "email":"",
+    "password":""
+}
+//get from database: TODO in M4
+let sessionInfo = {
+    "reg_user_id":""
+}
 
 /* From backend to frontend */
 //homepage
