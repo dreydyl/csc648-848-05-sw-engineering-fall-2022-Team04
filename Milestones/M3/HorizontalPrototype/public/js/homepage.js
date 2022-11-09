@@ -152,7 +152,7 @@ window.onload = function () {
         let newContent = '';
         let newMainContent = '';
         let searchURL = `/listing/search/${searchTerm}`;
-        fetch(`http://18.144.162.119:8080${searchURL}`)
+        fetch(`http://localhost:8080${searchURL}`)
             .then(res => res.json())
             .then(data => {
                 let temp = data.listing;
@@ -179,7 +179,7 @@ window.onload = function () {
         let newContent = '';
         let newMainContent = '';
         let searchURL = `/posts/${searchTerm}`;
-        fetch(`http://18.144.162.119:8080${searchURL}`)
+        fetch(`http://localhost:8080${searchURL}`)
             .then(res => res.json())
             .then(data => {
                 let temp = data;
@@ -195,13 +195,13 @@ window.onload = function () {
             })
     }
 
-    const sb = document.getElementById('search-select');
+    // const sb = document.getElementById('search-select');
 
     searchButton.onclick = (event) => {
         event.preventDefault;
-        if (sb.selectedIndex == 2) {
+        if (currentOption == "listings") {
             executeSearch();
-        } else if(sb.selectedIndex == 1) {
+        } else if(currentOption == "landlords") {
             executeLandlordSearch();
         } else {
             location.replace('/');
