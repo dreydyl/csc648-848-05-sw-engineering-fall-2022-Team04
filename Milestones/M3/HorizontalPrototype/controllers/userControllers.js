@@ -44,10 +44,11 @@ exports.login = async(req, res, next) => {
         else{
             
             const hashedpassword = await User.getPassword(email);
-            hashedpassword = JSON.stringify(hashedpassword[0]);
-
-            console.log(hashedpassword);
-            if (await bcrypt.compare(password, hashedpassword)) {
+            
+            const newHashedPassword = hashedpassword[0];
+            res.status(200).json({newHashedPassword});
+             
+            if (await bcrypt.compare(password, newHashedPassword)) {
                 res.send(`${email} is logged in!`);
                 res.end;
             } 
