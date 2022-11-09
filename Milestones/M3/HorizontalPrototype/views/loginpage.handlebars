@@ -31,7 +31,7 @@
                             position: absolute;
                     top: 5%;
                     left: 0%;
-                    height: 87%;
+                    height: 89%;
                     width: 100%;
      
      
@@ -54,9 +54,7 @@
                             border-radius: 50%;
                             position: absolute;
                             top: -90px;
-                            left: calc(46% - 50px);
-
-                        }
+                            left: calc(46% - 50px); }
                 h2{         
                     position: absolute;
                     top: 5%;
@@ -124,6 +122,10 @@
                      border-bottom-width: 10px;
                     
                 }
+                a:link { text-decoration: none; }
+                a:visited { text-decoration: none; }
+                a:hover { text-decoration: none; }
+                a:active { text-decoration: none; }
 
             </style>
 
@@ -140,9 +142,10 @@
 
             </div>
 
-            <input type="submit" name="" value="Login" class="submit-btn">
+                <a class="submit-btn" href="/">Login</a>
+            {{!-- <input type="submit" name="" value="Login" class="submit-btn"> --}}
             <div class=toRegister>
-                <p class="txt-login">Don't have an account? <a href="/registration.html" class="bud-login">Register</a>
+                <p class="txt-login">Don't have an account? <a href="/register" class="bud-login">Register</a>
                 </p>
             </div>
         </form>
