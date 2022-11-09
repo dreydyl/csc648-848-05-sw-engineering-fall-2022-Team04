@@ -22,7 +22,7 @@
      <img src="images\pic1.jpg" class="background">
 
     <div class="Overbox">
-        <form class="form-login">
+        <form action ="" class="form-login" >
             <img src="images\logo.png" class="logo-login">
 
             <style>
@@ -31,7 +31,7 @@
                             position: absolute;
                     top: 5%;
                     left: 0%;
-                    height: 89%;
+                    height: 1060px;
                     width: 100%;
      
      
@@ -141,9 +141,9 @@
                 <!-- <input type = "text" name="" placeholder="Confirm Password"> -->
 
             </div>
-
-                <a class="submit-btn" href="/">Login</a>
-            {{!-- <input type="submit" name="" value="Login" class="submit-btn"> --}}
+                {{!-- <button type="button" class="submit-btn" href="/"> Login</button> --}}
+                {{!-- <a class="submit-btn" href="/">Login</a> --}}
+            <input type="button" onclick=location.href ='/' value="Login" class="submit-btn">
             <div class=toRegister>
                 <p class="txt-login">Don't have an account? <a href="/register" class="bud-login">Register</a>
                 </p>
