@@ -133,6 +133,10 @@ router.get("/profilepage", (req, res, next) => {
     res.render("profilePage",{title:"EZRent Profile"});
 });
 
+router.get("/userprofilepage", (req, res, next) => {
+    res.render("userProfilePage",{title:"EZRent Profile"});
+});
+
 router.get("/login", (req, res, next) => {
     res.render("loginpage",{title:"EZRent Login"});
 });
