@@ -4,24 +4,13 @@
             Search Filters
         </h1>
 
-        <div class="filters">
-            <select class="select">
-                <option disabled selected>Price</option>
-                <option value="< $1000">
-                    < $1000</option>
-                <option value="< $2000">
-                    < $2000</option>
-                <option value="< $3000">
-                    < $3000</option>
-                <option value="< $4000">
-                    < $4000</option>
-                <option value="< $5000">
-                    < $5000</option>
-                <option value="> $5000">> $5000</option>
-            </select>
+        <form class="filters">
+            <input type="number" id="min-price">
+            <input type="number" id="max-price">
 
             <select class="select">
                 <option disabled selected>Rating</option>
+                <option value="> 1">> 1</option>
                 <option value="> 2">> 2</option>
                 <option value="> 3">> 3</option>
                 <option value="> 4">> 4</option>
@@ -45,8 +34,8 @@
                 <option value="4">4</option>
                 <option value="> 4">> 4</option>
             </select>
-        </div>
-        <input type="button" value="Apply" id="apply-filters-button" />
+            <input type="button" value="Apply" id="apply-filters-button" />
+        </form>
     </div>
     <div id="search_results_card_section">
         <h1>Listings</h1>
@@ -57,3 +46,4 @@
         </div>
     </div>
 </div>
+<script type="module" src="/public/js/listingResults.js"></script>
