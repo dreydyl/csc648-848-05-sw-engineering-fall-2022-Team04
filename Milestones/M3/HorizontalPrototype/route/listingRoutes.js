@@ -29,7 +29,12 @@ router.route("/").get(listingControllers.getAllUsers).post(upload.single('pictur
 });
 */
 
-router.get("/:id(\\d+)", listingControllers.getListing, (req, res, next) => {
+router.post("/", listingControllers.createNewListing, upload.single('file_name'), (req, res, next) => {
+    res.send('POST Request Called');
+})
+
+
+router.get("/", listingControllers.getAllListings, (req, res, next) => {
     res.render('partials/listingPage');
 });
 
