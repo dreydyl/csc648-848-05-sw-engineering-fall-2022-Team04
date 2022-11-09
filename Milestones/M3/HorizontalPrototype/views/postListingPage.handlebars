@@ -35,6 +35,7 @@
     .upload-image {
         display: flex;
         flex-direction: column;
+        margin-top: 15px;
     }
 
     .form-wrapper {
@@ -48,13 +49,14 @@
 
         margin-left: auto;
         margin-right: auto;
-        margin-top: 0vh;
+        margin-top: -10vh;
         height: 30vh;
         width: 50vw;
 
         border: 3px dashed rgb(0, 0, 0);
     }
-    form:hover{
+
+    form:hover {
         background: #d2d2d2;
         color: #black;
     }
@@ -72,6 +74,8 @@
         position: absolute;
         outline: none;
         opacity: 0;
+        width: inherit;
+        height: inherit;
     }
 
     button {
@@ -81,7 +85,7 @@
         margin-top: 1vh;
         margin-left: auto;
         margin-right: auto;
-        width: 50vw;
+        width: 45vw;
         height: 6vh;
         border-radius: 4px;
         transition: all .4s ease;
@@ -103,9 +107,12 @@
     }
 
     input {
+
+        margin-left: 5px;
         font-family: montserrat;
         padding: .5em;
-        width: 70%;
+        height: 2vh;
+        width: 58%;
         border: 3px solid var(#444);
         border-radius: 7px;
     }
@@ -137,16 +144,16 @@
         color: black;
     }
 
-    .Post-one .Post-two{
+    .Post-one {
+        display: flex;
+        justify-content: center;
+    }
 
-        height: 30px;
-        margin-top: 280px;
-        margin-left: 0px;
+    .Label-btn {
+        margin-top: 2px;
+        width: 10vw;
+        height: 0vh;
     }
-    .Label-btn{
-        width: 10px;
-    }
-    
 </style>
 
 <body>
@@ -160,36 +167,36 @@
                     <input type="file" multiple>
                     <p>Drag your Image files here or click in this area.</p>
                 </form>
-                <button type="submit" action="upload.php" method="POST">Upload</button>
+                {{!-- <button type="submit" >Upload</button> --}}
             </div>
 
 
             <div class="Post-one">
-                <label for="Address" class="Label-btn"><b>Address</b></label>
+                <p for="Address" class="Label-btn"><b>Address</b></p>
                 <input type="text" placeholder="Enter Address" name="Address" required>
             </div>
-            <div class="Post-two">
-                <label for="City" class="Label-btn"><b>City</b></label>
+            <div class="Post-one">
+                <p for="City" class="Label-btn"><b>City</b></p>
                 <input type="text" placeholder="Enter City" name="City" required>
             </div>
-            <div class="Post-three">
-                <label for="state"><b>State</b></label>
+            <div class="Post-one">
+                <p for="state" class="Label-btn"><b>State</b></p>
                 <input type="text" placeholder="Enter State" name="state" required>
             </div>
-            <div class="Post-four">
-                <label for="Zipcode"><b>Zip Code</b></label>
+            <div class="Post-one">
+                <p for="Zipcode" class="Label-btn"><b>Zip Code</b></p>
                 <input type="text" placeholder="Enter Zip Code" name="Zipcode" required>
             </div>
-            <div class="Post-five">
-                <label for="Bed"><b>Bed</b></label>
+            <div class="Post-one">
+                <p for="Bed" class="Label-btn"><b>Bed</b></p>
                 <input type="text" placeholder="Enter Number of Beds" name="Bed" required>
             </div>
-            <div class="Post-six">
-                <label for="Bath"><b>Bath</b></label>
+            <div class="Post-one">
+                <p for="Bath" class="Label-btn"><b>Bath</b></p>
                 <input type="text" placeholder="Enter Number of Bathrooms" name="Bath" required>
             </div>
-            <div class="Post-seven">
-                <label for="Price"><b>Price</b></label>
+            <div class="Post-one">
+                <p for="Price" class="Label-btn"><b>Price</b></p>
                 <input type="text" placeholder="Enter Price in US dollars" name="Price" required>
             </div>
             <div class="Post-button">
@@ -200,16 +207,18 @@
         </div>
     </div>
 </body>
-{{!-- <script>
+<script>
     $(document).ready(function () {
         $('form input').change(function () {
             $('form p').text(this.files.length + " file(s) selected");
         });
     });
-</script> --}}
-<script type="text/javascript">
+</script>
+<script>
+    type = "text/javascript"
     document.getElementById("Post-button").onclick = function () {
         location.href = "/profilepage";
-    };
+    }
 </script>
+
 </html>
