@@ -1,10 +1,59 @@
-<body id="main-content">
-    <h1>{{header}}</h1>
-    <div class="centered-flex">
-        <div id="container">
+<div id="search_results_main">
+    <div id="search_results_filters">
+        <h1>
+            Search Filters
+        </h1>
+
+        <div class="filters">
+            <select class="select">
+                <option disabled selected>Price</option>
+                <option value="< $1000">
+                    < $1000</option>
+                <option value="< $2000">
+                    < $2000</option>
+                <option value="< $3000">
+                    < $3000</option>
+                <option value="< $4000">
+                    < $4000</option>
+                <option value="< $5000">
+                    < $5000</option>
+                <option value="> $5000">> $5000</option>
+            </select>
+
+            <select class="select">
+                <option disabled selected>Rating</option>
+                <option value="> 2">> 2</option>
+                <option value="> 3">> 3</option>
+                <option value="> 4">> 4</option>
+                <option value="5">5</option>
+            </select>
+
+            <select class="select">
+                <option disabled selected>Beds</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="> 4">> 4</option>
+            </select>
+
+            <select class="select">
+                <option disabled selected>Baths</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="> 4">> 4</option>
+            </select>
+        </div>
+        <input type="button" value="Apply" id="apply-filters-button" />
+    </div>
+    <div id="search_results_card_section">
+        <h1>Listings</h1>
+        <div id="search_results_cards">
             {{#each results}}
             {{> listingCard this}}
             {{/each}}
         </div>
     </div>
-</body>
+</div>

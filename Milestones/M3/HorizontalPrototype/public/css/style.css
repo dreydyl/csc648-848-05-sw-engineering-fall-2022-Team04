@@ -71,6 +71,104 @@ body {
     background-color: #dcdcdc;
 }
 
+.dropdown {
+    display: flex;
+    flex-direction: row;
+    border-style: solid;
+    border-width: 1.5px;
+    border-color: var(--border-light-mode);
+    border-radius: 2px 0 0 2px;
+    width: 120px;
+    height: 30px;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.dropdown:hover {
+    background-color: var(--green-white);
+    cursor: pointer;
+}
+
+.dropdown:hover .dropdown-button {
+    background-color: var(--white);
+}
+
+#landlords-option {
+    display: none;
+}
+
+.dropdown-options {
+    position: relative;
+    width: fit-content;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 4px;
+}
+
+.dropdown-options:hover {
+    color: #031424;
+}
+
+.dropdown-option {
+    margin: auto;
+    height: 100%;
+}
+
+.dropdown-button {
+    position: absolute;
+    content: "";
+    width: 0.8em;
+    height: 0.5em;
+    background-color: var(--border-light-mode);
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    right: 4px;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    bottom: -45px;
+    border-style: solid;
+    border-width: 1.5px;
+    border-color: #247464;
+    border-radius: 0 0 2px 2px;
+    width: 120px;
+    height: 62px;
+    align-items: center;
+    overflow: hidden;
+}
+
+.dropdown-menu-container {
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: #247464;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 30px;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.dropdown-menu-container:hover {
+    background-color: var(--green-white);
+    cursor: pointer;
+}
+
+.dropdown-menu-item {
+    position: relative;
+    width: fit-content;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-left: 4px;
+}
+
+.dropdown-menu-content {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
 .login-header-button {
     text-decoration: none;
     text-align: center;

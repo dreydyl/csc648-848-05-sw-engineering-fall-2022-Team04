@@ -30,9 +30,26 @@ let search = {
         "beds": "",
         "baths": "",
         "min-price": "",
-        "max-price": ""
+        "max-price": "",
+        "rating": ""
+    },
+    "sort": {
+        "price":"",
+        "rating":"",
+        "time-posted":"",
+        "number-of-reviews":""
     }
 };
+
+//login TODO M3
+let login = {
+    "email":"",
+    "password":""
+}
+//get from database: TODO in M4
+let sessionInfo = {
+    "reg_user_id":""
+}
 
 /* From backend to frontend */
 //homepage
@@ -120,3 +137,4 @@ let badReview = {
     "title": "Horrendous. No compassion",
     "description": `I have a sick mother. This landlord raised my rent 3 times in the last 14 months because of the "economy".`
 }
+//listingControllers.searchListings
