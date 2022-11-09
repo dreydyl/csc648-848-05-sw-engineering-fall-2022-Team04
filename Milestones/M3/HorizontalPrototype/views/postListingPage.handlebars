@@ -12,14 +12,14 @@
         grid-template-columns: 1fr, 1fr;
         grid-gap: -100px;
         width: 60vw;
-        height: 120vh;
+        height: 140vh;
         border: 10px solid #444;
         border-radius: 50px;
-        box-shadow: 6px 6px 2px 8px #80B494;
+
     }
-    .grid{
-        
-    }
+
+    .grid {}
+
     /* Add styles to the form container 
     .form-postlisting {
         border-radius: 50px;
@@ -31,29 +31,39 @@
         background-color: #444;
 
     }*/
+
+    .upload-image {
+        display: flex;
+        flex-direction: column;
+    }
+
     .form-wrapper {
         position: relative;
-        height: 150vh;
+        height: 170vh;
         width: 100vw;
         margin: auto;
     }
 
     form {
-        position: absolute;
-        margin-left: -43vh;
+
+        margin-left: auto;
         margin-right: auto;
-        margin-top: 12vh;
-        margin-bottom: auto;
-        width: 485px;
-        height: 200px;
+        margin-top: 0vh;
+        height: 30vh;
+        width: 50vw;
+
         border: 3px dashed rgb(0, 0, 0);
+    }
+    form:hover{
+        background: #d2d2d2;
+        color: #black;
     }
 
     form p {
         position: absolute;
         text-align: center;
         line-height: 15px;
-        width: 55vw;
+        width: 50vw;
         color: #black;
         font-family: montserrat;
     }
@@ -64,25 +74,26 @@
         opacity: 0;
     }
 
-    form button {
+    button {
         margin: 0;
         color: #black;
         background: #white;
-        width: 3200px;
-        height: 35px;
-        margin-top: 220px;
-        margin-left: 0px;
+        margin-top: 1vh;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50vw;
+        height: 6vh;
         border-radius: 4px;
         transition: all .4s ease;
         outline: none;
     }
 
-    form button:hover {
+    button:hover {
         background: #80B494;
         color: #black;
     }
 
-    form button:active {
+    button:active {
         border: 0;
     }
 
@@ -126,10 +137,16 @@
         color: black;
     }
 
-    .Post-one {
+    .Post-one .Post-two{
 
-        color: blue;
+        height: 30px;
+        margin-top: 280px;
+        margin-left: 0px;
     }
+    .Label-btn{
+        width: 10px;
+    }
+    
 </style>
 
 <body>
@@ -138,19 +155,21 @@
         <div class="form-postlisting">
 
             <h1 class="title" style="font-family:Montserrat" style="text-align:center">Post Listing</h1>
+            <div class="upload-image">
+                <form action="upload.php" method="POST">
+                    <input type="file" multiple>
+                    <p>Drag your Image files here or click in this area.</p>
+                </form>
+                <button type="submit" action="upload.php" method="POST">Upload</button>
+            </div>
 
-            <form action="upload.php" method="POST">
-                <input type="file" multiple>
-                <p>Drag your Image files here or click in this area.</p>
-                <button type="submit">Upload</button>
-            </form>
 
             <div class="Post-one">
-                <label for="Address"><b>Address</b></label>
+                <label for="Address" class="Label-btn"><b>Address</b></label>
                 <input type="text" placeholder="Enter Address" name="Address" required>
             </div>
             <div class="Post-two">
-                <label for="City"><b>City</b></label>
+                <label for="City" class="Label-btn"><b>City</b></label>
                 <input type="text" placeholder="Enter City" name="City" required>
             </div>
             <div class="Post-three">
@@ -174,12 +193,23 @@
                 <input type="text" placeholder="Enter Price in US dollars" name="Price" required>
             </div>
             <div class="Post-button">
-                <button type="submit" class="btn">Post</button>
+                <button id="Post-button" type="submit" class="btn">Post</button>
 
             </div>
 
         </div>
     </div>
 </body>
-
+{{!-- <script>
+    $(document).ready(function () {
+        $('form input').change(function () {
+            $('form p').text(this.files.length + " file(s) selected");
+        });
+    });
+</script> --}}
+<script type="text/javascript">
+    document.getElementById("Post-button").onclick = function () {
+        location.href = "/profilepage";
+    };
+</script>
 </html>
