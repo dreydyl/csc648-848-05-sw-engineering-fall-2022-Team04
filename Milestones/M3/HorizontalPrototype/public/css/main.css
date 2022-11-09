@@ -24,8 +24,15 @@
     --button-background-3: #247464;
 }
 
+.home-sections {
+    min-height: 95vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
 .home-section {
     min-height: 95vh;
+    scroll-snap-align: start;
 }
 
 .hook-padding {
@@ -382,4 +389,59 @@
     font-weight: bolder;
     margin: auto;
     margin-top: 25vh;
+}
+
+.fixed-section {
+    position: fixed;
+    bottom: 5vh;
+    right: 15px;
+    display: flex;
+    flex-direction: row;
+}
+
+.prompt {
+    display: block;
+    margin-top: auto;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    width: 120px;
+    height: 40px;
+    background-color: #0000;
+    color: var(--text-light-mode-1);
+    text-align: center;
+    line-height: 40px;
+}
+
+.quicknav-button {
+    background-color: var(--green-white);
+    padding: 8px;
+    margin: 10px 0;
+}
+
+.quicknav-button:hover {
+    background-color: var(--light-grey);
+    cursor: pointer;
+}
+
+.quicknav-image {
+    width: 35px;
+    height: 35px;
+    background-color: var(--light-grey);
+}
+
+.quicknav-button:hover .quicknav-image {
+    background-color: var(--green-white);
+}
+
+#quicknav-up .quicknav-image {
+    clip-path: polygon(100% 100%, 0 100%, 50% 0%);
+}
+
+#quicknav-down .quicknav-image {
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-light-mode);
 }

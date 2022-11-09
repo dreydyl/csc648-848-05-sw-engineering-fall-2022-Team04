@@ -49,8 +49,10 @@ window.onload = function () {
         listingsOption.style.display = "none";
         landlordsOption.style.display = "block";
         searchText.placeholder = "Enter a name..."
-
     }
+
+    let signUpButton
+
 
     let searchButton = document.getElementById("search-button");
 
