@@ -1,8 +1,9 @@
-<body class ="open-body">
+
+<div class ="open-body">
      <img src="images\pic1.jpg" class="background">
 
     <div class = "Overbox">
-    <form class = "form-registration">
+    <form class = "form-registration" name ="form1">
      <img src="images\logo.png" class="logo-login">
      <style>
                     .background{
@@ -63,8 +64,8 @@
                     }
                     .submit-btn-registration{
                      position: absolute;
-                    top: 75%;
-                    left: 15%;
+                    top: 78%;
+                    left: 10%;
                     display: inline-block;
                     height: 60px;
                     width:350px;
@@ -113,13 +114,14 @@ a:active { text-decoration: none; }
        
         <input type = "text" name="" placeholder="Username" id ="loginUser" required>
         
-        <input type = "email" name="" placeholder="E-mail Address" id ="email" required>
-        <input type = "password" name="" placeholder="Password" id ="loginPassword" required >
-        <input type = "password" name="" placeholder="Confirm password" id ="loginPassword" required>
+        <input type = "email" name="text1" placeholder="E-mail Address" id ="email" required>
+        <input type = "password" name="" placeholder="Password" id ="password" required >
+        <input type = "password" name="" placeholder="Confirm password" id ="cpassword" required>
         
         
     </div>
-    <a class="submit-btn-registration" href="/">Sign up</a>
+    <button onclick="validate()" class ="submit-btn-registration">Sign Up</button>
+    {{!-- <a class="submit-btn-registration" href="/">Sign up</a> --}}
     {{!-- <input type ="submit" name="" value="Sign Up" class ="submit-btn-registration" href ="/"> --}}
     <div class = toRegisterr>
         <p class="txt-registration">Already Have an account? <a href="login" class = "bud-registration">Login</a></p>
@@ -127,4 +129,6 @@ a:active { text-decoration: none; }
     </form>
             </div>
     
-</body>
+
+</div>
+<script src="./public/js/validate.js"></script>
