@@ -48,18 +48,22 @@
 
         margin-left: auto;
         margin-right: auto;
-        margin-top: 12vh;
-        height: 10vh;
+        margin-top: 0vh;
+        height: 30vh;
         width: 50vw;
 
         border: 3px dashed rgb(0, 0, 0);
+    }
+    form:hover{
+        background: #d2d2d2;
+        color: #black;
     }
 
     form p {
         position: absolute;
         text-align: center;
         line-height: 15px;
-        width: 55vw;
+        width: 50vw;
         color: #black;
         font-family: montserrat;
     }
@@ -78,6 +82,7 @@
         margin-left: auto;
         margin-right: auto;
         width: 50vw;
+        height: 6vh;
         border-radius: 4px;
         transition: all .4s ease;
         outline: none;
@@ -132,11 +137,16 @@
         color: black;
     }
 
-    .Post-one {
+    .Post-one .Post-two{
+
         height: 30px;
         margin-top: 280px;
         margin-left: 0px;
     }
+    .Label-btn{
+        width: 10px;
+    }
+    
 </style>
 
 <body>
@@ -155,11 +165,11 @@
 
 
             <div class="Post-one">
-                <label for="Address"><b>Address</b></label>
+                <label for="Address" class="Label-btn"><b>Address</b></label>
                 <input type="text" placeholder="Enter Address" name="Address" required>
             </div>
             <div class="Post-two">
-                <label for="City"><b>City</b></label>
+                <label for="City" class="Label-btn"><b>City</b></label>
                 <input type="text" placeholder="Enter City" name="City" required>
             </div>
             <div class="Post-three">
@@ -183,7 +193,7 @@
                 <input type="text" placeholder="Enter Price in US dollars" name="Price" required>
             </div>
             <div class="Post-button">
-                <button type="submit" class="btn">Post</button>
+                <button id="Post-button" type="submit" class="btn">Post</button>
 
             </div>
 
@@ -197,5 +207,9 @@
         });
     });
 </script> --}}
-
+<script type="text/javascript">
+    document.getElementById("Post-button").onclick = function () {
+        location.href = "/profilepage";
+    };
+</script>
 </html>
