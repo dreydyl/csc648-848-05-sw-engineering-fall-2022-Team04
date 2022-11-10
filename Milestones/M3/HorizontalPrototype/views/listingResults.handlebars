@@ -34,12 +34,13 @@
                 <option value="4">4</option>
                 <option value="> 4">> 4</option>
             </select>
-            <input type="button" value="Apply" id="apply-filters-button" />
+            <input type="submit" value="Apply" id="apply-filters-button" />
         </form>
     </div>
     <div id="search_results_card_section">
         <h1>Listings</h1>
         <div id="search_results_cards">
+            {{log this}}
             {{#each results}}
             {{> listingCard this}}
             {{/each}}
