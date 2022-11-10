@@ -143,13 +143,11 @@ const db = require('../database/db');
 
 
 class Register {
-    constructor(name, password, email, picture_id, bio, renter_rating){
+    constructor(name, password, email){
         this.name = name;
         this.password = password;
         this.email = email;
-        this.picture_id = picture_id;
-        this.bio = bio;
-        this.renter_rating = renter_rating;
+
     }
 
     save() {
@@ -165,18 +163,12 @@ class Register {
                 name,
                 password,
                 email,
-                picture_id,
-                bio,
-                renter_rating,
                 created_at
             )
             VALUE (
                 '${this.name}',
                 '${this.password}',
                 '${this.email}',
-                '${this.picture_id}',
-                '${this.bio}',
-                '${this.renter_rating}',
                 '${createdAtDate}'
             )`;
             
@@ -192,5 +184,6 @@ class Register {
         let sql = `SELECT password FROM registeredUser WHERE email = '${email}';`;
         return db.execute(sql);
     }
+    
 }
 module.exports = Register;

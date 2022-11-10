@@ -82,6 +82,7 @@ app.get('/helppage', (req, res) => {
     res.render('helppage');
 });
 
+
 app.get('/devAbout', (req, res) => {
     res.render('about/devAbout');
 });
