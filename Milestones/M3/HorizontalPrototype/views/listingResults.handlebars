@@ -8,7 +8,7 @@
             <input type="number" placeholder="Min Price" id="min-price">
             <input type="number" placeholder="Max Price" id="max-price">
 
-            <select class="select">
+            <select class="select" id="rating-filter">
                 <option disabled selected>Rating</option>
                 <option value="> 1">> 1</option>
                 <option value="> 2">> 2</option>
@@ -17,7 +17,7 @@
                 <option value="5">5</option>
             </select>
 
-            <select class="select">
+            <select class="select" id="beds-filter">
                 <option disabled selected>Beds</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -26,7 +26,7 @@
                 <option value="> 4">> 4</option>
             </select>
 
-            <select class="select">
+            <select class="select" id="baths-filter">
                 <option disabled selected>Baths</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -34,13 +34,15 @@
                 <option value="4">4</option>
                 <option value="> 4">> 4</option>
             </select>
-            <input type="submit" value="Apply" id="apply-filters-button" />
+            <input type="submit" value="Apply" id="apply-filters-button" onclick="applyFilters();"/>
         </form>
     </div>
     <div id="search_results_card_section">
-        <h1>Listings</h1>
+        <h1 class="listing-results-header">
+            Listings </br>
+            <p id="search-term">{{searchTerm}}</p>
+        </h1>
         <div id="search_results_cards">
-            {{log this}}
             {{#each results}}
             {{> listingCard this}}
             {{/each}}

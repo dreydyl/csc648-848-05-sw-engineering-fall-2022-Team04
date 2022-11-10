@@ -96,6 +96,11 @@ exports.searchListings = async (req, res, next) => {
     }
 }
 
+exports.applyFilters = async (req, res, next) => {
+    let search = req.query.search;
+    let rating = req.query.rating;
+}
+
 exports.getListBySearch = async (req, res, next) => {
     let search = req.params.search;
     let temp = search.split(" ");
