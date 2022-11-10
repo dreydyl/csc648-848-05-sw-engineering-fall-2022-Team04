@@ -41,6 +41,10 @@ router.get("/search", listingControllers.searchListings, (req, res, next) => {
     res.render("listingResults");
 });
 
+router.get("/searchfilters", listingControllers.applyFilters, (req, res, next) => {
+    res.render("listingResults");
+});
+
 router.get("/search-test", (req, res, next) => {
     let listings = {
         "listing1": {

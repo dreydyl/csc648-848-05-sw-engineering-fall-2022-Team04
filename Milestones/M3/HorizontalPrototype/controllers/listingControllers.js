@@ -96,6 +96,11 @@ exports.searchListings = async (req, res, next) => {
     }
 }
 
+exports.applyFilters = async (req, res, next) => {
+    //url example /search?search=&min=&max=&rating=&beds=&baths=
+    let search = req.query.search;
+}
+
 exports.getListBySearch = async (req, res, next) => {
     let search = req.params.search;
     let temp = search.split(" ");
