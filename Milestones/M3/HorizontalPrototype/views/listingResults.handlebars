@@ -34,7 +34,7 @@
                 <option value="4">4</option>
                 <option value="> 4">> 4</option>
             </select>
-            <input type="button" value="Apply" id="apply-filters-button"/>
+            <input type="button" value="Apply" id="apply-filters-button" />
         </form>
     </div>
     <div id="search_results_card_section">
@@ -42,6 +42,9 @@
             Listings </br>
             <p id="search-term">{{searchTerm}}</p>
         </h1>
+        <div class="listing-search-bar">
+            {{> search}}
+        </div>
         <div id="search_results_cards">
             {{#each results}}
             {{> listingCard this}}
@@ -50,3 +53,4 @@
     </div>
 </div>
 <script type="module" src="/public/js/listingResults.js"></script>
+<script type="module" src="/public/js/search.js"></script>

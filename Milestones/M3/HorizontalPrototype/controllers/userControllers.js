@@ -136,10 +136,10 @@ exports.searchLandlords = async (req, res, next) => {
             };
             if (results) {
                 res.locals.results = results;
-                res.render('listingResults', { title: "EZRent " + search, header: "Results" });
+                res.render('landlordResults', { title: "EZRent " + search, header: "Results" });
             } else {
                 console.log("no results");
-                res.render('listingResults', { title: "EZRent " + search, header: "Results" });
+                res.render('landlordResults', { title: "EZRent " + search, header: "Results" });
             }
         } catch (error) {
             console.log(error);
