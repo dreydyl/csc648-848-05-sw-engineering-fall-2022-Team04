@@ -26,10 +26,10 @@ exports.createNewListing = async (req, res, next) => {
     }
 }
 
-exports.getListing = async(req, res, next) => {
+exports.getListing = async (req, res, next) => {
     try {
         let results = req.params.id;
-        if(results && results.length) {
+        if (results && results.length) {
             let listing = results[0];
             listing = "To be implemented";
             res.status(200).json(listing);
@@ -38,7 +38,7 @@ exports.getListing = async(req, res, next) => {
             //req.flash('error', 'This is not the post you are looking for');
             res.redirect('/');
         }
-    } catch(err) {
+    } catch (err) {
         console.log(error);
         next(err);
     }
@@ -68,28 +68,80 @@ exports.getListing = async(req, res, next) => {
  */
 exports.searchListings = async (req, res, next) => {
     let search = req.query.search;
+    res.locals.searchTerm = search;
     if (!search) {
-        res.send({
-            resultsStatus: "info",
-            message: "No search term given",
-            results: []
-        });
+        res.locals.error = "No search term given";
+        res.render('error', { title: "EZRent " });
     } else {
         try {
-            let results = await Listing.search(search);
-            if (results.length) {
-                req.flash('success', `${results.length} result${results.length == 1 ? `` : `s`} found`);
+            //let results = await Listing.search(search);
+            let results = {
+                "listing1": {
+                    "id": "0",
+                    "landlord": "Bob John",
+                    "price": "40,000",
+                    "description": "Basically a resort",
+                    "street_number": "1234",
+                    "street": "Fall Street",
+                    "city": "Stockton",
+                    "state": "CA",
+                    "zip": "94545",
+                    "rooms": 2,
+                    "baths": 1,
+                    "top_review": {
+                        "title": "Love it",
+                        "rating": 5,
+                        "author": "Staniel Chaniel",
+                        "description": "Love this place"
+                    }
+                },
+                "listing2": {
+                    "id": "1",
+                    "landlord": "John Bob",
+                    "price": "12,000",
+                    "description": "Cool place",
+                    "street_number": "1234",
+                    "street": "Span Avenue",
+                    "city": "Hayward",
+                    "state": "CA",
+                    "zip": "94545",
+                    "rooms": 4,
+                    "baths": 3,
+                    "top_review": {
+                        "title": "Beautiful",
+                        "rating": 5,
+                        "author": "Dennis Dennis",
+                        "description": "There's a nice view"
+                    }
+                },
+                "listing3": {
+                    "id": "2",
+                    "landlord": "Job Bohn",
+                    "price": "50,000",
+                    "description": "Perfect for family",
+                    "street_number": "1234",
+                    "street": "Ballast Court",
+                    "city": "San Francisco",
+                    "state": "CA",
+                    "zip": "94545",
+                    "rooms": 4,
+                    "baths": 2,
+                    "top_review": {
+                        "title": "Wowow",
+                        "rating": 4,
+                        "author": "Alonzo Aball",
+                        "description": "My family loves this place"
+                    }
+                }
+            };
+            if (results) {
                 res.locals.results = results;
-                results.forEach(row => {
-                    row.thumbnail = "../" + row.thumbnail;
-                });
                 res.render('listingResults', { title: "EZRent " + search, header: "Results" });
             } else {
-                errorPrint('no results');
-                req.flash('error', 'No results were found for your search');
-                res.redirect('/');
+                console.log("no results");
+                res.render('listingResults', { title: "EZRent " + search, header: "Results" });
             }
-        } catch(error) {
+        } catch (error) {
             console.log(error);
             next(error);
         }
@@ -116,7 +168,7 @@ exports.getListBySearch = async (req, res, next) => {
         }
         return;
     }
-    
+
     if ((isNaN(search))) {
         try {
             let city = search;
@@ -126,7 +178,7 @@ exports.getListBySearch = async (req, res, next) => {
                     let zipcode = search;
                     let [listing, _] = await Listing.findAll(zipcode);
 
-                    res.status(200).json({listing});
+                    res.status(200).json({ listing });
                 } catch (error) {
                     console.log(error);
                     next(error);
@@ -146,8 +198,8 @@ exports.getListBySearch = async (req, res, next) => {
                 try {
                     let zipcode = search;
                     let [listing, _] = await Listing.findAll(zipcode);
-            
-                    res.status(200).json({listing});
+
+                    res.status(200).json({ listing });
                 } catch (error) {
                     console.log(error);
                     next(error);
