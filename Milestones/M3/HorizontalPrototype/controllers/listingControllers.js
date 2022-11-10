@@ -75,18 +75,23 @@ exports.searchListings = async (req, res, next) => {
             results: []
         });
     } else {
-        let results = await PostModel.search(searchTerm);
-        if (results.length) {
-            req.flash('success', `${results.length} result${results.length == 1 ? `` : `s`} found`);
-            res.locals.results = results;
-            results.forEach(row => {
-                row.thumbnail = "../" + row.thumbnail;
-            });
-            res.render('index', { title: "PhotoBase " + searchTerm, header: "Results" });
-        } else {
-            errorPrint('no results');
-            req.flash('error', 'No results were found for your search');
-            res.redirect('/');
+        try {
+            let results = await Listing.search(search);
+            if (results.length) {
+                req.flash('success', `${results.length} result${results.length == 1 ? `` : `s`} found`);
+                res.locals.results = results;
+                results.forEach(row => {
+                    row.thumbnail = "../" + row.thumbnail;
+                });
+                res.render('listingResults', { title: "EZRent " + search, header: "Results" });
+            } else {
+                errorPrint('no results');
+                req.flash('error', 'No results were found for your search');
+                res.redirect('/');
+            }
+        } catch(error) {
+            console.log(error);
+            next(error);
         }
     }
 }
