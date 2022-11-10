@@ -71,7 +71,7 @@ function executeSearch() {
         return;
     }
     let searchURL = `/listings/search?search=${searchTerm}`;
-    searchURL = `/listings/search-test`;
+    //searchURL = `/listings/search-test`;
 
     location.replace(searchURL);
 }
