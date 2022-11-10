@@ -71,7 +71,7 @@ body {
     background-color: #dcdcdc;
 }
 
-.dropdown {
+/* .dropdown {
     display: flex;
     flex-direction: row;
     border-style: solid;
@@ -167,7 +167,7 @@ body {
 .dropdown-menu-content {
     margin-top: auto;
     margin-bottom: auto;
-}
+} */
 
 .login-header-button {
     text-decoration: none;
