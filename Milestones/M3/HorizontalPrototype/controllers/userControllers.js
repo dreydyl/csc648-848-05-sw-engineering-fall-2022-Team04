@@ -15,10 +15,10 @@ const bcrypt = require("bcrypt");
 exports.createUser = async (req, res, next) => {
     try {
         console.log(req.body);
-        let { name, password, email, confirmPassword} = req.body;
+        let { name, password, email, confirmPassword } = req.body;
         //console.log(password);
         const hashpassword = await bcrypt.hashSync(password, 10);
-        
+
         let register = new User(name, hashpassword, email);
         let count = await User.checkEmail(email);
 
@@ -26,8 +26,7 @@ exports.createUser = async (req, res, next) => {
             //req.flash('error',"Email already exists")
             res.status(409).json({ message: "Email already exists! " });
         }
-        else if(confirmPassword != password)
-        {
+        else if (confirmPassword != password) {
             res.status(409).json({ message: "Incorrect password" });
         }
         else {
@@ -44,7 +43,7 @@ exports.createUser = async (req, res, next) => {
 exports.demoLogin = async (req, res, next) => {
     let { password, email } = req.body;
     //start session with email
-    
+
 }
 
 exports.login = async (req, res, next) => {
@@ -60,14 +59,20 @@ exports.login = async (req, res, next) => {
             const hashedpassword = await User.getPassword(email);
 
             const newHashedPassword = hashedpassword[0];
-            
-            let values = Object.values(newHashedPassword);
-            
-            var stringObj = JSON.stringify(values)
-            console.log(typeof(JSON.stringify(values)));
-            
-            
-            res.status(200).json({count: newHashedPassword.length, newHashedPassword}); 
+
+            var stringObj = JSON.stringify(newHashedPassword);
+            console.log(stringObj);
+            stringObj = stringObj.substring(14, stringObj.length - 3);
+
+            console.log(stringObj);
+            if (await bcrypt.compare(password, stringObj)) {
+                console.log("---------> Login Successful")
+                res.send(`${email} is logged in!`)
+            }
+            else {
+                console.log("---------> Password Incorrect")
+                res.send("Password incorrect!")
+            }
         }
     }
     catch (error) {
