@@ -1,3 +1,6 @@
+document.getElementById("submit-btn-registration").onclick = validate;
+
+
 function validate() {
     // password validation
     var pass = document.getElementById('password').value;

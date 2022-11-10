@@ -422,7 +422,7 @@ footer p {
     color: #3C885B;
     text-align: center;
     padding-left: 5px;
-    
+
 }
 
 .about-link:hover {
@@ -431,10 +431,20 @@ footer p {
 
 #search_results_main {
     display: flex;
+    min-width: 100%;
 }
 
 #search_results_filters {
     border-right: solid black;
+    width: fit-content;
+    margin-left: 10px;
+}
+
+.filters_header {
+    color: black;
+    font-family: inherit;
+    font-size: inherit;
+    margin-top: 90px;
 }
 
 .container:hover {
@@ -445,7 +455,7 @@ footer p {
 }
 
 #search_results_card_section {
-    width: 1200px;
+    width: 100%;
 }
 
 #search_results_cards {
@@ -514,38 +524,83 @@ footer p {
 
 .filters {
     display: flex;
+    border: none;
     flex-direction: column;
+    padding: 0px 20px;
+    width: fit-content;
+    
 }
 
-/* .select {
-    padding: 8px 12px;
-    color: #333333;
-    background-color: #eeeeeec9;
-    border: 1px solid rgb(116, 116, 116);
-    cursor: pointer;
-    border-radius: 5px;
+#min-price {
+    margin: 5px 0px;
+    padding: 10px;
+    color: black;
+    border: solid black;
+    position: inherit;
+    border-radius: 30px;
     font-family: inherit;
     font-size: inherit;
-    width: 50%;
-    margin: 5px;
+}
+
+#min-price:focus {
+    outline: none;
+}
+
+#min-price::placeholder,
+#max-price::placeholder {
+    color: black;
+}
+
+#max-price {
+    margin: 5px 0px;
+    padding: 10px;
+    color: black;
+    border: solid black;
+    border-radius: 30px;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+#max-price:focus {
+    outline: none;
+}
+
+.select {
+    margin: 5px 0px;
+    padding: 10px;
+    color: black;
+    border: solid black;
+    cursor: pointer;
+    border-radius: 30px;
+    font-family: inherit;
+    font-size: inherit;
+    appearance: none;
 }
 .select:focus,
 .select:hover {
     outline: none;
-    border: 1px solid black;
 }
 .select option {
     background: white;
-} */
+}
 
 #apply-filters-button {
     text-decoration: none;
-    margin: 10px;
-    padding: 5px;
-    color: black;
+    margin-top: 10px;
+    padding: 10px;
+    color: white;
     cursor: pointer;
     font-family: inherit;
     font-size: inherit;
+    align-self: center;
+    width: 50%;
+    background-color: #3c885b;
+    border: none;
+    border-radius: 30px;
+}
+
+#apply-filters-button:hover {
+    background-color: #2e6644;
 }
 
 .search-select {
@@ -567,14 +622,15 @@ footer p {
     border: 1px solid black;
 }
 
-.submit-btn{
+.submit-btn {
     display: inline-block;
     height: 60px;
-    width:350px;
+    width: 350px;
     text-align: center;
-    
+
     border-radius: 30px;
-    color: #EAEFF2;;
+    color: #EAEFF2;
+    ;
     border: none;
     font-size: 40px;
     font-family: 'Times New Roman', Times, serif;
@@ -589,6 +645,190 @@ footer p {
 /* Testing */
 /* testing */
 /* testing */
+
+
+.open-body {
+    margin: 0;
+    padding: 100px;
+    background: url(pic1.jpg) no-repeat center;
+    background-size: cover;
+    background-position: center;
+    font-family: sans-serif;
+}
+
+.Overbox {
+    height: 70vh;
+    width: 90vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+
+}
+
+.form-registration {
+
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    padding: 80px 40px 40px;
+    background: #1a735d;
+    border-radius: 5%;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 1);
+}
+
+.form-login {
+
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    padding: 80px 40px 40px;
+    background: #EAEFF2;
+    border-radius: 5%;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 1);
+}
+
+.logo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: absolute;
+    top: -90px;
+    left: calc(45% - 50px)
+}
+
+h1 {
+
+    margin: 0;
+    letter-spacing: 5px;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 48px;
+    color: #EAEFF2;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: oblique;
+}
+
+h2 {
+
+    margin: 0;
+    letter-spacing: 5px;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 48px;
+    color: rgb(83, 131, 104);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: oblique;
+}
+
+.form-login .input-name input {
+    width: 105%;
+    padding: 0px;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    border: none;
+    border-bottom: 1px solid #29282872;
+    outline: none;
+    background-color: transparent;
+
+    height: 50px;
+    margin-bottom: 30px;
+    font-size: xx-large;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
+.form-registration .input-name input {
+    width: 105%;
+    padding: 0px;
+    font-size: 1rem;
+    border: none;
+    border-bottom: 1px solid #EAEFF2;
+    outline: none;
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+
+    height: 50px;
+    margin-bottom: 30px;
+    font-size: x-large;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
+.form-registration .input-name ::placeholder {
+    color: black;
+}
+
+.submit-btn-registration {
+    display: inline-block;
+    height: 60px;
+    width: 350px;
+    text-align: center;
+
+    border-radius: 30px;
+    background-color: #EAEFF2;
+    ;
+    border: none;
+    font-size: 40px;
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(83, 131, 104);
+    margin-bottom: 10px;
+    margin-left: 10px;
+    /* padding: 20px; */
+}
+
+.submit-btn {
+    display: inline-block;
+    height: 60px;
+    width: 350px;
+    text-align: center;
+
+    border-radius: 30px;
+    color: #EAEFF2;
+    ;
+    border: none;
+    font-size: 40px;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: rgb(83, 131, 104);
+    margin-bottom: 10px;
+    margin-left: 10px;
+    /* padding: 20px; */
+
+
+}
+
+.txt-login {
+    color: black;
+    margin-left: 70px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+
+.txt-registration {
+    color: #EAEFF2;
+    margin-left: 70px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+
+.bud-login {
+    color: rgb(83, 131, 104);
+}
+
+.bud-registration {
+    color: #000000;
+}
+
+.toRegister {
+    border-bottom: 1px solid #2d2e2e;
+
+}
+
+.toRegisterr {
+    border-bottom: 1px solid #EAEFF2;
+}
+
 
 .profile-page {
     margin: 70px 30px;
@@ -690,6 +930,7 @@ footer p {
     font-weight: 700;
     text-align: center;
     margin-bottom: 20px;
+    cursor: pointer;
 }
 
 .profile-page-button:hover {
@@ -880,4 +1121,58 @@ footer p {
 
 .user-profile-page-listing-desc {
     padding: 10px;
+}
+
+.form-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 500px;
+    box-shadow: 2px 5px 5px black;
+    border: solid black;
+    background-color: white;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    width: 580px;
+    height: 479px;
+    border: none;
+}
+
+.review-header {
+    font-family: inherit;
+    font-size: inherit;
+    color: black;
+    margin-top: 10px;
+}
+
+.form-container textarea {
+    resize: none;
+}
+
+.form-container textarea:focus {
+    outline: none;
+}
+
+.form-container .post {
+    background-color: #3C885B;
+    color: white;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    margin-bottom: 10px;
+}
+
+.form-container .post:hover {
+    background-color: #295b3d;
 }

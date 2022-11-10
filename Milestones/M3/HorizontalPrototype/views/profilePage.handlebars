@@ -5,7 +5,9 @@
     <div class="profile-img-info-bio">
         <div class="profile-page-img-info">
             <div class="profile-page-img-section">
-                <img class="profile-page-img" src="https://i0.wp.com/evanstonroundtable.com/wp-content/uploads/2022/05/Lushina-scaled-e1652827479814.jpg?fit=1200%2C900&ssl=1" alt="">
+                <img class="profile-page-img"
+                    src="https://i0.wp.com/evanstonroundtable.com/wp-content/uploads/2022/05/Lushina-scaled-e1652827479814.jpg?fit=1200%2C900&ssl=1"
+                    alt="">
             </div>
             <div class="profile-page-info">
                 <p class="profile-page-person-name">Brittney Spears</p>
@@ -19,16 +21,26 @@
                 Learn about Brittney
             </header>
             <p class="bio-description">
-                Hello everyone, my name is Brittney Spears and I'm a 27 year old Accountant. I own a 3 bedroom house in San
-                Francisco that is currently rented out by a wonderful family of 4. I love traveling to scenic countries and 
+                Hello everyone, my name is Brittney Spears and I'm a 27 year old Accountant. I own a 3 bedroom house in
+                San
+                Francisco that is currently rented out by a wonderful family of 4. I love traveling to scenic countries
+                and
                 hiking on big beautiful mountains.
             </p>
         </div>
     </div>
     <div class="profile-btn-reviews-listings">
         <div class="profile-page-buttons-section">
-            <a class="profile-page-button" href="">Leave a Review</a>
-            {{!-- <a class="profile-page-button" href="">Button</a> --}}
+            <button class="profile-page-button" onclick="openForm()">Leave a Review</button>
+            <div class="form-popup" id="myForm">
+                <form class="form-container">
+                    <h1 class="review-header">Leave a Review</h1>
+                    {{!-- {{> rating 5}} --}}
+                    <textarea name="review" id="textarea" class="text" cols="50" rows="20" placeholder="Enter a review..."
+                        required></textarea>
+                    <button type="button" class="post" onclick="closeForm()">Post</button>
+                </form>
+            </div>
         </div>
         <div class="profile-page-box">
             <header class="profile-page-box-header">
@@ -38,14 +50,16 @@
                 <div class="profile-page-review">
                     <h4> Review 1</h4>
                     <p>
-                        Britney was very helpful during the application process. She was very responsive and the entire process
+                        Britney was very helpful during the application process. She was very responsive and the entire
+                        process
                         was done in a few hours. She is truly an amazing landlord and I wish all landlords are like her.
                     </p>
                 </div>
                 <div class="profile-page-review">
                     <h4> Review 2</h4>
                     <p>
-                        Britney was very helpful during the application process. She was very responsive and the entire process
+                        Britney was very helpful during the application process. She was very responsive and the entire
+                        process
                         was done in a few hours. She is truly an amazing landlord and I wish all landlords are like her.
                     </p>
                 </div>
@@ -68,3 +82,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    function openForm() {
+        document.getElementById("myForm").style.display = "block";
+    }
+
+    function closeForm() {
+        document.getElementById("textarea").value = "";
+        document.getElementById("myForm").style.display = "none";
+    }
+</script>
