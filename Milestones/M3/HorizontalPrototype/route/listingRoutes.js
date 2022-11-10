@@ -39,7 +39,6 @@ router.get("/", listingControllers.getAllListings, (req, res, next) => {
 });
 
 router.get("/search", listingControllers.searchListings, (req, res, next) => {
-    res.locals.searchTerm = 
     res.render("listingResults");
 });
 

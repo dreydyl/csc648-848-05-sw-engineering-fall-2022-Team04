@@ -12,4 +12,8 @@ router.post("/login", userControllers.login, (req, res, next) => {
     res.send(''); //TODO set response
 });
 
+router.get("/search", userControllers.searchLandlords, (req, res, next) => {
+    res.render("landlordResults");
+});
+
 module.exports = router;
