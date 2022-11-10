@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var sessions = require('express-session');
 var mysqlSession = require ('express-mysql-session')(sessions);
+var bodyParser=require('body-parser');
 const port = 8080;
 
 const path = require('path');
@@ -13,6 +14,9 @@ app.set('view engine', 'handlebars');
 app.set("views", `${__dirname}/views`);
 app.use(express.static(`${__dirname}/public`));
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
 app.use('/', require("./route/routeIndex"));
 
@@ -81,6 +85,7 @@ app.get('/loginpage', (req, res) => {
 app.get('/helppage', (req, res) => {
     res.render('helppage');
 });
+
 
 app.get('/devAbout', (req, res) => {
     res.render('about/devAbout');
