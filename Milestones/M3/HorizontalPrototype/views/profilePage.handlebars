@@ -69,7 +69,7 @@
             <header class="profile-page-box-header">
                 Listings
             </header>
-            <div class="profile-page-listings">
+            <div class="profile-page-listings" id="profile-page-listings">
                 <div class="profile-page-listing">
                     <img class="profile-page-listing-img" src="images/picture_1666042712023.jpeg">
                     <div class="profile-page-listing-desc">
@@ -91,5 +91,8 @@
     function closeForm() {
         document.getElementById("textarea").value = "";
         document.getElementById("myForm").style.display = "none";
+    }
+    document.getElementById("profile-page-listings").onclick = () => {
+        location.replace("/listingpage");
     }
 </script>

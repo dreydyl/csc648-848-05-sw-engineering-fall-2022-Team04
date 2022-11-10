@@ -956,6 +956,7 @@ h2 {
 
 .profile-page-listings {
     margin: 5px 0px;
+    cursor: pointer;
 }
 
 .profile-page-listing {
