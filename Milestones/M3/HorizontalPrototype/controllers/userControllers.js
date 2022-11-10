@@ -14,11 +14,12 @@ const bcrypt = require("bcrypt");
 
 exports.createUser = async (req, res, next) => {
     try {
+        console.log(req.body);
         let { name, password, email, confirmPassword} = req.body;
-        const hashedpassword = await bcrypt.hash(password, 10);
-    
+        //console.log(password);
+        const hashpassword = await bcrypt.hashSync(password, 10);
         
-        let register = new User(name, hashedpassword, email);
+        let register = new User(name, hashpassword, email);
         let count = await User.checkEmail(email);
 
         if (count[0] != 0) {

@@ -12,7 +12,7 @@ const router = express.Router();
 //     res.send(''); //TODO set response
 // });
 
-router.route("/").post(userControllers.createUser);
+router.route("/signup").post(userControllers.createUser);
 router.route("/login").post(userControllers.login);
 
 module.exports = router;
