@@ -8,13 +8,13 @@ document.getElementById("apply-filters-button").onclick = () => {
     let baths = document.getElementById("baths-filter").value;
 
     //check if values are good
-    if(isNaN(minPrice)) { //check if number
+    if(!minPrice) {
         console.log("price fail: "+minPrice);
         minPrice = "";
     } else {
         minPrice = "&min="+minPrice;
     }
-    if(isNaN(maxPrice)) { //check if number
+    if(!maxPrice) {
         console.log("price fail");
         maxPrice = "";
     } else {
@@ -24,30 +24,30 @@ document.getElementById("apply-filters-button").onclick = () => {
         console.log("fail");
     }
     if(rating != "> 1"
-            || rating != "> 2"
-            || rating != "> 3"
-            || rating != "> 4"
-            || rating != "5") {
-        console.log("fail");
+            && rating != "> 2"
+            && rating != "> 3"
+            && rating != "> 4"
+            && rating != "5") {
+        console.log("fail rating: "+ rating);
         rating = "";
     } else {
         rating = "&rating="+rating;
     }
     if(beds != "1"
-            || beds != "2"
-            || beds != "3"
-            || beds != "4"
-            || beds != "> 4") {
+            && beds != "2"
+            && beds != "3"
+            && beds != "4"
+            && beds != "> 4") {
         console.log("fail");
         beds = "";
     } else {
         beds = "&beds="+beds;
     }
     if(baths != "1"
-            || baths != "2"
-            || baths != "3"
-            || baths != "4"
-            || baths != "> 4") {
+            && baths != "2"
+            && baths != "3"
+            && baths != "4"
+            && baths != "> 4") {
         console.log("fail");
         baths = "";
     } else {
