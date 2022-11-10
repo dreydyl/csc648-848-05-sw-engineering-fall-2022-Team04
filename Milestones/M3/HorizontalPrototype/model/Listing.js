@@ -59,8 +59,33 @@ class Register {
  
     }
 
-    static search(search, filters, sorting) { //TODO
-        let sql = `SELECT * FROM listing WHERE listing_id BETWEEN '0' AND '7';`;
+    static search(filters) { //TODO
+        let sql = `SELECT * FROM listing WHERE `;
+        console.log(filters);
+        if(filters.min != 'undefined')
+        {
+            sql += `price > '${filters.min}' AND `;
+        }
+        if(filters.max != 'undefined')
+        {
+            sql += `price < '${filters.max}' AND `;
+        }
+        if(filters.bed != 'undefined')
+        {
+            sql += `bed = '${filters.bed}' AND `;
+        }
+        if(filters.bath != 'undefined')
+        {
+            sql += `bath = '${filters.bath}' AND `;
+        }
+        if(filters.rating != 'undefined')
+        {
+            sql += `rating = ${filters.rating} AND `;
+        }
+
+        sql = sql.substring(0, sql.length - 4);
+
+        sql += `;`;
 
         return db.execute(sql); 
     }

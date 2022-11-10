@@ -33,9 +33,9 @@ router.post("/", listingControllers.createNewListing, upload.single('file_name')
     res.send('POST Request Called');
 })
 
-router.get("/:id", listingControllers.getListBySearch, (req, res, next) => {
-    res.render('partials/listingPage');
-});
+// router.get("/:id", listingControllers.getListBySearch, (req, res, next) => {
+//     res.render('partials/listingPage');
+// });
 
 router.get("/search", listingControllers.searchListings, (req, res, next) => {
     res.locals.searchTerm = 

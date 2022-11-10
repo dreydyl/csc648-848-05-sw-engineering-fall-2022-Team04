@@ -4,35 +4,35 @@
             Search Filters
         </h1>
 
-        <form class="filters">
-            <input type="number" placeholder="Min Price" id="min-price">
-            <input type="number" placeholder="Max Price" id="max-price">
+        <form class="filters" method="get" action="/listings/searchfilters">
+            <input type="number" name="min" placeholder="Min Price" id="min-price">
+            <input type="number" name="max" placeholder="Max Price" id="max-price">
 
-            <select class="select" id="rating-filter">
+            <select class="select" id="rating-filter" name="rating">
                 <option disabled selected>Rating</option>
-                <option value="> 1">> 1</option>
-                <option value="> 2">> 2</option>
-                <option value="> 3">> 3</option>
-                <option value="> 4">> 4</option>
+                <option value="1">> 1</option>
+                <option value="2">> 2</option>
+                <option value="3">> 3</option>
+                <option value="4">> 4</option>
                 <option value="5">5</option>
             </select>
 
-            <select class="select" id="beds-filter">
+            <select class="select" id="beds-filter" name="bed">
                 <option disabled selected>Beds</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
-                <option value="> 4">> 4</option>
+                <option value="4">> 4</option>
             </select>
 
-            <select class="select" id="baths-filter">
+            <select class="select" id="baths-filter" name="bath">
                 <option disabled selected>Baths</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
-                <option value="> 4">> 4</option>
+                <option value="4">> 4</option>
             </select>
             <input type="button" value="Apply" id="apply-filters-button"/>
         </form>

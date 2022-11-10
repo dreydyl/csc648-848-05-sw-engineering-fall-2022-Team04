@@ -150,67 +150,102 @@ exports.searchListings = async (req, res, next) => {
 
 exports.applyFilters = async (req, res, next) => {
     //url example /search?search=&min=&max=&rating=&beds=&baths=
-    let search = req.query.search;
-}
+    let { min, max, bed, bath, rating } = req.query;
+    let filters = {
+        "min": min,
+        "max": max,
+        "bed": bed,
+        "bath": bath,
+        "rating": rating
+    };
 
-exports.getListBySearch = async (req, res, next) => {
-    let search = req.params.search;
-    let temp = search.split(" ");
-    if (temp.length > 5) {
-        try {
-            let address = search;
-            let [listing, _] = await Listing.getListByAddress(address);
-
-            res.status(200).json({ listing });
-        } catch (error) {
-            console.log(error);
-            next(error);
+    try {
+        let searchFilter = new Listing(filters);
+        let search = req.query.search;
+        console.log(filters);
+        console.log(search);
+        if (!search) {
+            res.send({
+                resultsStatus: "info",
+                message: "no search is made"
+            });
         }
-        return;
-    }
+        else {
+            searchFilter = await Listing.search(filters);
+            res.status(200).json(searchFilter);
 
-    if ((isNaN(search))) {
-        try {
-            let city = search;
-            let [listing, _] = await Listing.getListByCity(city);
-            if (listing.length == 0) {
-                try {
-                    let zipcode = search;
-                    let [listing, _] = await Listing.findAll(zipcode);
-
-                    res.status(200).json({ listing });
-                } catch (error) {
-                    console.log(error);
-                    next(error);
-                }
-            }
-
-            res.status(200).json({ listing });
-        } catch (error) {
-            console.log(error);
-            next(error);
-        }
-    } else {
-        try {
-            let zipcode = search;
-            let [listing, _] = await Listing.getListByZipcode(zipcode);
-            if (listing.length == 0) {
-                try {
-                    let zipcode = search;
-                    let [listing, _] = await Listing.findAll(zipcode);
-
-                    res.status(200).json({ listing });
-                } catch (error) {
-                    console.log(error);
-                    next(error);
-                }
-            }
-
-            res.status(200).json({ listing });
-        } catch (error) {
-            console.log(error);
-            next(error);
+            res.send({
+                resultsStatus: "info",
+                message: "No results found ... ",
+                results: searchFilter[0]
+            });
         }
     }
-
+    catch (error) {
+        console.log(error);
+        next(error);
+    }
 }
+
+
+// exports.getListBySearch = async (req, res, next) => {
+//     let search = req.params.search;
+//     let temp = search.split(" ");
+//     if (temp.length > 5) {
+//         try {
+//             let address = search;
+//             let [listing, _] = await Listing.getListByAddress(address);
+
+//             res.status(200).json({ listing });
+//         } catch (error) {
+//             console.log(error);
+//             next(error);
+//         }
+//         return;
+//     }
+
+//     if ((isNaN(search))) {
+//         try {
+//             let city = search;
+//             let [listing, _] = await Listing.getListByCity(city);
+//             if (listing.length == 0) {
+//                 try {
+//                     let zipcode = search;
+//                     let [listing, _] = await Listing.findAll(zipcode);
+
+//                     res.status(200).json({ listing });
+//                 } catch (error) {
+//                     console.log(error);
+//                     next(error);
+//                 }
+//             }
+
+//             res.status(200).json({ listing });
+//         } catch (error) {
+//             console.log(error);
+//             next(error);
+//         }
+//     } else {
+//         try {
+//             let zipcode = search;
+//             let [listing, _] = await Listing.getListByZipcode(zipcode);
+//             if (listing.length == 0) {
+//                 try {
+//                     let zipcode = search;
+//                     let [listing, _] = await Listing.findAll(zipcode);
+
+//                     res.status(200).json({ listing });
+//                 } catch (error) {
+//                     console.log(error);
+//                     next(error);
+//                 }
+//             }
+
+//             res.status(200).json({ listing });
+//         } catch (error) {
+//             console.log(error);
+//             next(error);
+//         }
+//     }
+
+// }
