@@ -4,15 +4,40 @@
             <a class="home-btn" href="/"><span>
                     <div class="nav-title">
                         <img class="header-logo" src="/public/images/EZRent_Full_Logo_v2.svg" alt="">
-                        {{!-- <header class="header">
-                            EzRent
-                        </header> --}}
                     </div>
                 </span></a>
         </div>
         <div class="nav-left">
             <a class="help-button" href="/helppage">Help</a>
-            <a class="login-header-button" href="/loginpage">Login</a>
+            <a class="profile-button" href="/loginpage">
+                <div class="dropdown login-header-button" id="dropdown">
+                    <div class="dropdown-options" id="dropdown-options">
+                        <div class="dropdown-option" id="login-option">
+                            Login
+                        </div>
+                        <div class="dropdown-option" id="profile-option">
+                            Profile
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu">
+            <div class="dropdown-menu-container" id="listings-item">
+                <div class="dropdown-menu-item">
+                    <div class="dropdown-menu-content">
+                        View Profile
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown-menu-container" id="landlords-item">
+                <div class="dropdown-menu-item">
+                    <span class="dropdown-menu-content">
+                        Logout
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script type="module" src="/public/js/header.js"></script>

@@ -15,8 +15,11 @@
         height: 140vh;
         border: 10px solid #444;
         border-radius: 50px;
+
     }
+
     .grid {}
+
     /* Add styles to the form container 
     .form-postlisting {
         border-radius: 50px;
@@ -26,38 +29,55 @@
         height: 100%;
         padding: 30px;
         background-color: #444;
+
     }*/
+
     .upload-image {
         display: flex;
         flex-direction: column;
+        margin-top: 15px;
     }
+
     .form-wrapper {
         position: relative;
         height: 170vh;
         width: 100vw;
         margin: auto;
     }
+
     form {
+
         margin-left: auto;
         margin-right: auto;
-        margin-top: 12vh;
-        height: 10vh;
+        margin-top: -10vh;
+        height: 30vh;
         width: 50vw;
+
         border: 3px dashed rgb(0, 0, 0);
     }
+
+    form:hover {
+        background: #d2d2d2;
+        color: #black;
+    }
+
     form p {
         position: absolute;
         text-align: center;
         line-height: 15px;
-        width: 55vw;
+        width: 50vw;
         color: #black;
         font-family: montserrat;
     }
+
     form input {
         position: absolute;
         outline: none;
         opacity: 0;
+        width: inherit;
+        height: inherit;
     }
+
     button {
         margin: 0;
         color: #black;
@@ -65,35 +85,46 @@
         margin-top: 1vh;
         margin-left: auto;
         margin-right: auto;
-        width: 50vw;
+        width: 45vw;
+        height: 6vh;
         border-radius: 4px;
         transition: all .4s ease;
         outline: none;
     }
+
     button:hover {
         background: #80B494;
         color: #black;
     }
+
     button:active {
         border: 0;
     }
+
     .title {
         color: black;
         text-align: center;
     }
+
     input {
+
+        margin-left: 5px;
         font-family: montserrat;
         padding: .5em;
-        width: 70%;
+        height: 2vh;
+        width: 58%;
         border: 3px solid var(#444);
         border-radius: 7px;
     }
+
     input[required]:placeholder-shown {
         border-color: #80B494;
     }
+
     body {
         text-align: center;
     }
+
     .btn {
         border-radius: 7px;
         color: black;
@@ -103,17 +134,25 @@
         display: inline-block;
         font-size: 16px;
     }
+
     .btn {
         transition-duration: 0.4s;
     }
+
     .btn:hover {
         background-color: #80B494;
         color: black;
     }
+
     .Post-one {
-        height: 30px;
-        margin-top: 280px;
-        margin-left: 0px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .Label-btn {
+        margin-top: 2px;
+        width: 10vw;
+        height: 0vh;
     }
 </style>
 
@@ -128,52 +167,58 @@
                     <input type="file" multiple>
                     <p>Drag your Image files here or click in this area.</p>
                 </form>
-                <button type="submit" action="upload.php" method="POST">Upload</button>
+                {{!-- <button type="submit" >Upload</button> --}}
             </div>
 
 
             <div class="Post-one">
-                <label for="Address"><b>Address</b></label>
+                <p for="Address" class="Label-btn"><b>Address</b></p>
                 <input type="text" placeholder="Enter Address" name="Address" required>
             </div>
-            <div class="Post-two">
-                <label for="City"><b>City</b></label>
+            <div class="Post-one">
+                <p for="City" class="Label-btn"><b>City</b></p>
                 <input type="text" placeholder="Enter City" name="City" required>
             </div>
-            <div class="Post-three">
-                <label for="state"><b>State</b></label>
+            <div class="Post-one">
+                <p for="state" class="Label-btn"><b>State</b></p>
                 <input type="text" placeholder="Enter State" name="state" required>
             </div>
-            <div class="Post-four">
-                <label for="Zipcode"><b>Zip Code</b></label>
+            <div class="Post-one">
+                <p for="Zipcode" class="Label-btn"><b>Zip Code</b></p>
                 <input type="text" placeholder="Enter Zip Code" name="Zipcode" required>
             </div>
-            <div class="Post-five">
-                <label for="Bed"><b>Bed</b></label>
+            <div class="Post-one">
+                <p for="Bed" class="Label-btn"><b>Bed</b></p>
                 <input type="text" placeholder="Enter Number of Beds" name="Bed" required>
             </div>
-            <div class="Post-six">
-                <label for="Bath"><b>Bath</b></label>
+            <div class="Post-one">
+                <p for="Bath" class="Label-btn"><b>Bath</b></p>
                 <input type="text" placeholder="Enter Number of Bathrooms" name="Bath" required>
             </div>
-            <div class="Post-seven">
-                <label for="Price"><b>Price</b></label>
+            <div class="Post-one">
+                <p for="Price" class="Label-btn"><b>Price</b></p>
                 <input type="text" placeholder="Enter Price in US dollars" name="Price" required>
             </div>
             <div class="Post-button">
-                <button type="submit" class="btn">Post</button>
+                <button id="Post-button" type="submit" class="btn">Post</button>
 
             </div>
 
         </div>
     </div>
 </body>
-{{!-- <script>
+<script>
     $(document).ready(function () {
         $('form input').change(function () {
             $('form p').text(this.files.length + " file(s) selected");
         });
     });
-</script> --}}
+</script>
+<script>
+    type = "text/javascript"
+    document.getElementById("Post-button").onclick = function () {
+        location.href = "/profilepage";
+    }
+</script>
 
 </html>

@@ -1,10 +1,50 @@
-<body id="main-content">
-    <h1>{{header}}</h1>
-    <div class="centered-flex">
-        <div id="container">
+<div id="search_results_main">
+    <div id="search_results_filters">
+        <h1 class="filters_header">
+            Search Filters
+        </h1>
+
+        <form class="filters">
+            <input type="number" placeholder="Min Price" id="min-price">
+            <input type="number" placeholder="Max Price" id="max-price">
+
+            <select class="select">
+                <option disabled selected>Rating</option>
+                <option value="> 1">> 1</option>
+                <option value="> 2">> 2</option>
+                <option value="> 3">> 3</option>
+                <option value="> 4">> 4</option>
+                <option value="5">5</option>
+            </select>
+
+            <select class="select">
+                <option disabled selected>Beds</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="> 4">> 4</option>
+            </select>
+
+            <select class="select">
+                <option disabled selected>Baths</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="> 4">> 4</option>
+            </select>
+            <input type="submit" value="Apply" id="apply-filters-button" />
+        </form>
+    </div>
+    <div id="search_results_card_section">
+        <h1>Listings</h1>
+        <div id="search_results_cards">
+            {{log this}}
             {{#each results}}
             {{> listingCard this}}
             {{/each}}
         </div>
     </div>
-</body>
+</div>
+<script type="module" src="/public/js/listingResults.js"></script>

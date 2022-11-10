@@ -137,3 +137,4 @@ let badReview = {
     "title": "Horrendous. No compassion",
     "description": `I have a sick mother. This landlord raised my rent 3 times in the last 14 months because of the "economy".`
 }
+//listingControllers.searchListings

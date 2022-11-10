@@ -1,10 +1,8 @@
 <style>
-
     .background{
      
      
         }
-
         .Overbox{
     
     
@@ -13,25 +11,22 @@
     align-items: center;
     height: 60vh;
     width:90vw;
-
         }
-
         
 </style>
 <div class="open-body">
      <img src="images\pic1.jpg" class="background">
 
     <div class="Overbox">
-        <form class="form-login">
+        <form action ="" class="form-login" >
             <img src="images\logo.png" class="logo-login">
 
             <style>
-
                     .background{
                             position: absolute;
                     top: 5%;
                     left: 0%;
-                    height: 87%;
+                    height: 1060px;
                     width: 100%;
      
      
@@ -54,9 +49,7 @@
                             border-radius: 50%;
                             position: absolute;
                             top: -90px;
-                            left: calc(46% - 50px);
-
-                        }
+                            left: calc(46% - 50px); }
                 h2{         
                     position: absolute;
                     top: 5%;
@@ -78,12 +71,10 @@
                         border-bottom: 1px solid #29282872;
                         outline: none;
                         background-color: transparent;
-
                         height: 50px;
                         margin-bottom: 30px;
                         font-size: xx-large;
                         font-family: 'Courier New', Courier, monospace;
-
                     }
                     .submit-btn{
                      position: absolute;
@@ -104,7 +95,6 @@
                     margin-left: 10px;
                     /* padding: 20px; */
                     }
-
                 .txt-login{
                     position: absolute;
                     top: 80%;
@@ -116,7 +106,6 @@
                 }
                 .bud-login{
                     color: rgb(83, 131, 104);
-
                 }
                 .toRegister{
                    
@@ -124,7 +113,10 @@
                      border-bottom-width: 10px;
                     
                 }
-
+                a:link { text-decoration: none; }
+                a:visited { text-decoration: none; }
+                a:hover { text-decoration: none; }
+                a:active { text-decoration: none; }
             </style>
 
             <h2>Login</h2>
@@ -139,10 +131,11 @@
                 <!-- <input type = "text" name="" placeholder="Confirm Password"> -->
 
             </div>
-
-            <input type="submit" name="" value="Login" class="submit-btn">
+                {{!-- <button type="button" class="submit-btn" href="/"> Login</button> --}}
+                {{!-- <a class="submit-btn" href="/">Login</a> --}}
+            <input type="button" onclick=location.href ='/' value="Login" class="submit-btn">
             <div class=toRegister>
-                <p class="txt-login">Don't have an account? <a href="/registration.html" class="bud-login">Register</a>
+                <p class="txt-login">Don't have an account? <a href="/register" class="bud-login">Register</a>
                 </p>
             </div>
         </form>
