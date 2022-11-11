@@ -4,7 +4,7 @@ var sessions = require('express-session');
 var mysqlSession = require ('express-mysql-session')(sessions);
 var bodyParser=require('body-parser');
 const port = 8080;
-
+const cookieParser = require("cookie-parser");
 const path = require('path');
 
 var handlebars = require('express-handlebars');
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
-
+app.use(cookieParser());
 app.use('/', require("./route/routeIndex"));
 
 // Redirect requests to endpoint starting with /registered to registeredRoutes.js
@@ -69,6 +69,23 @@ app.engine('handlebars', handlebars.engine({
          */
     }
 }));
+
+
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(sessions({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false 
+}));
+
+
+app.get('/',(req,res) => {
+    session=req.session;
+    if(session.userid){
+        res.send("Welcome User <a href=\'/logout'>click to logout</a>");
+    }
+});
 
 app.use(express.static('views'));
 
@@ -132,6 +149,7 @@ app.get('/ricardoAbout', (req, res) => {
 //         }
 //         next();
 //     })
+
 
 app.listen(port, () => {
     console.log(`App listening to port ${port}`);

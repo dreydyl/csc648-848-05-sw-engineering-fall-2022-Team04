@@ -48,6 +48,7 @@ exports.demoLogin = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
     try {
+        let session = req.session;
         let { password, email } = req.body;
         let count = await User.checkEmail(email);
         console.log(count[0]);
@@ -57,17 +58,18 @@ exports.login = async (req, res, next) => {
         else {
 
             const hashedpassword = await User.getPassword(email);
-
             const newHashedPassword = hashedpassword[0];
-
             var stringObj = JSON.stringify(newHashedPassword);
-            console.log(stringObj);
-            stringObj = stringObj.substring(14, stringObj.length - 3);
 
-            console.log(stringObj);
+            stringObj = stringObj.substring(14, stringObj.length - 3);
+            
+            // session.email = email;
+            
             if (await bcrypt.compare(password, stringObj)) {
                 console.log("---------> Login Successful")
-                res.send(`${email} is logged in!`)
+                // res.send(`${email} is logged in!`);
+                res.send(`Hey there, welcome <a href=\'users/logout'>click to logout</a>`);
+    
             }
             else {
                 console.log("---------> Password Incorrect")
@@ -80,6 +82,11 @@ exports.login = async (req, res, next) => {
         next(error);
     }
 
+}
+
+exports.logout = async (req, res, next) => {
+    req.session.destroy();
+    res.render("main");
 }
 
 // const checkUsername = (username) => {
