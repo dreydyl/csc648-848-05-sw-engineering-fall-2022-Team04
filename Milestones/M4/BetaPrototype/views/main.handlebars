@@ -1,0 +1,42 @@
+<div id="main-content">
+    <div class="home">
+        <article class="home-sections">
+            <section class="home-section" id="welcome-section">
+                {{> hook hooks.welcome}}
+                {{> search}}
+            </section>
+            <section class="home-section" id="listing-section">
+                {{> hook hooks.listing}}
+                {{> featuredListings listings}}
+            </section>
+            <section class="home-section" id="landlord-section">
+                {{> hook hooks.landlord}}
+                {{> featuredLandlords landlords}}
+            </section>
+            <section class="home-section" id="review-section">
+                {{> hook hooks.review}}
+                {{> badReview badReview}}
+            </section>
+            <section class="home-section" id="signup-section">
+                {{> hook hooks.signup}}
+                <a class="sign-up-button" href="/register">
+                    Sign up now
+                </a>
+            </section>
+        </article>
+        <div class="fixed-section">
+            <div class="prompt">
+                Check us out!
+            </div>
+            <div class="quicknav">
+                <div class="quicknav-button" id="quicknav-up">
+                    <div class="quicknav-image"></div>
+                </div>
+                <div class="quicknav-button" id="quicknav-down">
+                    <div class="quicknav-image"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="module" src="/public/js/homepage.js"></script>
