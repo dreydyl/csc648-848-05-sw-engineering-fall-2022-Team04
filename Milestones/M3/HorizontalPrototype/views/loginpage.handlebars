@@ -1,56 +1,62 @@
 <style>
-    .background{
-     
-     
-        }
-        .Overbox{
-    
-    
-    display: flex;
-     justify-content: center;
-    align-items: center;
-    height: 60vh;
-    width:90vw;
-        }
-        
+    .background {}
+
+    .Overbox {
+
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60vh;
+        width: 90vw;
+    }
 </style>
+
 <div class="open-body">
-     <img src="images\pic1.jpg" class="background">
+    <img src="images\pic1.jpg" class="background">
 
     <div class="Overbox">
+<<<<<<< HEAD
         <form action ="" class="form-login" method="post" action="/users/login" >
+=======
+        <form action="" class="form-login">
+>>>>>>> frontend3
             <img src="images\logo.png" class="logo-login">
 
             <style>
-                    .background{
-                            position: absolute;
+                .background {
+                    position: absolute;
                     top: 5%;
                     left: 0%;
                     height: 1060px;
                     width: 100%;
-     
-     
-                     }
-                .form-login{
-                     align-items: center;
+
+
+                }
+
+                .form-login {
+                    align-items: center;
                     position: absolute;
                     top: 35%;
                     left: calc(40% - 50px);
-                    width:480px;
+                    width: 480px;
                     height: 500px;
                     padding: 80px 40px 40px;
                     background: #EAEFF2;
                     border-radius: 5%;
-                    box-shadow: 0 15px 25px rgba(0,0,0,1);
-                    }
-                    .logo-login{
-                            width: 150px;
-                            height:150px;
-                            border-radius: 50%;
-                            position: absolute;
-                            top: -90px;
-                            left: calc(46% - 50px); }
-                h2{         
+                    box-shadow: 0 15px 25px rgba(0, 0, 0, 1);
+                }
+
+                .logo-login {
+                    width: 150px;
+                    height: 150px;
+                    border-radius: 50%;
+                    position: absolute;
+                    top: -90px;
+                    left: calc(46% - 50px);
+                }
+
+                h2 {
                     position: absolute;
                     top: 5%;
                     left: 33%;
@@ -60,33 +66,35 @@
                     color: rgb(83, 131, 104);
                     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
                     font-style: oblique;
-                
-                    }
-                    .form-login .input-name input{
-                        width: 105%;
-                        padding: 0px; 
-                        font-size: 2rem;
-                        letter-spacing: 1px;
-                        border: none;
-                        border-bottom: 1px solid #29282872;
-                        outline: none;
-                        background-color: transparent;
-                        height: 50px;
-                        margin-bottom: 30px;
-                        font-size: xx-large;
-                        font-family: 'Courier New', Courier, monospace;
-                    }
-                    .submit-btn{
-                     position: absolute;
+
+                }
+
+                .form-login .input-name input {
+                    width: 105%;
+                    padding: 0px;
+                    font-size: 2rem;
+                    letter-spacing: 1px;
+                    border: none;
+                    border-bottom: 1px solid #29282872;
+                    outline: none;
+                    background-color: transparent;
+                    height: 50px;
+                    margin-bottom: 30px;
+                    font-size: xx-large;
+                    font-family: 'Courier New', Courier, monospace;
+                }
+
+                .submit-btn {
+                    position: absolute;
                     top: 70%;
                     left: 15%;
                     display: inline-block;
                     height: 60px;
-                    width:350px;
+                    width: 350px;
                     text-align: center;
-                    
+                    cursor: pointer;
                     border-radius: 30px;
-                    color: #EAEFF2;;
+                    color: #EAEFF2;
                     border: none;
                     font-size: 40px;
                     font-family: 'Times New Roman', Times, serif;
@@ -94,8 +102,9 @@
                     margin-bottom: 10px;
                     margin-left: 10px;
                     /* padding: 20px; */
-                    }
-                .txt-login{
+                }
+
+                .txt-login {
                     position: absolute;
                     top: 80%;
                     left: 15%;
@@ -104,19 +113,33 @@
                     font-family: 'Times New Roman', Times, serif;
                     font-weight: bold;
                 }
-                .bud-login{
+
+                .bud-login {
                     color: rgb(83, 131, 104);
                 }
-                .toRegister{
-                   
-                     border-bottom: 2px solid #2d2e2e;
-                     border-bottom-width: 10px;
-                    
+
+                .toRegister {
+
+                    border-bottom: 2px solid #2d2e2e;
+                    border-bottom-width: 10px;
+
                 }
-                a:link { text-decoration: none; }
-                a:visited { text-decoration: none; }
-                a:hover { text-decoration: none; }
-                a:active { text-decoration: none; }
+
+                a:link {
+                    text-decoration: none;
+                }
+
+                a:visited {
+                    text-decoration: none;
+                }
+
+                a:hover {
+                    text-decoration: none;
+                }
+
+                a:active {
+                    text-decoration: none;
+                }
             </style>
 
             <h2>Login</h2>
@@ -131,9 +154,9 @@
                 <!-- <input type = "text" name="" placeholder="Confirm Password"> -->
 
             </div>
-                {{!-- <button type="button" class="submit-btn" href="/"> Login</button> --}}
-                {{!-- <a class="submit-btn" href="/">Login</a> --}}
-            <input type="button" onclick=location.href ='/' value="Login" class="submit-btn">
+            {{!-- <button type="button" class="submit-btn" href="/"> Login</button> --}}
+            {{!-- <a class="submit-btn" href="/">Login</a> --}}
+            <input type="button" id="login-form-button" value="Login" class="submit-btn">
             <div class=toRegister>
                 <p class="txt-login">Don't have an account? <a href="/register" class="bud-login">Register</a>
                 </p>
@@ -142,3 +165,5 @@
     </div>
 
 </div>
+
+<script type="module" src="/public/js/login.js"></script>

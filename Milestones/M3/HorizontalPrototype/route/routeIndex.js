@@ -183,6 +183,10 @@ router.get("/userprofilepage", (req, res, next) => {
     res.render("userProfilePage", { title: "EZRent Profile" });
 });
 
+router.get("/postListingPage", (req, res, next) => {
+    res.render("postListingPage", { title: "EZRent Profile" });
+});
+
 router.get("/login", (req, res, next) => {
     res.render("loginpage", { title: "EZRent Login" });
 });

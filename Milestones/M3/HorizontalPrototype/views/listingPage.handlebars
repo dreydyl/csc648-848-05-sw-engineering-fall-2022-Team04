@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="listing-page-right">
-            <div class="landlord-info">
+            <div class="landlord-info" id="landlord-info">
                 <div class="landlord-profile">
                     <img class="landlord-image" src={{listing.landlord.img}}></img>
                     <div class="landlord-text">
@@ -38,6 +38,10 @@
                 </div>
                 <div class="landlord-bio">
                     {{listing.landlord.bio}}
+                </div>
+                <div class="contact-info">
+                    {{listing.landlord.phone}} </br>
+                    {{listing.landlord.email}}
                 </div>
             </div>
             <header class="profile-page-box-header">
@@ -51,3 +55,4 @@
         </div>
     </div>
 </div>
+<script type="module" src="/public/js/listingPage.js"></script>

@@ -23,4 +23,8 @@ router.route("/logout").get(userControllers.logout);
 //     res.render("userProfilePage", { title: "EZRent Profile" });
 // });
 
+router.get("/search", userControllers.searchLandlords, (req, res, next) => {
+    res.render("landlordResults");
+});
+
 module.exports = router;

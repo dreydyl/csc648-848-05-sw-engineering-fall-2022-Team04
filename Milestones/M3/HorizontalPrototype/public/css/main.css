@@ -221,6 +221,7 @@
 .featured-listings {
     top: 0;
     height: fit-content;
+    cursor: pointer;
 }
 
 .featured-listing {

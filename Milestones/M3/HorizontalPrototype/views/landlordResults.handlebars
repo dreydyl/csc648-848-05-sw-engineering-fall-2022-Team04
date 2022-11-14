@@ -1,0 +1,17 @@
+<div id="search_results_main">
+    <div class="landlord-search-bar">
+        {{> search}}
+    </div>
+    <div id="search_results_card_section">
+        <h1 class="listing-results-header">
+            Landlords </br>
+            <p id="search-term">{{searchTerm}}</p>
+        </h1>
+        <div id="search_results_cards">
+            {{#each results}}
+            {{> landlordCard this}}
+            {{/each}}
+        </div>
+    </div>
+</div>
+<script type="module" src="/public/js/search.js"></script>
