@@ -3,7 +3,7 @@
      <img src="images\pic1.jpg" class="background">
 
     <div class = "Overbox">
-    <form class = "form-registration" name ="form1">
+    <form class = "form-registration" name ="form1" method="POST" action="/users/signup">
      <img src="images\logo.png" class="logo-login">
      <style>
                     .background{
@@ -112,11 +112,11 @@ a:active { text-decoration: none; }
     <h1>Register</h1>
     <div class ="input-name">
        
-        <input type = "text" name="" placeholder="Full name" id ="loginUser" required>
+        <input type = "text" name="name" placeholder="Full name" id ="loginUser" required>
         
-        <input type = "email" name="text1" placeholder="E-mail Address" id ="email" required>
-        <input type = "password" name="" placeholder="Password" id ="password" required >
-        <input type = "password" name="" placeholder="Confirm password" id ="cpassword" required>
+        <input type = "email" name="email" placeholder="E-mail Address" id ="email" required>
+        <input type = "password" name="password" placeholder="Password" id ="password" required >
+        <input type = "password" name="confirmPassword" placeholder="Confirm password" id ="cpassword" required>
         
         
     </div>
