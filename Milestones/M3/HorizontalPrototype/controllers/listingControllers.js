@@ -150,6 +150,7 @@ exports.searchListings = async (req, res, next) => {
 
 exports.applyFilters = async (req, res, next) => {
     //url example /search?search=&min=&max=&rating=&beds=&baths=
+<<<<<<< HEAD
     let { min, max, bed, bath, rating } = req.query;
     let filters = {
         "min": min,
@@ -188,6 +189,11 @@ exports.applyFilters = async (req, res, next) => {
 }
 
 
+=======
+    let search = req.query.search;
+}
+
+>>>>>>> develop
 // exports.getListBySearch = async (req, res, next) => {
 //     let search = req.params.search;
 //     let temp = search.split(" ");

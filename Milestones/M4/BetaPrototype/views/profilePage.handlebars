@@ -1,0 +1,95 @@
+<div class="profile-page">
+    {{!-- <header class="profile-page-header">
+        Profile Page
+    </header> --}}
+    <div class="profile-img-info-bio">
+        <div class="profile-page-img-info">
+            <div class="profile-page-img-section">
+                <img class="profile-page-img"
+                    src="https://i0.wp.com/evanstonroundtable.com/wp-content/uploads/2022/05/Lushina-scaled-e1652827479814.jpg?fit=1200%2C900&ssl=1"
+                    alt="">
+            </div>
+            <div class="profile-page-info">
+                <p class="profile-page-person-name">Brittney Spears</p>
+                <h4>bspears@gmail.com</h4>
+                <h4>(650)123-4567</h4>
+                <p class="profile-page-person-rating">7/10</p>
+            </div>
+        </div>
+        <div class="profile-page-bio-box">
+            <header class="profile-page-box-header">
+                Learn about Brittney
+            </header>
+            <p class="bio-description">
+                Hello everyone, my name is Brittney Spears and I'm a 27 year old Accountant. I own a 3 bedroom house in
+                San
+                Francisco that is currently rented out by a wonderful family of 4. I love traveling to scenic countries
+                and
+                hiking on big beautiful mountains.
+            </p>
+        </div>
+    </div>
+    <div class="profile-btn-reviews-listings">
+        <div class="profile-page-buttons-section">
+            <button class="profile-page-button" onclick="openForm()">Leave a Review</button>
+            <div class="form-popup" id="myForm">
+                <form class="form-container">
+                    <h1 class="review-header">Leave a Review</h1>
+                    {{!-- {{> rating 5}} --}}
+                    <textarea name="review" id="textarea" class="text" cols="50" rows="20" placeholder="Enter a review..."
+                        required></textarea>
+                    <button type="button" class="post" onclick="closeForm()">Post</button>
+                </form>
+            </div>
+        </div>
+        <div class="profile-page-box">
+            <header class="profile-page-box-header">
+                Reviews
+            </header>
+            <div class="profile-page-reviews">
+                <div class="profile-page-review">
+                    <h4> Review 1</h4>
+                    <p>
+                        Britney was very helpful during the application process. She was very responsive and the entire
+                        process
+                        was done in a few hours. She is truly an amazing landlord and I wish all landlords are like her.
+                    </p>
+                </div>
+                <div class="profile-page-review">
+                    <h4> Review 2</h4>
+                    <p>
+                        Britney was very helpful during the application process. She was very responsive and the entire
+                        process
+                        was done in a few hours. She is truly an amazing landlord and I wish all landlords are like her.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="profile-page-box">
+            <header class="profile-page-box-header">
+                Listings
+            </header>
+            <div class="profile-page-listings">
+                <div class="profile-page-listing">
+                    <img class="profile-page-listing-img" src="images/picture_1666042712023.jpeg">
+                    <div class="profile-page-listing-desc">
+                        <p>3 Bedrooms</p>
+                        <p>2 Bathrooms</p>
+                        <p>$3500</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openForm() {
+        document.getElementById("myForm").style.display = "block";
+    }
+
+    function closeForm() {
+        document.getElementById("textarea").value = "";
+        document.getElementById("myForm").style.display = "none";
+    }
+</script>

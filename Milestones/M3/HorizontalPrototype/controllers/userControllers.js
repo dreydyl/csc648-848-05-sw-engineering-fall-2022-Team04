@@ -2,6 +2,9 @@ const User = require('../model/User');
 const bcrypt = require("bcrypt");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> develop
 // exports.getAllUsers =  async  (req, res, next ) => {
 //     try {
 //         const [registeredUser, _] = await Register.getAll();
@@ -36,6 +39,7 @@ exports.createUser = async (req, res, next) => {
         }
     }
     catch (error) {
+<<<<<<< HEAD
 =======
 exports.getAllUsers = async (req, res, next) => {
     try {
@@ -44,11 +48,14 @@ exports.getAllUsers = async (req, res, next) => {
         res.status(200).json({ count: registeredUser.length, registeredUser });
     } catch (error) {
 >>>>>>> frontend3
+=======
+>>>>>>> develop
         console.log(error);
         next(error);
     }
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 exports.demoLogin = async (req, res, next) => {
     let { password, email } = req.body;
@@ -70,17 +77,27 @@ const checkEmail = (email) => {
 
 >>>>>>> frontend3
 
+=======
+exports.demoLogin = async (req, res, next) => {
+    let { password, email } = req.body;
+    //start session with email
+    
+>>>>>>> develop
 }
 
 exports.login = async (req, res, next) => {
     try {
 <<<<<<< HEAD
+<<<<<<< HEAD
         let session = req.session;
+=======
+>>>>>>> develop
         let { password, email } = req.body;
         let count = await User.checkEmail(email);
         console.log(count[0]);
         if (count[0].length == 0) {
             res.status(404).json({ message: "User Not Found" });
+<<<<<<< HEAD
 =======
         //parse json
         let { name, email, password } = req.body;
@@ -110,10 +127,16 @@ exports.login = async (req, res, next) => {
         } else {
             next();
 >>>>>>> frontend3
+=======
+>>>>>>> develop
         }
         else {
 
             const hashedpassword = await User.getPassword(email);
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
             const newHashedPassword = hashedpassword[0];
             var stringObj = JSON.stringify(newHashedPassword);
 
@@ -135,10 +158,13 @@ exports.login = async (req, res, next) => {
         }
     }
     catch (error) {
+<<<<<<< HEAD
 =======
         res.status(201).json({ message: "User created " });
     } catch (error) {
 >>>>>>> frontend3
+=======
+>>>>>>> develop
         console.log(error);
         next(error);
     }
@@ -162,10 +188,14 @@ exports.logout = async (req, res, next) => {
 // }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> develop
 // const checkEmail = (email) => {
 //     let emailChecker = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 //     return emailChecker.test(email);
 // }
+<<<<<<< HEAD
 =======
         next();
     } catch (error) {
@@ -174,6 +204,8 @@ exports.logout = async (req, res, next) => {
     }
 }
 >>>>>>> frontend3
+=======
+>>>>>>> develop
 
 
 // exports.register = async (req, res, next) => {
@@ -201,6 +233,9 @@ exports.logout = async (req, res, next) => {
 //             })
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> develop
 //         } else if (password != cpassword) {
 //             req.flash('error', "password did not match");
 //             req.session.save(err => {
@@ -256,6 +291,7 @@ exports.logout = async (req, res, next) => {
 //         next(error);  
 //     }
 // }
+<<<<<<< HEAD
 =======
         next();
     } catch (error) {
@@ -263,6 +299,8 @@ exports.logout = async (req, res, next) => {
         next(error);
     }
 }
+=======
+>>>>>>> develop
 
 exports.searchLandlords = async (req, res, next) => {
     let search = req.query.search;
@@ -305,5 +343,9 @@ exports.searchLandlords = async (req, res, next) => {
             next(error);
         }
     }
+<<<<<<< HEAD
 }
 >>>>>>> frontend3
+=======
+}
+>>>>>>> develop
