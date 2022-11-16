@@ -30,7 +30,7 @@ app.use(express.static(`${__dirname}/public`));
 app.use(express.json());
 
 app.use('/', require("./route/routeIndex"));
-app.use("/loginpage", require("./route/userRoutes"));
+
 // Redirect requests to endpoint starting with /registered to registeredRoutes.js
 app.use("/users", require("./route/userRoutes"));
 

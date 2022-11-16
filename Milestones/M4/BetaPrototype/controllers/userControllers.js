@@ -88,13 +88,12 @@ exports.login = async (req, res, next) => {
             stringObj = stringObj.substring(14, stringObj.length - 3);
             
             // session.email = email;
-            console.log(password);
-            console.log(stringObj);
-            console.log(await bcrypt.compareSync(password, stringObj));
+          
+  
             if (await bcrypt.compare(password, stringObj)) {
                 console.log("---------> Login Successful")
                 // res.send(`${email} is logged in!`);
-                res.send(`Hey there, welcome <a href=\'users/logout'>click to logout</a>`);
+                res.render("profilepage");
     
             }
             // console.log(sc.decrypt(stringObj));
