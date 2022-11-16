@@ -1,5 +1,9 @@
 const User = require('../model/User');
 const bcrypt = require("bcrypt");
+var validator = require("email-validator");
+var simplecrypt = require("simplecrypt");
+var sc = simplecrypt();
+var sessions = require('express-session');
 
 // exports.getAllUsers =  async  (req, res, next ) => {
 //     try {
@@ -12,22 +16,43 @@ const bcrypt = require("bcrypt");
 //     }
 // }
 
+// const checkUsername = (username) => {
+
+//     let usernameChecker = /^\D\w{2,}$/;
+//     return usernameChecker.test(username);
+// }
+    
+const checkPassword = (password) => {
+        let passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        return passwordChecker.test(password);
+}
+    
+// const checkEmail = (email) => {
+//         let emailChecker = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+//         return emailChecker.test(email);
+// }
+    
+
 exports.createUser = async (req, res, next) => {
     try {
-        console.log(req.body);
         let { name, password, email, confirmPassword } = req.body;
         //console.log(password);
-        const hashpassword = await bcrypt.hashSync(password, 10);
-
+        const hashpassword = bcrypt.hashSync(password, 10);
+        //const hashpassword = sc.encrypt(password, 10);
         let register = new User(name, hashpassword, email);
         let count = await User.checkEmail(email);
-
+        console.log(email);
         if (count[0] != 0) {
-            //req.flash('error',"Email already exists")
-            res.status(409).json({ message: "Email already exists! " });
+            res.status(409).json({ message: "Email already exists! ", count});
         }
-        else if (confirmPassword != password) {
+
+        else if (confirmPassword != password || !checkPassword(password)) {
             res.status(409).json({ message: "Incorrect password" });
+        }
+
+        else if(!validator.validate(email))
+        {
+            res.status(409).json({ message: "Incorrect email format"})
         }
         else {
             register = await register.save();
@@ -48,10 +73,9 @@ exports.demoLogin = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
     try {
-        let session = req.session;
+        
         let { password, email } = req.body;
         let count = await User.checkEmail(email);
-        console.log(count[0]);
         if (count[0].length == 0) {
             res.status(404).json({ message: "User Not Found" });
         }
@@ -64,13 +88,22 @@ exports.login = async (req, res, next) => {
             stringObj = stringObj.substring(14, stringObj.length - 3);
             
             // session.email = email;
-            
+            console.log(password);
+            console.log(stringObj);
+            console.log(await bcrypt.compareSync(password, stringObj));
             if (await bcrypt.compare(password, stringObj)) {
                 console.log("---------> Login Successful")
                 // res.send(`${email} is logged in!`);
                 res.send(`Hey there, welcome <a href=\'users/logout'>click to logout</a>`);
     
             }
+            // console.log(sc.decrypt(stringObj));
+            // if (password == sc.decrypt(stringObj)) {
+            //     console.log("---------> Login Successful")
+            //     // res.send(`${email} is logged in!`);
+            //     res.send(`Hey there, welcome <a href=\'users/logout'>click to logout</a>`);
+    
+            // }
             else {
                 console.log("---------> Password Incorrect")
                 res.send("Password incorrect!")
@@ -81,7 +114,6 @@ exports.login = async (req, res, next) => {
         console.log(error);
         next(error);
     }
-
 }
 
 exports.logout = async (req, res, next) => {
@@ -90,32 +122,6 @@ exports.logout = async (req, res, next) => {
 }
 
 
-// exports.getAllUsers =  async  (req, res, next ) => {
-//     try {
-//         const [registeredUser, _] = await Register.getAll();
-        
-//         res.status(200).json({count: registeredUser.length, registeredUser}); 
-//     } catch (error) {
-//         console.log(error);
-//         next(error);  
-//     }
-// }
-// const checkUsername = (username) => {
-
-//     let usernameChecker = /^\D\w{2,}$/;
-//     return usernameChecker.test(username);
-//     }
-    
-//     const checkPassword = (password) => {
-//         let passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-//         return passwordChecker.test(password);
-//     }
-    
-//     const checkEmail = (email) => {
-//         let emailChecker = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-//         return emailChecker.test(email);
-//     }
-    
 
 // exports.register = async (req, res, next) => {
 //     try {

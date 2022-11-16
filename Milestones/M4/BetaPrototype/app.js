@@ -2,20 +2,35 @@ var express = require('express');
 var app = express();
 var sessions = require('express-session');
 var mysqlSession = require ('express-mysql-session')(sessions);
+const cookieParser = require("cookie-parser");
 const port = 8080;
+var bodyParser = require('body-parser')
 
 const path = require('path');
 
 var handlebars = require('express-handlebars');
 const exp = require('constants');
+app.use(express.json());
+// parse application/x-www-form-urlencoded 
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cookieParser());
+// parse application/json 
+app.use(bodyParser.json())
 
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(sessions({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false 
+}));
 app.set('view engine', 'handlebars');
 app.set("views", `${__dirname}/views`);
 app.use(express.static(`${__dirname}/public`));
 app.use(express.json());
 
 app.use('/', require("./route/routeIndex"));
-
+app.use("/loginpage", require("./route/userRoutes"));
 // Redirect requests to endpoint starting with /registered to registeredRoutes.js
 app.use("/users", require("./route/userRoutes"));
 

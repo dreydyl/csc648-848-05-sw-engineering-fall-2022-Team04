@@ -13,7 +13,7 @@ const router = express.Router();
 // });
 
 router.route("/signup").post(userControllers.createUser);
-router.route("/login").post(userControllers.login);
+router.route("/").post(userControllers.login);
 router.route("/logout").get(userControllers.logout);
 
 module.exports = router;
