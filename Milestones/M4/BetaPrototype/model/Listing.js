@@ -1,7 +1,7 @@
 const db = require('../database/db');
 
 class Register {
-    constructor(landlord_id, street_num, street_name, city, state, zipcode, description, bed, bath, price, file_name) {
+    constructor(landlord_id, street_num, street_name, city, state, zipcode, description, bed, bath, price, file_name, rating) {
         this.landlord_id = landlord_id;
         this.street_num = street_num;
         this.street_name = street_name;
@@ -13,6 +13,7 @@ class Register {
         this.bath = bath;
         this.price = price;
         this.file_name = file_name;
+        this.rating = rating;
     }
 
     save() {
@@ -26,7 +27,7 @@ class Register {
         let sql = `
         INSERT INTO listing(
             landlord_id,
-            street_number, 
+            street_num, 
             street_name, 
             city, 
             state, 
@@ -36,7 +37,8 @@ class Register {
             bath,
             price, 
             created_at,
-            file_name
+            file_name,
+            rating
             
         )
         VALUES (
@@ -51,7 +53,8 @@ class Register {
             '${this.bath}',
             '${this.price}',
             '${createdAtDate}',
-            '${file_name}'
+            '${this.file_name}',
+            '${this.rating}'
         )
         `;
 

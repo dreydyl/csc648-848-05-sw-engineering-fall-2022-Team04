@@ -11,10 +11,10 @@ const storage = multer.diskStorage({
         cb(null, './public/images');
     },
     filename: function (req, file, cb) {
-        let fileExt = file.mimetype.split('/')[1];
-        let randomName = crypto.randomBytes(22).toString("hex");
-        cb(null, `${randomName}.${fileExt}`);
-        //return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
+        // let fileExt = file.mimetype.split('/')[1];
+        // let randomName = crypto.randomBytes(22).toString("hex");
+        // cb(null, `${randomName}.${fileExt}`);
+        return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
     }
 });
 

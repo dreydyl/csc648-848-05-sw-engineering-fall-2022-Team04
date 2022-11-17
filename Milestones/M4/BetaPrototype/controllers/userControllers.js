@@ -1,9 +1,8 @@
 const User = require('../model/User');
+const Register = User.Register;
+const Update = User.Update;
 const bcrypt = require("bcrypt");
 var validator = require("email-validator");
-var simplecrypt = require("simplecrypt");
-var sc = simplecrypt();
-var sessions = require('express-session');
 
 // exports.getAllUsers =  async  (req, res, next ) => {
 //     try {
@@ -39,8 +38,8 @@ exports.createUser = async (req, res, next) => {
         //console.log(password);
         const hashpassword = bcrypt.hashSync(password, 10);
         //const hashpassword = sc.encrypt(password, 10);
-        let register = new User(name, hashpassword, email);
-        let count = await User.checkEmail(email);
+        let register = new Register(name, hashpassword, email);
+        let count = await Register.checkEmail(email);
         console.log(email);
         if (count[0] != 0) {
             res.status(409).json({ message: "Email already exists! ", count});
@@ -71,17 +70,19 @@ exports.demoLogin = async (req, res, next) => {
 
 }
 
+
+
 exports.login = async (req, res, next) => {
     try {
         
         let { password, email } = req.body;
-        let count = await User.checkEmail(email);
+        let count = await Register.checkEmail(email);
         if (count[0].length == 0) {
             res.status(404).json({ message: "User Not Found" });
         }
         else {
 
-            const hashedpassword = await User.getPassword(email);
+            const hashedpassword = await Register.getPassword(email);
             const newHashedPassword = hashedpassword[0];
             var stringObj = JSON.stringify(newHashedPassword);
 
@@ -91,10 +92,20 @@ exports.login = async (req, res, next) => {
           
   
             if (await bcrypt.compare(password, stringObj)) {
-                console.log("---------> Login Successful")
-                // res.send(`${email} is logged in!`);
-                res.render("profilepage");
-    
+                if(req.session.admin && req.session.email == email){
+                    console.log(req.session);
+                    console.log("User already logged in");
+                    res.redirect('/');
+                }
+                else{
+                    req.session.email = email;
+                    req.session.admin = true;
+                    console.log(req.session);
+                    console.log("---------> Login Successful");
+                    res.redirect('/');
+                }
+                
+                // res.send(`Hey there, welcome <a href=\'logout'>click to logout</a>`);
             }
             // console.log(sc.decrypt(stringObj));
             // if (password == sc.decrypt(stringObj)) {
@@ -117,10 +128,19 @@ exports.login = async (req, res, next) => {
 
 exports.logout = async (req, res, next) => {
     req.session.destroy();
-    res.render("main");
+    console.log("---------> Successfully Logout");
+    next(error);
+    res.redirect('/');
 }
 
-
+exports.update = async (req, res, next) => {
+    let bio = req.body;
+    console.log(bio);
+    let picture = req.file;
+    let update = new Update(bio, picture);
+    update = await update.update();
+    res.send({message: 'User Updated'});
+}
 
 // exports.register = async (req, res, next) => {
 //     try {

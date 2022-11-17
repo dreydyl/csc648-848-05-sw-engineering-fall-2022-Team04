@@ -175,7 +175,7 @@ class Register {
             return db.execute(sql); 
 
     }
-
+    
     static checkEmail(email){
         let sql = `SELECT email FROM registeredUser WHERE email = '${email}';`;
         return db.execute(sql);
@@ -184,6 +184,29 @@ class Register {
         let sql = `SELECT password FROM registeredUser WHERE email = '${email}';`;
         return db.execute(sql);
     }
-    
 }
-module.exports = Register;
+
+class Update{
+    constructor(bio, picture){
+        this.bio = bio;
+        this.picture = picture;
+    }
+
+    update(){
+        let sql = `
+            INSERT INTO registeredUser (
+                bio,
+                picture
+            )
+            VALUE (
+                '${this.bio}',
+                '${this.picture}'
+            )`;
+        return db.execute(sql);
+    }
+    static getProfileInfo(email){
+        let sql = `SELECT * FROM registeredUser WHERE email = '${email}';`
+        return db.execute(sql);
+    }
+}
+module.exports = { Register, Update };
