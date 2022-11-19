@@ -211,6 +211,10 @@ body {
     margin-top: 5.5px;
 }
 
+#search-text {
+    font-size: 22px;
+}
+
 .login-header-button {
     text-decoration: none;
     text-align: center;

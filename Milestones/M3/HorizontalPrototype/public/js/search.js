@@ -55,6 +55,13 @@ landlordsItem.onclick = () => {
 
 let searchButton = document.getElementById("search-button");
 
+searchText.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        searchButton.click();
+    }
+});
+
 
 function executeSearch() {
     let searchTerm = document.getElementById("search-text").value;
