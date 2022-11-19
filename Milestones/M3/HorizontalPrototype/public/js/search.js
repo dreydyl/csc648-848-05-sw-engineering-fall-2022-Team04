@@ -1,4 +1,3 @@
-
 let dropdown = document.getElementById("dropdown");
 let listingsOption = document.getElementById("listings-option");
 let landlordsOption = document.getElementById("landlords-option");
@@ -13,14 +12,18 @@ let searchText = document.getElementById("search-text");
 let currentOption = "listings";
 let menuOpen = false;
 
+//TODO Make this listen to every part of the page
 window.onclick = (event) => {
-    if (event.target.contains(dropdown) && event.target !== dropdown) {
+    if (event.target !== dropdown) {
         menuOpen = false;
         dropdownMenu.style.display = "none";
         dropdownButton.style.clipPath = "polygon(100% 0%, 0 0%, 50% 100%)";
+    } else {
+        menuOpen = true;
     }
 }
 dropdown.onclick = () => {
+    console.log(menuOpen);
     if (menuOpen) {
         menuOpen = false;
         dropdownMenu.style.display = "none";
