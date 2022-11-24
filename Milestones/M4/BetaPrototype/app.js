@@ -3,6 +3,8 @@ var app = express();
 var sessions = require('express-session');
 var mysqlSession = require ('express-mysql-session')(sessions);
 const cookieParser = require("cookie-parser");
+var postRouter = require("./controllers/listingControllers");
+var flash = require('express-flash');
 const port = 8080;
 var bodyParser = require('body-parser')
 
@@ -40,6 +42,8 @@ app.use("/listings", require("./route/listingRoutes"));
 app.use(express.static((path.join(__dirname, "js"))));
 
 app.use(express.static('model'));
+
+app.use(flash());
 
 app.use("/public", express.static(path.join(__dirname, 'public')));
 
@@ -120,6 +124,8 @@ app.get('/praiseAbout', (req, res) => {
 app.get('/ricardoAbout', (req, res) => {
     res.render('about/ricardoAbout');
 });
+
+
 
 // var mysqlSessionStore = new mysqlSession (
 //     {

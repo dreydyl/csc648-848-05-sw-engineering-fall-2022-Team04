@@ -31,7 +31,8 @@ router.route("/").get(listingControllers.getAllUsers).post(upload.single('pictur
 
 router.post("/", listingControllers.createNewListing, upload.single('file_name'), (req, res, next) => {
     res.send('POST Request Called');
-})
+    
+});
 
 
 router.get("/", listingControllers.getAllListings, (req, res, next) => {
@@ -42,6 +43,7 @@ router.get("/search", listingControllers.searchListings, (req, res, next) => {
     res.locals.searchTerm = 
     res.render("listingResults");
 });
+
 
 router.get("/search-test", (req, res, next) => {
     let listings = {

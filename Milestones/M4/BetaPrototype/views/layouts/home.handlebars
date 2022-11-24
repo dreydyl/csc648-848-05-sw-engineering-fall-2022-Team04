@@ -10,7 +10,11 @@
 </head>
 
 <div id="page-wrap">
+    {{log this}}
     {{> header}}
+    {{#if messages}}
+    {{> flashmessage}}
+    {{/if}}
     {{{body}}}
 </div>
 {{> footer}}

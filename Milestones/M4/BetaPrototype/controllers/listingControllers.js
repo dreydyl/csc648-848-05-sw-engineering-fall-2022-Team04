@@ -1,4 +1,5 @@
 const Listing = require('../model/Listing');
+var flash = require('express-flash');
 
 exports.getAllListings = async (req, res, next) => {
     try {
@@ -15,12 +16,44 @@ exports.getAllListings = async (req, res, next) => {
 exports.createNewListing = async (req, res, next) => {
     try {
         
-        let { landlord_id, street_num, street_name, city, state, zipcode, description, bed, bath, price, file_name, rating } = req.params;
-        let listing = new Listing(landlord_id, street_num, street_name, city, state, zipcode, description, bed, bath, price, file_name, rating);
+        // let { landlord_id, street_num, street_name, city, state, zipcode, description, bed, bath, price, file_name, rating } = req.params;
+        // let listing = new Listing(landlord_id, street_num, street_name, city, state, zipcode, description, bed, bath, price, file_name, rating);
 
-        listing = await listing.save();
+        // listing = await listing.save();
 
-        res.status(201).json({ message: "Listing created " });
+        //TODO: modify to match db
+    let fileUploaded = req.file.path;
+    let fileAsThumbnail = `thumbnail-${req.file.filename}`;
+    let destinationOfThumbnail = req.file.destination + "/" + fileAsThumbnail;
+    let email = req.body.email;
+    let title = req.body.title;
+    let description = req.body.description;
+    let fk_userId = req.session.userId;
+    sharp(fileUploaded)
+    .resize(200)
+    .toFile(destinationOfThumbnail)
+    .then(() => {
+        return Listing.save(
+            title,
+            description,
+            fileUploaded,
+            email,
+            destinationOfThumbnail,
+            fk_userId,
+            //TODO
+        );
+    })
+    .then((postWasCreated) => {
+        if(postWasCreated){
+            res.send("Your post was created successfully!!");
+            req.flash('success', 'Your post was created successfully!!')
+            res.redirect("/");
+        }else{
+            // throw new PostError ('Post could not be created!!', '/postimage', 200);
+            res.send("your post can't be posted");
+            req.flash('error', 'unable to post');
+        }
+    })
     } catch (error) {
         console.log(error);
         next(error);

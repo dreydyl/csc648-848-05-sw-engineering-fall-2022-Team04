@@ -1,6 +1,7 @@
 const User = require('../model/User');
 const Register = User.Register;
 const Update = User.Update;
+var flash = require('express-flash');
 const bcrypt = require("bcrypt");
 var validator = require("email-validator");
 
@@ -95,6 +96,7 @@ exports.login = async (req, res, next) => {
                 if(req.session.admin && req.session.email == email){
                     console.log(req.session);
                     console.log("User already logged in");
+                   // req.flash('user already logged in');
                     res.redirect('/');
                 }
                 else{
@@ -102,6 +104,7 @@ exports.login = async (req, res, next) => {
                     req.session.admin = true;
                     console.log(req.session);
                     console.log("---------> Login Successful");
+                    //req.flash('success' , 'You logged in successfully!');
                     res.redirect('/');
                 }
                 

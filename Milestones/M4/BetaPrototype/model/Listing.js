@@ -1,4 +1,8 @@
 const db = require('../database/db');
+// var express = require ('express');
+// var router = express.Router();
+// var sharp = require ('sharp');
+// var multer = require ('multer');
 
 class Register {
     constructor(landlord_id, street_num, street_name, city, state, zipcode, description, bed, bath, price, file_name, rating) {
