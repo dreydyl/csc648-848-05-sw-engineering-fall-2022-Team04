@@ -82,24 +82,9 @@ function executeLandlordSearch() {
         location.replace('/');
         return;
     }
-    let mainContent = document.getElementById("main-content");
-    let newContent = '';
-    let newMainContent = '';
-    let searchURL = `/posts/${searchTerm}`;
-    fetch(`http://localhost:8080${searchURL}`)
-        .then(res => res.json())
-        .then(data => {
-            let temp = data;
-            console.log(temp);
-            for (const temp1 in temp) {
-                newContent += createLandlordCard(temp[temp1]);
-            }
-            newMainContent += searchResults(newContent);
-            mainContent.innerHTML = newMainContent;
-        })
-        .catch(err => {
-            console.log('Data not found in database.');
-        })
+    let searchURL = `/users/search?search=${searchTerm}`;
+
+    location.replace(searchURL);
 }
 
 // const sb = document.getElementById('search-select');

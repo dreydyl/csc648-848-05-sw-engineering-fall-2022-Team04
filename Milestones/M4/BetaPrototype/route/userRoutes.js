@@ -2,7 +2,7 @@ const express = require('express');
 const userControllers = require('../controllers/userControllers');
 const router = express.Router();
 
-// router.post("/register", userControllers.register, (req, res, next) => {
+// router.post("/", userControllers.createUser, (req, res, next) => {
 //     console.log(req);
 //     res.send(''); //TODO set response
 // });
@@ -14,6 +14,9 @@ const router = express.Router();
 
 router.route("/signup").post(userControllers.createUser);
 router.route("/login").post(userControllers.login);
-router.route("/logout").get(userControllers.logout);
+
+router.get("/search", userControllers.searchLandlords, (req, res, next) => {
+    res.render("landlordResults");
+});
 
 module.exports = router;

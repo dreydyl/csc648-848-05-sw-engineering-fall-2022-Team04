@@ -10,7 +10,7 @@
                     alt="">
             </div>
             <div class="profile-page-info">
-                <p class="profile-page-person-name">Brittney Spears</p>
+                <p class="profile-page-person-name">Britney Spears</p>
                 <h4>bspears@gmail.com</h4>
                 <h4>(650)123-4567</h4>
                 <p class="profile-page-person-rating">7/10</p>
@@ -18,7 +18,7 @@
         </div>
         <div class="profile-page-bio-box">
             <header class="profile-page-box-header">
-                Learn about Brittney
+                Learn about Britney
             </header>
             <p class="bio-description">
                 Hello everyone, my name is Brittney Spears and I'm a 27 year old Accountant. I own a 3 bedroom house in
@@ -32,6 +32,7 @@
     <div class="profile-btn-reviews-listings">
         <div class="profile-page-buttons-section">
             <button class="profile-page-button" onclick="openForm()">Leave a Review</button>
+            <button class="profile-page-button" onclick="location.replace('/postListingPage')">Post a Listing</button>
             <div class="form-popup" id="myForm">
                 <form class="form-container">
                     <h1 class="review-header">Leave a Review</h1>
@@ -69,7 +70,7 @@
             <header class="profile-page-box-header">
                 Listings
             </header>
-            <div class="profile-page-listings">
+            <div class="profile-page-listings" id="profile-page-listings">
                 <div class="profile-page-listing">
                     <img class="profile-page-listing-img" src="images/picture_1666042712023.jpeg">
                     <div class="profile-page-listing-desc">
@@ -91,5 +92,8 @@
     function closeForm() {
         document.getElementById("textarea").value = "";
         document.getElementById("myForm").style.display = "none";
+    }
+    document.getElementById("profile-page-listings").onclick = () => {
+        location.replace("/listingpage");
     }
 </script>
