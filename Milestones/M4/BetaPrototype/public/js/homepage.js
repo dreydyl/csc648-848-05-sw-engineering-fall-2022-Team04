@@ -82,26 +82,24 @@ function executeLandlordSearch() {
         location.replace('/');
         return;
     }
-    let mainContent = document.getElementById("main-content");
-    let newContent = '';
-    let newMainContent = '';
-    let searchURL = `/posts/${searchTerm}`;
-    fetch(`http://localhost:8080${searchURL}`)
-        .then(res => res.json())
-        .then(data => {
-            let temp = data;
-            console.log(temp);
-            for (const temp1 in temp) {
-                newContent += createLandlordCard(temp[temp1]);
-            }
-            newMainContent += searchResults(newContent);
-            mainContent.innerHTML = newMainContent;
-        })
-        .catch(err => {
-            console.log('Data not found in database.');
-        })
+    let searchURL = `users/${searchTerm}`;
+    location.replace(searchURL);
+    
 }
 
+// Get the input field
+var input = document.getElementById("search-text");
+
+// Execute a function when the user presses a key on the keyboard
+input.addEventListener("keypress", function(event) {
+  // If the user presses the "Enter" key on the keyboard
+  if (event.key === "Enter") {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    document.getElementById("search-button").click();
+  }
+});
 // const sb = document.getElementById('search-select');
 
 searchButton.onclick = (event) => {

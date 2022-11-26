@@ -49,7 +49,7 @@ router.route("/signup").post(userControllers.createUser);
 router.route("/login").post(userControllers.login);
 router.route("/logout").get(userControllers.logout);
 router.route("/update").post(userControllers.update, upload.single('picture'));
-
-
-
+router.route("/profilePage/:id").post(userControllers.createReview);
+router.route("/profilePage/:id").get(userControllers.getUserProfile);
+router.route("/:name").get(userControllers.getLandlordList);
 module.exports = router;

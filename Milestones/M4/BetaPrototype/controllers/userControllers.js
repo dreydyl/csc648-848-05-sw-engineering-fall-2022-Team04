@@ -2,6 +2,8 @@ const User = require('../model/User');
 const Register = User.Register;
 const Update = User.Update;
 var flash = require('express-flash');
+const Review = User.Review;
+const Rating = User.Rating;
 const bcrypt = require("bcrypt");
 var validator = require("email-validator");
 
@@ -35,11 +37,11 @@ const checkPassword = (password) => {
 
 exports.createUser = async (req, res, next) => {
     try {
-        let { name, password, email, confirmPassword } = req.body;
+        let { firstName, lastName, password, email, confirmPassword } = req.body;
         //console.log(password);
         const hashpassword = bcrypt.hashSync(password, 10);
         //const hashpassword = sc.encrypt(password, 10);
-        let register = new Register(name, hashpassword, email);
+        let register = new Register(firstName, lastName, hashpassword, email);
         let count = await Register.checkEmail(email);
         console.log(email);
         if (count[0] != 0) {
@@ -84,15 +86,10 @@ exports.login = async (req, res, next) => {
         else {
 
             const hashedpassword = await Register.getPassword(email);
-            const newHashedPassword = hashedpassword[0];
-            var stringObj = JSON.stringify(newHashedPassword);
-
-            stringObj = stringObj.substring(14, stringObj.length - 3);
-            
-            // session.email = email;
-          
-  
-            if (await bcrypt.compare(password, stringObj)) {
+            const temp = hashedpassword[0];
+            const newHashedPassword = temp[0].password;
+        
+            if (await bcrypt.compare(password, newHashedPassword)) {
                 if(req.session.admin && req.session.email == email){
                     console.log(req.session);
                     console.log("User already logged in");
@@ -137,14 +134,76 @@ exports.logout = async (req, res, next) => {
 }
 
 exports.update = async (req, res, next) => {
-    let bio = req.body;
-    console.log(bio);
-    let picture = req.file;
-    let update = new Update(bio, picture);
-    update = await update.update();
-    res.send({message: 'User Updated'});
+    try{
+        let bio = req.body;
+        console.log(bio);
+        let picture = req.file;
+        let update = new Update(bio, picture, req.session.email);
+        update = await update.update();
+        res.send({message: 'User Updated'});
+    }
+    catch(error){
+        next(error);
+    }
 }
 
+exports.createReview = async (req, res, next) => {
+    try{
+        let {rating, description} = req.body;
+        let reg_user_id = await Review.getUserbyEmail(req.session.email);
+        reg_user_id = reg_user_id[0];
+        reg_user_id = reg_user_id[0].reg_user_id;
+        let id = req.params.id;
+        id = parseInt(id);
+        let referUserId = await Review.getUserbyId(id);
+        referUserId = referUserId[0];
+        referUserId = referUserId[0].reg_user_id;
+        let review = new Review(reg_user_id, rating, description, referUserId);
+        review = await review.save();
+        res.status(201).json({ message: "Review created " });
+    }
+    catch(error){
+        next(error);
+    }
+    
+}
+
+exports.getUserProfile = async (req, res, next) => {
+    try{
+        let id = req.params.id;
+        let sum = 0;
+        let user_rating = 0;
+        let userRating = await Review.getUserRating(id);
+        userRating = userRating[0];
+        for(let i = 0; i < userRating.length; i++)
+        {
+            let temp = parseFloat(userRating[i].rating);
+            sum += temp;
+        }
+        user_rating = sum / userRating.length;
+        let update_rating = new Rating(id, user_rating);
+        update_rating = await update_rating.update_rating();
+        let profile = await Review.getProfile(id);
+        profile = profile[0];
+        res.status(201).json({profile});
+    }
+    catch (error){
+        next(error);
+    }
+}
+
+exports.getLandlordList = async (req, res, next) => {
+    try{
+        let name = req.params.name;
+        name = name.charAt(0).toUpperCase() + name.slice(1);
+        let LandlordList = await Review.getLanlordList(name);
+        LandlordList = LandlordList[0];
+        res.status(200).json({LandlordList});
+    }
+    catch(error){
+        next(error);
+    }
+}
 // exports.register = async (req, res, next) => {
 //     try {
 //         //parse json
