@@ -2,6 +2,7 @@ const { response } = require('express');
 const express = require('express');
 const userControllers = require('../controllers/userControllers');
 const router = express.Router();
+var geoip = require('geoip-lite');
 
 /*
 router.get("/", userControllers.getFeaturedLandlords, (req, res, next) => {
@@ -9,7 +10,9 @@ router.get("/", userControllers.getFeaturedLandlords, (req, res, next) => {
 });
 */
 router.get("/", (req, res, next) => {
-    console.log(req.ip);
+    let ip = req.ip;
+    var geo = geoip.lookup(ip);
+    console.log(geo);
     let hooks = {
         "welcome": {
             name: "welcome",
@@ -118,6 +121,7 @@ router.get("/", (req, res, next) => {
     res.locals.listings = listings;
     res.locals.landlords = landlords;
     res.locals.badReview = badReview;
+    
     res.render("main", { title: "EZRent Home", style: "main" });
 });
 

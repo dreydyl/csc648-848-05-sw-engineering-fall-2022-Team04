@@ -88,7 +88,7 @@ exports.login = async (req, res, next) => {
             const hashedpassword = await Register.getPassword(email);
             const temp = hashedpassword[0];
             const newHashedPassword = temp[0].password;
-        
+            console.log(req.session.admin);
             if (await bcrypt.compare(password, newHashedPassword)) {
                 if(req.session.admin && req.session.email == email){
                     console.log(req.session);
