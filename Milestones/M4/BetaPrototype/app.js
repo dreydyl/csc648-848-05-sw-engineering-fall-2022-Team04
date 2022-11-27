@@ -61,6 +61,9 @@ app.engine('handlebars', handlebars.engine({
                 result += obj.fn(i);
             }
             return result;
+        },
+        listItem: (obj) => {
+            return obj+1;
         }
         /**
          * if you need more helpers, add them here

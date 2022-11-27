@@ -2,26 +2,25 @@
     {{!-- <header class="profile-page-header">
         Profile Page
     </header> --}}
+    {{log this}}
     <div class="user-profile-img-info-bio">
         <div class="user-profile-page-img-info">
             <div class="user-profile-page-img-section">
                 <img class="user-profile-page-img" src="https://i0.wp.com/evanstonroundtable.com/wp-content/uploads/2022/05/Lushina-scaled-e1652827479814.jpg?fit=1200%2C900&ssl=1" alt="">
             </div>
             <div class="user-profile-page-info">
-                <p class="user-profile-page-person-name">Britney Spears</p>
-                <h4>bspears@gmail.com</h4>
-                <h4>(650)123-4567</h4>
+                <p class="user-profile-page-person-name">{{user.name}}</p>
+                <h4>{{user.email}}</h4>
+                <h4>{{user.phone}}</h4>
                 {{!-- <p class="profile-page-person-rating">7/10</p> --}}
             </div>
         </div>
         <div class="user-profile-page-bio-box">
             <header class="user-profile-page-box-header">
-                Learn about Britney
+                Learn about {{user.name}}
             </header>
             <p class="user-bio-description">
-                Hello everyone, my name is Brittney Spears and I'm a 27 year old Accountant. I own a 3 bedroom house in San
-                Francisco that is currently rented out by a wonderful family of 4. I love traveling to scenic countries and 
-                hiking on big beautiful mountains.
+                {{user.bio}}
             </p>
         </div>
     </div>
@@ -31,20 +30,11 @@
                 Written Reviews
             </header>
             <div class="user-profile-page-reviews">
-                <div class="user-profile-page-review">
-                    <h4> Review 1</h4>
-                    <p>
-                        Britney was very helpful during the application process. She was very responsive and the entire process
-                        was done in a few hours. She is truly an amazing landlord and I wish all landlords are like her.
-                    </p>
-                </div>
-                <div class="user-profile-page-review">
-                    <h4> Review 2</h4>
-                    <p>
-                        Britney was very helpful during the application process. She was very responsive and the entire process
-                        was done in a few hours. She is truly an amazing landlord and I wish all landlords are like her.
-                    </p>
-                </div>
+                {{#each reviews as |review index|}}
+                    {{log this}}
+                    <h4> Review {{listItem index}}</h4>
+                    {{> userReview review}}
+                {{/each}}
             </div>
         </div>
     </div>
