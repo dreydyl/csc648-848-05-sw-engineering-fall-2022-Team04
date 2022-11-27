@@ -9,6 +9,7 @@ router.get("/", userControllers.getFeaturedLandlords, (req, res, next) => {
 });
 */
 router.get("/", (req, res, next) => {
+    console.log(req.ip);
     let hooks = {
         "welcome": {
             name: "welcome",
