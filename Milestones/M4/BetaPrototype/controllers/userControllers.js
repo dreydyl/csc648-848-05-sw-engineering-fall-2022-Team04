@@ -175,14 +175,17 @@ exports.getUserProfile = async (req, res, next) => {
         let user_rating = 0;
         let userRating = await Review.getUserRating(id);
         userRating = userRating[0];
-        for(let i = 0; i < userRating.length; i++)
-        {
-            let temp = parseFloat(userRating[i].rating);
-            sum += temp;
+        if(userRating > 0){
+            for(let i = 0; i < userRating.length; i++)
+            {
+                let temp = parseFloat(userRating[i].rating);
+                sum += temp;
+            }
+            user_rating = sum / userRating.length;
+            let update_rating = new Rating(id, user_rating);
+            update_rating = await update_rating.update_rating();
         }
-        user_rating = sum / userRating.length;
-        let update_rating = new Rating(id, user_rating);
-        update_rating = await update_rating.update_rating();
+        
         let profile = await Review.getProfile(id);
         profile = profile[0];
         res.status(201).json({profile});

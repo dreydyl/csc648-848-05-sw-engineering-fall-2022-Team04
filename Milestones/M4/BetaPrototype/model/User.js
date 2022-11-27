@@ -236,7 +236,7 @@ class Review{
         return db.execute(sql);
     }
     static getProfile(id){
-        let sql = `SELECT registeredUser.firstName, registeredUser.lastName, registeredUser.email, registeredUser.bio, registeredUser.picture, registeredUser.user_rating, review.rating, review.description FROM registeredUser LEFT OUTER JOIN review ON registeredUser.reg_user_id = review.reg_user_id WHERE registeredUser.reg_user_id = ${id};`;
+        let sql = `SELECT registeredUser.firstName, registeredUser.lastName, registeredUser.email, registeredUser.bio, registeredUser.picture, registeredUser.user_rating, review.rating, review.description, review.referUserId FROM registeredUser LEFT OUTER JOIN review ON registeredUser.reg_user_id = review.reg_user_id WHERE registeredUser.reg_user_id = ${id};`;
         return db.execute(sql);
     }
     static getUserRating(id){
