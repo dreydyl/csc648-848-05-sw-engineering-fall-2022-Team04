@@ -15,6 +15,13 @@
                 <input type="password" name="" placeholder="Confirm password" id="cpassword" required>
 
 
+                <div class="checkbox">
+                    <input type="checkbox" id="checkbox_1">
+                    <label for="checkbox_1" class="txt-registration">I have read and agree with <a href="login" class="bud-registration">Terms & Privacy</a>
+                </p></label>
+                </div>
+
+
             </div>
             <button onclick="validate()" class="submit-btn-registration" id="submit-btn-registration">Sign Up</button>
             {{!-- <a class="submit-btn-registration" href="/">Sign up</a> --}}
@@ -30,6 +37,30 @@
 
 
     <style>
+        .checkbox {
+            display: flex;
+            width: 100%;
+            height: 20px;
+            margin-bottom: 20px;
+            padding: 0;
+        }
+
+        #checkbox_1 {
+            align-self: center;
+            margin-left: 0;
+            margin-top: 30px;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: black;
+        }
+
+        .checkbox-text {
+            text-align: center;
+            align-self: center;
+        }
+
+        
         .form-registration {
             display: flex;
             flex-direction: column;

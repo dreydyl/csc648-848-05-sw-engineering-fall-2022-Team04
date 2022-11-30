@@ -16,8 +16,8 @@
                     </div>
                     <div class="basic-info">
                         {{listing.price}} </br>
-                        Rooms: {{listing.rooms}} </br>
-                        Baths: {{listing.baths}}
+                        Bedrooms: {{listing.rooms}} </br>
+                        Bathrooms: {{listing.baths}}
                     </div>
                 </div>
             </div>
@@ -44,6 +44,9 @@
                     {{listing.landlord.email}}
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="reviews-section">
             <header class="profile-page-box-header">
                 Reviews
             </header>
@@ -53,6 +56,5 @@
                 {{/each}}
             </div>
         </div>
-    </div>
 </div>
 <script type="module" src="/public/js/listingPage.js"></script>

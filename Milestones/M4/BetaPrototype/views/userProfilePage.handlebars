@@ -6,7 +6,9 @@
     <div class="user-profile-img-info-bio">
         <div class="user-profile-page-img-info">
             <div class="user-profile-page-img-section">
-                <img class="user-profile-page-img" src="https://i0.wp.com/evanstonroundtable.com/wp-content/uploads/2022/05/Lushina-scaled-e1652827479814.jpg?fit=1200%2C900&ssl=1" alt="">
+                <img class="user-profile-page-img"
+                    src="https://i0.wp.com/evanstonroundtable.com/wp-content/uploads/2022/05/Lushina-scaled-e1652827479814.jpg?fit=1200%2C900&ssl=1"
+                    alt="">
             </div>
             <div class="user-profile-page-info">
                 <p class="user-profile-page-person-name">{{user.name}}</p>
@@ -29,13 +31,11 @@
             <header class="user-profile-page-box-header">
                 Written Reviews
             </header>
-            <div class="user-profile-page-reviews">
-                {{#each reviews as |review index|}}
-                    {{log this}}
-                    <h4> Review {{listItem index}}</h4>
-                    {{> userReview review}}
-                {{/each}}
-            </div>
+            {{#each reviews as |review index|}}
+            {{log this}}
+            <h4> Review {{listItem index}}</h4>
+            {{> userReview review}}
+            {{/each}}
         </div>
     </div>
 </div>

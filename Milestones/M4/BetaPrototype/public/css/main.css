@@ -265,6 +265,10 @@
     margin-right: 5px;
 }
 
+.home-signup-section {
+    height: 530pt;
+}
+
 .sign-up-button {
     display: block;
     background-color: var(--button-background-1);
@@ -275,10 +279,9 @@
     line-height: 90px;
     font-size: 30px;
     font-weight: bolder;
-    transform: translateX(60%);
-    margin-top: 22vh;
-    box-shadow: 5px 5px 5px #031424;
     border-radius: 50px;
+    margin: auto;
+    margin-top: 150pt;
 }
 
 .sign-up-button:hover {

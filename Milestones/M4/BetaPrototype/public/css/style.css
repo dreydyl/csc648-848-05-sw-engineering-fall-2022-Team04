@@ -1189,3 +1189,25 @@ h2 {
 .form-container .post:hover {
     background-color: #295b3d;
 }
+
+@import url("https://fonts.googleapis.com/css?family=Raleway:900&display=swap");
+
+#changing-container {
+    margin: auto;
+    width: 100vw;
+    height: 50px;
+    margin-top: 50px;
+    filter: url(#threshold) blur(0.6px);
+}
+
+#text1,
+#text2 {
+    position: absolute;
+    width: 100%;
+    display: inline-block;
+    font-family: inherit;
+    font-size: 70pt;
+    text-align: center;
+    user-select: none;
+    color: #295b3d;
+}

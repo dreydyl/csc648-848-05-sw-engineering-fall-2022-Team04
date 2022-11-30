@@ -9,9 +9,26 @@
                 <h1 class="welcome-header-2">
                     Criticize your Landlord Here.
                 </h1>
-                <a class="sign-up-button" href="/register">
+                <div>
+                    <div id="changing-container">
+                        <span id="text1"></span>
+                        <span id="text2"></span>
+                    </div>
+
+                    <svg id="changing-filters">
+                        <defs>
+                            <filter id="threshold">
+                                <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0
+                  0 1 0 0 0
+                  0 0 1 0 0
+                  0 0 0 255 -140" />
+                            </filter>
+                        </defs>
+                    </svg>
+                </div>
+                {{!-- <a class="sign-up-button" href="/register">
                     Sign Up Now
-                </a>
+                </a> --}}
             </section>
             {{!-- <section class="home-section" id="listing-section">
                 {{> hook hooks.listing}}
@@ -25,12 +42,12 @@
                 {{> hook hooks.review}}
                 {{> badReview badReview}}
             </section>
-            {{!-- <section class="home-section" id="signup-section">
+            <section class="home-signup-section" id="signup-section">
                 {{> hook hooks.signup}}
                 <a class="sign-up-button" href="/register">
                     Sign up now
                 </a>
-            </section> --}}
+            </section>
         </article>
         {{!-- <div class="fixed-section">
             <div class="prompt">
