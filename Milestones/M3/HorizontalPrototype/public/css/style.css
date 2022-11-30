@@ -34,7 +34,7 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
-    font-family: 'Verdana';
+    font-family: 'Tahoma';
     min-width: 1000px;
 }
 
@@ -106,10 +106,11 @@ body {
     border-color: var(--border-light-mode);
     border-radius: 2px 0 0 2px;
     width: 120px;
-    height: 35px;
+    height: 48.5px;
     align-items: center;
     overflow: hidden;
     position: relative;
+    margin-top: 6px;
 }
 
 .dropdown:hover {
@@ -475,12 +476,9 @@ footer p {
     color: #3C885B;
     text-align: center;
     padding-left: 5px;
-
 }
 
-.about-link:hover {
-    text-decoration: underline;
-}
+
 
 #search_results_main {
     display: flex;
@@ -701,7 +699,8 @@ footer p {
 
 
 .open-body {
-    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 0;
     padding: 100px;
     background: url(pic1.jpg) no-repeat center;
     background-size: cover;
@@ -710,37 +709,53 @@ footer p {
 }
 
 .Overbox {
-    height: 70vh;
-    width: 90vw;
+    height: fit-content;
+    width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
-
-
-
-}
-
-.form-registration {
-
-    position: relative;
-    width: 100%;
-    max-width: 380px;
-    padding: 80px 40px 40px;
-    background: #1a735d;
-    border-radius: 5%;
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 1);
+    margin-bottom: 0;
 }
 
 .form-login {
-
-    position: relative;
-    width: 100%;
-    max-width: 380px;
-    padding: 80px 40px 40px;
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    height: fit-content;
+    padding: 40px 40px;
     background: #EAEFF2;
-    border-radius: 5%;
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 1);
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 1);
 }
+
+.logo-login {
+    width: 100px;
+    height: 100px;
+    align-self: center;
+}
+
+.login-submit-btn {
+    height: 50px;
+    width: 250px;
+    text-align: center;
+    border-radius: 30px;
+    color: #EAEFF2;
+    border: none;
+    font-size: 40px;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: rgb(83, 131, 104);
+    align-self: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.login-txt-login {
+    text-align: center;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+
+
 
 .logo {
     width: 150px;
@@ -752,7 +767,6 @@ footer p {
 }
 
 h1 {
-
     margin: 0;
     letter-spacing: 5px;
     padding: 0 0 20px;
@@ -776,59 +790,20 @@ h2 {
 }
 
 .form-login .input-name input {
-    width: 105%;
-    padding: 0px;
+    width: 100%;
     font-size: 2rem;
     letter-spacing: 1px;
     border: none;
     border-bottom: 1px solid #29282872;
     outline: none;
     background-color: transparent;
-
     height: 50px;
     margin-bottom: 30px;
-    font-size: xx-large;
     font-family: 'Courier New', Courier, monospace;
-
-}
-
-.form-registration .input-name input {
-    width: 105%;
-    padding: 0px;
-    font-size: 1rem;
-    border: none;
-    border-bottom: 1px solid #EAEFF2;
-    outline: none;
-    background-color: transparent;
-    color: rgb(0, 0, 0);
-
-    height: 50px;
-    margin-bottom: 30px;
-    font-size: x-large;
-    font-family: 'Courier New', Courier, monospace;
-
 }
 
 .form-registration .input-name ::placeholder {
     color: black;
-}
-
-.submit-btn-registration {
-    display: inline-block;
-    height: 60px;
-    width: 350px;
-    text-align: center;
-
-    border-radius: 30px;
-    background-color: #EAEFF2;
-    ;
-    border: none;
-    font-size: 40px;
-    font-family: 'Times New Roman', Times, serif;
-    color: rgb(83, 131, 104);
-    margin-bottom: 10px;
-    margin-left: 10px;
-    /* padding: 20px; */
 }
 
 .submit-btn {
@@ -858,30 +833,14 @@ h2 {
     font-weight: bold;
 }
 
-.txt-registration {
-    color: #EAEFF2;
-    margin-left: 70px;
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: bold;
-}
-
 .bud-login {
     color: rgb(83, 131, 104);
+    text-decoration: none;
 }
 
-.bud-registration {
-    color: #000000;
+.bud-login:hover {
+    text-decoration: underline;
 }
-
-.toRegister {
-    border-bottom: 1px solid #2d2e2e;
-
-}
-
-.toRegisterr {
-    border-bottom: 1px solid #EAEFF2;
-}
-
 
 .profile-page {
     margin: 70px 30px;

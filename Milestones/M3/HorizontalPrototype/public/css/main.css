@@ -66,11 +66,30 @@
 }
 
 #welcome-section {
-    min-height: 75vh;
+    margin-top: 45px;
+    min-height: 95vh;
+    background-image: url("https://img4.goodfon.com/wallpaper/nbig/4/63/laguna-beach-kaliforniia-ssha-more-poberezhe-doma-pliazh-kam.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #welcome {
-    margin-top: 30vh;
+    margin-top: 50px;
+    min-height: 95vh;
+}
+
+.welcome-header-1 {
+    padding-top: 90px;
+    font-family: 'Tahoma';
+    font-size: 60px;
+    color: #f0f0f0;
+}
+
+.welcome-header-2 {
+    padding-top: 10px;
+    font-family: inherit;
+    font-size: 2.3rem;
+    color: #f0f0f0;
 }
 
 #listing {
@@ -254,11 +273,16 @@
     height: 90px;
     text-align: center;
     line-height: 90px;
-    text-decoration: underline;
     font-size: 30px;
     font-weight: bolder;
-    margin: auto;
-    margin-top: 25vh;
+    transform: translateX(60%);
+    margin-top: 22vh;
+    box-shadow: 5px 5px 5px #031424;
+    border-radius: 50px;
+}
+
+.sign-up-button:hover {
+    text-decoration: underline;
 }
 
 .fixed-section {
