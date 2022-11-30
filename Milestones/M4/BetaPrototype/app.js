@@ -5,6 +5,7 @@ var mysqlSession = require ('express-mysql-session')(sessions);
 const cookieParser = require("cookie-parser");
 var postRouter = require("./controllers/listingControllers");
 var flash = require('express-flash');
+var bodyParser=require('body-parser');
 const port = 8080;
 var bodyParser = require('body-parser')
 
@@ -30,6 +31,9 @@ app.set('view engine', 'handlebars');
 app.set("views", `${__dirname}/views`);
 app.use(express.static(`${__dirname}/public`));
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
 app.use('/', require("./route/routeIndex"));
 
@@ -76,6 +80,9 @@ app.engine('handlebars', handlebars.engine({
                 result += obj.fn(i);
             }
             return result;
+        },
+        listItem: (obj) => {
+            return obj+1;
         }
         /**
          * if you need more helpers, add them here
@@ -100,6 +107,7 @@ app.get('/loginpage', (req, res) => {
 app.get('/helppage', (req, res) => {
     res.render('helppage');
 });
+
 
 app.get('/devAbout', (req, res) => {
     res.render('about/devAbout');
