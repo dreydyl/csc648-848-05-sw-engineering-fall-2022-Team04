@@ -29,6 +29,15 @@ exports.createNewListing = async (req, res, next) => {
     let title = req.body.title;
     let description = req.body.description;
     let fk_userId = req.session.userId;
+    let street_num = req.locals.street_num;
+    let street_name = req.locals.street_name;
+    let city = req.locals.city;
+    let zipCode = req.locals.zipCode;
+    let bed = req.locals.bed;
+    let bath= req.locals.bath;
+    let price= req.locals.price;
+    
+
     sharp(fileUploaded)
     .resize(200)
     .toFile(destinationOfThumbnail)
@@ -36,11 +45,17 @@ exports.createNewListing = async (req, res, next) => {
         return Listing.save(
             title,
             description,
-            fileUploaded,
             email,
             destinationOfThumbnail,
             fk_userId,
-            //TODO
+            street_num,
+            street_name,
+            city,
+            zipCode,
+            bed,
+            bath,
+            price,
+            fileUploaded
         );
     })
     .then((postWasCreated) => {

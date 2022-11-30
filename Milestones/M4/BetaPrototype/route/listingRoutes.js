@@ -29,7 +29,7 @@ router.route("/").get(listingControllers.getAllUsers).post(upload.single('pictur
 });
 */
 
-router.post("/", listingControllers.createNewListing, upload.single('file_name'), (req, res, next) => {
+router.post("/", listingControllers.createNewListing, (req, res, next) => {
     res.send('POST Request Called');
     
 });

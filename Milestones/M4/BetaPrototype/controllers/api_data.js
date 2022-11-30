@@ -26,7 +26,7 @@ respective contollers.js files
 //search
 let search = {
     "search-term": "", //search term is being taken care of by Tung
-    "filters": { //
+    "filters": { 
         "beds": "",
         "baths": "",
         "min-price": "",
