@@ -9,10 +9,10 @@ router.get("/", userControllers.getFeaturedLandlords, (req, res, next) => {
     res.render("main",{title:"EZRent Home"});
 });
 */
+
 router.get("/", (req, res, next) => {
     let ip = req.ip;
     var geo = geoip.lookup(ip);
-    console.log(geo);
     let hooks = {
         "welcome": {
             name: "welcome",
@@ -121,8 +121,8 @@ router.get("/", (req, res, next) => {
     res.locals.listings = listings;
     res.locals.landlords = landlords;
     res.locals.badReview = badReview;
-    
     res.render("main", { title: "EZRent Home", style: "main" });
+    
 });
 
 /* Frontend Tests */

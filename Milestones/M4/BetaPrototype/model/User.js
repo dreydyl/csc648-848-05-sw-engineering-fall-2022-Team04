@@ -143,12 +143,12 @@ const db = require('../database/db');
 
 
 class Register {
-    constructor(firstName, lastName, password, email){
+    constructor(firstName, lastName, password, email, role){
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
-
+        this.role = role;
     }
 
     save() {
@@ -165,6 +165,7 @@ class Register {
                 lastName,
                 password,
                 email,
+                role,
                 created_at
             )
             VALUE (
@@ -172,6 +173,7 @@ class Register {
                 '${this.lastName}',
                 '${this.password}',
                 '${this.email}',
+                '${this.role}',
                 '${createdAtDate}'
             )`;
             
@@ -244,7 +246,7 @@ class Review{
         return db.execute(sql);
     }
     static getLanlordList(name){
-        let sql = `SELECT firstName, lastName, email FROM registeredUser WHERE registeredUser.firstName = '${name}' OR registeredUser.lastName = '${name}'`;
+        let sql = `SELECT firstName, lastName, email FROM registeredUser WHERE registeredUser.firstName = '${name}' OR registeredUser.lastName = '${name}' AND registeredUser.role = 'landlord';`;
         return db.execute(sql);
     }
 }

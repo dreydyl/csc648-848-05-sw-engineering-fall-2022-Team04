@@ -66,9 +66,10 @@ class Register {
  
     }
 
+    
+
     static search(search, filters, sorting) { //TODO
         let sql = `SELECT * FROM listing WHERE listing_id BETWEEN '0' AND '7';`;
-
         return db.execute(sql); 
     }
 

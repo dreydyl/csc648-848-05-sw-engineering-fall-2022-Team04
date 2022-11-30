@@ -2,7 +2,7 @@
     {{!-- <img src="images\pic1.jpg" class="login-background"> --}}
 
     <div class="Overbox">
-        <form action="" class="form-login">
+        <form method= "POST" action="/users/login" class="form-login">
             <img src="images\logo.png" class="logo-login">
 
 
@@ -21,7 +21,7 @@
             </div>
             {{!-- <button type="button" class="submit-btn" href="/"> Login</button> --}}
             {{!-- <a class="submit-btn" href="/">Login</a> --}}
-            <input type="button" onclick=location.href='/' value="Login" class="login-submit-btn">
+            <input type="submit" value="Login" class="login-submit-btn">
             <div class=toRegister>
                 <p class="login-txt-login">Don't have an account? <a href="/register" class="bud-login">Register</a>
                 </p>
