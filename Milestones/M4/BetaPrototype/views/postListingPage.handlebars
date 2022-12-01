@@ -90,6 +90,7 @@
         border-radius: 4px;
         transition: all .4s ease;
         outline: none;
+        cursor: pointer;
     }
 
     button:hover {
@@ -157,7 +158,7 @@
 </style>
 
 <body>
-
+<form method="post" action="/listings/">
     <div class="form-wrapper">
         <div class="form-postlisting">
 
@@ -200,13 +201,15 @@
                 <input type="text" placeholder="Enter Price in US dollars" name="Price" required>
             </div>
             <div class="Post-button">
-                <button id="Post-button" type="submit" class="btn">Post</button>
+                <button id="Post-button" type="submit" class="btn" >Post</button>
 
             </div>
 
         </div>
     </div>
+    </form>
 </body>
+
 <script>
     $(document).ready(function () {
         $('form input').change(function () {

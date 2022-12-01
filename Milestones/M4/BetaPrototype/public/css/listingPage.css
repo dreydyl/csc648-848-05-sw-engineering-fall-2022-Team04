@@ -88,3 +88,72 @@
     object-fit: cover;
     border-radius: 50%;
 }
+
+.landlord-info:hover {
+    cursor: pointer;
+}
+
+.reviews-section {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    border: 3px solid black;
+    border-radius: 30px;
+    margin: 10px 5rem;
+    padding: 10px;
+}
+
+
+.form-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 500px;
+    box-shadow: 2px 5px 5px black;
+    border: solid black;
+    background-color: white;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    width: 580px;
+    height: 479px;
+    border: none;
+}
+
+.review-header {
+    font-family: inherit;
+    font-size: inherit;
+    color: black;
+    margin-top: 10px;
+}
+
+.form-container textarea {
+    resize: none;
+}
+
+.form-container textarea:focus {
+    outline: none;
+}
+
+.form-container .post {
+    background-color: #3C885B;
+    color: white;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    margin-bottom: 10px;
+}
+
+.form-container .post:hover {
+    background-color: #295b3d;
+}

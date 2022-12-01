@@ -143,11 +143,12 @@ const db = require('../database/db');
 
 
 class Register {
-    constructor(name, password, email){
-        this.name = name;
+    constructor(firstName, lastName, password, email, role){
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.password = password;
         this.email = email;
-
+        this.role = role;
     }
 
     save() {
@@ -160,22 +161,26 @@ class Register {
 
         let sql = `
             INSERT INTO registeredUser (
-                name,
+                firstName,
+                lastName,
                 password,
                 email,
+                role,
                 created_at
             )
             VALUE (
-                '${this.name}',
+                '${this.firstName}',
+                '${this.lastName}',
                 '${this.password}',
                 '${this.email}',
+                '${this.role}',
                 '${createdAtDate}'
             )`;
             
             return db.execute(sql); 
 
     }
-
+    
     static checkEmail(email){
         let sql = `SELECT email FROM registeredUser WHERE email = '${email}';`;
         return db.execute(sql);
@@ -184,6 +189,96 @@ class Register {
         let sql = `SELECT password FROM registeredUser WHERE email = '${email}';`;
         return db.execute(sql);
     }
-    
 }
-module.exports = Register;
+
+class Update{
+    constructor(bio, picture, email){
+        this.bio = bio;
+        this.picture = picture;
+        this.email = email;
+    }
+
+    update(){
+        let sql = `
+            UPDATE registeredUser
+            SET 
+                bio = '${this.bio}',
+                picture = '${this.picture}'
+            WHERE email = ${this.email};`;
+        return db.execute(sql);
+    }
+}
+
+class Review{
+    constructor(reg_user_id, rating, description, referUserId){
+        this.reg_user_id = reg_user_id;
+        this.rating = rating;
+        this.description = description;
+        this.referUserId = referUserId;
+    }
+
+    save(){
+        let sql = `
+            INSERT INTO review (reg_user_id, rating, description, referUserId)
+            VALUE(
+                ${this.reg_user_id},
+                ${this.rating},
+                '${this.description}',
+                ${this.referUserId}
+        );`;
+        return db.execute(sql);
+    }
+    
+    static getUserbyEmail(email){
+        let sql = `SELECT reg_user_id FROM registeredUser WHERE email = '${email}';`;
+        return db.execute(sql);
+    }
+    static getUserbyId(id){
+        let sql = `SELECT reg_user_id FROM registeredUser WHERE reg_user_id = ${id};`;
+        return db.execute(sql);
+    }
+    static getRole(id){
+        let sql = `SELECT role FROM registeredUser WHERE reg_user_id = ${id};`;
+        return db.execute(sql);
+    }
+    static getLandlordProfile(id){
+        let sql = `SELECT firstName, lastName, email, bio, picture, user_rating, role FROM registeredUser WHERE reg_user_id = ${id};`;
+        return db.execute(sql);
+    }
+    static getLandlordRating(id){
+        let sql = `SELECT rating FROM review LEFT OUTER JOIN registeredUser ON review.referLandlordId = registeredUser.reg_user_id WHERE review.referLandlordId = ${id} AND registeredUser.role = 'landlord'`;
+        return db.execute(sql);
+    }
+    static getLandlordReview(id){
+        let sql = `SELECT registeredUser.firstName, registeredUser.lastName, review.rating, review.description  FROM registeredUser LEFT OUTER JOIN review ON registeredUser.reg_user_id = review.reg_user_id WHERE review.referLandlordId = ${id};`;
+        return db.execute(sql);
+    }
+    static getRenterProfile(id){
+        let sql = `SELECT firstName, lastName, email, bio, picture, role FROM registeredUser WHERE reg_user_id = ${id};`;
+        return db.execute(sql);
+    }
+    static getRenterWrittenReview(id){
+        let sql = `SELECT registeredUser.firstName, registeredUser.lastName, review.rating, review.description FROM registeredUser LEFT OUTER JOIN review ON registeredUser.reg_user_id = review.referLandlordId WHERE registeredUser.reg_user_id = ${id}`;
+        return db.execute(sql);
+    }
+    static getLanlordList(name){
+        let sql = `SELECT firstName, lastName, email FROM registeredUser WHERE registeredUser.firstName = '${name}' OR registeredUser.lastName = '${name}' AND registeredUser.role = 'landlord';`;
+        return db.execute(sql);
+    }
+}
+
+class Rating{
+    constructor(reg_user_id, user_rating){
+        this.reg_user_id = reg_user_id;
+        this.user_rating = user_rating;
+    }
+    update_rating(){
+        let sql = `
+            UPDATE registeredUser
+            SET user_rating = ${this.user_rating}
+            WHERE reg_user_id = ${this.reg_user_id};  
+        `;
+        return db.execute(sql);
+    }
+}
+module.exports = { Register, Update, Review, Rating};

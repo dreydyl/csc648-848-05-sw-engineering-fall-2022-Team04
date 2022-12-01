@@ -23,7 +23,12 @@
 // const pool = createPool();
 
 // module.exports = {
-//   connection: async () => pool.getConnection(),
+//   connection: async () => pool.getConnection(function(err, connection){
+//     if(err) {
+//       reject (err);
+//     }
+//     connection.release();
+//   }),
 //   execute: (...params) => pool.execute(...params)
 // };
 
@@ -53,6 +58,11 @@ function createPool() {
 const pool = createPool();
 
 module.exports = {
-  connection: async () => pool.getConnection(),
+  connection: async () => pool.getConnection(function(err, connection){
+    if(err) {
+      reject (err);
+    }
+    connection.release();
+  }),
   execute: (...params) => pool.execute(...params)
 };

@@ -2,13 +2,17 @@ const { response } = require('express');
 const express = require('express');
 const userControllers = require('../controllers/userControllers');
 const router = express.Router();
+var geoip = require('geoip-lite');
 
 /*
 router.get("/", userControllers.getFeaturedLandlords, (req, res, next) => {
     res.render("main",{title:"EZRent Home"});
 });
 */
+
 router.get("/", (req, res, next) => {
+    let ip = req.ip;
+    var geo = geoip.lookup(ip);
     let hooks = {
         "welcome": {
             name: "welcome",
@@ -118,6 +122,7 @@ router.get("/", (req, res, next) => {
     res.locals.landlords = landlords;
     res.locals.badReview = badReview;
     res.render("main", { title: "EZRent Home", style: "main" });
+    
 });
 
 /* Frontend Tests */
@@ -176,11 +181,65 @@ router.get("/listingpage", (req, res, next) => {
 });
 
 router.get("/profilepage", (req, res, next) => {
+    let user = {
+        "name": "Britney Spears",
+        "email": "bspears@gmail.com",
+        "phone": "(650) 123-4567",
+        "rating": "7/10",
+        "bio": `Hello everyone, my name is Brittney Spears and I'm a 27 year old Accountant. I own a 3 bedroom house in San
+        Francisco that is currently rented out by a wonderful family of 4. I love traveling to scenic countries and 
+        hiking on big beautiful mountains.`
+    }
+    let reviews = [
+        {
+            "description": `Britney was very helpful during the application process. She was very responsive and the entire process
+            was done in a few hours. She is truly an amazing landlord and I wish all landlords are like her.`
+        },
+        {
+            "description": `Britney was very helpful during the application process. She was very responsive and the entire process
+            was done in a few hours. She is truly an amazing landlord and I wish all landlords are like her.`
+        }
+    ];
+    let listings = [
+        {
+            "bedrooms": `3`,
+            "bathrooms": `2`,
+            "price": `3500`
+        },
+        {
+            "bedrooms": `5`,
+            "bathrooms": `3.5`,
+            "price": `5500`
+        }
+    ];
+    res.locals.user = user;
+    res.locals.reviews = reviews;
+    res.locals.listings = listings;
     res.render("profilePage", { title: "EZRent Profile" });
 });
 
 router.get("/userprofilepage", (req, res, next) => {
+    let user = {
+        "name": "Britney Spears",
+        "email": "bspears@gmail.com",
+        "phone": "(650) 123-4567",
+        "bio": `Hello everyone, my name is Brittney Spears and I'm a 27 year old Accountant. I own a 3 bedroom house in San
+        Francisco that is currently rented out by a wonderful family of 4. I love traveling to scenic countries and 
+        hiking on big beautiful mountains.`
+    }
+    let reviews = [
+        {
+            "description": `Britney was very helpful during the application process. She was very responsive and the entire process
+            was done in a few hours. She is truly an amazing landlord and I wish all landlords are like her.`
+        }
+    ];
+    res.locals.user = user;
+    res.locals.reviews = reviews;
     res.render("userProfilePage", { title: "EZRent Profile" });
+});
+
+router.get("/postListingPage", (req, res, next) => {
+    res.render("postListingPage", { title: "EZRent Profile" });
 });
 
 router.get("/login", (req, res, next) => {

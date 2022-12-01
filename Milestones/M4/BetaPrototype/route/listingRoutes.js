@@ -11,10 +11,10 @@ const storage = multer.diskStorage({
         cb(null, './public/images');
     },
     filename: function (req, file, cb) {
-        let fileExt = file.mimetype.split('/')[1];
-        let randomName = crypto.randomBytes(22).toString("hex");
-        cb(null, `${randomName}.${fileExt}`);
-        //return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
+        // let fileExt = file.mimetype.split('/')[1];
+        // let randomName = crypto.randomBytes(22).toString("hex");
+        // cb(null, `${randomName}.${fileExt}`);
+        return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
     }
 });
 
@@ -29,19 +29,23 @@ router.route("/").get(listingControllers.getAllUsers).post(upload.single('pictur
 });
 */
 
-router.post("/", listingControllers.createNewListing, upload.single('file_name'), (req, res, next) => {
+router.post("/", listingControllers.createNewListing, (req, res, next) => {
     res.send('POST Request Called');
-})
-
-
-router.get("/", listingControllers.getAllListings, (req, res, next) => {
-    res.render('partials/listingPage');
+    
 });
+
+// router.get("/:id", listingControllers.getListBySearch, (req, res, next) => {
+//     res.render('partials/listingPage');
+// });
 
 router.get("/search", listingControllers.searchListings, (req, res, next) => {
-    res.locals.searchTerm = 
     res.render("listingResults");
 });
+
+router.get("/searchfilters", listingControllers.applyFilters, (req, res, next) => {
+    res.render("listingResults");
+});
+
 
 router.get("/search-test", (req, res, next) => {
     let listings = {

@@ -1,1 +1,1 @@
-## This folder will have all the code for your Beta prototype. 
+## This code will have all your code for your horizontal prototype
