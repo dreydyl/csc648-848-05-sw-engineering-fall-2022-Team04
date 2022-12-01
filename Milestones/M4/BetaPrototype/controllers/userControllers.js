@@ -1,7 +1,7 @@
 const User = require('../model/User');
 const Register = User.Register;
 const Update = User.Update;
-var flash = require('express-flash');
+
 const Review = User.Review;
 const Rating = User.Rating;
 const Landlord = User.Landlord;
@@ -38,13 +38,17 @@ const checkPassword = (password) => {
 
 exports.createUser = async (req, res, next) => {
     try {
-        let { firstName, lastName, password, email, confirmPassword } = req.body;
+        let { firstName, lastName, password, email, confirmPassword, role } = req.body;
         //console.log(password);
         const hashpassword = bcrypt.hashSync(password, 10);
         //const hashpassword = sc.encrypt(password, 10);
-        let register = new Register(firstName, lastName, hashpassword, email);
+        if(role != "landlord"){
+            role = 'renter';
+        }
+        console.log(role);
+        let register = new Register(firstName, lastName, hashpassword, email, role);
         let count = await Register.checkEmail(email);
-        console.log(email);
+        
         if (count[0] != 0) {
             res.status(409).json({ message: "Email already exists! ", count });
         }
@@ -84,16 +88,14 @@ exports.login = async (req, res, next) => {
             res.status(404).json({ message: "User Not Found" });
         }
         else {
-
             const hashedpassword = await Register.getPassword(email);
             const temp = hashedpassword[0];
             const newHashedPassword = temp[0].password;
-            console.log(req.session.admin);
+            //console.log(req.session);
             if (await bcrypt.compare(password, newHashedPassword)) {
                 if (req.session.admin && req.session.email == email) {
                     console.log(req.session);
                     console.log("User already logged in");
-                    // req.flash('user already logged in');
                     res.redirect('/');
                 }
                 else {
@@ -101,10 +103,8 @@ exports.login = async (req, res, next) => {
                     req.session.admin = true;
                     console.log(req.session);
                     console.log("---------> Login Successful");
-                    //req.flash('success' , 'You logged in successfully!');
                     res.redirect('/');
                 }
-
                 // res.send(`Hey there, welcome <a href=\'logout'>click to logout</a>`);
             }
             // console.log(sc.decrypt(stringObj));

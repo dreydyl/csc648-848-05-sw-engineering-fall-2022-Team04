@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser());
 // parse application/json 
 app.use(bodyParser.json())
-
+app.use(flash());
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",

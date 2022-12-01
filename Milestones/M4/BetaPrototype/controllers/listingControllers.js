@@ -118,6 +118,7 @@ exports.getListing = async (req, res, next) => {
 exports.searchListings = async (req, res, next) => {
     let search = req.query.search;
     res.locals.searchTerm = search;
+    console.log(search);
     if (!search) {
         res.locals.error = "No search term given";
         res.render('error', { title: "EZRent " });
