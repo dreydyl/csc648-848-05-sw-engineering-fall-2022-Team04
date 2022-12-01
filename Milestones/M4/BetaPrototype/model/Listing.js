@@ -5,7 +5,7 @@ const db = require('../database/db');
 // var multer = require ('multer');
 
 class Register {
-    constructor(landlord_id, street_num, street_name, city, state, zipcode, description, bed, bath, price, file_name, rating) {
+    constructor(landlord_id, street_num, street_name, city, state, zipcode, description, bed, bath, price) {
         this.landlord_id = landlord_id;
         this.street_num = street_num;
         this.street_name = street_name;
@@ -16,8 +16,6 @@ class Register {
         this.bed = bed;
         this.bath = bath;
         this.price = price;
-        this.file_name = file_name;
-        this.rating = rating;
     }
 
     save() {
@@ -40,9 +38,7 @@ class Register {
             bed, 
             bath,
             price, 
-            created_at,
-            file_name,
-            rating
+            created_at
             
         )
         VALUES (
@@ -56,9 +52,7 @@ class Register {
             '${this.bed}',
             '${this.bath}',
             '${this.price}',
-            '${createdAtDate}',
-            '${this.file_name}',
-            '${this.rating}'
+            '${createdAtDate}'
         )
         `;
 
@@ -66,8 +60,10 @@ class Register {
  
     }
 
-    
-
+    static checkEmail(email) {
+        let sql = `SELECT reg_user_id, email FROM registeredUser WHERE email = '${email}';`;
+        return db.execute(sql);
+    }
     static search(search, filters, sorting) { //TODO
         let sql = `SELECT * FROM listing WHERE listing_id BETWEEN '0' AND '7';`;
         return db.execute(sql); 

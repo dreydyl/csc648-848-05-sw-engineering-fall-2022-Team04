@@ -22,48 +22,18 @@ exports.createNewListing = async (req, res, next) => {
         // listing = await listing.save();
 
         //TODO: modify to match db
-    let fileUploaded = req.file.path;
-    let fileAsThumbnail = `thumbnail-${req.file.filename}`;
-    let destinationOfThumbnail = req.file.destination + "/" + fileAsThumbnail;
-    let fk_userId = req.session.userId;
-    let street_num = req.locals.street_num;
-    let street_name = req.locals.street_name;
-    let city = req.locals.city;
-    let zipCode = req.locals.zipCode;
-    let bed = req.locals.bed;
-    let bath= req.locals.bath;
-    let price= req.locals.price;
+    // let fileUploaded = req.file.path;
+    // let fileAsThumbnail = `thumbnail-${req.file.filename}`;
+    // let destinationOfThumbnail = req.file.destination + "/" + fileAsThumbnail;
+    let count = await Listing.checkEmail(req.session.email);
+    let id = count[0][0].reg_user_id;
+    let landlord_id = id;
+    let {street_num, street_name, city, state, zipcode, description, bed, bath, price } = req.body;
     
+    let listing = new Listing(landlord_id, street_num, street_name, city, state, zipcode, description, bed, bath, price);
+    listing = await listing.save();
+    res.status(201).json({listing});
 
-    sharp(fileUploaded)
-    .resize(200)
-    .toFile(destinationOfThumbnail)
-    .then(() => {
-        return Listing.save(
-        
-            destinationOfThumbnail,
-            fk_userId,
-            street_num,
-            street_name,
-            city,
-            zipCode,
-            bed,
-            bath,
-            price,
-            fileUploaded
-        );
-    })
-    .then((postWasCreated) => {
-        if(postWasCreated){
-            res.send("Your post was created successfully!!");
-            //req.flash('success', 'Your post was created successfully!!')
-            res.redirect("/");
-        }else{
-            // throw new PostError ('Post could not be created!!', '/postimage', 200);
-            res.send("your post can't be posted");
-            //req.flash('error', 'unable to post');
-        }
-    })
     } catch (error) {
         console.log(error);
         next(error);
@@ -72,16 +42,9 @@ exports.createNewListing = async (req, res, next) => {
 
 exports.getListing = async (req, res, next) => {
     try {
-        let results = req.params.id;
-        if (results && results.length) {
-            let listing = results[0];
-            listing = "To be implemented";
-            res.status(200).json(listing);
-        } else {
-            console.log("Cannot find listing"); //should be 404
-            //req.flash('error', 'This is not the post you are looking for');
-            res.redirect('/');
-        }
+        let id = req.params.id;
+        let listing = await Listing.getListingById(id);
+        
     } catch (err) {
         console.log(error);
         next(err);

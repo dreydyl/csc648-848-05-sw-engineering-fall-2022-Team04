@@ -8,7 +8,7 @@ const crypto = require('crypto');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './public/images');
+        cb(null, './public/images/listing');
     },
     filename: function (req, file, cb) {
         // let fileExt = file.mimetype.split('/')[1];
@@ -29,11 +29,8 @@ router.route("/").get(listingControllers.getAllUsers).post(upload.single('pictur
 });
 */
 
-router.post("/", listingControllers.createNewListing, (req, res, next) => {
-    res.send('POST Request Called');
-    
-});
 
+router.route("/").post(listingControllers.createNewListing);
 // router.get("/:id", listingControllers.getListBySearch, (req, res, next) => {
 //     res.render('partials/listingPage');
 // });

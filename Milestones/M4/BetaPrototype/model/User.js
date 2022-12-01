@@ -182,7 +182,7 @@ class Register {
     }
 
     static checkEmail(email) {
-        let sql = `SELECT email FROM registeredUser WHERE email = '${email}';`;
+        let sql = `SELECT reg_user_id, email FROM registeredUser WHERE email = '${email}';`;
         return db.execute(sql);
     }
     static getPassword(email) {
@@ -200,6 +200,22 @@ class Register {
 }
 
 class Landlord {
+    constructor(reg_user_id){
+        this.reg_user_id = reg_user_id;
+    }
+    
+    save(){
+        let sql = `
+            INSERT INTO landlord (
+                reg_user_id,
+            )
+            VALUE (
+                ${this.reg_user_id},
+            )
+        `
+        return db.execute(sql);
+    }
+
     static getFeaturedLandlords() {
         // let landlords = [
         //     {

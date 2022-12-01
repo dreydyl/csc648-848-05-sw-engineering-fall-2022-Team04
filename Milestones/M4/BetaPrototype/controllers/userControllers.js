@@ -1,7 +1,6 @@
 const User = require('../model/User');
 const Register = User.Register;
 const Update = User.Update;
-
 const Review = User.Review;
 const Rating = User.Rating;
 const Landlord = User.Landlord;
@@ -45,7 +44,6 @@ exports.createUser = async (req, res, next) => {
         if(role != "landlord"){
             role = 'renter';
         }
-        console.log(role);
         let register = new Register(firstName, lastName, hashpassword, email, role);
         let count = await Register.checkEmail(email);
         
@@ -84,6 +82,7 @@ exports.login = async (req, res, next) => {
 
         let { password, email } = req.body;
         let count = await Register.checkEmail(email);
+        let id = count[0][0].reg_user_id;
         if (count[0].length == 0) {
             res.status(404).json({ message: "User Not Found" });
         }
@@ -99,6 +98,8 @@ exports.login = async (req, res, next) => {
                     res.redirect('/');
                 }
                 else {
+                    
+                    req.session.id = id;
                     req.session.email = email;
                     req.session.admin = true;
                     console.log(req.session);
