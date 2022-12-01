@@ -237,12 +237,28 @@ class Review{
         let sql = `SELECT reg_user_id FROM registeredUser WHERE reg_user_id = ${id};`;
         return db.execute(sql);
     }
-    static getProfile(id){
-        let sql = `SELECT registeredUser.firstName, registeredUser.lastName, registeredUser.email, registeredUser.bio, registeredUser.picture, registeredUser.user_rating, review.rating, review.description, review.referUserId FROM registeredUser LEFT OUTER JOIN review ON registeredUser.reg_user_id = review.reg_user_id WHERE registeredUser.reg_user_id = ${id};`;
+    static getRole(id){
+        let sql = `SELECT role FROM registeredUser WHERE reg_user_id = ${id};`;
         return db.execute(sql);
     }
-    static getUserRating(id){
-        let sql = `SELECT rating FROM review LEFT OUTER JOIN registeredUser ON review.referUserId = registeredUser.reg_user_id WHERE review.referUserId = ${id};`;
+    static getLandlordProfile(id){
+        let sql = `SELECT firstName, lastName, email, bio, picture, user_rating, role FROM registeredUser WHERE reg_user_id = ${id};`;
+        return db.execute(sql);
+    }
+    static getLandlordRating(id){
+        let sql = `SELECT rating FROM review LEFT OUTER JOIN registeredUser ON review.referLandlordId = registeredUser.reg_user_id WHERE review.referLandlordId = ${id} AND registeredUser.role = 'landlord'`;
+        return db.execute(sql);
+    }
+    static getLandlordReview(id){
+        let sql = `SELECT registeredUser.firstName, registeredUser.lastName, review.rating, review.description  FROM registeredUser LEFT OUTER JOIN review ON registeredUser.reg_user_id = review.reg_user_id WHERE review.referLandlordId = ${id};`;
+        return db.execute(sql);
+    }
+    static getRenterProfile(id){
+        let sql = `SELECT firstName, lastName, email, bio, picture, role FROM registeredUser WHERE reg_user_id = ${id};`;
+        return db.execute(sql);
+    }
+    static getRenterWrittenReview(id){
+        let sql = `SELECT registeredUser.firstName, registeredUser.lastName, review.rating, review.description FROM registeredUser LEFT OUTER JOIN review ON registeredUser.reg_user_id = review.referLandlordId WHERE registeredUser.reg_user_id = ${id}`;
         return db.execute(sql);
     }
     static getLanlordList(name){

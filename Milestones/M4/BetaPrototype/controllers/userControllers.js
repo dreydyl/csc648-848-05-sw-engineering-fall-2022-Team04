@@ -171,29 +171,49 @@ exports.createReview = async (req, res, next) => {
 exports.getUserProfile = async (req, res, next) => {
     try{
         let id = req.params.id;
-        let sum = 0;
-        let user_rating = 0;
-        let userRating = await Review.getUserRating(id);
-        userRating = userRating[0];
-        if(userRating > 0){
-            for(let i = 0; i < userRating.length; i++)
-            {
-                let temp = parseFloat(userRating[i].rating);
-                sum += temp;
+        let role = await Review.getRole(id);
+        role = role[0];
+        role = role[0].role;
+        console.log(role);
+        if(role == 'landlord'){
+            let sum = 0;
+            let user_rating;
+            let userRating = await Review.getLandlordRating(id);
+            userRating = userRating[0];
+            if(userRating != 0){
+                for(let i = 0; i < userRating.length; i++)
+                {
+                    let temp = parseFloat(userRating[i].rating);
+                    sum += temp;
+                }
+                user_rating = sum / userRating.length;
             }
-            user_rating = sum / userRating.length;
             let update_rating = new Rating(id, user_rating);
             update_rating = await update_rating.update_rating();
+            let profile = await Review.getLandlordProfile(id);
+            let getReview = await Review.getLandlordReview(id);
+            profile = profile[0];
+            getReview = getReview[0];
+            profile.push(getReview);
+            res.status(201).json({profile});
         }
+        else{
+            let profile = await Review.getRenterProfile(id);
+            profile = profile[0];
+            let getWrittenReview = await Review.getRenterWrittenReview(id);
+            getWrittenReview = getWrittenReview[0];
+            profile.push(getWrittenReview);
+            console.log(profile);
+            res.status(201).json({profile});
+        }
+       
         
-        let profile = await Review.getProfile(id);
-        profile = profile[0];
-        res.status(201).json({profile});
     }
     catch (error){
         next(error);
     }
 }
+
 
 exports.getLandlordList = async (req, res, next) => {
     try{
