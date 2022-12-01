@@ -1,19 +1,22 @@
 <div class="featured-landlords">
-    <a class="featured-landlord" id="featured-landlord-1" href="profilepage">
+    {{#each this}}
+    {{log this}}
+    <a class="featured-landlord" id="featured-landlord-1" href="users/profilePage/{{reg_user_id}}">
         <div class="featured-landlord-left">
-            <img class="landlord-picture" src={{landlord1.img}}>
-            <p class="landlord-name">{{landlord1.name}}</p>
+            <img class="landlord-picture" src={{picture_id}}>
+            <p class="landlord-name">{{firstName}} {{lastName}}</p>
         </div>
         <div class="featured-landlord-right">
             <div class="landlord-info">
-                {{> rating landlord1.rating}}
+                {{> rating user_rating}}
                 <div class="bio">
-                    {{landlord1.bio}}
+                    {{bio}}
                 </div>
             </div>
         </div>
     </a>
-    <a class="featured-landlord" id="featured-landlord-2" href="profilepage">
+    {{/each}}
+    {{!-- <a class="featured-landlord" id="featured-landlord-2" href="profilepage">
         <div class="featured-landlord-left">
             <div class="landlord-info">
                 {{> rating landlord2.rating}}
@@ -40,5 +43,5 @@
                 </div>
             </div>
         </div>
-    </a>
+    </a> --}}
 </div>

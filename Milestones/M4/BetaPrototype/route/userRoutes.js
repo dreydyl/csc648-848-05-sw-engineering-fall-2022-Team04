@@ -42,9 +42,9 @@ const upload = multer({
 });
 
 
-router.get('/', sessionChecker, async function(req, res, next) {
-    res.redirect('/profilePage');
-});
+// router.get('/', sessionChecker, async function(req, res, next) {
+//     res.redirect('/profilePage');
+// });
 router.route("/signup").post(userControllers.createUser);
 router.route("/login").post(userControllers.login);
 router.route("/logout").get(userControllers.logout);

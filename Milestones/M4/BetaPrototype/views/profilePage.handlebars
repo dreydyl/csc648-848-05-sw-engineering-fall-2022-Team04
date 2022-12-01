@@ -10,18 +10,18 @@
                     alt="">
             </div>
             <div class="profile-page-info">
-                <p class="profile-page-person-name">{{user.name}}</p>
-                <h4>{{user.email}}</h4>
-                <h4>{{user.phone}}</h4>
-                <p class="profile-page-person-rating">{{user.rating}}</p>
+                <p class="profile-page-person-name">{{firstName}} {{lastName}}</p>
+                <h4>{{email}}</h4>
+                {{!-- <h4>{{user.phone}}</h4> --}}
+                <p class="profile-page-person-rating">{{user_rating}}</p>
             </div>
         </div>
         <div class="profile-page-bio-box">
             <header class="profile-page-box-header">
-                Learn about {{user.name}}
+                Learn about {{firstName}}
             </header>
             <p class="bio-description">
-                {{user.bio}}
+                {{bio}}
             </p>
         </div>
     </div>
