@@ -1,4 +1,5 @@
 <div class="profile-page">
+    {{log this}}
     {{!-- <header class="profile-page-header">
         Profile Page
     </header> --}}
@@ -7,21 +8,22 @@
             <div class="profile-page-img-section">
                 <img class="profile-page-img"
                     src="https://i0.wp.com/evanstonroundtable.com/wp-content/uploads/2022/05/Lushina-scaled-e1652827479814.jpg?fit=1200%2C900&ssl=1"
+                    {{!-- src="{{profile.picture}}" --}}
                     alt="">
             </div>
             <div class="profile-page-info">
-                <p class="profile-page-person-name">{{user.name}}</p>
-                <h4>{{user.email}}</h4>
-                <h4>{{user.phone}}</h4>
-                <p class="profile-page-person-rating">{{user.rating}}</p>
+                <p class="profile-page-person-name">{{profile.firstName}} {{profile.lastName}}</p>
+                <h4>{{profile.email}}</h4>
+                {{!-- <h4>{{user.phone}}</h4> --}}
+                <p class="profile-page-person-rating">{{profile.user_rating}}</p>
             </div>
         </div>
         <div class="profile-page-bio-box">
             <header class="profile-page-box-header">
-                Learn about {{user.name}}
+                Learn about {{profile.firstName}}
             </header>
             <p class="bio-description">
-                {{user.bio}}
+                {{profile.bio}}
             </p>
         </div>
     </div>

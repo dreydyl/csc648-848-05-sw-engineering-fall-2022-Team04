@@ -7,8 +7,11 @@ document.getElementById("post-review-submit-button").onclick = () => {
     document.getElementById("myForm").style.display = "none";
 }
 
-document.getElementById("profile-page-listings").onclick = () => {
-    location.replace("/listingpage");
+let listings = [...document.querySelectorAll("#profile-page-listings")];
+for(var listing of listings) {
+    listing.onclick = () => { //TODO get id of listing
+        location.replace("/listingpage");
+    }
 }
 
 // function openForm() {

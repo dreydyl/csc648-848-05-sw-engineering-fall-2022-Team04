@@ -25,9 +25,6 @@ exports.createNewListing = async (req, res, next) => {
     let fileUploaded = req.file.path;
     let fileAsThumbnail = `thumbnail-${req.file.filename}`;
     let destinationOfThumbnail = req.file.destination + "/" + fileAsThumbnail;
-    let email = req.body.email;
-    let title = req.body.title;
-    let description = req.body.description;
     let fk_userId = req.session.userId;
     let street_num = req.locals.street_num;
     let street_name = req.locals.street_name;
@@ -43,9 +40,7 @@ exports.createNewListing = async (req, res, next) => {
     .toFile(destinationOfThumbnail)
     .then(() => {
         return Listing.save(
-            title,
-            description,
-            email,
+        
             destinationOfThumbnail,
             fk_userId,
             street_num,
@@ -61,12 +56,12 @@ exports.createNewListing = async (req, res, next) => {
     .then((postWasCreated) => {
         if(postWasCreated){
             res.send("Your post was created successfully!!");
-            req.flash('success', 'Your post was created successfully!!')
+            //req.flash('success', 'Your post was created successfully!!')
             res.redirect("/");
         }else{
             // throw new PostError ('Post could not be created!!', '/postimage', 200);
             res.send("your post can't be posted");
-            req.flash('error', 'unable to post');
+            //req.flash('error', 'unable to post');
         }
     })
     } catch (error) {
@@ -118,6 +113,7 @@ exports.getListing = async (req, res, next) => {
 exports.searchListings = async (req, res, next) => {
     let search = req.query.search;
     res.locals.searchTerm = search;
+    console.log(search);
     if (!search) {
         res.locals.error = "No search term given";
         res.render('error', { title: "EZRent " });

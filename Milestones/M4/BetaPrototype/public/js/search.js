@@ -9,7 +9,7 @@ let landlordsItem = document.getElementById("landlords-item");
 
 let searchText = document.getElementById("search-text");
 
-let currentOption = "listings";
+let currentOption;
 let menuOpen = false;
 
 //TODO Make this listen to every part of the page

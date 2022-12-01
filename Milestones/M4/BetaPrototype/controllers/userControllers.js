@@ -1,9 +1,10 @@
 const User = require('../model/User');
 const Register = User.Register;
 const Update = User.Update;
-var flash = require('express-flash');
+
 const Review = User.Review;
 const Rating = User.Rating;
+const Landlord = User.Landlord;
 const bcrypt = require("bcrypt");
 var validator = require("email-validator");
 
@@ -23,38 +24,41 @@ var validator = require("email-validator");
 //     let usernameChecker = /^\D\w{2,}$/;
 //     return usernameChecker.test(username);
 // }
-    
+
 const checkPassword = (password) => {
-        let passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-        return passwordChecker.test(password);
+    let passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    return passwordChecker.test(password);
 }
-    
+
 // const checkEmail = (email) => {
 //         let emailChecker = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 //         return emailChecker.test(email);
 // }
-    
+
 
 exports.createUser = async (req, res, next) => {
     try {
-        let { firstName, lastName, password, email, confirmPassword } = req.body;
+        let { firstName, lastName, password, email, confirmPassword, role } = req.body;
         //console.log(password);
         const hashpassword = bcrypt.hashSync(password, 10);
         //const hashpassword = sc.encrypt(password, 10);
-        let register = new Register(firstName, lastName, hashpassword, email);
+        if(role != "landlord"){
+            role = 'renter';
+        }
+        console.log(role);
+        let register = new Register(firstName, lastName, hashpassword, email, role);
         let count = await Register.checkEmail(email);
-        console.log(email);
+        
         if (count[0] != 0) {
-            res.status(409).json({ message: "Email already exists! ", count});
+            res.status(409).json({ message: "Email already exists! ", count });
         }
 
         else if (confirmPassword != password || !checkPassword(password)) {
             res.status(409).json({ message: "Incorrect password" });
         }
 
-        else if(!validator.validate(email))
-        {
-            res.status(409).json({ message: "Incorrect email format"})
+        else if (!validator.validate(email)) {
+            res.status(409).json({ message: "Incorrect email format" })
         }
         else {
             register = await register.save();
@@ -70,41 +74,37 @@ exports.createUser = async (req, res, next) => {
 exports.demoLogin = async (req, res, next) => {
     let { password, email } = req.body;
     //start session with email
-    
+
 }
 
 
 
 exports.login = async (req, res, next) => {
     try {
-        
+
         let { password, email } = req.body;
         let count = await Register.checkEmail(email);
         if (count[0].length == 0) {
             res.status(404).json({ message: "User Not Found" });
         }
         else {
-
             const hashedpassword = await Register.getPassword(email);
             const temp = hashedpassword[0];
             const newHashedPassword = temp[0].password;
-            console.log(req.session.admin);
+            //console.log(req.session);
             if (await bcrypt.compare(password, newHashedPassword)) {
-                if(req.session.admin && req.session.email == email){
+                if (req.session.admin && req.session.email == email) {
                     console.log(req.session);
                     console.log("User already logged in");
-                   // req.flash('user already logged in');
                     res.redirect('/');
                 }
-                else{
+                else {
                     req.session.email = email;
                     req.session.admin = true;
                     console.log(req.session);
                     console.log("---------> Login Successful");
-                    //req.flash('success' , 'You logged in successfully!');
                     res.redirect('/');
                 }
-                
                 // res.send(`Hey there, welcome <a href=\'logout'>click to logout</a>`);
             }
             // console.log(sc.decrypt(stringObj));
@@ -112,7 +112,7 @@ exports.login = async (req, res, next) => {
             //     console.log("---------> Login Successful")
             //     // res.send(`${email} is logged in!`);
             //     res.send(`Hey there, welcome <a href=\'users/logout'>click to logout</a>`);
-    
+
             // }
             else {
                 console.log("---------> Password Incorrect")
@@ -134,22 +134,22 @@ exports.logout = async (req, res, next) => {
 }
 
 exports.update = async (req, res, next) => {
-    try{
+    try {
         let bio = req.body;
         console.log(bio);
         let picture = req.file;
         let update = new Update(bio, picture, req.session.email);
         update = await update.update();
-        res.send({message: 'User Updated'});
+        res.send({ message: 'User Updated' });
     }
-    catch(error){
+    catch (error) {
         next(error);
     }
 }
 
 exports.createReview = async (req, res, next) => {
-    try{
-        let {rating, description} = req.body;
+    try {
+        let { rating, description } = req.body;
         let reg_user_id = await Review.getUserbyEmail(req.session.email);
         reg_user_id = reg_user_id[0];
         reg_user_id = reg_user_id[0].reg_user_id;
@@ -162,49 +162,82 @@ exports.createReview = async (req, res, next) => {
         review = await review.save();
         res.status(201).json({ message: "Review created " });
     }
-    catch(error){
+    catch (error) {
         next(error);
     }
-    
+
 }
 
 exports.getUserProfile = async (req, res, next) => {
-    try{
+    try {
         let id = req.params.id;
-        let sum = 0;
-        let user_rating = 0;
-        let userRating = await Review.getUserRating(id);
-        userRating = userRating[0];
-        if(userRating > 0){
-            for(let i = 0; i < userRating.length; i++)
-            {
-                let temp = parseFloat(userRating[i].rating);
-                sum += temp;
+        let role = await Review.getRole(id);
+        role = role[0][0].role;
+        console.log(role);
+        if(role == 'landlord'){
+            let sum = 0;
+            let user_rating;
+            let userRating = await Review.getLandlordRating(id);
+            userRating = userRating[0];
+            if(userRating != 0){
+                for(let i = 0; i < userRating.length; i++)
+                {
+                    let temp = parseFloat(userRating[i].rating);
+                    sum += temp;
+                }
+                user_rating = sum / userRating.length;
+                let update_rating = new Rating(id, user_rating);
+                update_rating = await update_rating.update_rating();
             }
-            user_rating = sum / userRating.length;
-            let update_rating = new Rating(id, user_rating);
-            update_rating = await update_rating.update_rating();
+            let profile = await Review.getLandlordProfile(id);
+            let getReview = await Review.getLandlordReview(id);
+            profile = profile[0];
+            getReview = getReview[0];
+            profile.push(getReview);
+            res.locals.profile = profile[0];
+            res.render("profilePage", { title: "EZRent", style: "main" });
         }
-        
-        let profile = await Review.getProfile(id);
-        profile = profile[0];
-        res.status(201).json({profile});
+        else{
+            let profile = await Review.getRenterProfile(id);
+            profile = profile[0];
+            let getWrittenReview = await Review.getRenterWrittenReview(id);
+            getWrittenReview = getWrittenReview[0];
+            profile.push(getWrittenReview);
+            console.log(profile);
+            res.locals.profile = profile[0];
+            res.render("userProfilePage", { title: "EZRent", style: "main" });
+        }
     }
-    catch (error){
+    catch (error) {
         next(error);
     }
 }
 
+
 exports.getLandlordList = async (req, res, next) => {
-    try{
+    try {
         let name = req.params.name;
         name = name.charAt(0).toUpperCase() + name.slice(1);
         let LandlordList = await Review.getLanlordList(name);
         LandlordList = LandlordList[0];
-        res.status(200).json({LandlordList});
+        res.status(200).json({ LandlordList });
     }
-    catch(error){
+    catch (error) {
         next(error);
+    }
+}
+
+exports.getFeaturedLandlords = async (req, res, next) => {
+    try {
+        //TODO await Landlord.getFeaturedLandlords();
+        //comment out when implement Model
+        let landlords = await Landlord.getFeaturedLandlords();
+        landlords = landlords[0];
+        console.log("controllers: "+landlords);
+        return landlords;
+    }
+    catch (error) {
+        console.log(error);
     }
 }
 // exports.register = async (req, res, next) => {
