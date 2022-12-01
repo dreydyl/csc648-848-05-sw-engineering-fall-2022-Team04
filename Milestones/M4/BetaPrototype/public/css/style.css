@@ -69,7 +69,7 @@ body {
 .star::before {
     display:block;
     content:"★";
-    color: var(--background-light-mode);
+    color: var(--background-dark-mode);
 }
 
 #star-1::after {
