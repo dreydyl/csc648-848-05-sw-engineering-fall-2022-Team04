@@ -172,8 +172,7 @@ exports.getUserProfile = async (req, res, next) => {
     try {
         let id = req.params.id;
         let role = await Review.getRole(id);
-        role = role[0];
-        role = role[0].role;
+        role = role[0][0].role;
         console.log(role);
         if(role == 'landlord'){
             let sum = 0;
@@ -187,14 +186,15 @@ exports.getUserProfile = async (req, res, next) => {
                     sum += temp;
                 }
                 user_rating = sum / userRating.length;
+                let update_rating = new Rating(id, user_rating);
+                update_rating = await update_rating.update_rating();
             }
-            let update_rating = new Rating(id, user_rating);
-            update_rating = await update_rating.update_rating();
             let profile = await Review.getLandlordProfile(id);
             let getReview = await Review.getLandlordReview(id);
             profile = profile[0];
             getReview = getReview[0];
             profile.push(getReview);
+            res.locals.profile = profile[0];
             res.render("profilePage", { title: "EZRent", style: "main" });
         }
         else{
@@ -204,6 +204,7 @@ exports.getUserProfile = async (req, res, next) => {
             getWrittenReview = getWrittenReview[0];
             profile.push(getWrittenReview);
             console.log(profile);
+            res.locals.profile = profile[0];
             res.render("userProfilePage", { title: "EZRent", style: "main" });
         }
     }
