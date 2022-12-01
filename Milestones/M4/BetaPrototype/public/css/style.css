@@ -46,10 +46,46 @@ body {
 
 .star {
     width: 50px;
-    height: 50px;
+    height: 70px;
     margin-right: 10px;
-	background: var(--gold);
-	clip-path: polygon(50% 5%, 61% 40%, 98% 40%, 68% 62%, 79% 96%, 50% 75%, 21% 96%, 32% 62%, 2% 40%, 39% 40%);
+    text-align:left;
+    font-style:normal;
+    font-size:50px;
+    display:inline-block;
+    position: relative;
+    unicode-bidi: bidi-override;
+}
+
+.star::after {
+    white-space:nowrap;
+    position:absolute;
+    top:0;
+    left:0;
+    content:"★";
+    width: 0;
+    color: var(--gold);
+    overflow:hidden;
+}
+.star::before {
+    display:block;
+    content:"★";
+    color: var(--background-light-mode);
+}
+
+#star-1::after {
+    width:var(--star-width,100%);
+}
+#star-2::after {
+    width:var(--star-width,100%);
+}
+#star-3::after {
+    width:var(--star-width,100%);
+}
+#star-4::after {
+    width:var(--star-width,100%);
+}
+#star-5::after {
+    width:var(--star-width,100%);
 }
 
 .help-button {
