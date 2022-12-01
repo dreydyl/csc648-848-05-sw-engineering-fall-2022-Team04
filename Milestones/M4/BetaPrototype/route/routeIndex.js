@@ -9,8 +9,7 @@ router.get("/", userControllers.getFeaturedLandlords, (req, res, next) => {
     res.render("main",{title:"EZRent Home"});
 });
 */
-
-router.get("/", (req, res, next) => {
+router.get("/", async (req, res, next) => {
     let ip = req.ip;
     var geo = geoip.lookup(ip);
     let hooks = {
@@ -91,26 +90,16 @@ router.get("/", (req, res, next) => {
             }
         }
     };
-    let landlords = {
-        "landlord1": {
-            "name": "Sarah Therrien",
-            "rating": 5,
-            "bio": "I own multiple houses in the city. I've been faithfully serving tenants for 30 years.",
-            "img": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
-        },
-        "landlord2": {
-            "name": "George Stew",
-            "rating": 5,
-            "bio": "I own a condo downtown. I would love to meet you.",
-            "img": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
-        },
-        "landlord3": {
-            "name": "Nick James",
-            "rating": 5,
-            "bio": "I let my reviews speak for themselves.",
-            "img": "https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1023&q=80"
-        }
-    };
+    // res.locals.landlords = userControllers.getFeaturedLandlords();
+    // console.log("index: "+res.locals.landlords);
+    await userControllers.getFeaturedLandlords()
+    .then(landlords => {
+        res.locals.landlords = landlords;
+        console.log("index: "+landlords);
+    })
+    .catch(error => {
+        console.log(error);
+    });
     let badReview = {
         "author": "Jerry Boxberger",
         "rating": 1,
@@ -119,7 +108,6 @@ router.get("/", (req, res, next) => {
     }
     res.locals.hooks = hooks;
     res.locals.listings = listings;
-    res.locals.landlords = landlords;
     res.locals.badReview = badReview;
     res.render("main", { title: "EZRent Home", style: "main" });
     

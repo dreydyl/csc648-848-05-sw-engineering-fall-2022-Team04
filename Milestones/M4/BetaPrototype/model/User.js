@@ -122,7 +122,7 @@ const db = require('../database/db');
 //     let sql = `
 //         SELECT * FROM landlord;
 //     `;
-    
+
 //     //return db.execute(sql);
 // }
 
@@ -134,7 +134,7 @@ const db = require('../database/db');
 //     let sql = `
 //         SELECT * FROM registeredUser
 //     `;
-    
+
 //     return db.execute(sql);
 // }
 
@@ -154,10 +154,10 @@ class Register {
     save() {
         let d = new Date();
         let yyyy = d.getFullYear();
-        let mm = d.getMonth() + 1 ;
+        let mm = d.getMonth() + 1;
         let dd = d.getDay();
 
-        let createdAtDate = `${yyyy}-${mm}-${dd }`; 
+        let createdAtDate = `${yyyy}-${mm}-${dd}`;
 
         let sql = `
             INSERT INTO registeredUser (
@@ -176,29 +176,72 @@ class Register {
                 '${this.role}',
                 '${createdAtDate}'
             )`;
-            
-            return db.execute(sql); 
+
+        return db.execute(sql);
 
     }
-    
-    static checkEmail(email){
+
+    static checkEmail(email) {
         let sql = `SELECT email FROM registeredUser WHERE email = '${email}';`;
         return db.execute(sql);
     }
-    static getPassword(email){
+    static getPassword(email) {
         let sql = `SELECT password FROM registeredUser WHERE email = '${email}';`;
+        return db.execute(sql);
+    }
+    static getFeaturedLandlords() {
+        let sql = `SELECT 3 FROM registeredUser
+            JOIN landlord
+            ON registeredUser.reg_user_id = landlord.landlord_id
+            ORDER BY rating DESC
+            LIMIT 3`;
         return db.execute(sql);
     }
 }
 
-class Update{
-    constructor(bio, picture, email){
+class Landlord {
+    static getFeaturedLandlords() {
+        // let landlords = [
+        //     {
+        //         "reg_user_id": 10,
+        //         "name": "Sarah Therrien",
+        //         "rating": 5,
+        //         "bio": "I own multiple houses in the city. I've been faithfully serving tenants for 30 years.",
+        //         "img": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+        //     },
+        //     {
+        //         "reg_user_id": 4,
+        //         "name": "George Stew",
+        //         "rating": 5,
+        //         "bio": "I own a condo downtown. I would love to meet you.",
+        //         "img": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+        //     },
+        //     {
+        //         "reg_user_id": 6,
+        //         "name": "Nick James",
+        //         "rating": 5,
+        //         "bio": "I let my reviews speak for themselves.",
+        //         "img": "https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1023&q=80"
+        //     }
+        // ];
+        // return landlords;
+        let sql = `SELECT reg_user_id, firstName, lastName, email, bio, user_rating
+            FROM registeredUser
+            WHERE role = 'landlord'
+            ORDER BY user_rating DESC
+            LIMIT 3;`;
+        return db.execute(sql);
+    }
+}
+
+class Update {
+    constructor(bio, picture, email) {
         this.bio = bio;
         this.picture = picture;
         this.email = email;
     }
 
-    update(){
+    update() {
         let sql = `
             UPDATE registeredUser
             SET 
@@ -209,15 +252,15 @@ class Update{
     }
 }
 
-class Review{
-    constructor(reg_user_id, rating, description, referUserId){
+class Review {
+    constructor(reg_user_id, rating, description, referUserId) {
         this.reg_user_id = reg_user_id;
         this.rating = rating;
         this.description = description;
         this.referUserId = referUserId;
     }
 
-    save(){
+    save() {
         let sql = `
             INSERT INTO review (reg_user_id, rating, description, referUserId)
             VALUE(
@@ -228,12 +271,12 @@ class Review{
         );`;
         return db.execute(sql);
     }
-    
-    static getUserbyEmail(email){
+
+    static getUserbyEmail(email) {
         let sql = `SELECT reg_user_id FROM registeredUser WHERE email = '${email}';`;
         return db.execute(sql);
     }
-    static getUserbyId(id){
+    static getUserbyId(id) {
         let sql = `SELECT reg_user_id FROM registeredUser WHERE reg_user_id = ${id};`;
         return db.execute(sql);
     }
@@ -267,12 +310,12 @@ class Review{
     }
 }
 
-class Rating{
-    constructor(reg_user_id, user_rating){
+class Rating {
+    constructor(reg_user_id, user_rating) {
         this.reg_user_id = reg_user_id;
         this.user_rating = user_rating;
     }
-    update_rating(){
+    update_rating() {
         let sql = `
             UPDATE registeredUser
             SET user_rating = ${this.user_rating}
@@ -281,4 +324,4 @@ class Rating{
         return db.execute(sql);
     }
 }
-module.exports = { Register, Update, Review, Rating};
+module.exports = { Register, Update, Review, Rating, Landlord };

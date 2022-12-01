@@ -36,7 +36,11 @@
             </section> --}}
             <section class="home-section" id="landlord-section">
                 {{> hook hooks.landlord}}
-                {{> featuredLandlords landlords}}
+                {{#if landlords}}
+                    {{> featuredLandlords landlords}}
+                {{else}}
+                    Loading...
+                {{/if}}
             </section>
             <section class="home-section" id="review-section">
                 {{> hook hooks.review}}
