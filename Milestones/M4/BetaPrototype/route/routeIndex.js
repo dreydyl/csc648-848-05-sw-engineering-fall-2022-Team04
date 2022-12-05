@@ -109,7 +109,10 @@ router.get("/", async (req, res, next) => {
     res.locals.hooks = hooks;
     res.locals.listings = listings;
     res.locals.badReview = badReview;
-    res.render("main", { title: "EZRent Home", style: "main" });
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
+    res.render("main", { title: "EZRent Home", style: "main"});
     
 });
 
@@ -119,6 +122,9 @@ router.get("/", async (req, res, next) => {
 //will be renamed and migrated to userRoutes.js and listingRoutes.js
 
 router.get("/postlisting", (req, res, next) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
     res.render("postListingPage", { title: "EZRent New Listing" });
 });
 
@@ -165,6 +171,9 @@ router.get("/listingpage", (req, res, next) => {
         }
     };
     res.locals.listing = listing;
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
     res.render("listingPage", { title: "EZRent Listing", style: "listingPage" });
 });
 
@@ -203,6 +212,9 @@ router.get("/profilepage", (req, res, next) => {
     res.locals.user = user;
     res.locals.reviews = reviews;
     res.locals.listings = listings;
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
     res.render("profilePage", { title: "EZRent Profile" });
 });
 
@@ -223,35 +235,108 @@ router.get("/userprofilepage", (req, res, next) => {
     ];
     res.locals.user = user;
     res.locals.reviews = reviews;
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
     res.render("userProfilePage", { title: "EZRent Profile" });
 });
 
 router.get("/postListingPage", (req, res, next) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
     res.render("postListingPage", { title: "EZRent Profile" });
 });
 
 router.get("/login", (req, res, next) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
     res.render("loginpage", { title: "EZRent Login" });
 });
 
 router.get("/register", (req, res, next) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
     res.render("registration", { title: "EZRent New Account" });
 });
 
 router.get("/renter", (req, res, next) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
     res.render("profilePage", { title: "EZRent Renter" });
 });
 
 router.get("/landlord", (req, res, next) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
     res.render("landlordPage", { title: "EZRent Landlord" });
 });
 
 router.get("/help", (req, res, next) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
     res.render("helppage", { title: "EZRent Help" });
 });
 
 router.get("/searchresults", (req, res, next) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
     res.render("searchpage", { title: "EZRent Search" });
+});
+
+router.get('/about', (req, res) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
+    res.render('about/about', { title: "EZRent Search" });
+});
+
+router.get('/devAbout', (req, res) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
+    res.render('about/devAbout');
+});
+
+router.get('/issaAbout', (req, res) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
+    res.render('about/issaAbout');
+});
+
+router.get('/youssefAbout', (req, res) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
+    res.render('about/youssefAbout');
+});
+
+router.get('/tungAbout', (req, res) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
+    res.render('about/tungAbout');
+});
+
+router.get('/praiseAbout', (req, res) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
+    res.render('about/praiseAbout');
+});
+
+router.get('/ricardoAbout', (req, res) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
+    res.render('about/ricardoAbout');
 });
 
 module.exports = router;

@@ -39,10 +39,18 @@ router.post("/", listingControllers.createNewListing, (req, res, next) => {
 // });
 
 router.get("/search", listingControllers.searchListings, (req, res, next) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
+    console.log("/search");
     res.render("listingResults");
 });
 
 router.get("/searchfilters", listingControllers.applyFilters, (req, res, next) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
+    console.log("/searchfilters");
     res.render("listingResults");
 });
 
@@ -108,6 +116,10 @@ router.get("/search-test", (req, res, next) => {
         }
     };
     res.locals.results = listings;
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
+    console.log("/search-test");
     res.render("listingResults");
 });
 
@@ -154,6 +166,10 @@ router.get("/:id", (req, res, next) => {
         }
     };
     res.locals.listing = listing;
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
+    console.log("/:id");
     res.render("listingPage", { title: "EZRent Listing", style: "listingPage" });
 });
 

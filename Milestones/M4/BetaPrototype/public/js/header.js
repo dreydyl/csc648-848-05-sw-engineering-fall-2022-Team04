@@ -1,5 +1,3 @@
-
-
 let dropdown = document.getElementById("dropdown");
 let listingsOption = document.getElementById("listings-option");
 let landlordsOption = document.getElementById("landlords-option");
@@ -50,3 +48,48 @@ landlordsItem.onclick = () => {
     landlordsOption.style.display = "block";
     searchText.placeholder = "Enter a name..."
 }
+
+// let logged = document.cookie.includes('logged');
+// console.log(logged);
+let ele = document.getElementById("login-authenticate");
+
+
+// // let logoutFunc = (req, res, next) => {
+// if (document.cookie.includes('logged')) {
+//     console.log("cookie name: logged");
+//     ele.innerHTML = "Log out";
+//     ele.href = "/";
+//     ele.onclick = (res, req, next) => {
+//         req.session.destroy();
+//         console.log("---------> Successfully Logout");
+//         next(error);
+//     }
+// }
+
+
+// if (ele.innerHTML == "Log out") {
+//     ele.onclick = (req, res, next) => {
+//         logout();
+//         res.clearCookie(`connect.sid`);
+//         res.clearCookie('logged');
+//     }
+// }
+
+
+// }
+
+
+// if (ele.innerHTML = "Profile") {
+//     ele.onclick = (req, res, next) => {
+//             req.session.destroy((err) => {
+//                 if (err) {
+//                     console.log("Session could not be destroyed.");
+//                     next(err);
+//                 } else {
+//                     console.log("Session has been destroyed!");
+//                     res.clearCookie(`connect.sid`);
+//                     res.json({status:"OK", message:"User has been logged out."});
+//                 }
+//             })
+//         }
+// }

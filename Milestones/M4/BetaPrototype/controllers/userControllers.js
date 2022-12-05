@@ -101,8 +101,13 @@ exports.login = async (req, res, next) => {
                 else {
                     req.session.email = email;
                     req.session.admin = true;
+
+                    // res.cookie("logged", req.session.admin, {expires: new Date(Date.now() + 900000), httpOnly: false});
+                    // res.locals.logged = true;
+
                     console.log(req.session);
                     console.log("---------> Login Successful");
+                    // res.locals.logged = true;
                     res.redirect('/');
                 }
                 // res.send(`Hey there, welcome <a href=\'logout'>click to logout</a>`);
@@ -230,7 +235,7 @@ exports.getLandlordList = async (req, res, next) => {
 exports.getFeaturedLandlords = async (req, res, next) => {
     try {
         //TODO await Landlord.getFeaturedLandlords();
-        //comment out when implement Model
+        // mment out when implement Model
         let landlords = await Landlord.getFeaturedLandlords();
         landlords = landlords[0];
         console.log("controllers: "+landlords);

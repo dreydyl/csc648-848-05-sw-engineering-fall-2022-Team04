@@ -182,18 +182,17 @@ class Register {
     }
 
     static checkEmail(email) {
-        let sql = `SELECT email FROM registeredUser WHERE email = '${email}';`;
+        let sql = `SELECT email FROM RegisteredUser WHERE email = '${email}';`;
         return db.execute(sql);
     }
     static getPassword(email) {
-        let sql = `SELECT password FROM registeredUser WHERE email = '${email}';`;
+        let sql = `SELECT password FROM RegisteredUser WHERE email = '${email}';`;
         return db.execute(sql);
     }
     static getFeaturedLandlords() {
-        let sql = `SELECT 3 FROM registeredUser
+        let sql = `SELECT 3 FROM RegisteredUser
             JOIN landlord
-            ON registeredUser.reg_user_id = landlord.landlord_id
-            ORDER BY rating DESC
+            ON RegisteredUser.reg_user_id = landlord.reg_user_fk
             LIMIT 3`;
         return db.execute(sql);
     }
@@ -226,7 +225,7 @@ class Landlord {
         // ];
         // return landlords;
         let sql = `SELECT reg_user_id, firstName, lastName, email, bio, user_rating
-            FROM registeredUser
+            FROM RegisteredUser
             WHERE role = 'landlord'
             ORDER BY user_rating DESC
             LIMIT 3;`;
@@ -243,7 +242,7 @@ class Update {
 
     update() {
         let sql = `
-            UPDATE registeredUser
+            UPDATE RegisteredUser
             SET 
                 bio = '${this.bio}',
                 picture = '${this.picture}'

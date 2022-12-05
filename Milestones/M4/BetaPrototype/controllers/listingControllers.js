@@ -181,9 +181,15 @@ exports.searchListings = async (req, res, next) => {
             };
             if (results) {
                 res.locals.results = results;
+                if (req.session.admin) {
+                    res.locals.logged = true;
+                }
                 res.render('listingResults', { title: "EZRent " + search, header: "Results" });
             } else {
                 console.log("no results");
+                if (req.session.admin) {
+                    res.locals.logged = true;
+                }
                 res.render('listingResults', { title: "EZRent " + search, header: "Results" });
             }
         } catch (error) {
