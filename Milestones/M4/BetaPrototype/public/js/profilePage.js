@@ -11,6 +11,7 @@ document.getElementById("profile-page-listings").onclick = () => {
     location.replace("/listingpage");
 }
 
+
 // function openForm() {
 //     document.getElementById("myForm").style.display = "block";
 // }

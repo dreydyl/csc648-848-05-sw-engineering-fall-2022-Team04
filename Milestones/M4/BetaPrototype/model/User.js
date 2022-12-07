@@ -269,21 +269,21 @@ class Update {
 }
 
 class Review {
-    constructor(reg_user_id, rating, description, referUserId) {
+    constructor(reg_user_id, rating, description, referLandlordId) {
         this.reg_user_id = reg_user_id;
         this.rating = rating;
         this.description = description;
-        this.referUserId = referUserId;
+        this.referLandlordId = referLandlordId;
     }
 
     save() {
         let sql = `
-            INSERT INTO review (reg_user_id, rating, description, referUserId)
+            INSERT INTO review (reg_user_id, rating, description, referLandlordId)
             VALUE(
                 ${this.reg_user_id},
                 ${this.rating},
                 '${this.description}',
-                ${this.referUserId}
+                ${this.referLandlordId}
         );`;
         return db.execute(sql);
     }

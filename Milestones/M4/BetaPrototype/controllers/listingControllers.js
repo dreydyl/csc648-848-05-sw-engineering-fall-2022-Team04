@@ -1,6 +1,7 @@
 const Listing = require('../model/Listing');
-var flash = require('express-flash');
-
+const Picture = require('../model/Picture');
+const Register = Picture.Register;
+const Picture_Listing = Picture.Picture_Listing;
 exports.getAllListings = async (req, res, next) => {
     try {
         const [listing, _] = await Listing.findAll();
@@ -26,13 +27,22 @@ exports.createNewListing = async (req, res, next) => {
     // let fileAsThumbnail = `thumbnail-${req.file.filename}`;
     // let destinationOfThumbnail = req.file.destination + "/" + fileAsThumbnail;
     let count = await Listing.checkEmail(req.session.email);
-    let id = count[0][0].reg_user_id;
-    let landlord_id = id;
+    let userId = count[0][0].reg_user_id;
+    let landlord_id = userId;
     let {street_num, street_name, city, state, zipcode, description, bed, bath, price } = req.body;
-    
     let listing = new Listing(landlord_id, street_num, street_name, city, state, zipcode, description, bed, bath, price);
+    let {name, img} = req.files.pic;
+    let pic = new Register(name, img);
     listing = await listing.save();
-    res.status(201).json({listing});
+    console.log(name);
+    pic = await pic.save();
+    let getListingId = await Listing.getListingId(userId, street_num);
+    let listingId = getListingId[0][0].listing_id;
+    let getPicId = await Picture_Listing.getPic(name);
+    let picId = getPicId[0][0].picture_id;
+    let PicList = new Picture_Listing(picId, listingId);
+    PicList = await Picture_Listing.save();
+    res.status(200);
 
     } catch (error) {
         console.log(error);

@@ -38,9 +38,7 @@ const checkPassword = (password) => {
 exports.createUser = async (req, res, next) => {
     try {
         let { firstName, lastName, password, email, confirmPassword, role } = req.body;
-        //console.log(password);
         const hashpassword = bcrypt.hashSync(password, 10);
-        //const hashpassword = sc.encrypt(password, 10);
         if(role != "landlord"){
             role = 'renter';
         }
@@ -50,13 +48,12 @@ exports.createUser = async (req, res, next) => {
         if (count[0] != 0) {
             res.status(409).json({ message: "Email already exists! ", count });
         }
+        else if (!validator.validate(email)) {
+            res.status(409).json({ message: "Incorrect email format" })
+        }
 
         else if (confirmPassword != password || !checkPassword(password)) {
             res.status(409).json({ message: "Incorrect password" });
-        }
-
-        else if (!validator.validate(email)) {
-            res.status(409).json({ message: "Incorrect email format" })
         }
         else {
             register = await register.save();
@@ -82,7 +79,6 @@ exports.login = async (req, res, next) => {
 
         let { password, email } = req.body;
         let count = await Register.checkEmail(email);
-        let id = count[0][0].reg_user_id;
         if (count[0].length == 0) {
             res.status(404).json({ message: "User Not Found" });
         }
@@ -99,7 +95,6 @@ exports.login = async (req, res, next) => {
                 }
                 else {
                     
-                    req.session.id = id;
                     req.session.email = email;
                     req.session.admin = true;
                     console.log(req.session);
@@ -136,10 +131,7 @@ exports.logout = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
     try {
-        let bio = req.body;
-        console.log(bio);
-        let picture = req.file;
-        let update = new Update(bio, picture, req.session.email);
+        let {name, img } = req.file.pic;
         update = await update.update();
         res.send({ message: 'User Updated' });
     }
@@ -156,10 +148,10 @@ exports.createReview = async (req, res, next) => {
         reg_user_id = reg_user_id[0].reg_user_id;
         let id = req.params.id;
         id = parseInt(id);
-        let referUserId = await Review.getUserbyId(id);
-        referUserId = referUserId[0];
-        referUserId = referUserId[0].reg_user_id;
-        let review = new Review(reg_user_id, rating, description, referUserId);
+        let referLandlordId = await Review.getUserbyId(id);
+        referLandlordId = referLandlordId[0];
+        referLandlordId = referLandlordId[0].reg_user_id;
+        let review = new Review(reg_user_id, rating, description, referLandlordId);
         review = await review.save();
         res.status(201).json({ message: "Review created " });
     }
@@ -174,7 +166,6 @@ exports.getUserProfile = async (req, res, next) => {
         let id = req.params.id;
         let role = await Review.getRole(id);
         role = role[0][0].role;
-        console.log(role);
         if(role == 'landlord'){
             let sum = 0;
             let user_rating;

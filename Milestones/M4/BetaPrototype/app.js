@@ -8,6 +8,7 @@ var flash = require('express-flash');
 var bodyParser=require('body-parser');
 const port = 8080;
 var bodyParser = require('body-parser')
+const fileUpload = require('express-fileupload');
 
 const path = require('path');
 
@@ -20,6 +21,9 @@ app.use(cookieParser());
 // parse application/json 
 app.use(bodyParser.json())
 app.use(flash());
+app.use(fileUpload());
+
+// Create session
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",

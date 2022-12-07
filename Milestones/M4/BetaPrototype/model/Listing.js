@@ -64,6 +64,12 @@ class Register {
         let sql = `SELECT reg_user_id, email FROM registeredUser WHERE email = '${email}';`;
         return db.execute(sql);
     }
+    
+    static getListingId(reg_user_id, street_num){
+        let sql = `SELECT * FROM listing WHERE landlord_id = ${reg_user_id} AND street_num = ${street_num};`
+        return db.execute(sql);
+    }
+
     static search(search, filters, sorting) { //TODO
         let sql = `SELECT * FROM listing WHERE listing_id BETWEEN '0' AND '7';`;
         return db.execute(sql); 
