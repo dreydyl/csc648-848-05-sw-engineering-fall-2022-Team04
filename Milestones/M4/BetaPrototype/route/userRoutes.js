@@ -47,7 +47,7 @@ const upload = multer({
 // });
 router.route("/signup").post(userControllers.createUser);
 router.route("/login").post(userControllers.login);
-router.route("/logout").get(userControllers.logout);
+// router.route("/logout").post(userControllers.logout);
 router.route("/update").post(userControllers.update, upload.single('picture'));
 router.route("/profilePage/:id").post(userControllers.createReview);
 router.route("/profilePage/:id").get(userControllers.getUserProfile);
@@ -56,5 +56,20 @@ router.route("/:name").get(userControllers.getLandlordList);
 router.get("/search", userControllers.searchLandlords, (req, res, next) => {
     res.render("landlordResults");
 });
+
+
+router.post('/logout', (req, res, next) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.log("Session could not be destroyed.");
+            next(err);
+        } else {
+            console.log("Session has been destroyed!");
+            res.clearCookie('connect.sid');
+            res.json({status:"OK", message:"User has been logged out."});
+        }
+    })
+});
+
 
 module.exports = router;

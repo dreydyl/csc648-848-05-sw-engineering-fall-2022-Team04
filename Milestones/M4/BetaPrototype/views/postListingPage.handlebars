@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
 <style>
     {
             {
@@ -23,7 +21,6 @@
         }
     }
 
-    .grid {}
 
     /* Add styles to the form container 
     .form-postlisting {
@@ -48,50 +45,38 @@
         margin: auto;
     }
 
-        {
-            {
-            !-- form {
-                margin-left: auto;
-                margin-right: auto;
-                margin-top: -10vh;
-                height: 30vh;
-                width: 50vw;
-                border: 3px dashed rgb(0, 0, 0);
-            }
-
-            form:hover {
-                background: #d2d2d2;
-                color: #black;
-            }
-
-            form p {
-                position: absolute;
-                text-align: center;
-                line-height: 15px;
-                width: 50vw;
-                color: #black;
-                font-family: montserrat;
-            }
-
-            --
-        }
+    .image-form {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -10vh;
+        height: 30vh;
+        width: 50vw;
+        border: 3px dashed rgb(0, 0, 0);
     }
 
-        {
-            {
-            !-- form input {
-                position: absolute;
-                outline: none;
-                opacity: 0;
-                width: inherit;
-                height: inherit;
-            }
-
-            --
-        }
+    .image-form:hover {
+        background: #d2d2d2;
+        color: #black;
     }
 
-    button {
+    .image-form p {
+        position: absolute;
+        text-align: center;
+        line-height: 15px;
+        width: 50vw;
+        color: #black;
+        font-family: montserrat;
+    }
+
+    .image-form input {
+        position: absolute;
+        outline: none;
+        opacity: 0;
+        width: inherit;
+        height: inherit;
+    }
+
+    .btn {
         margin: 0;
         color: #black;
         background: #white;
@@ -106,12 +91,12 @@
         cursor: pointer;
     }
 
-    button:hover {
+    .btn:hover {
         background: #80B494;
         color: #black;
     }
 
-    button:active {
+    .btn:active {
         border: 0;
     }
 
@@ -120,7 +105,7 @@
         text-align: center;
     }
 
-    input {
+    .input1 {
         margin-left: 5px;
         font-family: montserrat;
         padding: .5em;
@@ -130,7 +115,7 @@
         border-radius: 7px;
     }
 
-    input[required]:placeholder-shown {
+    .input1[required]:placeholder-shown {
         border-color: #80B494;
     }
 
@@ -169,65 +154,61 @@
     }
 </style>
 
-<body>
-    <form method="post" action="/listings/" enctype='multipart/form-data'>
-        <div class="form-wrapper">
-            <div class="form-postlisting">
-
-                <h1 class="title" style="font-family:Montserrat" style="text-align:center">Post Listing</h1>
-                <div class="upload-image">
-                    <input name="pic" type="file" />
-                    {{!-- <p>Drag your Image files here or click in this area.</p> --}}
-                    {{!-- <button type="submit">Upload</button> --}}
-                </div>
 
 
-                <div class="Post-one">
-                    <p for="Street_num" class="Label-btn"><b>Street Number</b></p>
-                    <input type="number" placeholder="Enter Street Number" name="street_num" required>
-                </div>
-                <div class="Post-one">
-                    <p for="Street_name" class="Label-btn"><b>Street Name</b></p>
-                    <input type="text" placeholder="Enter Street Name" name="street_name" required>
-                </div>
-                <div class="Post-one">
-                    <p for="City" class="Label-btn"><b>City</b></p>
-                    <input type="text" placeholder="Enter City" name="city" required>
-                </div>
-                <div class="Post-one">
-                    <p for="state" class="Label-btn"><b>State</b></p>
-                    <input type="text" placeholder="Enter State" name="state" required>
-                </div>
-                <div class="Post-one">
-                    <p for="Zipcode" class="Label-btn"><b>Zip Code</b></p>
-                    <input type="number" placeholder="Enter Zip Code" name="zipcode" required>
-                </div>
-                <div class="Post-one">
-                    <p for="Bed" class="Label-btn"><b>Bed</b></p>
-                    <input type="number" placeholder="Enter Number of Beds" name="bed" required>
-                </div>
-                <div class="Post-one">
-                    <p for="Bath" class="Label-btn"><b>Bath</b></p>
-                    <input type="number" placeholder="Enter Number of Bathrooms" name="bath" required>
-                </div>
-                <div class="Post-one">
-                    <p for="Price" class="Label-btn"><b>Price</b></p>
-                    <input type="number" placeholder="Enter Price in US dollars" name="price" required>
-                </div>
-                <div class="Post-one">
-                    <p for="Description" class="Label-btn"><b>Description</b></p>
-                    <textarea placeholder="Enter Description" name="description" required></textarea>
-                </div>
-                <div class="Post-button">
-                    <button id="Post-button" type="submit" class="btn">Post</button>
+<div class="form-wrapper">
+    <div class="form-postlisting">
+        {{!-- <form action=""> --}}
+            <h1 class="title" style="font-family:Montserrat" style="text-align:center">Post Listing</h1>
+            <div class="upload-image">
+                <form class="image-form" action="upload.php" method="POST">
+                    <input type="file" multiple>
+                    <p>Drag your Image files here or click in this area.</p>
+                </form>
+                {{!-- <button type="submit">Upload</button> --}}
+            </div>
 
-                </div>
+
+            <div class="Post-one">
+                <p for="Address" class="Label-btn"><b>Address</b></p>
+                <input class="input1" type="text" placeholder="Enter Address" name="Address" required>
+            </div>
+            <div class="Post-one">
+                <p for="City" class="Label-btn"><b>City</b></p>
+                <input class="input1" type="text" placeholder="Enter City" name="City" required>
+            </div>
+            <div class="Post-one">
+                <p for="state" class="Label-btn"><b>State</b></p>
+                <input class="input1" type="text" placeholder="Enter State" name="state" required>
+            </div>
+            <div class="Post-one">
+                <p for="Zipcode" class="Label-btn"><b>Zip Code</b></p>
+                <input class="input1" type="text" placeholder="Enter Zip Code" name="Zipcode" required>
+            </div>
+            <div class="Post-one">
+                <p for="Bed" class="Label-btn"><b>Bed</b></p>
+                <input class="input1" type="text" placeholder="Enter Number of Beds" name="Bed" required>
+            </div>
+            <div class="Post-one">
+                <p for="Bath" class="Label-btn"><b>Bath</b></p>
+                <input class="input1" type="text" placeholder="Enter Number of Bathrooms" name="Bath" required>
+            </div>
+            <div class="Post-one">
+                <p for="Price" class="Label-btn"><b>Price</b></p>
+                <input class="input1" type="text" placeholder="Enter Price in US dollars" name="Price" required>
+            </div>
+            <div class="Post-button">
+                <button id="Post-button" type="submit" class="btn">Post</button>
 
             </div>
-        </div>
-    </form>
+            {{!--
+        </form> --}}
 
-</body>
+
+    </div>
+</div>
+
+
 <script>
     $(document).ready(function () {
         $('form input').change(function () {
