@@ -1,0 +1,75 @@
+<div class="profile-page">
+    {{log this}}
+    {{!-- <header class="profile-page-header">
+        Profile Page
+    </header> --}}
+    <div class="profile-img-info-bio">
+        <div class="profile-page-img-info">
+            <div class="profile-page-img-section">
+                <img class="profile-page-img"
+                    src="https://i0.wp.com/evanstonroundtable.com/wp-content/uploads/2022/05/Lushina-scaled-e1652827479814.jpg?fit=1200%2C900&ssl=1"
+                    {{!-- src="{{profile.picture}}" --}}
+                    alt="">
+            </div>
+            <div class="profile-page-info">
+                <p class="profile-page-person-name">{{profile.firstName}} {{profile.lastName}}</p>
+                <h4>{{profile.email}}</h4>
+                {{!-- <h4>{{user.phone}}</h4> --}}
+                <p class="profile-page-person-rating">{{profile.user_rating}}</p>
+            </div>
+        </div>
+        <div class="profile-page-bio-box">
+            <header class="profile-page-box-header">
+                Learn about {{profile.firstName}}
+            </header>
+            <p class="bio-description">
+                {{profile.bio}}
+            </p>
+        </div>
+    </div>
+    <div class="profile-btn-reviews-listings">
+        <div class="profile-page-buttons-section">
+            <button class="profile-page-button" id="post-review-button">Leave a Review</button>
+            <button class="profile-page-button" onclick="location.replace('/postListingPage')">Post a Listing</button>
+            <div class="form-popup" id="myForm">
+                <form class="form-container" method="post" action="">
+                    <h1 class="review-header">Leave a Review</h1>
+                    {{!-- {{> rating 5}} --}}
+                    <input type="number" name="rating" value="Enter rating. 1-5">
+                    <textarea name="description" id="textarea" class="text" cols="50" rows="20"
+                        placeholder="Enter a review..." required></textarea>
+                    <input type="submit" id="post-review-submit-button" value="POST">
+                </form>
+            </div>
+        </div>
+        <div class="profile-page-box">
+            <header class="profile-page-box-header">
+                Reviews
+            </header>
+            {{#each reviews as |review index|}}
+            {{log this}}
+            <h4> Review {{listItem index}}</h4>
+            {{> userReview review}}
+            {{/each}}
+        </div>
+        <div class="profile-page-box">
+            <header class="profile-page-box-header">
+                Listings
+            </header>
+            {{#each listings}}
+            {{log this}}
+            <div class="profile-page-listings" id="profile-page-listings">
+                <div class="profile-page-listing">
+                    <img class="profile-page-listing-img" src="images/picture_1666042712023.jpeg">
+                    <div class="profile-page-listing-desc">
+                        <p>{{bedrooms}} Bedrooms</p>
+                        <p>{{bathrooms}} Bathrooms</p>
+                        <p>${{price}}</p>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+<script type="module" src="/public/js/profilePage.js"></script>

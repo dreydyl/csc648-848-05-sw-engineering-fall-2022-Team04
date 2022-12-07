@@ -8,6 +8,7 @@ var flash = require('express-flash');
 var bodyParser=require('body-parser');
 const port = 8080;
 var bodyParser = require('body-parser')
+const fileUpload = require('express-fileupload');
 
 const path = require('path');
 
@@ -20,6 +21,9 @@ app.use(cookieParser());
 // parse application/json 
 app.use(bodyParser.json())
 app.use(flash());
+app.use(fileUpload());
+
+// Create session
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
@@ -100,42 +104,14 @@ app.use(express.static('views'));
 
 app.use("/public", express.static(path.join(__dirname, 'public')));
 
-app.get('/about', (req, res) => {
-    res.render('about/about');
-});
 
 app.get('/loginpage', (req, res) => {
     res.render('loginpage');
 });
 
-app.get('/helppage', (req, res) => {
-    res.render('helppage');
-});
-
-
-app.get('/devAbout', (req, res) => {
-    res.render('about/devAbout');
-});
-
-app.get('/issaAbout', (req, res) => {
-    res.render('about/issaAbout');
-});
-
-app.get('/youssefAbout', (req, res) => {
-    res.render('about/youssefAbout');
-});
-
-app.get('/tungAbout', (req, res) => {
-    res.render('about/tungAbout');
-});
-
-app.get('/praiseAbout', (req, res) => {
-    res.render('about/praiseAbout');
-});
-
-app.get('/ricardoAbout', (req, res) => {
-    res.render('about/ricardoAbout');
-});
+// app.get('/helppage', (req, res) => {
+//     res.render('helppage');
+// });
 
 
 

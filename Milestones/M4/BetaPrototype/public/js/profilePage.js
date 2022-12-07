@@ -14,6 +14,7 @@ for(var listing of listings) {
     }
 }
 
+
 // function openForm() {
 //     document.getElementById("myForm").style.display = "block";
 // }
