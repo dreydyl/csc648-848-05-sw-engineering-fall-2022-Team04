@@ -1,0 +1,60 @@
+<div class="listing-page">
+    {{log this}}
+    <img class="listing-image" src={{listing.img}}></img>
+    <div class="listing-wrapper">
+        <div class="listing-page-left">
+            <div class="listing-info">
+                <div class="listing-info-left">
+                    <div class="address">
+                        {{listing.street_number}} {{listing.street}} </br>
+                        {{listing.city}}, {{listing.state}} {{listing.zip}}
+                    </div>
+                </div>
+                <div class="listing-info-right">
+                    <div class="rating">
+                        {{> rating listing.rating}}
+                    </div>
+                    <div class="basic-info">
+                        {{listing.price}} </br>
+                        Bedrooms: {{listing.rooms}} </br>
+                        Bathrooms: {{listing.baths}}
+                    </div>
+                </div>
+            </div>
+            <div class="description">
+                {{listing.description}}
+            </div>
+        </div>
+        <div class="listing-page-right">
+            <div class="landlord-info" id="landlord-info">
+                <div class="landlord-profile">
+                    <img class="landlord-image" src={{listing.landlord.img}}></img>
+                    <div class="landlord-text">
+                        <div class="landlord-name">
+                            {{listing.landlord.name}}
+                        </div>
+                        {{> rating listing.landlord.rating}}
+                    </div>
+                </div>
+                <div class="landlord-bio">
+                    {{listing.landlord.bio}}
+                </div>
+                <div class="contact-info">
+                    {{listing.landlord.phone}} </br>
+                    {{listing.landlord.email}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="reviews-section">
+            <header class="profile-page-box-header">
+                Reviews
+            </header>
+            <div class="reviews">
+                {{#each listing.reviews}}
+                {{> review this}}
+                {{/each}}
+            </div>
+        </div>
+</div>
+<script type="module" src="/public/js/listingPage.js"></script>
