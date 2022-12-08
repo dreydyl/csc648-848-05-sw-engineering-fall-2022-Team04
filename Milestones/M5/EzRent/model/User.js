@@ -140,7 +140,93 @@ const db = require('../database/db');
 
 // module.exports = UserModel;
 
+class RegisteredUser {
+    constructor(firstName, lastName, email, password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
 
+    setLandlord() {
+
+    }
+
+    getRegisteredUser(id) {
+        let profile = {};
+        let userSQL = `SELECT reg_user_id AS 'id', first_name AS 'firstName', last_name AS 'lastName',
+            email, phone, bio, role
+            FROM RegisteredUser
+            WHERE reg_user_id = ${id};`
+        profile.user = db.execute(userSQL)[0];
+        if(profile.user.role == 'renter') {
+            let reviewsSQL = `SELECT review_id AS 'reviewId', author_fk AS 'renterId', author.full_name AS 'renterName',
+			    Review.rating, title, Review.description, Review.time_created AS 'timeCreated', Review.type,
+                listing_fk AS 'listingId', LandlordReview.landlord_fk AS 'landlordId', city, state,
+                subject_landlord.full_name AS 'landlordName', file_name AS 'thumbnail'
+			    FROM Review
+			    JOIN RegisteredUser author
+                ON author.reg_user_id = Review.author_fk
+                LEFT JOIN ListingReview
+                ON Review.review_id = ListingReview.review_fk
+                LEFT JOIN LandlordReview
+                ON Review.review_id = LandlordReview.review_fk
+                LEFT JOIN Listing
+                ON ListingReview.listing_fk = Listing.listing_id
+                LEFT JOIN Landlord
+                ON LandlordReview.landlord_fk = Landlord.reg_user_fk
+                LEFT JOIN RegisteredUser subject_landlord
+                ON Landlord.reg_user_fk = subject_landlord.reg_user_id
+                LEFT JOIN ReviewPicture
+                ON Review.review_id = (SELECT ReviewPicture.review_fk
+					FROM ReviewPicture rp
+                    WHERE Review.review_id = rp.review_fk
+                    ORDER BY rp.review_fk
+                    LIMIT 1) 
+                LEFT JOIN Picture
+                ON ReviewPicture.picture_fk = Picture.picture_id
+                WHERE author_fk = ${id};`;
+            profile.reviews = db.execute(reviewsSQL)[0];
+        } else if(profile.user.role == 'landlord') {
+            let listingsSQL = `SELECT listing_id AS 'listingId', price, description, street_number AS 'streetNumber', street, city, state,
+			    address_line_2 AS 'addressLine2', zip_code AS 'zipCode', address, beds, baths, size, pets, type,
+                rating, num_reviews AS 'numReviews', time_created AS 'timeCreated', file_name AS 'thumbnail'
+			    FROM Listing
+                LEFT JOIN ListingPicture
+                ON Listing.listing_id = (SELECT ListingPicture.listing_fk
+					FROM ListingPicture ls
+                    WHERE Listing.listing_id = ls.listing_fk
+                    ORDER BY ls.listing_fk
+                    LIMIT 1)
+                LEFT JOIN Picture
+                ON ListingPicture.picture_fk = Picture.picture_id
+                WHERE landlord_fk = ${id};`;
+            let reviewsSQL = `SELECT review_id AS 'reviewId', rating, title, description, Review.time_created AS 'timeCreated',
+			    subject_landlord.reg_user_id AS 'landlordId', author.reg_user_id AS 'renterId',
+			    subject_landlord.full_name AS 'landlord', author.full_name AS 'renter',
+                file_name AS 'thumbnail'
+			    FROM Review
+                JOIN RegisteredUser author
+                ON Review.author_fk = author.reg_user_id
+                JOIN LandlordReview
+                ON Review.review_id = LandlordReview.review_fk
+                JOIN RegisteredUser subject_landlord
+                ON LandlordReview.landlord_fk = subject_landlord.reg_user_id
+                LEFT JOIN ReviewPicture
+                ON Review.review_id = (SELECT ReviewPicture.review_fk
+					FROM ReviewPicture rp
+                    WHERE Review.review_id = rp.review_fk
+                    ORDER BY rp.review_fk
+                    LIMIT 1) 
+                LEFT JOIN Picture
+                ON ReviewPicture.picture_fk = Picture.picture_id
+                WHERE LandlordReview.landlord_fk = ${id};`;
+            profile.listings = db.execute(listingsSQL)[0];
+            profile.reviews = db.execute(reviewsSQL)[0];
+        }
+        return profile;
+    }
+}
 
 class Register {
     constructor(firstName, lastName, password, email, role){
@@ -216,34 +302,14 @@ class Landlord {
     }
 
     static getFeaturedLandlords() {
-        // let landlords = [
-        //     {
-        //         "reg_user_id": 10,
-        //         "name": "Sarah Therrien",
-        //         "rating": 5,
-        //         "bio": "I own multiple houses in the city. I've been faithfully serving tenants for 30 years.",
-        //         "img": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
-        //     },
-        //     {
-        //         "reg_user_id": 4,
-        //         "name": "George Stew",
-        //         "rating": 5,
-        //         "bio": "I own a condo downtown. I would love to meet you.",
-        //         "img": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
-        //     },
-        //     {
-        //         "reg_user_id": 6,
-        //         "name": "Nick James",
-        //         "rating": 5,
-        //         "bio": "I let my reviews speak for themselves.",
-        //         "img": "https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1023&q=80"
-        //     }
-        // ];
-        // return landlords;
-        let sql = `SELECT reg_user_id, firstName, lastName, email, bio, user_rating
+        let sql = `SELECT reg_user_id AS 'landlordId', first_name AS 'firstName', last_name AS 'lastName', bio, rating,
+            file_name AS 'profilePicture'
             FROM RegisteredUser
-            WHERE role = 'landlord'
-            ORDER BY user_rating DESC
+            JOIN Landlord
+            ON RegisteredUser.reg_user_id = Landlord.reg_user_fk
+            LEFT JOIN Picture
+            ON RegisteredUser.profile_picture_fk = Picture.picture_id
+            ORDER BY rating DESC
             LIMIT 3;`;
         return db.execute(sql);
     }
@@ -339,4 +405,4 @@ class Rating {
         return db.execute(sql);
     }
 }
-module.exports = { Register, Update, Review, Rating, Landlord };
+module.exports = { Register, Update, Review, Rating, Landlord, RegisteredUser };
