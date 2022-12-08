@@ -18,7 +18,7 @@ class Register {
         return db.execute(sql);
     }
 }
-class Picture_Listing{
+class Picture_Listing {
     constructor(picture_id, listing_id){
         this.picture_id = picture_id;
         this.listing_id = listing_id;

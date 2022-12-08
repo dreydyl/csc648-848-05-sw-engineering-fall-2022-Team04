@@ -2,6 +2,9 @@ const Listing = require('../model/Listing');
 const Picture = require('../model/Picture');
 const Register = Picture.Register;
 const Picture_Listing = Picture.Picture_Listing;
+const zlib = require('zlib'); 
+
+
 exports.getAllListings = async (req, res, next) => {
     try {
         const [listing, _] = await Listing.findAll();
@@ -31,18 +34,18 @@ exports.createNewListing = async (req, res, next) => {
     let landlord_id = userId;
     let {street_num, street_name, city, state, zipcode, description, bed, bath, price } = req.body;
     let listing = new Listing(landlord_id, street_num, street_name, city, state, zipcode, description, bed, bath, price);
-    let {name, img} = req.files.pic;
-    let pic = new Register(name, img);
+    let {name, data} = req.files.pic;
+    const zip = zlib.gzipSync(JSON.stringify(data)).toString('base64');
+    let pic = new Register(name, zip);
     listing = await listing.save();
-    console.log(name);
     pic = await pic.save();
     let getListingId = await Listing.getListingId(userId, street_num);
     let listingId = getListingId[0][0].listing_id;
     let getPicId = await Picture_Listing.getPic(name);
     let picId = getPicId[0][0].picture_id;
-    let PicList = new Picture_Listing(picId, listingId);
-    PicList = await Picture_Listing.save();
-    res.status(200);
+    let picList = new Picture_Listing(picId, listingId);
+    picList = await picList.save();
+    res.status(200).json({message: "Posted"});
 
     } catch (error) {
         console.log(error);

@@ -21,8 +21,9 @@ app.use(cookieParser());
 // parse application/json 
 app.use(bodyParser.json())
 app.use(flash());
-app.use(fileUpload());
-
+app.use(fileUpload({
+    limits: { fileSize: 50 * 1024 * 1024 },
+  }));
 // Create session
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
