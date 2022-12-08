@@ -313,6 +313,23 @@ class Landlord {
             LIMIT 3;`;
         return db.execute(sql);
     }
+
+    static search(searchTerm) {
+        let results = [];
+        let splitSearch = searchTerm.split(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~ ]/);
+        for(const searchItem of splitSearch) {
+            let sql = `SELECT reg_user_fk AS 'landlordId', rating, full_name AS 'fullName', file_name AS 'profilePicture', bio
+                FROM Landlord
+                JOIN RegisteredUser
+                ON Landlord.reg_user_fk = RegisteredUser.reg_user_id
+                LEFT JOIN Picture
+                ON RegisteredUser.profile_picture_fk = Picture.picture_id
+                WHERE full_name LIKE '%${searchItem}%'
+                ORDER BY rating DESC;`;
+            results.concat(db.execute(sql)[0]);
+        }
+        return results;
+    }
 }
 
 class Update {
