@@ -87,6 +87,10 @@ app.engine('handlebars', handlebars.engine({
         },
         listItem: (obj) => {
             return obj+1;
+        },
+        ternary: (condition, a, b) => {
+            if(condition) return a;
+            return b;
         }
         /**
          * if you need more helpers, add them here

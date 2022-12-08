@@ -47,7 +47,7 @@
                 Reviews
             </header>
             {{#each reviews as |review index|}}
-            {{log this}}
+            {{!-- {{log this}} --}}
             <h4> Review {{listItem index}}</h4>
             {{> userReview review}}
             {{/each}}
@@ -57,7 +57,7 @@
                 Listings
             </header>
             {{#each listings}}
-            {{log this}}
+            {{!-- {{log this}} --}}
             <div class="profile-page-listings" id="profile-page-listings">
                 <div class="profile-page-listing">
                     <img class="profile-page-listing-img" src="images/picture_1666042712023.jpeg">
