@@ -34,62 +34,6 @@ router.get("/", async (req, res, next) => {
             hook: "Join us. Make renting homes EZ."
         },
     };
-    let listings = {
-        "listing1": {
-            "landlord": "Bob John",
-            "price": "40,000",
-            "description": "Basically a resort",
-            "street_number": "1234",
-            "street": "Fall Street",
-            "city": "Stockton",
-            "state": "CA",
-            "zip": "94545",
-            "rooms": 2,
-            "baths": 1,
-            "top_review": {
-                "title": "Love it",
-                "rating": 5,
-                "author": "Staniel Chaniel",
-                "description": "Love this place"
-            }
-        },
-        "listing2": {
-            "landlord": "John Bob",
-            "price": "12,000",
-            "description": "Cool place",
-            "street_number": "1234",
-            "street": "Span Avenue",
-            "city": "Hayward",
-            "state": "CA",
-            "zip": "94545",
-            "rooms": 4,
-            "baths": 3,
-            "top_review": {
-                "title": "Beautiful",
-                "rating": 5,
-                "author": "Dennis Dennis",
-                "description": "There's a nice view"
-            }
-        },
-        "listing3": {
-            "landlord": "Job Bohn",
-            "price": "50,000",
-            "description": "Perfect for family",
-            "street_number": "1234",
-            "street": "Ballast Court",
-            "city": "San Francisco",
-            "state": "CA",
-            "zip": "94545",
-            "rooms": 4,
-            "baths": 2,
-            "top_review": {
-                "title": "Wowow",
-                "rating": 4,
-                "author": "Alonzo Aball",
-                "description": "My family loves this place"
-            }
-        }
-    };
     // res.locals.landlords = userControllers.getFeaturedLandlords();
     // console.log("index: "+res.locals.landlords);
     await userControllers.getFeaturedLandlords()
@@ -100,6 +44,10 @@ router.get("/", async (req, res, next) => {
     .catch(error => {
         console.log(error);
     });
+    await userControllers.getBadReview()
+    .then(review => {
+        res.locals.badReview = review;
+    })
     let badReview = {
         "author": "Jerry Boxberger",
         "rating": 1,
@@ -107,13 +55,10 @@ router.get("/", async (req, res, next) => {
         "description": `I have a sick mother. This landlord raised my rent 3 times in the last 14 months because of the "economy".`
     }
     res.locals.hooks = hooks;
-    res.locals.listings = listings;
-    res.locals.badReview = badReview;
     if (req.session.admin) {
         res.locals.logged = true;
     }
     res.render("main", { title: "EZRent Home", style: "main"});
-    
 });
 
 /* Frontend Tests */

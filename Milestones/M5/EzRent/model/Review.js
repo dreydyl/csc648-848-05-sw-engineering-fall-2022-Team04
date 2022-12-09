@@ -1,6 +1,64 @@
 /* Models for reviews and comments */
 
+const db = require("../database/db");
+
 class Review {
+    constructor(reg_user_id, rating, description, referLandlordId) {
+        this.reg_user_id = reg_user_id;
+        this.rating = rating;
+        this.description = description;
+        this.referLandlordId = referLandlordId;
+    }
+
+    save() {
+        let sql = `
+            INSERT INTO review (reg_user_id, rating, description, referLandlordId)
+            VALUE(
+                ${this.reg_user_id},
+                ${this.rating},
+                '${this.description}',
+                ${this.referLandlordId}
+        );`;
+        return db.execute(sql);
+    }
+
+    static getUserbyEmail(email) {
+        let sql = `SELECT reg_user_id FROM registeredUser WHERE email = '${email}';`;
+        return db.execute(sql);
+    }
+    static getUserbyId(id) {
+        let sql = `SELECT reg_user_id FROM registeredUser WHERE reg_user_id = ${id};`;
+        return db.execute(sql);
+    }
+    static getRole(id){
+        let sql = `SELECT role FROM registeredUser WHERE reg_user_id = ${id};`;
+        return db.execute(sql);
+    }
+    static getLandlordProfile(id){
+        let sql = `SELECT firstName, lastName, email, bio, picture, user_rating, role FROM registeredUser WHERE reg_user_id = ${id};`;
+        return db.execute(sql);
+    }
+    static getLandlordRating(id){
+        let sql = `SELECT rating FROM review LEFT OUTER JOIN registeredUser ON review.referLandlordId = registeredUser.reg_user_id WHERE review.referLandlordId = ${id} AND registeredUser.role = 'landlord'`;
+        return db.execute(sql);
+    }
+    static getLandlordReview(id){
+        let sql = `SELECT registeredUser.firstName, registeredUser.lastName, review.rating, review.description  FROM registeredUser LEFT OUTER JOIN review ON registeredUser.reg_user_id = review.reg_user_id WHERE review.referLandlordId = ${id};`;
+        return db.execute(sql);
+    }
+    static getRenterProfile(id){
+        let sql = `SELECT firstName, lastName, email, bio, picture, role FROM registeredUser WHERE reg_user_id = ${id};`;
+        return db.execute(sql);
+    }
+    static getRenterWrittenReview(id){
+        let sql = `SELECT registeredUser.firstName, registeredUser.lastName, review.rating, review.description FROM registeredUser LEFT OUTER JOIN review ON registeredUser.reg_user_id = review.referLandlordId WHERE registeredUser.reg_user_id = ${id}`;
+        return db.execute(sql);
+    }
+    static getLanlordList(name){
+        let sql = `SELECT firstName, lastName, email FROM registeredUser WHERE registeredUser.firstName = '${name}' OR registeredUser.lastName = '${name}' AND registeredUser.role = 'landlord';`;
+        return db.execute(sql);
+    }
+
     static getReview(id) {
         let review = {};
         let reviewSQL = `SELECT review_id AS 'reviewId', author_fk AS 'renterId', author.full_name AS 'renterName',
@@ -45,6 +103,27 @@ class Review {
             WHERE ReviewComment.review_fk = ${id};`;
         review.comments = db.execute(commentsSQL)[0];
         return review;
+    }
+
+    static getBadReview() {
+        let sql = `SELECT review_fk AS 'reviewId', author.reg_user_id AS 'renterId', author.full_name AS 'renter',
+            landlord.reg_user_id AS 'landlordId', landlord.full_name AS 'landlord',
+            rating, title, description, Review.time_created AS 'timeCreated',
+            landlord_picture.file_name AS 'thumbnail', author_picture.file_name AS 'profile'
+            FROM LandlordReview
+            JOIN Review
+            ON LandlordReview.review_fk = Review.review_id
+            JOIN RegisteredUser author
+            ON Review.author_fk = author.reg_user_id
+            JOIN RegisteredUser landlord
+            ON LandlordReview.landlord_fk = landlord.reg_user_id
+            LEFT JOIN Picture landlord_picture
+            ON landlord.profile_picture_fk = landlord_picture.picture_id
+            LEFT JOIN Picture author_picture
+            ON author.profile_picture_fk = author_picture.picture_id
+            ORDER BY rating ASC
+            LIMIT 1;`;
+        return db.execute(sql);
     }
 }
 

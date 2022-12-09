@@ -1,7 +1,8 @@
 const User = require('../model/User');
+const ReviewModel = require('../model/Review');
 const Register = User.Register;
 const Update = User.Update;
-const Review = User.Review;
+const Review = ReviewModel.Review;
 const Rating = User.Rating;
 const Landlord = User.Landlord;
 const bcrypt = require("bcrypt");
@@ -226,12 +227,24 @@ exports.getLandlordList = async (req, res, next) => {
 
 exports.getFeaturedLandlords = async (req, res, next) => {
     try {
-        //TODO await Landlord.getFeaturedLandlords();
-        // mment out when implement Model
         let landlords = await Landlord.getFeaturedLandlords();
         landlords = landlords[0];
         console.log("controllers: "+landlords);
         return landlords;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+exports.getBadReview = async(req, res, next) => {
+    try {
+        //TODO await Landlord.getFeaturedLandlords();
+        // mment out when implement Model
+        let review = await Review.getBadReview();
+        review = review[0][0];
+        console.log("reviews controllers: "+review);
+        return review;
     }
     catch (error) {
         console.log(error);
