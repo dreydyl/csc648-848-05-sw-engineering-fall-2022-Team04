@@ -11,18 +11,18 @@
                     alt="">
             </div>
             <div class="user-profile-page-info">
-                <p class="user-profile-page-person-name">{{user.name}}</p>
-                <h4>{{user.email}}</h4>
-                <h4>{{user.phone}}</h4>
+                <p class="user-profile-page-person-name">{{profile.user.name}}</p>
+                <h4>{{profile.user.email}}</h4>
+                <h4>{{profile.user.phone}}</h4>
                 {{!-- <p class="profile-page-person-rating">7/10</p> --}}
             </div>
         </div>
         <div class="user-profile-page-bio-box">
             <header class="user-profile-page-box-header">
-                Learn about {{user.name}}
+                Learn about {{profile.user.name}}
             </header>
             <p class="user-bio-description">
-                {{user.bio}}
+                {{profile.user.bio}}
             </p>
         </div>
     </div>
@@ -31,7 +31,7 @@
             <header class="user-profile-page-box-header">
                 Written Reviews
             </header>
-            {{#each reviews as |review index|}}
+            {{#each profile.reviews as |review index|}}
             {{log this}}
             <h4> Review {{listItem index}}</h4>
             {{> userReview review}}

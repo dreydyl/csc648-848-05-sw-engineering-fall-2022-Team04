@@ -12,18 +12,18 @@
                     alt="">
             </div>
             <div class="profile-page-info">
-                <p class="profile-page-person-name">{{profile.firstName}} {{profile.lastName}}</p>
-                <h4>{{profile.email}}</h4>
+                <p class="profile-page-person-name">{{profile.user.firstName}} {{profile.user.lastName}}</p>
+                <h4>{{profile.user.email}}</h4>
                 {{!-- <h4>{{user.phone}}</h4> --}}
-                <p class="profile-page-person-rating">{{profile.user_rating}}</p>
+                <p class="profile-page-person-rating">{{profile.user.rating}}</p>
             </div>
         </div>
         <div class="profile-page-bio-box">
             <header class="profile-page-box-header">
-                Learn about {{profile.firstName}}
+                Learn about {{profile.user.firstName}}
             </header>
             <p class="bio-description">
-                {{profile.bio}}
+                {{profile.user.bio}}
             </p>
         </div>
     </div>
@@ -46,7 +46,7 @@
             <header class="profile-page-box-header">
                 Reviews
             </header>
-            {{#each reviews as |review index|}}
+            {{#each profile.reviews as |review index|}}
             {{log this}}
             <h4> Review {{listItem index}}</h4>
             {{> userReview review}}
@@ -56,7 +56,7 @@
             <header class="profile-page-box-header">
                 Listings
             </header>
-            {{#each listings}}
+            {{#each profile.listings}}
             {{log this}}
             <div class="profile-page-listings" id="profile-page-listings">
                 <div class="profile-page-listing">

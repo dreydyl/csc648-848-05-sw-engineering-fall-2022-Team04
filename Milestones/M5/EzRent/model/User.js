@@ -141,24 +141,24 @@ const db = require('../database/db');
 // module.exports = UserModel;
 
 class RegisteredUser {
-    constructor(firstName, lastName, email, password) {
+    constructor(firstName, lastName, password, email, role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
-    setLandlord() {
-
-    }
-
-    getRegisteredUser(id) {
+    static async getRegisteredUser(id) {
         let profile = {};
         let userSQL = `SELECT reg_user_id AS 'id', first_name AS 'firstName', last_name AS 'lastName',
             email, phone, bio, role
             FROM RegisteredUser
             WHERE reg_user_id = ${id};`
-        profile.user = db.execute(userSQL)[0];
+        await db.execute(userSQL).then(result => {
+            profile.user = result[0][0];
+        });
+        console.log("profile model 1: "+JSON.stringify(profile));
         if(profile.user.role == 'renter') {
             let reviewsSQL = `SELECT review_id AS 'reviewId', author_fk AS 'renterId', author.full_name AS 'renterName',
 			    Review.rating, title, Review.description, Review.time_created AS 'timeCreated', Review.type,
@@ -186,7 +186,10 @@ class RegisteredUser {
                 LEFT JOIN Picture
                 ON ReviewPicture.picture_fk = Picture.picture_id
                 WHERE author_fk = ${id};`;
-            profile.reviews = db.execute(reviewsSQL)[0];
+            await db.execute(reviewsSQL).then(result => {
+                profile.reviews = result[0];
+            });
+            console.log("profile model 2: "+JSON.stringify(profile));
         } else if(profile.user.role == 'landlord') {
             let listingsSQL = `SELECT listing_id AS 'listingId', price, description, street_number AS 'streetNumber', street, city, state,
 			    address_line_2 AS 'addressLine2', zip_code AS 'zipCode', address, beds, baths, size, pets, type,
@@ -221,8 +224,13 @@ class RegisteredUser {
                 LEFT JOIN Picture
                 ON ReviewPicture.picture_fk = Picture.picture_id
                 WHERE LandlordReview.landlord_fk = ${id};`;
-            profile.listings = db.execute(listingsSQL)[0];
-            profile.reviews = db.execute(reviewsSQL)[0];
+            await db.execute(listingsSQL).then(result => {
+                profile.listings = result[0];
+            });
+            await db.execute(reviewsSQL).then(result => {
+                profile.reviews = result[0];
+            });
+            console.log("profile model 3: "+JSON.stringify(profile));
         }
         return profile;
     }
@@ -237,22 +245,24 @@ class Register {
         this.role = role;
     }
 
-    save() {
+    async save() {
         let d = new Date();
         let yyyy = d.getFullYear();
         let mm = d.getMonth() + 1;
         let dd = d.getDay();
+        let hour = d.getHours();
+        let min = d.getMinutes();
+        let sec = d.getSeconds();
 
-        let createdAtDate = `${yyyy}-${mm}-${dd}`;
+        let createdAtDate = `${yyyy}-${mm}-${dd} ${hour}:${min}:${sec}`;
 
-        let sql = `
-            INSERT INTO registeredUser (
-                firstName,
-                lastName,
-                password,
+        let regUserSQL = `
+            INSERT INTO RegisteredUser (
+                first_name,
+                last_name,
                 email,
-                role,
-                created_at
+                password,
+                time_created
             )
             VALUE (
                 '${this.firstName}',
@@ -263,7 +273,18 @@ class Register {
                 '${createdAtDate}'
             )`;
 
-        return db.execute(sql);
+        db.execute(regUserSQL);
+
+        if(this.role == 'landlord') {
+            let idSQL = `SELECT LAST_INSERT_ID();`
+            let id = await db.execute(idSQL)[0];
+            let landlordSQL = `
+                INSERT INTO Landlord (reg_user_id)
+                VALUE (${id})
+            `;
+        }
+
+        return 0;
 
     }
 
@@ -273,13 +294,6 @@ class Register {
     }
     static getPassword(email) {
         let sql = `SELECT password FROM RegisteredUser WHERE email = '${email}';`;
-        return db.execute(sql);
-    }
-    static getFeaturedLandlords() {
-        let sql = `SELECT 3 FROM RegisteredUser
-            JOIN landlord
-            ON RegisteredUser.reg_user_id = landlord.reg_user_fk
-            LIMIT 3`;
         return db.execute(sql);
     }
 }
