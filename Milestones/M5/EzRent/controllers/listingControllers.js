@@ -95,66 +95,8 @@ exports.searchListings = async (req, res, next) => {
         res.render('error', { title: "EZRent " });
     } else {
         try {
-            //let results = await Listing.search(search);
-            let results = {
-                "listing1": {
-                    "id": "0",
-                    "landlord": "Bob John",
-                    "price": "40,000",
-                    "description": "Basically a resort",
-                    "street_number": "1234",
-                    "street": "Fall Street",
-                    "city": "Stockton",
-                    "state": "CA",
-                    "zip": "94545",
-                    "rooms": 2,
-                    "baths": 1,
-                    "top_review": {
-                        "title": "Love it",
-                        "rating": 5,
-                        "author": "Staniel Chaniel",
-                        "description": "Love this place"
-                    }
-                },
-                "listing2": {
-                    "id": "1",
-                    "landlord": "John Bob",
-                    "price": "12,000",
-                    "description": "Cool place",
-                    "street_number": "1234",
-                    "street": "Span Avenue",
-                    "city": "Hayward",
-                    "state": "CA",
-                    "zip": "94545",
-                    "rooms": 4,
-                    "baths": 3,
-                    "top_review": {
-                        "title": "Beautiful",
-                        "rating": 5,
-                        "author": "Dennis Dennis",
-                        "description": "There's a nice view"
-                    }
-                },
-                "listing3": {
-                    "id": "2",
-                    "landlord": "Job Bohn",
-                    "price": "50,000",
-                    "description": "Perfect for family",
-                    "street_number": "1234",
-                    "street": "Ballast Court",
-                    "city": "San Francisco",
-                    "state": "CA",
-                    "zip": "94545",
-                    "rooms": 4,
-                    "baths": 2,
-                    "top_review": {
-                        "title": "Wowow",
-                        "rating": 4,
-                        "author": "Alonzo Aball",
-                        "description": "My family loves this place"
-                    }
-                }
-            };
+            let results = await Listing.search(search);
+            console.log("search controller: "+results);
             if (results) {
                 res.locals.results = results;
                 if (req.session.admin) {

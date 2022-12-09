@@ -70,57 +70,75 @@ class Register {
         return db.execute(sql);
     }
 
-    static search(search, filters, sorting) {
+    static async search(search, filters, sorting) {
         let results = [];
         let splitSearch = search.split(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~ ]/);
         let filtersSQL = ``;
-        if(filters.min) filtersSQL += `AND price >= ${filters.beds}`;
-        if(filters.max) filtersSQL += `AND price <= ${filters.beds}`;
-        if(filters.beds) filtersSQL += `AND beds >= ${filters.beds}`;
-        if(filters.baths) filtersSQL += `AND baths >= ${filters.baths}`;
-        if(filters.rating) filtersSQL += `AND rating >= ${filters.rating}`;
+        if(filters) {
+            if(filters.min !== undefined || filters.min != null) filtersSQL += `AND price >= ${filters.min}`;
+            if(filters.max !== undefined || filters.max != null) filtersSQL += `AND price <= ${filters.max}`;
+            if(filters.beds !== undefined || filters.beds != null) filtersSQL += `AND beds >= ${filters.beds}`;
+            if(filters.baths !== undefined || filters.baths != null) filtersSQL += `AND baths >= ${filters.baths}`;
+            if(filters.rating !== undefined || filters.rating != null) filtersSQL += `AND rating >= ${filters.rating}`;
+        }
         let sortSQL = ``;
         if(sorting) {
-            sortSQL = `ORDER BY ${sorting.parameter}`;
-            if(sorting.order == 'ascending') sortSQL += ` ASC`;
-            else sortSQL += ` DESC`;
+            if(sorting) {
+                sortSQL = ` ORDER BY ${sorting.parameter}`;
+                if(sorting.order == 'ascending') sortSQL += ` ASC`;
+                else sortSQL += ` DESC`;
+            }
         }
         const searchBase = `SELECT listing_id AS 'listingId', price, street_number AS 'streetNumber', street, city,
             state, address_line_2 AS 'addressLine2', zip_code AS 'zipCode', address,
-            rating, num_reviews AS 'numReviews', time_created AS 'timeCreated'
+            rating, num_reviews AS 'numReviews', Listing.time_created AS 'timeCreated'
             FROM Listing
             JOIN RegisteredUser
             ON Listing.landlord_fk = RegisteredUser.reg_user_id
-            JOIN ListingPicture
+            LEFT JOIN ListingPicture
             ON Listing.listing_id = ListingPicture.listing_fk
-            JOIN Picture
+            LEFT JOIN Picture
             ON ListingPicture.picture_fk = Picture.picture_id`
         let searchSQL = searchBase +
-            `WHERE Listing.address LIKE '%${search}%'
+            ` WHERE Listing.address LIKE '%${search}%'
             ${filtersSQL}
             ${sortSQL};`;
-        results.concat(db.execute(searchSQL)[0]);
+        await db.execute(searchSQL).then(result => {
+            results = results.concat(result[0]);
+            console.log("Listing model: "+JSON.stringify(result[0]));
+            console.log("All results 1: "+JSON.stringify(results));
+        });
+        //if user provides multiple terms
+        if(results.length > 0) {
+            return results;
+        }
         for(const searchItem of splitSearch) {
             if(isNaN(searchItem)) {
                 searchSQL = searchBase +
-                    `WHERE Listing.address LIKE '%${searchItem}%'
+                    ` WHERE Listing.address LIKE '%${searchItem}%'
                     ${filtersSQL}
                     ${sortSQL};`;
-                results.concat(db.execute(searchSQL)[0]);
+                await db.execute(searchSQL).then(result => {
+                    results = results.concat(result[0]);
+                });
             } else {
                 searchSQL = searchBase +
-                    `WHERE Listing.zip_code LIKE '%${searchItem}%'
+                    ` WHERE Listing.zip_code LIKE '%${searchItem}%'
                     ${filtersSQL}
                     ${sortSQL};`;
-                results.concat(db.execute(searchSQL)[0]);
+                await db.execute(searchSQL).then(result => {
+                    results = results.concat(result[0]);
+                });
                 searchSQL = searchBase +
                     `WHERE Listing.street_number LIKE '%${searchItem}%'
                     ${filtersSQL}
                     ${sortSQL};`;
-                results.concat(db.execute(searchSQL)[0]);
+                await db.execute(searchSQL).then(result => {
+                    results = results.concat(result[0]);
+                });
             }
         }
-        return db.execute(sql);
+        return results;
     }
 
     static getListByZipcode(zipcode) {
