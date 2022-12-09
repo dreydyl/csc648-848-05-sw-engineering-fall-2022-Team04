@@ -8,6 +8,7 @@ const Landlord = User.Landlord;
 const RegisteredUser = User.RegisteredUser;
 const bcrypt = require("bcrypt");
 var validator = require("email-validator");
+var geoip = require('geoip-lite');
 
 // exports.getAllUsers =  async  (req, res, next ) => {
 //     try {
@@ -236,7 +237,11 @@ exports.getLandlordList = async (req, res, next) => {
 
 exports.getFeaturedLandlords = async (req, res, next) => {
     try {
-        let landlords = await Landlord.getFeaturedLandlords();
+        // let ip = req.ip;
+        // var geo = geoip.lookup(ip);
+        // let city = geo.city;
+        let city = 'San Francisco';
+        let landlords = await Landlord.getFeaturedLandlords(city);
         landlords = landlords[0];
         console.log("controllers: "+landlords);
         return landlords;

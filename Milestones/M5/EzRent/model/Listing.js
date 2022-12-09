@@ -28,17 +28,17 @@ class Register {
 
         let sql = `
         INSERT INTO listing(
-            landlord_id,
-            street_num, 
-            street_name, 
+            landlord_fk,
+            street_number, 
+            street, 
             city, 
             state, 
-            zipcode, 
+            zip_code, 
             description,
-            bed, 
-            bath,
+            beds, 
+            baths,
             price, 
-            created_at
+            time_created
             
         )
         VALUES (
@@ -66,7 +66,7 @@ class Register {
     }
     
     static getListingId(reg_user_id, street_num){
-        let sql = `SELECT * FROM listing WHERE landlord_id = ${reg_user_id} AND street_num = ${street_num};`
+        let sql = `SELECT * FROM listing WHERE landlord_fk = ${reg_user_id} AND street_number = ${street_num};`
         return db.execute(sql);
     }
 
@@ -142,7 +142,7 @@ class Register {
     }
 
     static getListByZipcode(zipcode) {
-        let sql = `SELECT * FROM listing WHERE zipcode LIKE '${zipcode}' OR street_number LIKE '${zipcode}';`;
+        let sql = `SELECT * FROM listing WHERE zip_code LIKE '${zipcode}' OR street_number LIKE '${zipcode}';`;
 
         return db.execute(sql); 
     }

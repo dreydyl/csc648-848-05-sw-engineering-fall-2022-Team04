@@ -262,6 +262,7 @@ class Register {
                 last_name,
                 email,
                 password,
+                role,
                 time_created
             )
             VALUE (

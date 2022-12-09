@@ -35,7 +35,7 @@ class Review {
         return db.execute(sql);
     }
     static getLandlordProfile(id){
-        let sql = `SELECT firstName, lastName, email, bio, picture, user_rating, role FROM registeredUser WHERE reg_user_id = ${id};`;
+        let sql = `SELECT * FROM registeredUser r JOIN Landlord l ON r.reg_user_id = l.reg_user_fk WHERE reg_user_id = ${id};`;
         return db.execute(sql);
     }
     static getLandlordRating(id){
@@ -43,19 +43,19 @@ class Review {
         return db.execute(sql);
     }
     static getLandlordReview(id){
-        let sql = `SELECT registeredUser.firstName, registeredUser.lastName, review.rating, review.description  FROM registeredUser LEFT OUTER JOIN review ON registeredUser.reg_user_id = review.reg_user_id WHERE review.referLandlordId = ${id};`;
+        let sql = `SELECT registeredUser.first_name, registeredUser.last_name, review.rating, review.description  FROM registeredUser LEFT OUTER JOIN review ON registeredUser.reg_user_id = review.reg_user_id WHERE review.referLandlordId = ${id};`;
         return db.execute(sql);
     }
     static getRenterProfile(id){
-        let sql = `SELECT firstName, lastName, email, bio, picture, role FROM registeredUser WHERE reg_user_id = ${id};`;
+        let sql = `SELECT * FROM registeredUser WHERE reg_user_id = ${id};`;
         return db.execute(sql);
     }
     static getRenterWrittenReview(id){
-        let sql = `SELECT registeredUser.firstName, registeredUser.lastName, review.rating, review.description FROM registeredUser LEFT OUTER JOIN review ON registeredUser.reg_user_id = review.referLandlordId WHERE registeredUser.reg_user_id = ${id}`;
+        let sql = `SELECT registeredUser.first_name, registeredUser.last_name, review.rating, review.description FROM registeredUser LEFT OUTER JOIN review ON registeredUser.reg_user_id = review.referLandlordId WHERE registeredUser.reg_user_id = ${id}`;
         return db.execute(sql);
     }
     static getLanlordList(name){
-        let sql = `SELECT firstName, lastName, email FROM registeredUser WHERE registeredUser.firstName = '${name}' OR registeredUser.lastName = '${name}' AND registeredUser.role = 'landlord';`;
+        let sql = `SELECT first_name, last_name, email FROM registeredUser WHERE registeredUser.first_name = '${name}' OR registeredUser.last_name = '${name}' AND registeredUser.role = 'landlord';`;
         return db.execute(sql);
     }
 

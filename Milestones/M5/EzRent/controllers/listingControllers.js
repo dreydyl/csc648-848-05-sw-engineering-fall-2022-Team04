@@ -43,6 +43,8 @@ exports.createNewListing = async (req, res, next) => {
     let listingId = getListingId[0][0].listing_id;
     let getPicId = await Picture_Listing.getPic(name);
     let picId = getPicId[0][0].picture_id;
+    console.log(picId);
+    console.log(listingId);
     let picList = new Picture_Listing(picId, listingId);
     picList = await picList.save();
     res.status(200).json({message: "Posted"});
