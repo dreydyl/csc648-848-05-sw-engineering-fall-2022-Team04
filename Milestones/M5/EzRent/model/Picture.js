@@ -9,7 +9,7 @@ class Register {
     save()
     {
         let sql = `
-            INSERT INTO picture (name, img)
+            INSERT INTO picture (file_name, img_data)
             VALUE (
                 '${this.name}',
                 '${this.img}'
@@ -26,7 +26,7 @@ class Picture_Listing {
     save()
     {
         let sql = `
-            INSERT INTO listing_picture 
+            INSERT INTO ListingPicture (picture_fk, listing_fk)
             VALUE (
                 ${this.picture_id},
                 ${this.listing_id}
@@ -35,7 +35,7 @@ class Picture_Listing {
         return db.execute(sql);
     }
     static getPic(name){
-        let sql = `SELECT * FROM picture WHERE name = '${name}';`
+        let sql = `SELECT * FROM picture WHERE file_name = '${name}';`
         return db.execute(sql);
     }
 }

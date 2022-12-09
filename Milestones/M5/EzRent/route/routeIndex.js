@@ -2,7 +2,7 @@ const { response } = require('express');
 const express = require('express');
 const userControllers = require('../controllers/userControllers');
 const router = express.Router();
-var geoip = require('geoip-lite');
+
 
 /*
 router.get("/", userControllers.getFeaturedLandlords, (req, res, next) => {
@@ -10,8 +10,7 @@ router.get("/", userControllers.getFeaturedLandlords, (req, res, next) => {
 });
 */
 router.get("/", async (req, res, next) => {
-    let ip = req.ip;
-    var geo = geoip.lookup(ip);
+    
     let hooks = {
         "welcome": {
             name: "welcome",

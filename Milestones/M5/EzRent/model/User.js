@@ -247,12 +247,12 @@ class Register {
 
         let sql = `
             INSERT INTO registeredUser (
-                firstName,
-                lastName,
+                first_name,
+                last_name,
                 password,
                 email,
                 role,
-                created_at
+                time_created
             )
             VALUE (
                 '${this.firstName}',
@@ -275,10 +275,10 @@ class Register {
         let sql = `SELECT password FROM RegisteredUser WHERE email = '${email}';`;
         return db.execute(sql);
     }
-    static getFeaturedLandlords() {
+    static getFeaturedLandlords(city) {
         let sql = `SELECT 3 FROM RegisteredUser
             JOIN landlord
-            ON RegisteredUser.reg_user_id = landlord.reg_user_fk
+            ON RegisteredUser.reg_user_id = Landlord.reg_user_fk WHERE city = '${city}'
             LIMIT 3`;
         return db.execute(sql);
     }
