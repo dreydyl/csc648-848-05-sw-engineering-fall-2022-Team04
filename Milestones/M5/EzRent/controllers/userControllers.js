@@ -174,41 +174,6 @@ exports.getUserProfile = async (req, res, next) => {
         let id = req.params.id;
         let profile = await RegisteredUser.getRegisteredUser(id);
         console.log("profile controllers: "+JSON.stringify(profile));
-        // let role = await Review.getRole(id);
-        // role = role[0][0].role;
-        // if(role == 'landlord'){
-        //     let sum = 0;
-        //     let user_rating;
-        //     let userRating = await Review.getLandlordRating(id);
-        //     userRating = userRating[0];
-        //     if(userRating != 0){
-        //         for(let i = 0; i < userRating.length; i++)
-        //         {
-        //             let temp = parseFloat(userRating[i].rating);
-        //             sum += temp;
-        //         }
-        //         user_rating = sum / userRating.length;
-        //         let update_rating = new Rating(id, user_rating);
-        //         update_rating = await update_rating.update_rating();
-        //     }
-        //     let profile = await Review.getLandlordProfile(id);
-        //     let getReview = await Review.getLandlordReview(id);
-        //     profile = profile[0];
-        //     getReview = getReview[0];
-        //     profile.push(getReview);
-        //     res.locals.profile = profile[0];
-        //     res.render("profilePage", { title: "EZRent", style: "main" });
-        // }
-        // else{
-        //     let profile = await Review.getRenterProfile(id);
-        //     profile = profile[0];
-        //     let getWrittenReview = await Review.getRenterWrittenReview(id);
-        //     getWrittenReview = getWrittenReview[0];
-        //     profile.push(getWrittenReview);
-        //     console.log(profile);
-        //     res.locals.profile = profile[0];
-        //     res.render("userProfilePage", { title: "EZRent", style: "main" });
-        // }
         res.locals.profile = profile;
         if(profile.user.role == 'landlord') {
             res.render("profilePage", { title: "EZRent", style: "main" });
