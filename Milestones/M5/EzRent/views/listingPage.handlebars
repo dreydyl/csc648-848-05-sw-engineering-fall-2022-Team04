@@ -1,47 +1,48 @@
 <div class="listing-page">
-    {{log this}}
-    <img class="listing-image" src={{listing.img}}></img>
+    {{log listing.property}}
+    {{#each listing.pictures}}
+    <img class="listing-image" src={{fileName}}></img>
+    {{/each}}
     <div class="listing-wrapper">
         <div class="listing-page-left">
             <div class="listing-info">
                 <div class="listing-info-left">
                     <div class="address">
-                        {{listing.street_number}} {{listing.street}} </br>
-                        {{listing.city}}, {{listing.state}} {{listing.zip}}
+                        {{listing.property.address}}
                     </div>
                 </div>
                 <div class="listing-info-right">
                     <div class="rating">
-                        {{> rating listing.rating}}
+                        {{> rating listing.property.listingRating}}
                     </div>
                     <div class="basic-info">
-                        {{listing.price}} </br>
-                        Bedrooms: {{listing.rooms}} </br>
-                        Bathrooms: {{listing.baths}}
+                        ${{listing.property.price}} </br>
+                        Bedrooms: {{listing.property.beds}} </br>
+                        Bathrooms: {{listing.property.baths}}
                     </div>
                 </div>
             </div>
             <div class="description">
-                {{listing.description}}
+                {{listing.property.description}}
             </div>
         </div>
         <div class="listing-page-right">
             <div class="landlord-info" id="landlord-info">
                 <div class="landlord-profile">
-                    <img class="landlord-image" src={{listing.landlord.img}}></img>
+                    <img class="landlord-image" src={{listing.property.profile}}></img>
                     <div class="landlord-text">
                         <div class="landlord-name">
-                            {{listing.landlord.name}}
+                            {{listing.property.landlordName}}
                         </div>
-                        {{> rating listing.landlord.rating}}
+                        {{> rating listing.property.landlordRating}}
                     </div>
                 </div>
                 <div class="landlord-bio">
-                    {{listing.landlord.bio}}
+                    {{listing.property.bio}}
                 </div>
                 <div class="contact-info">
-                    {{listing.landlord.phone}} </br>
-                    {{listing.landlord.email}}
+                    {{listing.property.phone}} </br>
+                    {{listing.property.email}}
                 </div>
             </div>
         </div>

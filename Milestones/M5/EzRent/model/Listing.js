@@ -71,7 +71,12 @@ class Register {
     }
 
     static async search(search, filters, sorting) {
-        let results = [];
+        let response = {};
+        response.results = [];
+        response.search = search;
+        response.filters = filters;
+        response.sorting = sorting;
+        response.message = "";
         let splitSearch = search.split(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~ ]/);
         let filtersSQL = ``;
         if(filters) {
@@ -104,13 +109,13 @@ class Register {
             ${filtersSQL}
             ${sortSQL};`;
         await db.execute(searchSQL).then(result => {
-            results = results.concat(result[0]);
+            response.results = response.results.concat(result[0]);
             console.log("Listing model: "+JSON.stringify(result[0]));
-            console.log("All results 1: "+JSON.stringify(results));
+            console.log("All results 1: "+JSON.stringify(response.results));
         });
         //if user provides multiple terms
-        if(results.length > 0) {
-            return results;
+        if(response.results.length > 0) {
+            return response;
         }
         for(const searchItem of splitSearch) {
             if(isNaN(searchItem)) {
@@ -119,7 +124,7 @@ class Register {
                     ${filtersSQL}
                     ${sortSQL};`;
                 await db.execute(searchSQL).then(result => {
-                    results = results.concat(result[0]);
+                    response.results = response.results.concat(result[0]);
                 });
             } else {
                 searchSQL = searchBase +
@@ -127,18 +132,33 @@ class Register {
                     ${filtersSQL}
                     ${sortSQL};`;
                 await db.execute(searchSQL).then(result => {
-                    results = results.concat(result[0]);
+                    response.results = response.results.concat(result[0]);
                 });
                 searchSQL = searchBase +
                     `WHERE Listing.street_number LIKE '%${searchItem}%'
                     ${filtersSQL}
                     ${sortSQL};`;
                 await db.execute(searchSQL).then(result => {
-                    results = results.concat(result[0]);
+                    response.results = response.results.concat(result[0]);
                 });
             }
         }
-        return results;
+        if(response.results.length == 0) {
+            response.message = "No results found for your query. Try broadening your search";
+            if(filters) {
+                response.message += " or try reducing your filters";
+            }
+            response.message += ".";
+            searchSQL = searchBase +
+                ` WHERE Listing.address LIKE '%San Francisco%'`;
+            console.log("SEARCHSQL: "+searchSQL);
+            await db.execute(searchSQL).then(result => {
+                response.results = response.results.concat(result[0]);
+                console.log("All results 5: "+JSON.stringify(response.results));
+            });
+
+        }
+        return response;
     }
 
     static getListByZipcode(zipcode) {
@@ -165,15 +185,23 @@ class Register {
         return db.execute(sql); 
     }
 
-    static getListingById(id) {
+    static async getListingById(id) {
         let listing = {};
-        let propertySQL = `SELECT listing_id AS 'listingId', full_name AS 'landlordName', price, description,
-            address, beds, baths, size, pets, type, rating, Listing.time_created AS 'timeCreated'
+        let propertySQL = `SELECT listing_id AS 'listingId', full_name AS 'landlordName', Landlord.rating AS 'landlordRating',
+            bio, phone, email, file_name AS 'profile', price, description, address, beds, baths,
+            size, pets, type, Listing.rating AS 'listingRating', Listing.time_created AS 'timeCreated'
             FROM Listing
             JOIN RegisteredUser
             ON Listing.landlord_fk = RegisteredUser.reg_user_id
+            JOIN Landlord
+            ON RegisteredUser.reg_user_id = Landlord.reg_user_fk
+            LEFT JOIN Picture
+            ON RegisteredUser.profile_picture_fk = Picture.picture_id
             WHERE listing_id = ${id};`;
-        listing.property = db.execute(propertySQL)[0];
+        db.execute(propertySQL).then(result => {
+            listing.property = result[0][0];
+            console.log("Model property: "+JSON.stringify(listing.property));
+        });
         let reviewsSQL = `SELECT review_id AS 'reviewId', full_name AS 'authorName', rating, title, description,
             Review.time_created AS 'timeCreated'
             FROM Review
@@ -182,7 +210,18 @@ class Register {
             JOIN RegisteredUser
             ON Review.author_fk = RegisteredUser.reg_user_id
             WHERE ListingReview.listing_fk = ${id};`;
-        listing.reviews = db.execute(reviewsSQL)[0];
+        db.execute(reviewsSQL).then(result => {
+            listing.reviews = result[0];
+            console.log("Model reviews: "+JSON.stringify(listing.reviews));
+        });
+        let picturesSQL = `SELECT picture_id AS 'pictureId', file_name AS 'fileName'
+            FROM ListingPicture
+            JOIN Picture
+            WHERE ListingPicture.listing_fk = ${id};`
+        db.execute(picturesSQL).then(result => {
+            listing.pictures = result[0];
+            console.log("Model pictures: "+JSON.stringify(listing.pictures));
+        });
         return listing;
     }
 

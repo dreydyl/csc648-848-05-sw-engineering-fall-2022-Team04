@@ -46,6 +46,10 @@
         <div class="listing-search-bar">
             {{> search}}
         </div>
+        {{#if message}}
+        <p id="search-message">{{message}}</p>
+        <h2>Suggested Results</h2>
+        {{/if}}
         <div id="search_results_cards">
             {{#each results}}
             {{> listingCard this}}

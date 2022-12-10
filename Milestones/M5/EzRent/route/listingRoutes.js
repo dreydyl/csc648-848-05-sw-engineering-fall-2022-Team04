@@ -120,49 +120,7 @@ router.get("/search-test", (req, res, next) => {
     res.render("listingResults");
 });
 
-router.get("/:id", (req, res, next) => {
-    let listing = {
-        "landlord": {
-            "name": "Job Bohn",
-            "rating": 5,
-            "img": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
-            "bio": "Hello there",
-            "email": "job@gmail.com",
-            "phone": "+1-707-000-0001"
-        },
-        "rating": 4,
-        "img": "../images/picture_1666042712023.jpeg",
-        "price": "50,000",
-        "description": "Perfect for family",
-        "street_number": "1234",
-        "street": "Ballast Court",
-        "city": "San Francisco",
-        "state": "CA",
-        "zip": "94545",
-        "rooms": 4,
-        "baths": 2,
-        "reviews": {
-            "review1": {
-                "title": "Wowow",
-                "rating": 4,
-                "author": "Alonzo Aball",
-                "description": "My family loves this place"
-            },
-            "review2": {
-                "title": "Wowow",
-                "rating": 4,
-                "author": "Alonzo Aball",
-                "description": "My family loves this place"
-            },
-            "review3": {
-                "title": "Wowow",
-                "rating": 4,
-                "author": "Alonzo Aball",
-                "description": "My family loves this place"
-            },
-        }
-    };
-    res.locals.listing = listing;
+router.get("/:id", listingControllers.getListing, (req, res, next) => {
     if (req.session.admin) {
         res.locals.logged = true;
     }
