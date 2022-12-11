@@ -1,5 +1,6 @@
 const User = require('../model/User');
 const ReviewModel = require('../model/Review');
+const Listing = require('../model/Listing');
 const Register = User.Register;
 const Update = User.Update;
 const Review = ReviewModel.Review;
@@ -62,6 +63,22 @@ exports.createUser = async (req, res, next) => {
             register = await register.save();
             res.status(201).json({ message: "User created " });
         }
+    }
+    catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
+exports.postReview = async (req, res, next) => {
+    try {
+        let { rating, title, description, type, landlordId } = req.body;
+        console.log("review body: "+JSON.stringify(req.body));
+        let count = await Listing.checkEmail(req.session.email);
+        let userId = count[0][0].reg_user_id;
+
+        let review = new Review(userId, rating, title, description, type, landlordId);
+        review.save();
     }
     catch (error) {
         console.log(error);
@@ -176,8 +193,14 @@ exports.getUserProfile = async (req, res, next) => {
         console.log("profile controllers: "+JSON.stringify(profile));
         res.locals.profile = profile;
         if(profile.user.role == 'landlord') {
+            if (req.session.admin) {
+                res.locals.logged = true;
+            }
             res.render("profilePage", { title: "EZRent", style: "main" });
         } else {
+            if (req.session.admin) {
+                res.locals.logged = true;
+            }
             res.render("userProfilePage", { title: "EZRent", style: "main" });
         }
     }

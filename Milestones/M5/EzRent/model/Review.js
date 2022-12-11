@@ -35,26 +35,30 @@ class Review {
         db.execute(reviewSQL);
         if(this.type == 'listing') {
             let idSQL = `SELECT LAST_INSERT_ID();`
-            await db.execute(idSQL).then(async (id) => {
-                let typeSQL = `
-                    INSERT INTO ListingReview (review_fk, listing_fk)
-                    VALUE(
-                        ${id},
-                        ${this.referenceId}
-                    )`;
-                await db.execute(typeSQL);
+            let reviewId;
+            await db.execute(idSQL).then(id => {
+                reviewId = id;
             });
+            let typeSQL = `
+                INSERT INTO ListingReview (review_fk, listing_fk)
+                VALUE(
+                    ${reviewId},
+                    ${this.referenceId}
+                )`;
+            db.execute(typeSQL);
         } else {
             let idSQL = `SELECT LAST_INSERT_ID();`
-            await db.execute(idSQL).then(async (id) => {
-                let typeSQL = `
-                    INSERT INTO LandlordReview (review_fk, landlord_fk)
-                    VALUE(
-                        ${id},
-                        ${this.referenceId}
-                    )`;
-                await db.execute(typeSQL);
+            let reviewId;
+            await db.execute(idSQL).then(id => {
+                reviewId = id;
             });
+            let typeSQL = `
+                INSERT INTO LandlordReview (review_fk, landlord_fk)
+                VALUE(
+                    ${reviewId},
+                    ${this.referenceId}
+                )`;
+            db.execute(typeSQL);
         }
     }
 
