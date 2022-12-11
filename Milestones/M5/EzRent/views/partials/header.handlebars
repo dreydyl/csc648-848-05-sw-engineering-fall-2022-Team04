@@ -15,9 +15,9 @@
             <a class="help-button" href="/help">Help</a>
             {{#if logged}}
             <script>
-                console.log("logged: " + {{logged}});
+                console.log("logged: " + {{ logged }});
             </script>
-            <a id="profile-button" class="login-header-button" href="/profilePage">Profile</a>
+            <a id="profile-button" class="login-header-button" href="/users/profilePage/{{profile.user.id}}">Profile</a>
             <a id="logout-button" class="login-header-button">Log out</a>
             {{else}}
             <a id="login-authenticate" class="login-header-button" href="/loginpage"> Login</a>

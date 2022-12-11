@@ -924,13 +924,12 @@ h2 {
 .profile-btn-reviews-listings {
     display: flex;
     padding: 10px;
+    justify-content: center;
 }
 
 .profile-page-buttons-section {
     display: flex;
-    flex-direction: column;
-    padding: 10px;
-    margin: 0px 40px;
+    margin: 0px 80px;
 }
 
 .profile-page-button {
@@ -941,7 +940,8 @@ h2 {
     width: 150px;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    margin-right: 20px;
     cursor: pointer;
 }
 
@@ -1074,6 +1074,7 @@ h2 {
     display: flex;
     padding: 10px;
     justify-content: center;
+    align-self: center;
 }
 
 .user-profile-page-buttons-section {
@@ -1211,3 +1212,4 @@ h2 {
     user-select: none;
     color: #295b3d;
 }
+

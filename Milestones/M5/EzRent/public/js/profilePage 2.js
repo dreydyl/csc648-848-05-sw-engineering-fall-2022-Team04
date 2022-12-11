@@ -1,8 +1,4 @@
-document.getElementById("leave-review-button").onclick = () => {
-    document.getElementById("myForm").style.display = "block";
-}
-
-document.getElementById("edit-profile-button").onclick = () => {
+document.getElementById("post-review-button").onclick = () => {
     document.getElementById("myForm").style.display = "block";
 }
 

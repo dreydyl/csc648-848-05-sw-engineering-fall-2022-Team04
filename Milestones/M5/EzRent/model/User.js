@@ -268,8 +268,8 @@ class Register {
             VALUE (
                 '${this.firstName}',
                 '${this.lastName}',
-                '${this.password}',
                 '${this.email}',
+                '${this.password}',
                 '${this.role}',
                 '${createdAtDate}'
             )`;

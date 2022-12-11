@@ -80,6 +80,11 @@ exports.demoLogin = async (req, res, next) => {
 exports.login = async (req, res, next) => {
     try {
 
+        // let id = req.params.id;
+        // let profile = await RegisteredUser.getRegisteredUser(id);
+
+        // let role = profile.role;
+
         let { password, email } = req.body;
         let count = await Register.checkEmail(email);
         if (count[0].length == 0) {
@@ -99,6 +104,7 @@ exports.login = async (req, res, next) => {
                 else {
                     
                     req.session.email = email;
+                    // req.session.role = role;
                     req.session.admin = true;
 
                     // res.cookie("logged", req.session.admin, {expires: new Date(Date.now() + 900000), httpOnly: false});
@@ -217,7 +223,7 @@ exports.getUserProfile = async (req, res, next) => {
         }
     }
     catch (error) {
-        next(error);
+        console.log(error);
     }
 }
 

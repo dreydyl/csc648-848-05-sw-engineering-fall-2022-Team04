@@ -49,9 +49,11 @@ landlordsItem.onclick = () => {
     searchText.placeholder = "Enter a name..."
 }
 
+
 // let logged = document.cookie.includes('logged');
 // console.log(logged);
-let ele = document.getElementById("login-authenticate");
+// let ele = document.getElementById("login-authenticate");
+
 
 
 // // let logoutFunc = (req, res, next) => {
