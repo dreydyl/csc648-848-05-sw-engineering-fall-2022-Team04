@@ -9,16 +9,14 @@ document.getElementById("apply-filters-button").onclick = () => {
 
     //check if values are good
     if(!minPrice) {
-        console.log("price fail: "+minPrice);
         minPrice = "";
     } else {
-        minPrice = "&min="+minPrice;
+        minPrice = "&min="+minPrice.replace(' ','');
     }
     if(!maxPrice) {
-        console.log("price fail");
         maxPrice = "";
     } else {
-        maxPrice = "&max="+maxPrice;
+        maxPrice = "&max="+maxPrice.replace(' ','');
     }
     if(maxPrice <= minPrice) {
         console.log("fail");
@@ -28,20 +26,18 @@ document.getElementById("apply-filters-button").onclick = () => {
             && rating != "> 3"
             && rating != "> 4"
             && rating != "5") {
-        console.log("fail rating: "+ rating);
         rating = "";
     } else {
-        rating = "&rating="+rating;
+        rating = "&rating="+rating.replace(' ','');
     }
     if(beds != "1"
             && beds != "2"
             && beds != "3"
             && beds != "4"
             && beds != "> 4") {
-        console.log("fail");
         beds = "";
     } else {
-        beds = "&beds="+beds;
+        beds = "&beds="+beds.replace(' ','');
     }
     if(baths != "1"
             && baths != "2"
@@ -51,13 +47,10 @@ document.getElementById("apply-filters-button").onclick = () => {
         console.log("fail");
         baths = "";
     } else {
-        baths = "&baths="+baths;
+        baths = "&baths="+baths.replace(' ','');
     }
 
     let searchURL = `/listings/search?search=${searchTerm}${minPrice}${maxPrice}${rating}${beds}${baths}`;
-    //searchURL = `/listings/search-test`;
-
-    console.log(searchURL);
 
     location.replace(searchURL);
 }

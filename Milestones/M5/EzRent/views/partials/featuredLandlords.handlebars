@@ -1,14 +1,14 @@
 <div class="featured-landlords">
     {{#each this}}
     {{log this}}
-    <a class="featured-landlord" id="featured-landlord-1" href="users/profilePage/{{reg_user_id}}">
+    <a class="featured-landlord" id="featured-landlord-1" href="users/profilePage/{{landlordId}}">
         <div class="featured-landlord-left">
-            <img class="landlord-picture" src={{picture_id}}>
+            <img class="landlord-picture" src={{profilePicture}}>
             <p class="landlord-name">{{firstName}} {{lastName}}</p>
         </div>
         <div class="featured-landlord-right">
             <div class="landlord-info">
-                {{> rating user_rating}}
+                {{> rating rating}}
                 <div class="bio">
                     {{bio}}
                 </div>
@@ -16,32 +16,4 @@
         </div>
     </a>
     {{/each}}
-    {{!-- <a class="featured-landlord" id="featured-landlord-2" href="profilepage">
-        <div class="featured-landlord-left">
-            <div class="landlord-info">
-                {{> rating landlord2.rating}}
-                <div class="bio">
-                    {{landlord2.bio}}
-                </div>
-            </div>
-        </div>
-        <div class="featured-landlord-right">
-            <img class="landlord-picture" src={{landlord2.img}}>
-            <p class="landlord-name">{{landlord2.name}}</p>
-        </div>
-    </a>
-    <a class="featured-landlord" id="featured-landlord-3" href="profilepage">
-        <div class="featured-landlord-left">
-            <img class="landlord-picture" src={{landlord3.img}}>
-            <p class="landlord-name">{{landlord3.name}}</p>
-        </div>
-        <div class="featured-landlord-right">
-            <div class="landlord-info">
-                {{> rating landlord3.rating}}
-                <div class="bio">
-                    {{landlord3.bio}}
-                </div>
-            </div>
-        </div>
-    </a> --}}
 </div>

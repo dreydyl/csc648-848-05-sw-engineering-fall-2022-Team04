@@ -3,23 +3,63 @@
 const db = require("../database/db");
 
 class Review {
-    constructor(reg_user_id, rating, description, referLandlordId) {
+    constructor(reg_user_id, rating, title, description, type, referenceId) {
         this.reg_user_id = reg_user_id;
         this.rating = rating;
+        this.title = title;
         this.description = description;
-        this.referLandlordId = referLandlordId;
+        this.type = type;
+        this.referenceId = referenceId;
     }
 
-    save() {
-        let sql = `
-            INSERT INTO review (reg_user_id, rating, description, referLandlordId)
+    async save() {
+        let d = new Date();
+        let yyyy = d.getFullYear();
+        let mm = d.getMonth() + 1;
+        let dd = d.getDay();
+        let hour = d.getHours();
+        let min = d.getMinutes();
+        let sec = d.getSeconds();
+
+        let createdAtDate = `${yyyy}-${mm}-${dd} ${hour}:${min}:${sec}`;
+
+        let reviewSQL = `
+            INSERT INTO Review (author_fk, rating, title, description, time_created)
             VALUE(
                 ${this.reg_user_id},
                 ${this.rating},
-                '${this.description}',
-                ${this.referLandlordId}
-        );`;
-        return db.execute(sql);
+                ${this.title},
+                ${this.description},
+                ${this.createdAtDate}
+            );`;
+        db.execute(reviewSQL);
+        if(this.type == 'listing') {
+            let idSQL = `SELECT LAST_INSERT_ID();`
+            let reviewId;
+            await db.execute(idSQL).then(id => {
+                reviewId = id;
+            });
+            let typeSQL = `
+                INSERT INTO ListingReview (review_fk, listing_fk)
+                VALUE(
+                    ${reviewId},
+                    ${this.referenceId}
+                )`;
+            db.execute(typeSQL);
+        } else {
+            let idSQL = `SELECT LAST_INSERT_ID();`
+            let reviewId;
+            await db.execute(idSQL).then(id => {
+                reviewId = id;
+            });
+            let typeSQL = `
+                INSERT INTO LandlordReview (review_fk, landlord_fk)
+                VALUE(
+                    ${reviewId},
+                    ${this.referenceId}
+                )`;
+            db.execute(typeSQL);
+        }
     }
 
     static getUserbyEmail(email) {
@@ -87,7 +127,9 @@ class Review {
             LEFT JOIN Picture
             ON ReviewPicture.picture_fk = Picture.picture_id
             WHERE review_id = ${id};`;
-        review.review = db.execute(reviewSQL)[0];
+        db.execute(reviewSQL).then(result => {
+            review.review = result[0][0];
+        });
         let commentsSQL = `SELECT c.comment_id AS 'commentId', c.author_fk AS 'authorId', author.full_name AS 'author', c.message,
             c.thumbs_up AS 'thumbsUp', c.thumbs_down AS 'thumbsDown', c.time_created AS 'timeCreated',
             parentAuthor.full_name AS 'parentAuthor', parent.message AS 'parentMessage'
@@ -101,7 +143,16 @@ class Review {
             JOIN ReviewComment
             ON c.comment_id = ReviewComment.comment_fk
             WHERE ReviewComment.review_fk = ${id};`;
-        review.comments = db.execute(commentsSQL)[0];
+        db.execute(commentsSQL).then(result => {
+            review.comments = result[0];
+        });
+        let picturesSQL = `SELECT picture_id AS 'pictureId', file_name AS 'fileName'
+            FROM ReviewPicture
+            JOIN Picture
+            WHERE ReviewPicture.review_fk = ${id};`;
+        db.execute(commentsSQL).then(result => {
+            review.pictures = result[0];
+        });
         return review;
     }
 

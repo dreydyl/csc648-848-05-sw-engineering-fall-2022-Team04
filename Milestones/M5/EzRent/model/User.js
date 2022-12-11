@@ -278,11 +278,13 @@ class Register {
 
         if(this.role == 'landlord') {
             let idSQL = `SELECT LAST_INSERT_ID();`
-            let id = await db.execute(idSQL)[0];
-            let landlordSQL = `
-                INSERT INTO Landlord (reg_user_id)
-                VALUE (${id})
-            `;
+            await db.execute(idSQL).then(async (id) => {
+                let landlordSQL = `
+                    INSERT INTO Landlord (reg_user_id)
+                    VALUE (${id})
+                `;
+                await db.execute(landlordSQL);
+            });
         }
 
         return 0;

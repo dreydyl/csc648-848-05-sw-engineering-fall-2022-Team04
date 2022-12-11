@@ -59,9 +59,14 @@ exports.getListing = async (req, res, next) => {
     try {
         let id = req.params.id;
         let listing = await Listing.getListingById(id);
-        
+        res.locals.listing = listing;
+        if (req.session.admin) {
+            res.locals.logged = true;
+        }
+        console.log("controllers: "+JSON.stringify(listing));
+        res.render("listingPage", { title: "EZRent Listing", style: "listingPage" });
     } catch (err) {
-        console.log(error);
+        console.log(err);
         next(err);
     }
 }
@@ -98,20 +103,16 @@ exports.searchListings = async (req, res, next) => {
     } else {
         try {
             let results = await Listing.search(search);
-            console.log("search controller: "+results);
-            if (results) {
-                res.locals.results = results;
-                if (req.session.admin) {
-                    res.locals.logged = true;
-                }
-                res.render('listingResults', { title: "EZRent " + search, header: "Results" });
-            } else {
+            console.log("search controller: "+results.results);
+            if (!results.results) {
                 console.log("no results");
-                if (req.session.admin) {
-                    res.locals.logged = true;
-                }
-                res.render('listingResults', { title: "EZRent " + search, header: "Results" });
             }
+            res.locals.results = results.results;
+            res.locals.message = results.message;
+            if (req.session.admin) {
+                res.locals.logged = true;
+            }
+            res.render('listingResults', { title: "EZRent " + search, header: "Results" });
         } catch (error) {
             console.log(error);
             next(error);

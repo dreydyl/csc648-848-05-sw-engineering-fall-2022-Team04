@@ -1,5 +1,6 @@
 const User = require('../model/User');
 const ReviewModel = require('../model/Review');
+const Listing = require('../model/Listing');
 const Register = User.Register;
 const Update = User.Update;
 const Review = ReviewModel.Review;
@@ -62,6 +63,22 @@ exports.createUser = async (req, res, next) => {
             register = await register.save();
             res.status(201).json({ message: "User created " });
         }
+    }
+    catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
+exports.postReview = async (req, res, next) => {
+    try {
+        let { rating, title, description, type, landlordId } = req.body;
+        console.log("review body: "+JSON.stringify(req.body));
+        let count = await Listing.checkEmail(req.session.email);
+        let userId = count[0][0].reg_user_id;
+
+        let review = new Review(userId, rating, title, description, type, landlordId);
+        review.save();
     }
     catch (error) {
         console.log(error);
@@ -180,45 +197,16 @@ exports.getUserProfile = async (req, res, next) => {
         let id = req.params.id;
         let profile = await RegisteredUser.getRegisteredUser(id);
         console.log("profile controllers: "+JSON.stringify(profile));
-        // let role = await Review.getRole(id);
-        // role = role[0][0].role;
-        // if(role == 'landlord'){
-        //     let sum = 0;
-        //     let user_rating;
-        //     let userRating = await Review.getLandlordRating(id);
-        //     userRating = userRating[0];
-        //     if(userRating != 0){
-        //         for(let i = 0; i < userRating.length; i++)
-        //         {
-        //             let temp = parseFloat(userRating[i].rating);
-        //             sum += temp;
-        //         }
-        //         user_rating = sum / userRating.length;
-        //         let update_rating = new Rating(id, user_rating);
-        //         update_rating = await update_rating.update_rating();
-        //     }
-        //     let profile = await Review.getLandlordProfile(id);
-        //     let getReview = await Review.getLandlordReview(id);
-        //     profile = profile[0];
-        //     getReview = getReview[0];
-        //     profile.push(getReview);
-        //     res.locals.profile = profile[0];
-        //     res.render("profilePage", { title: "EZRent", style: "main" });
-        // }
-        // else{
-        //     let profile = await Review.getRenterProfile(id);
-        //     profile = profile[0];
-        //     let getWrittenReview = await Review.getRenterWrittenReview(id);
-        //     getWrittenReview = getWrittenReview[0];
-        //     profile.push(getWrittenReview);
-        //     console.log(profile);
-        //     res.locals.profile = profile[0];
-        //     res.render("userProfilePage", { title: "EZRent", style: "main" });
-        // }
         res.locals.profile = profile;
         if(profile.user.role == 'landlord') {
+            if (req.session.admin) {
+                res.locals.logged = true;
+            }
             res.render("profilePage", { title: "EZRent", style: "main" });
         } else {
+            if (req.session.admin) {
+                res.locals.logged = true;
+            }
             res.render("userProfilePage", { title: "EZRent", style: "main" });
         }
     }
