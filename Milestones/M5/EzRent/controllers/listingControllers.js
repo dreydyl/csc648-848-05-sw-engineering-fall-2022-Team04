@@ -1,9 +1,18 @@
 const Listing = require('../model/Listing');
 const Picture = require('../model/Picture');
+const Review = require('../model/Review');
 const Register = Picture.Register;
 const Picture_Listing = Picture.Picture_Listing;
 const zlib = require('zlib'); 
 
+exports.getProfileByEmail = async (email) => {
+    try {
+        return Review.getUserbyEmail(email);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
 
 exports.getAllListings = async (req, res, next) => {
     try {
@@ -62,6 +71,9 @@ exports.getListing = async (req, res, next) => {
         res.locals.listing = listing;
         if (req.session.admin) {
             res.locals.logged = true;
+            let result = await Review.getUserbyEmail(req.session.email);
+            result = result[0][0].reg_user_id;
+            res.locals.profileId = result;
         }
         console.log("controllers: "+JSON.stringify(listing));
         res.render("listingPage", { title: "EZRent Listing", style: "listingPage" });
@@ -111,6 +123,9 @@ exports.searchListings = async (req, res, next) => {
             res.locals.message = results.message;
             if (req.session.admin) {
                 res.locals.logged = true;
+                let result = await Review.getUserbyEmail(req.session.email);
+                result = result[0][0].reg_user_id;
+                res.locals.profileId = result;
             }
             res.render('listingResults', { title: "EZRent " + search, header: "Results" });
         } catch (error) {

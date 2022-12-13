@@ -43,12 +43,12 @@ exports.createUser = async (req, res, next) => {
     try {
         let { firstName, lastName, password, email, confirmPassword, role } = req.body;
         const hashpassword = bcrypt.hashSync(password, 10);
-        if(role != "landlord"){
+        if (role != "landlord") {
             role = 'renter';
         }
         let register = new Register(firstName, lastName, hashpassword, email, role);
         let count = await Register.checkEmail(email);
-        
+
         if (count[0] != 0) {
             res.status(409).json({ message: "Email already exists! ", count });
         }
@@ -73,7 +73,7 @@ exports.createUser = async (req, res, next) => {
 exports.postReview = async (req, res, next) => {
     try {
         let { rating, title, description, type, landlordId } = req.body;
-        console.log("review body: "+JSON.stringify(req.body));
+        console.log("review body: " + JSON.stringify(req.body));
         let count = await Listing.checkEmail(req.session.email);
         let userId = count[0][0].reg_user_id;
 
@@ -92,7 +92,14 @@ exports.demoLogin = async (req, res, next) => {
 
 }
 
-
+exports.getProfileByEmail = async (email) => {
+    try {
+        return Review.getUserbyEmail(email);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
 
 exports.login = async (req, res, next) => {
     try {
@@ -114,7 +121,7 @@ exports.login = async (req, res, next) => {
                     res.redirect('/');
                 }
                 else {
-                    
+
                     req.session.email = email;
                     req.session.admin = true;
 
@@ -156,7 +163,7 @@ exports.logout = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
     try {
-        let {name, img } = req.file.pic;
+        let { name, img } = req.file.pic;
         update = await update.update();
         res.send({ message: 'User Updated' });
     }
@@ -190,18 +197,33 @@ exports.getUserProfile = async (req, res, next) => {
     try {
         let id = req.params.id;
         let profile = await RegisteredUser.getRegisteredUser(id);
-        console.log("profile controllers: "+JSON.stringify(profile));
+        console.log("profile controllers: " + JSON.stringify(profile));
         res.locals.profile = profile;
-        if(profile.user.role == 'landlord') {
+        if (profile.user.role == 'landlord') {
             if (req.session.admin) {
                 res.locals.logged = true;
+                let result = await Review.getUserbyEmail(req.session.email);
+                result = result[0][0].reg_user_id;
+                res.locals.profileId = result;
+                if (result == id) {
+                    res.render("profilePage", { title: "EZRent", style: "main" });
+                } else {
+                    res.render("publicLandlordProfilePage", { title: "EZRent", style: "main" });
+                }
+            } else {
+                res.render("publicLandlordProfilePage", { title: "EZRent", style: "main" });
             }
-            res.render("profilePage", { title: "EZRent", style: "main" });
         } else {
             if (req.session.admin) {
                 res.locals.logged = true;
+                let result = await Review.getUserbyEmail(req.session.email);
+                result = result[0][0].reg_user_id;
+                res.locals.profileId = result;
+                res.render("userProfilePage", { title: "EZRent", style: "main" });
+            } else {
+                res.render("/");
             }
-            res.render("userProfilePage", { title: "EZRent", style: "main" });
+            //not allowed
         }
     }
     catch (error) {
@@ -231,7 +253,7 @@ exports.getFeaturedLandlords = async (req, res, next) => {
         let city = 'San Francisco';
         let landlords = await Landlord.getFeaturedLandlords(city);
         landlords = landlords[0];
-        console.log("controllers: "+landlords);
+        console.log("controllers: " + landlords);
         return landlords;
     }
     catch (error) {
@@ -239,13 +261,13 @@ exports.getFeaturedLandlords = async (req, res, next) => {
     }
 }
 
-exports.getBadReview = async(req, res, next) => {
+exports.getBadReview = async (req, res, next) => {
     try {
         //TODO await Landlord.getFeaturedLandlords();
         // mment out when implement Model
         let review = await Review.getBadReview();
         review = review[0][0];
-        console.log("reviews controllers: "+review);
+        console.log("reviews controllers: " + review);
         return review;
     }
     catch (error) {
