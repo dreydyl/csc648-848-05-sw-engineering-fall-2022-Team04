@@ -478,7 +478,25 @@ footer p {
     padding-left: 5px;
 }
 
+.result{
+    position: absolute;
+    top: 15%;
+    left: 25%;
+    letter-spacing: 2px;
+    color:#3C885B;
+    font-size: 45px;
+    font-weight: 600;
+}
+.actual{
+    color:rgb(170, 167, 167);
+    position: absolute;
+    top: 15%;
+    left: 55%;
+    letter-spacing: 2px;
+    font-size: 45px;
+    text-transform: capitalize;
 
+}
 
 #search_results_main {
     display: flex;
