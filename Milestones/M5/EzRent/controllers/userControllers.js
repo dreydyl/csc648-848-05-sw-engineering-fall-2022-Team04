@@ -173,18 +173,15 @@ exports.update = async (req, res, next) => {
 
 exports.createReview = async (req, res, next) => {
     try {
-        let { rating, description } = req.body;
+        let { rating, title, description, type, landlordId } = req.body;
+        console.log(JSON.stringify(req.body));
         let reg_user_id = await Review.getUserbyEmail(req.session.email);
         reg_user_id = reg_user_id[0];
         reg_user_id = reg_user_id[0].reg_user_id;
-        let id = req.params.id;
-        id = parseInt(id);
-        let referLandlordId = await Review.getUserbyId(id);
-        referLandlordId = referLandlordId[0];
-        referLandlordId = referLandlordId[0].reg_user_id;
-        let review = new Review(reg_user_id, rating, description, referLandlordId);
+        let review = new Review(reg_user_id, rating, title, description, type, landlordId);
         review = await review.save();
-        res.status(201).json({ message: "Review created " });
+        // res.status(201).json({ message: "Review created " });
+        res.render(`/profilePage/${landlordId}`);
     }
     catch (error) {
         next(error);
@@ -202,11 +199,13 @@ exports.getUserProfile = async (req, res, next) => {
             if (req.session.admin) {
                 res.locals.logged = true;
             }
-            res.render("profilePage", { title: "EZRent", style: "main" });
+            res.render("publicLandlordProfilePage", { title: "EZRent Profile" });
+            // res.render("profilePage", { title: "EZRent", style: "main" });
         } else {
             if (req.session.admin) {
                 res.locals.logged = true;
             }
+    res.render("publicLandlordProfilePage", { title: "EZRent Profile" });
             res.render("userProfilePage", { title: "EZRent", style: "main" });
         }
     }

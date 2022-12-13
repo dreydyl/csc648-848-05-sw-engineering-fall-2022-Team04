@@ -30,7 +30,7 @@ class Review {
                 ${this.rating},
                 ${this.title},
                 ${this.description},
-                ${this.createdAtDate}
+                ${createdAtDate}
             );`;
         db.execute(reviewSQL);
         if(this.type == 'listing') {
@@ -63,7 +63,7 @@ class Review {
     }
 
     static getUserbyEmail(email) {
-        let sql = `SELECT reg_user_id FROM registeredUser WHERE email = '${email}';`;
+        let sql = `SELECT reg_user_id FROM RegisteredUser WHERE email = '${email}';`;
         return db.execute(sql);
     }
     static getUserbyId(id) {
