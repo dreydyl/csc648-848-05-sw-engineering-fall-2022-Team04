@@ -50,18 +50,24 @@ exports.createUser = async (req, res, next) => {
         let count = await Register.checkEmail(email);
         
         if (count[0] != 0) {
-            res.status(409).json({ message: "Email already exists! ", count });
+            req.flash("error", 'Email already exist');
+            
+            res.render("registration", {error: req.flash('error')});
         }
         else if (!validator.validate(email)) {
-            res.status(409).json({ message: "Incorrect email format" })
+            req.flash("error", 'Incorrect Email format');
+            
+            res.render("registration", {error: req.flash('error')});
         }
 
         else if (confirmPassword != password || !checkPassword(password)) {
-            res.status(409).json({ message: "Incorrect password" });
+            req.flash("error", 'Incorrect Password');
+            
+            res.render("registration", {error: req.flash('error')});
         }
         else {
             register = await register.save();
-            res.status(201).json({ message: "User created " });
+            res.render("main", {error: req.flash('success')});
         }
     }
     catch (error) {
