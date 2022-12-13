@@ -1,6 +1,7 @@
 const Listing = require('../model/Listing');
 const Picture = require('../model/Picture');
-const Review = require('../model/Review');
+const ReviewModel = require('../model/Review');
+const Review = ReviewModel.Review;
 const Register = Picture.Register;
 const Picture_Listing = Picture.Picture_Listing;
 const zlib = require('zlib'); 
@@ -134,70 +135,3 @@ exports.searchListings = async (req, res, next) => {
         }
     }
 }
-
-exports.applyFilters = async (req, res, next) => {
-    //url example /search?search=&min=&max=&rating=&beds=&baths=
-    let search = req.query.search;
-}
-
-// exports.getListBySearch = async (req, res, next) => {
-//     let search = req.params.search;
-//     let temp = search.split(" ");
-//     if (temp.length > 5) {
-//         try {
-//             let address = search;
-//             let [listing, _] = await Listing.getListByAddress(address);
-
-//             res.status(200).json({ listing });
-//         } catch (error) {
-//             console.log(error);
-//             next(error);
-//         }
-//         return;
-//     }
-
-//     if ((isNaN(search))) {
-//         try {
-//             let city = search;
-//             let [listing, _] = await Listing.getListByCity(city);
-//             if (listing.length == 0) {
-//                 try {
-//                     let zipcode = search;
-//                     let [listing, _] = await Listing.findAll(zipcode);
-
-//                     res.status(200).json({ listing });
-//                 } catch (error) {
-//                     console.log(error);
-//                     next(error);
-//                 }
-//             }
-
-//             res.status(200).json({ listing });
-//         } catch (error) {
-//             console.log(error);
-//             next(error);
-//         }
-//     } else {
-//         try {
-//             let zipcode = search;
-//             let [listing, _] = await Listing.getListByZipcode(zipcode);
-//             if (listing.length == 0) {
-//                 try {
-//                     let zipcode = search;
-//                     let [listing, _] = await Listing.findAll(zipcode);
-
-//                     res.status(200).json({ listing });
-//                 } catch (error) {
-//                     console.log(error);
-//                     next(error);
-//                 }
-//             }
-
-//             res.status(200).json({ listing });
-//         } catch (error) {
-//             console.log(error);
-//             next(error);
-//         }
-//     }
-
-// }

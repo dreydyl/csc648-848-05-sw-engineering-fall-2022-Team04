@@ -1,5 +1,6 @@
 const express = require('express');
 const listingControllers = require('../controllers/listingControllers');
+var isLoggedIn = require('../middleware/routesprotectors').userIsLoggedIn;
 const multer = require('multer');
 const router = express.Router();
 const path = require('path');
@@ -31,35 +32,16 @@ router.route("/").get(listingControllers.getAllUsers).post(upload.single('pictur
 
 
 router.route("/").post(listingControllers.createNewListing);
-// router.get("/:id", listingControllers.getListBySearch, (req, res, next) => {
-//     res.render('partials/listingPage');
-// });
 
-router.get("/search", listingControllers.searchListings, async (req, res, next) => {
-    if (req.session.admin) {
-        res.locals.logged = true;
-        await listingControllers.getProfileByEmail(req.session.email)
-        .then(id => {
-            res.locals.profileId = id[0][0].reg_user_id;
-        });
-    }
+router.get("/search", isLoggedIn, listingControllers.searchListings, async (req, res, next) => {
     console.log("/search");
     res.render("listingResults");
 });
 
-router.get("/:id", listingControllers.getListing, async (req, res, next) => {
-    if (req.session.admin) {
-        res.locals.logged = true;
-        await listingControllers.getProfileByEmail(req.session.email)
-        .then(id => {
-            res.locals.profileId = id[0][0].reg_user_id;
-        });
-    }
+router.get("/:id", isLoggedIn, listingControllers.getListing, async (req, res, next) => {
     console.log("/:id");
     res.render("listingPage", { title: "EZRent Listing", style: "listingPage" });
 });
-
-//router.route("/search/:search").get(listingControllers.getListBySearch);
 
 
 module.exports = router;

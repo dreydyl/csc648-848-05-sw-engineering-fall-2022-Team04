@@ -1,6 +1,7 @@
 const { response } = require('express');
 const express = require('express');
 const userControllers = require('../controllers/userControllers');
+var isLoggedIn = require('../middleware/routesprotectors').userIsLoggedIn;
 const router = express.Router();
 
 
