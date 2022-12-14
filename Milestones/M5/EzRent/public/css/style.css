@@ -98,6 +98,10 @@ body {
     text-align: left;
 }
 
+#search-message {
+    margin-top: 100px;
+}
+
 .dropdown {
     display: flex;
     flex-direction: row;

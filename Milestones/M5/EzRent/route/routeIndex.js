@@ -1,6 +1,7 @@
 const { response } = require('express');
 const express = require('express');
 const userControllers = require('../controllers/userControllers');
+var isLoggedIn = require('../middleware/routesprotectors').userIsLoggedIn;
 const router = express.Router();
 
 
@@ -9,6 +10,7 @@ router.get("/", userControllers.getFeaturedLandlords, (req, res, next) => {
     res.render("main",{title:"EZRent Home"});
 });
 */
+
 router.get("/", async (req, res, next) => {
     
     let hooks = {
@@ -56,6 +58,10 @@ router.get("/", async (req, res, next) => {
     res.locals.hooks = hooks;
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render("main", { title: "EZRent Home", style: "main"});
 });
@@ -65,14 +71,18 @@ router.get("/", async (req, res, next) => {
 //e.g. localhost:8080/postlisting to go to postListingPage
 //will be renamed and migrated to userRoutes.js and listingRoutes.js
 
-router.get("/postlisting", (req, res, next) => {
+router.get("/postlisting", async (req, res, next) => {
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render("postListingPage", { title: "EZRent New Listing" });
 });
 
-router.get("/listingpage", (req, res, next) => {
+router.get("/listingpage", async (req, res, next) => {
     let listing = {
         "landlord": {
             "name": "Job Bohn",
@@ -117,11 +127,15 @@ router.get("/listingpage", (req, res, next) => {
     res.locals.listing = listing;
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render("listingPage", { title: "EZRent Listing", style: "listingPage" });
 });
 
-router.get("/profilepage", (req, res, next) => {
+router.get("/profilepage", async (req, res, next) => {
     let user = {
         "name": "Britney Spears",
         "email": "bspears@gmail.com",
@@ -159,52 +173,15 @@ router.get("/profilepage", (req, res, next) => {
     res.locals.listings = listings;
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render("profilePage", { title: "EZRent Profile" });
 });
 
-router.get("/landlordprofilepage", (req, res, next) => {
-    let user = {
-        "name": "Britney Spears",
-        "email": "bspears@gmail.com",
-        "phone": "(650) 123-4567",
-        "rating": "7/10",
-        "bio": `Hello everyone, my name is Brittney Spears and I'm a 27 year old Accountant. I own a 3 bedroom house in San
-        Francisco that is currently rented out by a wonderful family of 4. I love traveling to scenic countries and 
-        hiking on big beautiful mountains.`
-    }
-    let reviews = [
-        {
-            "description": `Britney was very helpful during the application process. She was very responsive and the entire process
-            was done in a few hours. She is truly an amazing landlord and I wish all landlords are like her.`
-        },
-        {
-            "description": `Britney was very helpful during the application process. She was very responsive and the entire process
-            was done in a few hours. She is truly an amazing landlord and I wish all landlords are like her.`
-        }
-    ];
-    let listings = [
-        {
-            "bedrooms": `3`,
-            "bathrooms": `2`,
-            "price": `3500`
-        },
-        {
-            "bedrooms": `5`,
-            "bathrooms": `3.5`,
-            "price": `5500`
-        }
-    ];
-    res.locals.user = user;
-    res.locals.reviews = reviews;
-    res.locals.listings = listings;
-    if (req.session.admin) {
-        res.locals.logged = true;
-    }
-    res.render("publicLandlordProfilePage", { title: "EZRent Profile" });
-});
-
-router.get("/userprofilepage", (req, res, next) => {
+router.get("/userprofilepage", async (req, res, next) => {
     let user = {
         "name": "Britney Spears",
         "email": "bspears@gmail.com",
@@ -223,104 +200,164 @@ router.get("/userprofilepage", (req, res, next) => {
     res.locals.reviews = reviews;
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render("userProfilePage", { title: "EZRent Profile" });
 });
 
-router.get("/postListingPage", (req, res, next) => {
+router.get("/postListingPage", async (req, res, next) => {
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render("postListingPage", { title: "EZRent Profile" });
 });
 
-router.get("/login", (req, res, next) => {
+router.get("/login", async (req, res, next) => {
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render("loginpage", { title: "EZRent Login" });
 });
 
-router.get("/register", (req, res, next) => {
+router.get("/register", async (req, res, next) => {
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render("registration", { title: "EZRent New Account" });
 });
 
-router.get("/renter", (req, res, next) => {
+router.get("/renter", async (req, res, next) => {
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render("profilePage", { title: "EZRent Renter" });
 });
 
-router.get("/landlord", (req, res, next) => {
+router.get("/landlord", async (req, res, next) => {
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render("landlordPage", { title: "EZRent Landlord" });
 });
 
-router.get("/help", (req, res, next) => {
+router.get("/help", async (req, res, next) => {
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render("helppage", { title: "EZRent Help" });
 });
 
-router.get("/searchresults", (req, res, next) => {
+router.get("/searchresults", async (req, res, next) => {
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render("searchpage", { title: "EZRent Search" });
 });
 
-router.get('/about', (req, res) => {
+router.get('/about', async (req, res) => {
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render('about/about', { title: "EZRent Search" });
 });
 
-router.get('/devAbout', (req, res) => {
+router.get('/devAbout', async (req, res) => {
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render('about/devAbout');
 });
 
-router.get('/issaAbout', (req, res) => {
+router.get('/issaAbout', async (req, res) => {
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render('about/issaAbout');
 });
 
-router.get('/youssefAbout', (req, res) => {
+router.get('/youssefAbout', async (req, res) => {
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render('about/youssefAbout');
 });
 
-router.get('/tungAbout', (req, res) => {
+router.get('/tungAbout', async (req, res) => {
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render('about/tungAbout');
 });
 
-router.get('/praiseAbout', (req, res) => {
+router.get('/praiseAbout', async (req, res) => {
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render('about/praiseAbout');
 });
 
-router.get('/ricardoAbout', (req, res) => {
+router.get('/ricardoAbout', async (req, res) => {
     if (req.session.admin) {
         res.locals.logged = true;
+        await userControllers.getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
     }
     res.render('about/ricardoAbout');
 });

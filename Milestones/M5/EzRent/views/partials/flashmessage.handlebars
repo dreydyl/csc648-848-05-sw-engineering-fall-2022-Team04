@@ -1,7 +1,5 @@
 <div id="flash-message" class="flash-message">
-    {{#if messages.error}}
-    <div class="danger">{{message.error}}</div>
-    {{else}}
-    <div class="success">{{message.success}}</div>
-    {{/if}}
+        {{#if error}}
+        {{error}}
+        {{/if}} 
 </div>
