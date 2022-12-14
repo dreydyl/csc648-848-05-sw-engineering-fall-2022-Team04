@@ -1,6 +1,7 @@
 var searchTerm = document.getElementById("search-term").innerHTML;
 
 document.getElementById("apply-filters-button").onclick = () => {
+    
     let minPrice = document.getElementById("min-price").value;
     let maxPrice = document.getElementById("max-price").value;
     let rating = document.getElementById("rating-filter").value;
@@ -51,6 +52,8 @@ document.getElementById("apply-filters-button").onclick = () => {
     }
 
     let searchURL = `/listings/search?search=${searchTerm}${minPrice}${maxPrice}${rating}${beds}${baths}`;
+
+    console.log("Search url"+searchURL);
 
     location.replace(searchURL);
 }

@@ -88,6 +88,13 @@ app.engine('handlebars', handlebars.engine({
         },
         listItem: (obj) => {
             return obj+1;
+        },
+        and: (c1, c2) => {
+            return c1 && c2;
+        },
+        equals: (obj1, obj2, options) => {
+            if(obj1 == obj2) return options.fn(this);
+            else return options.inverse(this);
         }
         /**
          * if you need more helpers, add them here

@@ -80,11 +80,11 @@ class Register {
         let splitSearch = search.split(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~ ]/);
         let filtersSQL = ``;
         if(filters) {
-            if(filters.min !== undefined || filters.min != null) filtersSQL += `AND price >= ${filters.min}`;
-            if(filters.max !== undefined || filters.max != null) filtersSQL += `AND price <= ${filters.max}`;
-            if(filters.beds !== undefined || filters.beds != null) filtersSQL += `AND beds >= ${filters.beds}`;
-            if(filters.baths !== undefined || filters.baths != null) filtersSQL += `AND baths >= ${filters.baths}`;
-            if(filters.rating !== undefined || filters.rating != null) filtersSQL += `AND rating >= ${filters.rating}`;
+            if(filters.min !== undefined || filters.min != null) filtersSQL += ` AND price >= ${filters.min}`;
+            if(filters.max !== undefined || filters.max != null) filtersSQL += ` AND price <= ${filters.max}`;
+            if(filters.beds !== undefined || filters.beds != null) filtersSQL += ` AND beds >= ${filters.beds.replace('>','')}`;
+            if(filters.baths !== undefined || filters.baths != null) filtersSQL += ` AND baths >= ${filters.baths.replace('>','')}`;
+            if(filters.rating !== undefined || filters.rating != null) filtersSQL += ` AND rating >= ${filters.rating.replace('>','')}`;
         }
         let sortSQL = ``;
         if(sorting) {

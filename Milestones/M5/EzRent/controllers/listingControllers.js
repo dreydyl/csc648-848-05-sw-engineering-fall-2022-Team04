@@ -109,19 +109,28 @@ exports.getListing = async (req, res, next) => {
 exports.searchListings = async (req, res, next) => {
     let search = req.query.search;
     res.locals.searchTerm = search;
+    let filters = {
+        min: req.query.min,
+        max: req.query.max,
+        beds: req.query.beds,
+        baths: req.query.baths,
+        rating: req.query.rating
+    };
+    console.log("filters: "+JSON.stringify(filters));
     console.log(search);
     if (!search) {
         res.locals.error = "No search term given";
         res.render('error', { title: "EZRent " });
     } else {
         try {
-            let results = await Listing.search(search);
+            let results = await Listing.search(search, filters);
             console.log("search controller: "+results.results);
             if (!results.results) {
                 console.log("no results");
             }
             res.locals.results = results.results;
             res.locals.message = results.message;
+            res.locals.filters = filters;
             if (req.session.admin) {
                 res.locals.logged = true;
                 let result = await Review.getUserbyEmail(req.session.email);
