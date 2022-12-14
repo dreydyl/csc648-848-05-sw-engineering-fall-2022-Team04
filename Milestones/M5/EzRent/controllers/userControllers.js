@@ -60,11 +60,11 @@ exports.createUser = async (req, res, next) => {
             
             res.render("registration", {error: req.flash('error')});
         }
-
         else if (confirmPassword != password || !checkPassword(password)) {
-            req.flash("error", 'Incorrect Password');
-            
-            res.render("registration", {error: req.flash('error')});
+            req.flash('error', 'Incorrect Password');
+
+            res.redirect('/register');
+            // res.render("registration", {error: req.flash('error')});
         }
         else {
             register = await register.save();
