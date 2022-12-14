@@ -35,63 +35,99 @@
 }
 
 .listing-page-left {
-    margin-left: 5vw;
-    width: 58vw;
-    margin-right: 1.5vw;
-}
-.street-address{
-    
-    font-weight: 550;
-   
-    font-size: 30px;
-    position: relative;
-    left: 80%;
-   
-    transform: translateX(-50%);
+    margin-left: 15vw;
+    width: 78vw;
+    /* margin-right: 1.5vw; */
 }
 .address{
+   
+    font-size: 25px;
+    font-weight: 600;
+    position: relative;
+    top:4px;
+    transform: translateX(-50%);
+    font-style: oblique;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-left: 7vw;
+ 
+   
+
+    
+   
+    
+}
+
+.desc{
+    margin-top: 20%;
+    position: relative;
+    right: 20%;
+}
+.listing-info-left{
     letter-spacing: 2px;
-    font-size: 15px;
+    font-size: 20px;
    
     margin-top: 0.5vw;
     position: relative;
-    left: 80%;
+    left: 50%;
    
     transform: translateX(-50%);
 }
-.over-rating{
+.listing-info {
+    display: flex;
+    flex-direction: row;
     position: relative;
-  left: 25%;
+
+}
+
+.over-rating{
+    position: absolute;
+    top:15vw;
+    left:4vw;
+ 
  
   transform: translateX(-50%);
 
 
 }
-.basicc-info{
-    position: relative;
-    left: 30%;
+.basic-price{
+    position: absolute;
+    left: 45vw;
+    top:0.5vw;
+    margin-top: 1px;
+   
    
     transform: translateX(-50%);
     font-size: 30px;
-    font-weight: 550;
     letter-spacing: 2px;
+    font-style: oblique;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
    
 
 }
-.basic-info{
+.basic-bed{
     position: relative;
-    left: -54%;
-    margin-top:10%;
-   
-    transform: translateX(-50%);
-    font-size: 15px;
+    margin-top:15%;
+    right:63%;
+
+    font-size: 20px;
     letter-spacing: 1px;
+    margin-left: 12vw;
 
 }
-.review-bud{
+/* .basic-bath{
     position: relative;
-    left: 60%;
-    top:10%;
+    margin-top:15%;
+    bottom: 69px;
+    right: 10%;
+    font-size: 20px;
+    letter-spacing: 1px;
+    margin-left: 7vw;
+
+} */
+.review-bud{
+    position: fixed;
+    left: 15%;
+    top:25%;
    
     transform: translateX(-50%);
     
@@ -99,39 +135,42 @@
 .description{
     position: relative;
     left: 62%;
-    margin-top:10%;
+   top:80px;
+   margin-bottom: 60px;
    
     transform: translateX(-50%);
     font-size: 25px;
     letter-spacing: 2px;
    font-weight: 600;
+   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   font-style: oblique;
 }
 .description-bio{
-    font-size: 17px;
+    font-size: 20px;
     position: relative;
     left: 62%;
-    margin-top:3%;
+    margin-top:10%;
    
     transform: translateX(-50%);
     letter-spacing: 2px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: oblique;
 
 }
 
 
-.listing-info {
-    display: flex;
-    flex-direction: row;
-}
+
 
 .listing-info-right {
-    /* margin-left: auto; */
+    margin-left: auto;
+    position: fixed;
 }
 
 .listing-page-right {
     margin-top: 10vw;
-    /* margin-right: 11.5vw; */
+    margin-right: 11.5vw;
     width: 19vw;
-    /* margin-right: 5vw; */
+    margin-right: 5vw;
 }
 
 .listing-image {
@@ -149,14 +188,15 @@
 
 
 .landlord-info {
-    border-style:groove;
+    border-style:dashed;
     border-color: var(--border-light-mode);
     border-width: 3px;
-    height: 10%;
+    height: 20vh;
     padding: 5px;
     margin-bottom: 3vh;
     position: relative;
     left: 6%;
+    bottom: 16vh;
 }
 
 .landlord-profile {
@@ -165,8 +205,8 @@
 }
 
 .landlord-text .star {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
 }
 
 .landlord-image {
@@ -182,13 +222,15 @@
 }
 
 .reviews-section {
+
     display: flex;
     flex-direction: column;
     align-content: center;
-    border: 3px solid black;
-    border-radius: 30px;
+    border: 5px outset#295b3d;
+    border-radius: 20px;
     margin: 10px 5rem;
     padding: 10px;
+    margin-top: 10vh;
 }
 
 
@@ -244,4 +286,7 @@
 
 .form-container .post:hover {
     background-color: #295b3d;
+}
+.profile-page-box-header{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
