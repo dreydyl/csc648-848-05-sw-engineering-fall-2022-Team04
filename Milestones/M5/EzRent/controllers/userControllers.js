@@ -42,6 +42,7 @@ const checkPassword = (password) => {
 
 exports.createUser = async (req, res, next) => {
     try {
+        console.log("REGISTER");
         let { firstName, lastName, password, email, confirmPassword, role } = req.body;
         const hashpassword = bcrypt.hashSync(password, 10);
         if (role != "landlord") {
@@ -59,16 +60,17 @@ exports.createUser = async (req, res, next) => {
             req.flash("error", 'Incorrect Email format');
             
             res.render("registration", {error: req.flash('error')});
-        }
-
-        else if (confirmPassword != password || !checkPassword(password)) {
+        } else if (confirmPassword != password || !checkPassword(password)) {
             req.flash("error", 'Incorrect Password');
             
             res.render("registration", {error: req.flash('error')});
         }
         else {
             register = await register.save();
-            res.render("main", {error: req.flash('success')});
+            req.flash('success', 'You successfully registered');
+            //login automatically
+            res.redirect("/");
+            //res.render("main", {error: req.flash('success')});
         }
     }
     catch (error) {
@@ -323,44 +325,6 @@ exports.getBadReview = async (req, res, next) => {
 //     } catch (error) {
 //         console.log(error);
 //         next(error);
-//     }
-// }
-
-// //TODO
-// exports.login = async (req, res, next) => {
-//     //use sessions
-// }
-
-// //TODO
-// exports.getFeaturedLandlords = async (req, res, next) => {
-//     let search = req.params.search;
-//     try {
-//         let results = await User.getFeaturedLandlords();
-
-//         console.log(results);
-
-//         res.locals.results = results;
-
-//         next();
-//     } catch (error) {
-//         console.log(error);
-//         next(error);  
-//     }
-// }
-
-// exports.getLandlordsBySearch = async (req, res, next) => {
-//     let search = req.params.search;
-//     try {
-//         const [landlord, _] = await User.getLandlordsBySearch();
-
-//         console.log(landlord);
-
-//         res.locals.results = landlord;
-
-//         next();
-//     } catch (error) {
-//         console.log(error);
-//         next(error);  
 //     }
 // }
 
