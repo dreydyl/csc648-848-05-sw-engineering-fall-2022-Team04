@@ -11,6 +11,7 @@ const bcrypt = require("bcrypt");
 var validator = require("email-validator");
 var geoip = require('geoip-lite');
 
+
 // exports.getAllUsers =  async  (req, res, next ) => {
 //     try {
 //         const [registeredUser, _] = await Register.getAll();

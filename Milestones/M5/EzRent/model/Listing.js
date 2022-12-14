@@ -200,7 +200,6 @@ class Register {
         return db.execute(sql); 
     }
 
-<<<<<<< Updated upstream
     static async getListingById(id) {
         let listing = {};
         let propertySQL = `SELECT listing_id AS 'listingId', full_name AS 'landlordName', Landlord.rating AS 'landlordRating',
@@ -240,28 +239,6 @@ class Register {
         });
         return listing;
     }
-=======
-    // static getListingById(id) {
-    //     let listing = {};
-    //     let propertySQL = `SELECT listing_id AS 'listingId', full_name AS 'landlordName', price, description,
-    //         address, beds, baths, size, pets, type, rating, Listing.time_created AS 'timeCreated'
-    //         FROM Listing
-    //         JOIN RegisteredUser
-    //         ON Listing.landlord_fk = RegisteredUser.reg_user_id
-    //         WHERE listing_id = ${id};`;
-    //     listing.property = db.execute(propertySQL)[0];
-    //     let reviewsSQL = `SELECT review_id AS 'reviewId', full_name AS 'authorName', rating, title, description,
-    //         Review.time_created AS 'timeCreated'
-    //         FROM Review
-    //         JOIN ListingReview
-    //         ON Review.review_id = ListingReview.review_fk
-    //         JOIN RegisteredUser
-    //         ON Review.author_fk = RegisteredUser.reg_user_id
-    //         WHERE ListingReview.listing_fk = ${id};`;
-    //     listing.reviews = db.execute(reviewsSQL)[0];
-    //     return listing;
-    // }
->>>>>>> Stashed changes
 
 }
 
