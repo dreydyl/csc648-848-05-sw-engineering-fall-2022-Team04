@@ -229,7 +229,7 @@ class Register {
             listing.reviews = result[0];
             console.log("Model reviews: "+JSON.stringify(listing.reviews));
         });
-        let picturesSQL = `SELECT picture_id AS 'pictureId', file_name AS 'fileName'
+        let picturesSQL = `SELECT picture_id AS 'pictureId', file_name AS 'fileName', img_path AS 'imgPath'
             FROM ListingPicture
             JOIN Picture
             WHERE ListingPicture.listing_fk = ${id};`

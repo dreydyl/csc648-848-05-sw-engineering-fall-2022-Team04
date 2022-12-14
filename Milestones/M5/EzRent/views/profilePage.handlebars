@@ -48,16 +48,16 @@
             </header>
             {{#each profile.listings}}
             {{log this}}
-            <div class="profile-page-listings" id="profile-page-listings">
+            <a class="profile-page-listings" id="profile-page-listings" href="/listings/{{listingId}}">
                 <div class="profile-page-listing">
                     <img class="profile-page-listing-img" src="images/picture_1666042712023.jpeg">
                     <div class="profile-page-listing-desc">
-                        <p>{{bedrooms}} Bedrooms</p>
-                        <p>{{bathrooms}} Bathrooms</p>
+                        <p>{{beds}} Bedrooms</p>
+                        <p>{{baths}} Bathrooms</p>
                         <p>${{price}}</p>
                     </div>
                 </div>
-            </div>
+            </a>
             {{/each}}
         </div>
     </div>

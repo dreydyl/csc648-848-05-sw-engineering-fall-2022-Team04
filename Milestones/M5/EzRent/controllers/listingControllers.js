@@ -55,8 +55,10 @@ exports.createNewListing = async (req, res, next) => {
         console.log(listingId);
         let picList = new Picture_Listing(picId, listingId);
         picList = await picList.save();
-        res.status(200).json({ message: "Posted" });
-
+        //res.status(200).json({ message: "Posted" });
+        //redirect
+        req.flash('success','Listing was successfully created');
+        res.redirect(`/users/profilePage/${landlord_id}`);
     } catch (error) {
         console.log(error);
         next(error);
