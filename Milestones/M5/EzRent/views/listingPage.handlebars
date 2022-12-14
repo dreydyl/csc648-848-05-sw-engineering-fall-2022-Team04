@@ -7,6 +7,7 @@
         <div class="listing-page-left">
             <div class="listing-info">
                 <div class="listing-info-left">
+<<<<<<< Updated upstream
                     <div class="address">
                         {{listing.property.address}}
                     </div>
@@ -19,14 +20,60 @@
                         ${{listing.property.price}} </br>
                         Bedrooms: {{listing.property.beds}} </br>
                         Bathrooms: {{listing.property.baths}}
+=======
+
+                    <div class="street-address">
+                        {{listing.street_number}} {{listing.street}} </br>
+                       
+                    </div> 
+                    <div class="address">
+                    {{listing.city}}, {{listing.state}} {{listing.zip}}
                     </div>
                 </div>
+                {{!-- <div class="listing-info-right"> --}}
+                    <div class="over-rating">
+                        {{> rating listing.rating}}
+                    </div>
+                    
+                        <div class="basicc-info">
+                           ${{listing.price}}
+                        </div>
+                         </br>
+
+                         <div class="basic-info">
+                        Bedrooms: {{listing.rooms}} 
+                        Bathrooms: {{listing.baths}}
+>>>>>>> Stashed changes
+                    </div>
+                {{!-- </div> --}}
+            </div>
+            <div class ="review-bud">
+                <button class="profile-page-button" id="post-review-button">Leave a Review</button>
+           
             </div>
             <div class="description">
+<<<<<<< Updated upstream
                 {{listing.property.description}}
+=======
+             Description
+
+>>>>>>> Stashed changes
             </div>
+            <div class="description-bio">
+                Fantastic LOCATION for this 1234 Ballast Court. Lovingly cared for and in 
+                the same family for almost 80 years! Bay and city views from upper unit and a large 
+                backyard with downtown views. Owner's unit has a remodeled kitchen and bath (remodeled 2006).
+                Kitchen boasts a Viking Gas range and Bosch dishwasher, washer dryer, and direct access to the ample back
+                yard/garden. There is a large finished area below this unit that has endless potential; combine with unit 360 or possible ADU and there's
+                street access. Upper unit 362 was remodeled in 2005. Unit 360 is owner occupied and will be delivered vacant. Live in as is, or remodel,
+                potential future condo conversion as well. The location is superb, plus no overhead utility lines on this block! Stroll to Ballast court 
+                amenities world class dining; Plow, Chez Maman, Mochico. Nearby Dogpatch, Chase Center, UCSF, Crane Cove park, close to downtown, public 
+                transportation and easy freeway access. 1 car garage, views and LOCATION!
+
+
+             </div>
         </div>
-        <div class="listing-page-right">
+        {{!-- <div class="listing-page-right"> --}}
             <div class="landlord-info" id="landlord-info">
                 <div class="landlord-profile">
                     <img class="landlord-image" src={{listing.property.profile}}></img>
@@ -45,7 +92,7 @@
                     {{listing.property.email}}
                 </div>
             </div>
-        </div>
+        {{!-- </div> --}}
     </div>
     <div class="reviews-section">
             <header class="profile-page-box-header">

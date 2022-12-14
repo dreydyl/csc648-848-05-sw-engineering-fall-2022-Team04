@@ -483,19 +483,22 @@ footer p {
     top: 15%;
     left: 25%;
     letter-spacing: 2px;
-    color:#3C885B;
+    color: rgb(83, 131, 104);
     font-size: 45px;
     font-weight: 600;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    font-style: oblique;
 }
 .actual{
     color:rgb(170, 167, 167);
     position: absolute;
     top: 15%;
-    left: 55%;
+    left: 52%;
     letter-spacing: 2px;
     font-size: 45px;
     text-transform: capitalize;
-
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: oblique;
 }
 
 #search_results_main {
