@@ -4,11 +4,10 @@ var sessions = require('express-session');
 var mysqlSession = require ('express-mysql-session')(sessions);
 const cookieParser = require("cookie-parser");
 var postRouter = require("./controllers/listingControllers");
-var flash = require('express-flash');
+var flash = require('connect-flash');
 var bodyParser=require('body-parser');
 const port = 8080;
 var bodyParser = require('body-parser')
-const fileUpload = require('express-fileupload');
 
 const path = require('path');
 
@@ -21,9 +20,6 @@ app.use(cookieParser());
 // parse application/json 
 app.use(bodyParser.json())
 app.use(flash());
-app.use(fileUpload({
-    limits: { fileSize: 50 * 1024 * 1024 },
-  }));
 // Create session
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
@@ -40,13 +36,14 @@ app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
+app.use("/public", express.static(path.join(__dirname, 'public')));
 app.use('/', require("./route/routeIndex"));
 
 // Redirect requests to endpoint starting with /registered to registeredRoutes.js
 app.use("/users", require("./route/userRoutes"));
 
 // Redirect requests to endpoint starting with /registered to registeredRoutes.js
-app.use("/listings", require("./route/listingRoutes"));
+app.use("/listings", require("./route/listingRoutes"), express.static('public/images/listing'));
 
 app.use(express.static((path.join(__dirname, "js"))));
 
@@ -54,8 +51,10 @@ app.use(express.static('model'));
 
 app.use(flash());
 
-app.use("/public", express.static(path.join(__dirname, 'public')));
-
+app.use((req, res, next)=>{
+    app.locals.success = req.flash('error')
+    next();
+  });
 // Global Error Handler. Important function params must start with err
 app.use((err, req, res, next) => {
     console.log(err.stack);
@@ -66,6 +65,7 @@ app.use((err, req, res, next) => {
         message: "Something went wrong",
     });
 })
+
 
 app.engine('handlebars', handlebars.engine({
     layoutsDir: `${__dirname}/views/layouts`,

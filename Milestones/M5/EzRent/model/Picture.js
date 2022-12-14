@@ -9,7 +9,7 @@ class Register {
     save()
     {
         let sql = `
-            INSERT INTO picture (file_name, img_data)
+            INSERT INTO picture (file_name, img_path)
             VALUE (
                 '${this.name}',
                 '${this.img}'

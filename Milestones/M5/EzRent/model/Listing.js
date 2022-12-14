@@ -65,8 +65,23 @@ class Register {
         return db.execute(sql);
     }
     
+    static checkIfPic(listing_id){
+        let sql = `SELECT * FROM ListingPicture WHERE listing_fk = ${listing_id};`
+        return db.execute(sql);
+    }
+
+    static getListingIdwithPic(listing_id){
+        let sql = `SELECT *  FROM Listing l JOIN Picture p JOIN ListingPicture lp ON lp.listing_fk = l.listing_id AND lp.picture_fk = p.picture_id WHERE listing_id = ${listing_id};`
+        return db.execute(sql);
+    }
+
     static getListingId(reg_user_id, street_num){
         let sql = `SELECT * FROM listing WHERE landlord_fk = ${reg_user_id} AND street_number = ${street_num};`
+        return db.execute(sql);
+    }
+    static getListingById(listing_id)
+    {
+        let sql = `SELECT * FROM Listing WHERE listing_id = ${listing_id};`
         return db.execute(sql);
     }
 

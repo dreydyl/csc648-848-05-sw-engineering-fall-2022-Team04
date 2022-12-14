@@ -7,22 +7,22 @@ const path = require('path');
 const crypto = require('crypto');
 
 
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './public/images/listing');
+        cb(null, './public/images/listings');
     },
     filename: function (req, file, cb) {
-        // let fileExt = file.mimetype.split('/')[1];
-        // let randomName = crypto.randomBytes(22).toString("hex");
-        // cb(null, `${randomName}.${fileExt}`);
-        return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
+        let fileExt = file.mimetype.split('/')[1];
+        let randomName = crypto.randomBytes(22).toString("hex");
+        cb(null, `${randomName}.${fileExt}`);
+        //return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
     }
 });
 
 const upload = multer({
     storage: storage
 });
-
 /*
 router.route("/").get(listingControllers.getAllUsers).post(upload.single('picture'),listingControllers.createNewUser, (req, res, next) => {
     console.log(req);
@@ -31,7 +31,7 @@ router.route("/").get(listingControllers.getAllUsers).post(upload.single('pictur
 */
 
 
-router.route("/").post(listingControllers.createNewListing);
+router.route("/").post( upload.single('pic'), listingControllers.createNewListing);
 
 router.get("/search", isLoggedIn, listingControllers.searchListings, async (req, res, next) => {
     console.log("/search");
