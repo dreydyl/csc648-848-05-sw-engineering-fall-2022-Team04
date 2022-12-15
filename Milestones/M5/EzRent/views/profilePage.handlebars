@@ -27,28 +27,19 @@
         </div>
     </div>
     <div class="profile-page-buttons-section">
-            {{!-- <button class="profile-page-button" id="post-review-button">Leave a Review</button> --}}
-            <button class="profile-page-button" id="edit-profile-button">Edit Profile</button>
-            <button class="profile-page-button" onclick="location.replace('/postListingPage')">Post a Listing</button>
-            <div class="form-popup" id="myForm">
-                <form class="form-container" method="post" action="" id="edit-profile-form">
-                    <h1 class="review-header">Edit Profile</h1>
-                    <input type="file" name="profile picture">
-                    <textarea name="description" id="textarea" class="text" cols="50" rows="20"
-                        placeholder="Enter a review..." required></textarea>
-                    <input type="submit" id="post-review-submit-button" value="POST">
-                </form>
-            </div>
-            {{!-- <div class="form-popup" id="reviewForm">
-                <form class="form-container" method="post" action="" id="leave-a-review-form">
-                    <h1 class="review-header">Leave a Review</h1>
-                    <input type="number" name="rating" value="Enter rating. 1-5">
-                    <textarea name="description" id="textarea" class="text" cols="50" rows="20"
-                        placeholder="Enter a review..." required></textarea>
-                    <input type="submit" id="post-review-submit-button" value="POST">
-                </form>
-            </div> --}}
-        </div>
+        {{!-- <button class="profile-page-button" id="post-review-button">Leave a Review</button> --}}
+        <button class="profile-page-button" id="edit-profile-button" onclick="location.replace('/editProfile')">Edit Profile</button>
+        <button class="profile-page-button" onclick="location.replace('/postListingPage')">Post a Listing</button>
+        {{!-- <div class="form-popup" id="reviewForm">
+            <form class="form-container" method="post" action="" id="leave-a-review-form">
+                <h1 class="review-header">Leave a Review</h1>
+                <input type="number" name="rating" value="Enter rating. 1-5">
+                <textarea name="description" id="textarea" class="text" cols="50" rows="20"
+                    placeholder="Enter a review..." required></textarea>
+                <input type="submit" id="post-review-submit-button" value="POST">
+            </form>
+        </div> --}}
+    </div>
     <div class="profile-btn-reviews-listings">
         <div class="profile-page-box">
             <header class="profile-page-box-header">

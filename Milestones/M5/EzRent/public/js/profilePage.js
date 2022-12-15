@@ -2,9 +2,9 @@ document.getElementById("leave-review-button").onclick = () => {
     document.getElementById("myForm").style.display = "block";
 }
 
-document.getElementById("edit-profile-button").onclick = () => {
-    document.getElementById("myForm").style.display = "block";
-}
+// document.getElementById("edit-profile-button").onclick = () => {
+//     showEditProfilePopup();
+// }
 
 document.getElementById("post-review-submit-button").onclick = () => {
     document.getElementById("textarea").value = "";
@@ -14,6 +14,12 @@ document.getElementById("post-review-submit-button").onclick = () => {
 document.getElementById("profile-page-listings").onclick = () => {
     location.replace("/listingpage");
 }
+
+function showEditProfilePopup() {
+    // show the popup
+    var popup = document.getElementById("editProfilePopup");
+    popup.style.display = "block";
+  }
 
 
 // function openForm() {
