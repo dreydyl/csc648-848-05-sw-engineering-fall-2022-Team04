@@ -151,9 +151,10 @@ class RegisteredUser {
 
     static async getRegisteredUser(id) {
         let profile = {};
-        let userSQL = `SELECT reg_user_id AS 'id', first_name AS 'firstName', last_name AS 'lastName',
-            email, phone, bio, role
+        let userSQL = `SELECT reg_user_id AS 'id', first_name AS 'firstName', last_name AS 'lastName', email, phone, bio, role, img_path AS 'profilePic'
             FROM RegisteredUser
+            LEFT JOIN Picture
+            ON RegisteredUser.profile_picture_fk = Picture.picture_id
             WHERE reg_user_id = ${id};`
         await db.execute(userSQL).then(result => {
             profile.user = result[0][0];
@@ -327,7 +328,7 @@ class Landlord {
 
     static getFeaturedLandlords() {
         let sql = `SELECT reg_user_id AS 'landlordId', first_name AS 'firstName', last_name AS 'lastName', bio, rating,
-            file_name AS 'profilePicture'
+            img_path AS 'profilePicture'
             FROM RegisteredUser
             JOIN Landlord
             ON RegisteredUser.reg_user_id = Landlord.reg_user_fk

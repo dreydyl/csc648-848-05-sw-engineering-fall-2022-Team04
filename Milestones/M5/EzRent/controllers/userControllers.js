@@ -238,6 +238,9 @@ exports.getUserProfile = async (req, res, next) => {
 
         let profile = await RegisteredUser.getRegisteredUser(id);
         console.log("profile controllers: " + JSON.stringify(profile));
+        if(profile.user.profilePic == null) {
+            profile.user.profilePic = 'public/images/profile/default.jpeg';
+        }
         res.locals.profile = profile;
         if (profile.user.role == 'landlord') {
             if (req.session.admin) {
@@ -294,6 +297,11 @@ exports.getFeaturedLandlords = async (req, res, next) => {
         let city = 'San Francisco';
         let landlords = await Landlord.getFeaturedLandlords(city);
         landlords = landlords[0];
+        for(let landlord of landlords) {
+            if(landlord.profilePicture == null) {
+                landlord.profilePicture = '/public/images/profile/default.jpeg';
+            }
+        }
         console.log("controllers: " + landlords);
         return landlords;
     }
