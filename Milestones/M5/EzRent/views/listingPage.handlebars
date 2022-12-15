@@ -68,13 +68,15 @@
         </div>
     </div>
     <div class="reviews-section">
-        <header class="profile-page-box-header">
-            Reviews
-        </header>
-        <div class="reviews">
-            {{#each listing.reviews}}
-            {{> review this}}
-            {{/each}}
+        <button class="profile-page-button" onclick="openForm()">Leave a Review</button>
+            <header class="profile-page-box-header">
+                Reviews
+            </header>
+            <div class="reviews">
+                {{#each listing.reviews}}
+                {{> review this}}
+                {{/each}}
+            </div>
         </div>
     </div>
 </div>
