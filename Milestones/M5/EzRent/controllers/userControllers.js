@@ -1,6 +1,7 @@
 const User = require('../model/User');
 const ReviewModel = require('../model/Review');
 const Listing = require('../model/Listing');
+var sessions = require('express-session');
 const Register = User.Register;
 const Update = User.Update;
 const Review = ReviewModel.Review;
@@ -39,7 +40,10 @@ const checkPassword = (password) => {
 //         return emailChecker.test(email);
 // }
 
-
+const emailValidator = (email) =>{
+    let emailChecker = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            return emailChecker.test(email);
+}
 exports.createUser = async (req, res, next) => {
     try {
         console.log("REGISTER");
@@ -60,8 +64,13 @@ exports.createUser = async (req, res, next) => {
             req.flash("error", 'Incorrect Email format');
             
             res.render("registration", {error: req.flash('error')});
-        } else if (confirmPassword != password || !checkPassword(password)) {
-            req.flash("error", 'Incorrect Password');
+        } else if (confirmPassword != password ) {
+            req.flash("error", 'password does not match');
+            
+            res.render("registration", {error: req.flash('error')});
+        }
+        else if (!checkPassword(password)){
+            req.flash("error", 'Password does not meet requirments!');
             
             res.render("registration", {error: req.flash('error')});
         }
@@ -94,13 +103,6 @@ exports.postReview = async (req, res, next) => {
         next(error);
     }
 }
-
-exports.demoLogin = async (req, res, next) => {
-    let { password, email } = req.body;
-    //start session with email
-
-}
-
 exports.getProfileByEmail = async (email) => {
     try {
         return Review.getUserbyEmail(email);
@@ -112,16 +114,14 @@ exports.getProfileByEmail = async (email) => {
 
 exports.login = async (req, res, next) => {
     try {
-
-        // let id = req.params.id;
-        // let profile = await RegisteredUser.getRegisteredUser(id);
-
-        // let role = profile.role;
-
         let { password, email } = req.body;
         let count = await Register.checkEmail(email);
         if (count[0].length == 0) {
-            res.status(404).json({ message: "User Not Found" });
+            req.flash('error', 'can not login!');
+            req.sessions.save(err => {
+            res.redirect("loginpage");
+            });
+            
         }
         else {
             const hashedpassword = await Register.getPassword(email);
@@ -137,26 +137,14 @@ exports.login = async (req, res, next) => {
                 else {
 
                     req.session.email = email;
-                    // req.session.role = role;
                     req.session.admin = true;
-
-                    // res.cookie("logged", req.session.admin, {expires: new Date(Date.now() + 900000), httpOnly: false});
-                    // res.locals.logged = true;
-
                     console.log(req.session);
                     console.log("---------> Login Successful");
-                    // res.locals.logged = true;
+                   
                     res.redirect('/');
                 }
-                // res.send(`Hey there, welcome <a href=\'logout'>click to logout</a>`);
+                
             }
-            // console.log(sc.decrypt(stringObj));
-            // if (password == sc.decrypt(stringObj)) {
-            //     console.log("---------> Login Successful")
-            //     // res.send(`${email} is logged in!`);
-            //     res.send(`Hey there, welcome <a href=\'users/logout'>click to logout</a>`);
-
-            // }
             else {
                 console.log("---------> Password Incorrect")
                 res.send("Password incorrect!")
