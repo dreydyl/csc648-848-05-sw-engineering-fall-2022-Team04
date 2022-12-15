@@ -192,12 +192,19 @@ exports.createReview = async (req, res, next) => {
         let { rating, title, description, type, landlordId } = req.body;
         console.log(JSON.stringify(req.body));
         let reg_user_id = await Review.getUserbyEmail(req.session.email);
+        if(reg_user_id === undefined) {
+            //user must be logged in
+            req.flash('error','You must be logged in to post a review');
+            res.redirect(`/users/profilePage/${landlordId}`);
+        }
         reg_user_id = reg_user_id[0];
         reg_user_id = reg_user_id[0].reg_user_id;
+        //validation
+        //check if has required fields
         let review = new Review(reg_user_id, rating, title, description, type, landlordId);
         review = await review.save();
         // res.status(201).json({ message: "Review created " });
-        res.render(`/profilePage/${landlordId}`);
+        res.redirect(`/users/profilePage/${landlordId}`);
     }
     catch (error) {
         next(error);
@@ -218,12 +225,12 @@ exports.getUserProfile = async (req, res, next) => {
                 result = result[0][0].reg_user_id;
                 res.locals.profileId = result;
                 if (result == id) {
-                    res.render("profilePage", { title: "EZRent", style: "main" });
+                    res.render("profilePage", { title: "EZRent" });
                 } else {
-                    res.render("publicLandlordProfilePage", { title: "EZRent", style: "main" });
+                    res.render("publicLandlordProfilePage", { title: "EZRent" });
                 }
             } else {
-                res.render("publicLandlordProfilePage", { title: "EZRent", style: "main" });
+                res.render("publicLandlordProfilePage", { title: "EZRent" });
             }
         } else {
             if (req.session.admin) {
@@ -231,9 +238,9 @@ exports.getUserProfile = async (req, res, next) => {
                 let result = await Review.getUserbyEmail(req.session.email);
                 result = result[0][0].reg_user_id;
                 res.locals.profileId = result;
-                res.render("userProfilePage", { title: "EZRent", style: "main" });
+                res.render("userProfilePage", { title: "EZRent"});
             } else {
-                res.render("/");
+                res.render("main", { title: "EZRent", style: "main" });
             }
             //not allowed
         }
@@ -336,27 +343,7 @@ exports.searchLandlords = async (req, res, next) => {
         res.render('error', { title: "EZRent " });
     } else {
         try {
-            //let results = await Listing.search(search);
-            let results = {
-                "landlord1": {
-                    "name": "Sarah Therrien",
-                    "rating": 5,
-                    "bio": "I own multiple houses in the city. I've been faithfully serving tenants for 30 years.",
-                    "img": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
-                },
-                "landlord2": {
-                    "name": "George Stew",
-                    "rating": 5,
-                    "bio": "I own a condo downtown. I would love to meet you.",
-                    "img": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
-                },
-                "landlord3": {
-                    "name": "Nick James",
-                    "rating": 5,
-                    "bio": "I let my reviews speak for themselves.",
-                    "img": "https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1023&q=80"
-                }
-            };
+            let results = await Landlord.search(search);
             if (results) {
                 res.locals.results = results;
                 res.render('landlordResults', { title: "EZRent " + search, header: "Results" });

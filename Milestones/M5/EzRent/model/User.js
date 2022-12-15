@@ -331,7 +331,7 @@ class Landlord {
         return db.execute(sql);
     }
 
-    static search(searchTerm) {
+    static async search(searchTerm) {
         let results = [];
         let splitSearch = searchTerm.split(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~ ]/);
         for(const searchItem of splitSearch) {
