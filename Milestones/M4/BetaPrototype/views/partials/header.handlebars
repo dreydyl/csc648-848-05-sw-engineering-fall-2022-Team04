@@ -12,19 +12,16 @@
             <div class="nav-search">
                 {{> search}}
             </div>
-            <a class="help-button" href="/helppage">Help</a>
-            <a class="login-header-button" href="/loginpage"> Login
-                {{!-- <div class="dropdown login-header-button" id="dropdown">
-                    <div class="dropdown-options" id="dropdown-options">
-                        <div class="dropdown-option" id="login-option">
-                            Login
-                        </div>
-                        <div class="dropdown-option" id="profile-option">
-                            Profile
-                        </div>
-                    </div>
-                </div> --}}
-            </a>
+            <a class="help-button" href="/help">Help</a>
+            {{#if logged}}
+            <script>
+                console.log("logged: " + {{logged}});
+            </script>
+            <a id="profile-button" class="login-header-button" href="/profilePage">Profile</a>
+            <a id="logout-button" class="login-header-button">Log out</a>
+            {{else}}
+            <a id="login-authenticate" class="login-header-button" href="/loginpage"> Login</a>
+            {{/if}}
         </div>
         {{!-- <div class="dropdown-menu" id="dropdown-menu">
             <div class="dropdown-menu-container" id="listings-item">
@@ -45,3 +42,9 @@
     </div>
 </div>
 <script type="module" src="/public/js/header.js"></script>
+
+{{!-- {{#if res.session.admin}}
+<a id="login-authenticate" class="login-header-button" href="/users/logout"> Log out
+    {{else}}
+    <a id="login-authenticate" class="login-header-button" href="/loginpage"> Login
+        {{/if}} --}}

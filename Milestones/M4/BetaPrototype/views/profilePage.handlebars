@@ -1,8 +1,4 @@
 <div class="profile-page">
-    {{log this}}
-    {{!-- <header class="profile-page-header">
-        Profile Page
-    </header> --}}
     <div class="profile-img-info-bio">
         <div class="profile-page-img-info">
             <div class="profile-page-img-section">
@@ -32,12 +28,13 @@
             <button class="profile-page-button" id="post-review-button">Leave a Review</button>
             <button class="profile-page-button" onclick="location.replace('/postListingPage')">Post a Listing</button>
             <div class="form-popup" id="myForm">
-                <form class="form-container">
+                <form class="form-container" method="post" action="">
                     <h1 class="review-header">Leave a Review</h1>
                     {{!-- {{> rating 5}} --}}
-                    <textarea name="review" id="textarea" class="text" cols="50" rows="20"
+                    <input type="number" name="rating" value="Enter rating. 1-5">
+                    <textarea name="description" id="textarea" class="text" cols="50" rows="20"
                         placeholder="Enter a review..." required></textarea>
-                    <button type="button" class="post" id="post-review-submit-button">Post</button>
+                    <input type="submit" id="post-review-submit-button" value="POST">
                 </form>
             </div>
         </div>
@@ -46,7 +43,7 @@
                 Reviews
             </header>
             {{#each reviews as |review index|}}
-            {{log this}}
+            {{!-- {{log this}} --}}
             <h4> Review {{listItem index}}</h4>
             {{> userReview review}}
             {{/each}}
@@ -56,7 +53,6 @@
                 Listings
             </header>
             {{#each listings}}
-            {{log this}}
             <div class="profile-page-listings" id="profile-page-listings">
                 <div class="profile-page-listing">
                     <img class="profile-page-listing-img" src="images/picture_1666042712023.jpeg">
