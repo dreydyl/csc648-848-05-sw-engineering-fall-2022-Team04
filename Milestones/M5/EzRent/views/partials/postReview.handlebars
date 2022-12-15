@@ -16,6 +16,8 @@
             <label for="desc">Description:</label>
             <textarea class="review-desc" id="review-title" name="description" placeholder="Enter a review..."></textarea>
         </div>
+        <input type="text" name="type" style="display: none;" value="landlord"></input>
+        <input type="text" name="landlordId" style="display: none;" value="{{profile.user.id}}"></input>
         <input class="edit-profile-submit" id="post-review-submit-button" type="submit" value="Post">
     </form>
 </div>
