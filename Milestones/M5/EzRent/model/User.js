@@ -391,7 +391,7 @@ class UpdateWithPicNoBio {
 
 class UpdateBio {
     constructor(bio, email) {
-        this.bio = bio;
+        this.bio = bio.replace(`'`,`\\'`);
         this.email = email;
     }
 
@@ -400,7 +400,7 @@ class UpdateBio {
             UPDATE RegisteredUser
             SET 
                 bio = '${this.bio}'
-            WHERE email = '${this.email}';`;
+            WHERE reg_user_id = 19;`;
         return db.execute(sql);
     }
 }
