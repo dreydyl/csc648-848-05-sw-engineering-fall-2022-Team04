@@ -209,12 +209,12 @@ exports.createReview = async (req, res, next) => {
         let { rating, title, description, type, landlordId } = req.body;
         console.log("REQ.BODY: "+JSON.stringify(req.body));
         let reg_user_id = await Review.getUserbyEmail(req.session.email);
+        reg_user_id = reg_user_id[0];
         if(reg_user_id === undefined) {
             //user must be logged in
             req.flash('error','You must be logged in to post a review');
             res.redirect(`/users/profilePage/${landlordId}`);
         }
-        reg_user_id = reg_user_id[0];
         reg_user_id = reg_user_id[0].reg_user_id;
         //validation
         //check if has required fields

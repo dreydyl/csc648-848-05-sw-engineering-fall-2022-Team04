@@ -1,4 +1,5 @@
 <div class="listing-page">
+    {{log this}}
     {{#each listing.pictures}}
     <img class="listing-image" src="/{{this.imgPath}}"></img>
     {{/each}}
@@ -29,7 +30,7 @@
                 </div>
 
             </div>
-            
+
             <div class="desc">
                 <div class="description">
                     Description
@@ -45,6 +46,7 @@
         </div>
         <div class="listing-page-right">
             <div class="landlord-info" id="landlord-info">
+                <div id="landlord-id" style="position: fixed; display: none;">{{listing.property.landlordId}}</div>
                 <div class="landlord-profile">
                     <img class="landlord-image" src={{listing.property.profile}}></img>
                     <div class="landlord-text">
@@ -65,16 +67,27 @@
         </div>
     </div>
     <div class="reviews-section">
-        <button class="profile-page-button" onclick="openForm()">Leave a Review</button>
-            <header class="profile-page-box-header">
-                Reviews
-            </header>
-            <div class="reviews">
-                {{#each listing.reviews}}
-                {{> review this}}
-                {{/each}}
-            </div>
+        <button class="profile-page-button" id="leave-review-button">Leave a Review</button>
+        <div class="form-popup" id="myForm">
+            <form class="form-container" method="post" action="/listings/review"
+                enctype="application/x-www-form-urlencoded">
+                <h1 class="review-header">Leave a Review</h1>
+                <input type="number" name="rating" value="Enter rating. 1-5" required>
+                <input type="text" name="title" placeholder="Title">
+                <textarea name="description" placeholder="Enter a review..."></textarea>
+                <input type="text" name="listingId" style="display: none;" value="{{listing.property.listingId}}"></input>
+                <input type="submit" id="post-review-submit-button" value="POST">
+            </form>
+        </div>
+        <header class="profile-page-box-header">
+            Reviews
+        </header>
+        <div class="reviews">
+            {{#each listing.reviews}}
+            {{> review this}}
+            {{/each}}
         </div>
     </div>
+</div>
 </div>
 <script type="module" src="/public/js/listingPage.js"></script>

@@ -212,7 +212,8 @@ class Register {
     static async getListingById(id) {
         let listing = {};
         let propertySQL = `SELECT listing_id AS 'listingId', full_name AS 'landlordName', Landlord.rating AS 'landlordRating',
-            bio, phone, email, file_name AS 'profile', price, description, address, beds, baths,
+            RegisteredUser.reg_user_id AS 'landlordId',
+            bio, phone, email, img_path AS 'profile', price, description, address, beds, baths,
             size, pets, type, Listing.rating AS 'listingRating', Listing.time_created AS 'timeCreated'
             FROM Listing
             JOIN RegisteredUser

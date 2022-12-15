@@ -40,9 +40,9 @@ class Review {
         console.log("SQL: "+reviewSQL);
         await db.execute(reviewSQL);
         if(this.type == 'listing') {
-            let idSQL = `SELECT LAST_INSERT_ID();`
+            let idSQL = `SELECT LAST_INSERT_ID() AS 'lastId';`
             let reviewId = await db.execute(idSQL);
-            reviewId = reviewId[0];
+            reviewId = reviewId[0][0].lastId;
             let typeSQL = `
                 INSERT INTO ListingReview (review_fk, listing_fk)
                 VALUES(

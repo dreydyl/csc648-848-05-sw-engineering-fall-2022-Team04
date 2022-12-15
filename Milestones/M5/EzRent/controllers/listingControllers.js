@@ -70,12 +70,12 @@ exports.createReview = async (req, res, next) => {
         let { rating, title, description, listingId } = req.body;
         console.log("REQ.BODY: "+JSON.stringify(req.body));
         let reg_user_id = await Review.getUserbyEmail(req.session.email);
+        reg_user_id = reg_user_id[0];
         if(reg_user_id === undefined) {
             //user must be logged in
             req.flash('error','You must be logged in to post a review');
             res.redirect(`/listings/${listingId}`);
         }
-        reg_user_id = reg_user_id[0];
         reg_user_id = reg_user_id[0].reg_user_id;
         //validation
         //check if has required fields
@@ -83,7 +83,7 @@ exports.createReview = async (req, res, next) => {
         console.log("REVIEW: "+JSON.stringify(review));
         review = await review.save();
         // res.status(201).json({ message: "Review created " });
-        res.redirect(`/listings/${landlordId}`);
+        res.redirect(`/listings/${listingId}`);
     }
     catch (error) {
         next(error);
@@ -94,6 +94,7 @@ exports.createReview = async (req, res, next) => {
 exports.getListing = async (req, res, next) => {
     try {
         let id = req.params.id;
+        console.log("ID: "+id);
         let listing = await Listing.getListingById(id);
         console.log("controllers listing: "+JSON.stringify(listing));
         if(listing.pictures.length <= 0) {
