@@ -57,7 +57,7 @@ exports.createNewListing = async (req, res, next) => {
         picList = await picList.save();
         //res.status(200).json({ message: "Posted" });
         //redirect
-        req.flash('success','Listing was successfully created');
+        req.flash('success', 'Listing was successfully created');
         res.redirect(`/users/profilePage/${landlord_id}`);
     } catch (error) {
         console.log(error);
@@ -68,31 +68,16 @@ exports.createNewListing = async (req, res, next) => {
 exports.getListing = async (req, res, next) => {
     try {
         let id = req.params.id;
-        let checkPic = await Listing.checkIfPic(id);
-        checkPic = checkPic[0][0];
-        if (Number.isFinite(checkPic?.listing_fk)) {
-
-            let listing = await Listing.getListingIdwithPic(id);
-            listing = listing[0];
-            res.locals.listing = listing;
-            if (req.session.admin) {
-                res.locals.logged = true;
-                let result = await Review.getUserbyEmail(req.session.email);
-                result = result[0][0].reg_user_id;
-                res.locals.profileId = result;
-            }
-            console.log(listing)
-            res.render("listingPage", { title: "EZRent Listing", style: "listingPage" });
+        let listing = await Listing.getListingById(id);
+        console.log("Controller listing: "+JSON.stringify(listing,null,2));
+        res.locals.listing = listing;
+        if (req.session.admin) {
+            res.locals.logged = true;
+            let result = await Review.getUserbyEmail(req.session.email);
+            result = result[0][0].reg_user_id;
+            res.locals.profileId = result;
         }
-        else {
-            let listing = await Listing.getListingById(id);
-            listing = listing[0];
-            res.locals.listing = listing;
-            if (req.session.admin) {
-                res.locals.logged = true;
-            }
-            res.render("listingPage", { title: "EZRent Listing", style: "listingPage" });
-        }
+        res.render("listingPage", { title: "EZRent Listing", style: "listingPage" });
     } catch (error) {
         console.log(error);
         next(error);

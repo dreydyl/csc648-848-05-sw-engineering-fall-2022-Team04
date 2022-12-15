@@ -1,14 +1,11 @@
 <div class="profile-page">
     {{log this}}
-    {{!-- <header class="profile-page-header">
-        Profile Page
-    </header> --}}
     <div class="profile-img-info-bio">
         <div class="profile-page-img-info">
             <div class="profile-page-img-section">
                 <img class="profile-page-img"
-                    src="https://i0.wp.com/evanstonroundtable.com/wp-content/uploads/2022/05/Lushina-scaled-e1652827479814.jpg?fit=1200%2C900&ssl=1"
-                    {{!-- src="{{profile.picture}}" --}} alt="">
+                    {{!-- src="https://i0.wp.com/evanstonroundtable.com/wp-content/uploads/2022/05/Lushina-scaled-e1652827479814.jpg?fit=1200%2C900&ssl=1" --}}
+                    src="{{profile.user.profilePicture}}" alt="">
             </div>
             <div class="profile-page-info">
                 <p class="profile-page-person-name">{{profile.user.firstName}} {{profile.user.lastName}}</p>
@@ -27,28 +24,19 @@
         </div>
     </div>
     <div class="profile-page-buttons-section">
-            {{!-- <button class="profile-page-button" id="post-review-button">Leave a Review</button> --}}
-            <button class="profile-page-button" id="edit-profile-button">Edit Profile</button>
-            <button class="profile-page-button" onclick="location.replace('/postListingPage')">Post a Listing</button>
-            <div class="form-popup" id="myForm">
-                <form class="form-container" method="post" action="" id="edit-profile-form">
-                    <h1 class="review-header">Edit Profile</h1>
-                    <input type="file" name="profile picture">
-                    <textarea name="description" id="textarea" class="text" cols="50" rows="20"
-                        placeholder="Enter a review..." required></textarea>
-                    <input type="submit" id="post-review-submit-button" value="POST">
-                </form>
-            </div>
-            {{!-- <div class="form-popup" id="reviewForm">
-                <form class="form-container" method="post" action="" id="leave-a-review-form">
-                    <h1 class="review-header">Leave a Review</h1>
-                    <input type="number" name="rating" value="Enter rating. 1-5">
-                    <textarea name="description" id="textarea" class="text" cols="50" rows="20"
-                        placeholder="Enter a review..." required></textarea>
-                    <input type="submit" id="post-review-submit-button" value="POST">
-                </form>
-            </div> --}}
-        </div>
+        {{!-- <button class="profile-page-button" id="post-review-button">Leave a Review</button> --}}
+        <button class="profile-page-button" id="edit-profile-button" onclick="location.replace('/editProfile')">Edit Profile</button>
+        <button class="profile-page-button" onclick="location.replace('/postListingPage')">Post a Listing</button>
+        {{!-- <div class="form-popup" id="reviewForm">
+            <form class="form-container" method="post" action="" id="leave-a-review-form">
+                <h1 class="review-header">Leave a Review</h1>
+                <input type="number" name="rating" value="Enter rating. 1-5">
+                <textarea name="description" id="textarea" class="text" cols="50" rows="20"
+                    placeholder="Enter a review..." required></textarea>
+                <input type="submit" id="post-review-submit-button" value="POST">
+            </form>
+        </div> --}}
+    </div>
     <div class="profile-btn-reviews-listings">
         <div class="profile-page-box">
             <header class="profile-page-box-header">
