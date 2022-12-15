@@ -1,14 +1,11 @@
 <div class="profile-page">
     {{log this}}
-    {{!-- <header class="profile-page-header">
-        Profile Page
-    </header> --}}
     <div class="profile-img-info-bio">
         <div class="profile-page-img-info">
             <div class="profile-page-img-section">
                 <img class="profile-page-img"
-                    src="https://i0.wp.com/evanstonroundtable.com/wp-content/uploads/2022/05/Lushina-scaled-e1652827479814.jpg?fit=1200%2C900&ssl=1"
-                    {{!-- src="{{profile.picture}}" --}} alt="">
+                    {{!-- src="https://i0.wp.com/evanstonroundtable.com/wp-content/uploads/2022/05/Lushina-scaled-e1652827479814.jpg?fit=1200%2C900&ssl=1" --}}
+                    src="{{profile.user.profilePicture}}" alt="">
             </div>
             <div class="profile-page-info">
                 <p class="profile-page-person-name">{{profile.user.firstName}} {{profile.user.lastName}}</p>

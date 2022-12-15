@@ -1,28 +1,25 @@
 <div class="profile-page">
     {{log this}}
-    {{!-- <header class="profile-page-header">
-        Profile Page
-    </header> --}}
     <div class="profile-img-info-bio">
         <div class="profile-page-img-info">
             <div class="profile-page-img-section">
                 <img class="profile-page-img"
-                    src="https://i0.wp.com/evanstonroundtable.com/wp-content/uploads/2022/05/Lushina-scaled-e1652827479814.jpg?fit=1200%2C900&ssl=1"
-                    {{!-- src="{{profile.picture}}" --}} alt="">
+                    {{!-- src="https://i0.wp.com/evanstonroundtable.com/wp-content/uploads/2022/05/Lushina-scaled-e1652827479814.jpg?fit=1200%2C900&ssl=1" --}}
+                    src="{{profile.user.profilePicture}}" alt="">
             </div>
             <div class="profile-page-info">
-                <p class="profile-page-person-name">{{profile.firstName}} {{profile.lastName}}</p>
-                <h4>{{profile.email}}</h4>
+                <p class="profile-page-person-name">{{profile.user.firstName}} {{profile.user.lastName}}</p>
+                <h4>{{profile.user.email}}</h4>
                 {{!-- <h4>{{user.phone}}</h4> --}}
-                <p class="profile-page-person-rating">{{profile.user_rating}}</p>
+                <p class="profile-page-person-rating">{{profile.user.rating}}</p>
             </div>
         </div>
         <div class="profile-page-bio-box">
             <header class="profile-page-box-header">
-                Learn about {{profile.firstName}}
+                Learn about {{profile.user.firstName}}
             </header>
             <p class="bio-description">
-                {{profile.bio}}
+                {{profile.user.bio}}
             </p>
         </div>
     </div>
@@ -53,7 +50,7 @@
             <header class="profile-page-box-header">
                 Reviews
             </header>
-            {{#each reviews as |review index|}}
+            {{#each profile.reviews as |review index|}}
             {{log this}}
             <h4> Review {{listItem index}}</h4>
             {{> userReview review}}
@@ -63,18 +60,18 @@
             <header class="profile-page-box-header">
                 Listings
             </header>
-            {{#each listings}}
+            {{#each profile.listings}}
             {{log this}}
-            <div class="profile-page-listings" id="profile-page-listings">
+            <a class="profile-page-listings" id="profile-page-listings" href="/listings/{{listingId}}">
                 <div class="profile-page-listing">
                     <img class="profile-page-listing-img" src="images/picture_1666042712023.jpeg">
                     <div class="profile-page-listing-desc">
-                        <p>{{bedrooms}} Bedrooms</p>
-                        <p>{{bathrooms}} Bathrooms</p>
+                        <p>{{beds}} Bedrooms</p>
+                        <p>{{baths}} Bathrooms</p>
                         <p>${{price}}</p>
                     </div>
                 </div>
-            </div>
+            </a>
             {{/each}}
         </div>
     </div>

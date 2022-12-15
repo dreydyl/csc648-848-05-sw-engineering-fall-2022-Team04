@@ -213,7 +213,7 @@ class Register {
             LEFT JOIN Picture
             ON RegisteredUser.profile_picture_fk = Picture.picture_id
             WHERE listing_id = ${id};`;
-        db.execute(propertySQL).then(result => {
+        await db.execute(propertySQL).then(result => {
             listing.property = result[0][0];
             console.log("Model property: "+JSON.stringify(listing.property));
         });
@@ -225,7 +225,7 @@ class Register {
             JOIN RegisteredUser
             ON Review.author_fk = RegisteredUser.reg_user_id
             WHERE ListingReview.listing_fk = ${id};`;
-        db.execute(reviewsSQL).then(result => {
+        await db.execute(reviewsSQL).then(result => {
             listing.reviews = result[0];
             console.log("Model reviews: "+JSON.stringify(listing.reviews));
         });
@@ -233,10 +233,11 @@ class Register {
             FROM ListingPicture
             JOIN Picture
             WHERE ListingPicture.listing_fk = ${id};`
-        db.execute(picturesSQL).then(result => {
+        await db.execute(picturesSQL).then(result => {
             listing.pictures = result[0];
             console.log("Model pictures: "+JSON.stringify(listing.pictures));
         });
+        console.log("Model listing: "+JSON.stringify(listing));
         return listing;
     }
 
