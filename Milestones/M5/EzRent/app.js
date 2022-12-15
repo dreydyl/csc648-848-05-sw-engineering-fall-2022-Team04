@@ -28,6 +28,7 @@ app.use(sessions({
     cookie: { maxAge: oneDay },
     resave: false 
 }));
+
 app.set('view engine', 'handlebars');
 app.set("views", `${__dirname}/views`);
 app.use(express.static(`${__dirname}/public`));

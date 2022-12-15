@@ -73,12 +73,19 @@ exports.getListing = async (req, res, next) => {
         res.locals.listing = listing;
         if (req.session.admin) {
             res.locals.logged = true;
-            let result = await Review.getUserbyEmail(req.session.email);
-            result = result[0][0].reg_user_id;
-            res.locals.profileId = result;
+            res.render("listingPage", { title: "EZRent Listing", style: "listingPage" });
+            }
+        else{
+            let listing = await Listing.getListingById(id);
+            listing = listing[0];
+            res.locals.listing = listing;
+            if (req.session.admin) {
+            res.locals.logged = true;
+            }
+            res.render("listingPage", { title: "EZRent Listing", style: "listingPage" });
         }
-        res.render("listingPage", { title: "EZRent Listing", style: "listingPage" });
-    } catch (error) {
+    }
+    catch (error) {
         console.log(error);
         next(error);
     }

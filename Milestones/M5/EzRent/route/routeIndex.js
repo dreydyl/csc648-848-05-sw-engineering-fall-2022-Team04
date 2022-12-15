@@ -277,7 +277,7 @@ router.get("/editProfile", async (req, res, next) => {
 router.get("/help", async (req, res, next) => {
     if (req.session.admin) {
         res.locals.logged = true;
-        await userControllers.getProfileByEmail(req.session.email)
+         userControllers.getProfileByEmail(req.session.email)
         .then(id => {
             res.locals.profileId = id[0][0].reg_user_id;
         });
