@@ -94,11 +94,11 @@
     object-fit: contain;
     border-radius: 5px;
     border: 3px solid black;
-  
+
 }
 
 .landlord-info {
-    border-style:dashed;
+    border-style: dashed;
     border-color: var(--border-light-mode);
     border-width: 3px;
     height: fit-content;
@@ -162,20 +162,6 @@
     margin-left: 10px;
 }
 
-
-.form-popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px;
-    height: 500px;
-    box-shadow: 2px 5px 5px black;
-    border: solid black;
-    background-color: white;
-}
-
 .form-container {
     display: flex;
     flex-direction: column;
@@ -216,6 +202,83 @@
 .form-container .post:hover {
     background-color: #295b3d;
 }
-.profile-page-box-header{
+
+.profile-page-box-header {
     font-family: inherit;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    width: initial;
+    padding: 2rem;
+    background-color: #fafafa;
+    border: 1px solid #3C885B;
+    border-radius: 5px;
+}
+
+.review-header {
+    font-family: inherit;
+    font-style: normal;
+    font-size: 20px;
+}
+
+.review-rating-container,
+.review-title-container,
+.review-desc-container {
+    margin-bottom: 1rem;
+}
+
+.review-rating-container label,
+.review-title-container label,
+.review-desc-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    color: #333;
+    font-family: inherit;
+}
+
+.review-desc {
+    width: 95%;
+    height: 6rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+}
+
+.review-title {
+    width: 95%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    color: #333;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.form-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: fit-content;
+    border-radius: 5px;
+    box-shadow: 2px 5px 5px black;
+    /* border: solid black; */
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
 }
