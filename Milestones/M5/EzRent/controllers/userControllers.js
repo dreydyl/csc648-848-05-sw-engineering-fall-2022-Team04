@@ -148,8 +148,8 @@ exports.login = async (req, res, next) => {
                 
             }
             else {
-                console.log("---------> Password Incorrect")
-                res.send("Password incorrect!")
+                req.flash("error", "Password is incorrect!")
+                res.render("loginpage", {error: req.flash('error')});
             }
         }
     }

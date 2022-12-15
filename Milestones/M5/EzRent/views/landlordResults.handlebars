@@ -1,12 +1,11 @@
 <div id="search_results_main">
-    <div class="landlord-search-bar">
+    {{!-- <div class="landlord-search-bar">
         {{> search}}
-    </div>
+    </div> --}}
     <div id="search_results_card_section">
-        <h1 class="listing-results-header">
-            Landlords </br>
-            <p id="search-term">{{searchTerm}}</p>
-        </h1>
+        <div class="result">
+            Search results for "{{searchTerm}}":
+        </div>
         <div id="search_results_cards">
             {{#each results}}
             {{> landlordCard this}}

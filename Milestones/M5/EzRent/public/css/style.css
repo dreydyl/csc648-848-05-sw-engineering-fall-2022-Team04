@@ -424,38 +424,40 @@ input[type="search"]:focus {
 
 .container {
     width: 300px;
-    height: 300px;
-    position: relative;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.315);
+    height: fit-content;
+    /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.315); */
     margin-bottom: 120px;
     margin-left: 30px;
+    border: solid black;
 }
 
 .container-profile {
     background-color: rgb(240, 240, 240);
     display: flex;
     align-items: center;
-    padding: 0 10px 0 10px;
-    justify-content: space-between;
     border-bottom: solid black;
+    justify-content: space-between;
+    padding: 0 20px;
 }
 
 .landlord-img {
     width: 100%;
-    height: 100%;
+    height:fit-content;
     object-position: center;
     object-fit: cover;
 }
 
 .landlord-name {
     color: black;
-    font-size: 1.2rem;
+    font-size: 20px;
+    font-family: inherit;
+    font-weight: 300px;
+    margin-right: 10px;
 }
 
 .landlord-rating {
-    color: black;
-    font-size: 1.3rem;
-    font-weight: bold;
+    font-family: inherit;
+    font-size: 20px;
 }
 
 footer {
@@ -517,8 +519,6 @@ footer p {
 }
 
 .container:hover {
-    background-color: rgb(62, 62, 62);
-    color: #ffff;
     cursor: pointer;
     transform: scale(1.1);
 }
