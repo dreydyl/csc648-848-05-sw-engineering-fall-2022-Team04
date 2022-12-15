@@ -2,9 +2,11 @@
     <div class="profile-page-reviews">
         <div class="profile-page-review">
             {{author}}
-            {{> rating rating}}
-            <h2>{{title}}</h2>
-            <p>
+            <div class="review-rating">
+                {{> rating rating}}
+            </div>
+            <h2 class="review-title">{{title}}</h2>
+            <p class="review-desc">
                 {{description}}
             </p>
         </div>

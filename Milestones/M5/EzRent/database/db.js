@@ -41,7 +41,7 @@ function createPool() {
       host: 'localhost',
       port: 3306,
       user: 'root',
-      password: 'Pizzaman12',
+      password: 'password',
       database: 'EZRentDB',
       connectionLimit: 10,
       waitForConnections: true,

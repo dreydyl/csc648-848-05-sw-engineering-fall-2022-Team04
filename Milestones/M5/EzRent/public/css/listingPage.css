@@ -24,186 +24,88 @@
     --button-background-3: #247464;
 }
 
-.listing-page {
-    margin-top: 63px;
-}
-
 .listing-wrapper {
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: 40px;
     display: flex;
-    flex-direction: row;
-    margin-top: 2rem;
-    
-    
+    justify-content: space-between;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    padding-top: 20px;
+    border-top: solid black;
 }
 
-.listing-page-left {
-    margin-left: 15vw;
-    width: 78vw;
-    /* margin-right: 1.5vw; */
-}
-.address{
-   
+/* .listing-info-left {
+    justify-content: space-between;
+} */
+
+.address {
     font-size: 25px;
     font-weight: 600;
-    margin-left: -10vw;
-    
-    font-style: oblique;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  
- 
-   
-
-    
-   
-    
+    /* font-style: oblique; */
+    font-family: inherit;
+    margin-bottom: 5px;
+    padding: 0;
 }
 
-.desc{
-    margin-top: 20%;
-    position: relative;
-    right: 20%;
-}
-.listing-info-left{
-    letter-spacing: 2px;
-    font-size: 20px;
-   
-    margin-top: 0.5vw;
-    position: relative;
-    left: 50%;
-   
-    transform: translateX(-50%);
-}
-.listing-info {
-    display: flex;
-    flex-direction: row;
-    position: absolute;
-
-}
-
-.over-rating{
-    position: absolute;
-    top:18vh;
-    left:4vw;
- 
- 
-  transform: translateX(-50%);
-  display: flex;
-
-
-}
-.basic-price{
-    position: absolute;
-    left: 55vw;
-    top:1.2vh;
-    margin-top: 1px;
-   
-   
-    transform: translateX(-50%);
-    font-size: 30px;
-    letter-spacing: 2px;
-    font-style: oblique;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-   
-
-}
-.basic-bed{
-    position: absolute;
-    margin-top:15%;
-    right:13%;
-    top:10vh;
-
+.basic-price {
+    /* position: absolute; */
+    /* left: 55vw; */
     font-size: 25px;
-    letter-spacing: 1px;
-    margin-left: 12vw;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-
+    font-weight: 500;
+    /* font-style: oblique; */
+    font-family: inherit;
+    color: #295b3d;
+    margin-bottom: 5px;
 }
-/* .basic-bath{
-    position: relative;
-    margin-top:15%;
-    bottom: 69px;
-    right: 10%;
+
+.basic-bed {
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+
+.over-rating {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.desc {
+    font-family: inherit;
+    border: dashed black;
+    width: fit-content;
+    padding: 10px;
+    border-width: 3px;
+}
+
+.description {
     font-size: 20px;
-    letter-spacing: 1px;
-    margin-left: 7vw;
-
-} */
-.review-bud{
-    position: fixed;
-    left: 15%;
-    top:25%;
-   
-    transform: translateX(-50%);
-    
-}
-.description{
-    position: absolute;
-    left: 62%;
-   top:10vh;
-   margin-bottom: 60px;
-   
-   
-    transform: translateX(-50%);
-    font-size: 25px;
-    letter-spacing: 2px;
-   font-weight: 600;
-   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-   font-style: oblique;
-}
-.description-bio{
-    font-size: 20px;
-    position: absolute;
-    left: 62%;
-    margin-top:20vh;
-   
-    transform: translateX(-50%);
-    letter-spacing: 2px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-style: oblique;
-
-}
-
-
-
-
-.listing-info-right {
-    margin-left: auto;
-    position: absolute;
-}
-
-.listing-page-right {
-    margin-top: 10vw;
-    margin-right: 11.5vw;
-    width: 19vw;
-    margin-right: 5vw;
+    font-weight: 300px;
+    margin-bottom: 5px;
 }
 
 .listing-image {
     display: block;
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80vw;
+    margin-top: 100px;
+    width: fit-content;
     height: 65vh;
-    object-fit: cover;
-    border-radius: 1%;
-    
+    object-fit: contain;
+    border-radius: 5px;
+    border: 3px solid black;
   
 }
-
 
 .landlord-info {
     border-style:dashed;
     border-color: var(--border-light-mode);
     border-width: 3px;
-    height: 20vh;
+    height: fit-content;
+    width: 28rem;
     padding: 5px;
     margin-bottom: 3vh;
-    position: relative;
-    left: 6%;
-    bottom: 16vh;
+    /* position: relative; */
+    /* left: 6%; */
+    /* bottom: 16vh; */
 }
 
 .landlord-profile {
@@ -216,12 +118,21 @@
     height: 20px;
 }
 
+.landlord-rating-stars {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.landlord-bio {
+    margin: 10px 0;
+    font-family: inherit;
+}
+
 .landlord-image {
     width: 70px;
     height: 70px;
     object-fit: cover;
     border-radius: 50%;
-    
 }
 
 .landlord-info:hover {
@@ -229,15 +140,24 @@
 }
 
 .reviews-section {
-
     display: flex;
     flex-direction: column;
     align-content: center;
-    border: 5px outset#295b3d;
+    border: 4px solid #295b3d;
     border-radius: 20px;
-    margin: 10px 5rem;
+    margin: 2rem 5rem;
     padding: 10px;
-    margin-top: 10vh;
+}
+
+.listing-profile-phone {
+    font-family: inherit;
+    margin-bottom: 10px;
+}
+
+.landlord-name {
+    font-family: inherit;
+    font-size: 20px;
+    margin-left: 10px;
 }
 
 
@@ -295,5 +215,5 @@
     background-color: #295b3d;
 }
 .profile-page-box-header{
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: inherit;
 }

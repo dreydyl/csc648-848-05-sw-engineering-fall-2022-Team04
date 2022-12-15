@@ -983,6 +983,9 @@ h2 {
 
 .profile-page-reviews {
     margin: 5px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .profile-page-review {
@@ -993,9 +996,25 @@ h2 {
 
 }
 
-.profile-page-review h4 {
+.review-rating {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.review-title {
+    margin: 10px 5px;
+}
+
+.review-desc {
+    margin: 10px 5px;
+}
+
+.profile-page-review h2 {
     font-size: 20px;
     line-height: 0.1px;
+    font-family: inherit;
+    color: black;
+    text-align: start;
 }
 
 .profile-page-listings {
