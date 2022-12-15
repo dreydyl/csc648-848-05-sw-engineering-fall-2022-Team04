@@ -368,11 +368,12 @@ exports.getBadReview = async (req, res, next) => {
 // }
 
 exports.searchLandlords = async (req, res, next) => {
+    console.log("search landlords");
     let search = req.query.search;
     res.locals.searchTerm = search;
     if (!search) {
         res.locals.error = "No search term given";
-        res.render('error', { title: "EZRent " });
+        // res.render('error', { title: "EZRent " });
     } else {
         try {
             let results = await Landlord.search(search);

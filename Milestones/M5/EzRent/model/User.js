@@ -343,7 +343,7 @@ class Landlord {
         let results = [];
         let splitSearch = searchTerm.split(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~ ]/);
         for(const searchItem of splitSearch) {
-            let sql = `SELECT reg_user_fk AS 'landlordId', rating, full_name AS 'fullName', file_name AS 'profilePicture', bio
+            let sql = `SELECT reg_user_fk AS 'landlordId', rating, full_name AS 'fullName', img_path AS 'profilePicture', bio
                 FROM Landlord
                 JOIN RegisteredUser
                 ON Landlord.reg_user_fk = RegisteredUser.reg_user_id
@@ -351,8 +351,11 @@ class Landlord {
                 ON RegisteredUser.profile_picture_fk = Picture.picture_id
                 WHERE full_name LIKE '%${searchItem}%'
                 ORDER BY rating DESC;`;
-            results.concat(db.execute(sql)[0]);
+            results = await db.execute(sql);
+            console.log("Model results: "+JSON.stringify(results,null,2));
+            results = results[0];
         }
+        console.log("Model results: "+JSON.stringify(results,null,2));
         return results;
     }
 }

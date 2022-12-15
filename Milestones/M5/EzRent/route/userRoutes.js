@@ -52,10 +52,11 @@ router.route("/login").post(userControllers.login);
 router.route("/update").post(upload.single('pic'), userControllers.update);
 router.route("/profilePage/:id").post(userControllers.createReview);
 router.route("/profilePage/:id").get(userControllers.getUserProfile);
-router.route("/:name").get(userControllers.getLandlordList);
+// router.route("/:name").get(userControllers.getLandlordList);
 router.route("/review").post(userControllers.createReview);
 
 router.get("/search", userControllers.searchLandlords, (req, res, next) => {
+    console.log("ROUTES");
     res.render("landlordResults");
 });
 
