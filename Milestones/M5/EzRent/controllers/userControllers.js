@@ -171,6 +171,8 @@ exports.update = async (req, res, next) => {
         
         let bio = req.body;
         bio = bio.bio;
+        let user = await Register.getUserbyEmail(req.session.email);
+        let id = user[0][0].reg_user_id;
         if(req.file != undefined && bio.length != 0)
         {
             let { filename, path } = req.file;
@@ -178,7 +180,7 @@ exports.update = async (req, res, next) => {
             pic = await pic.save();
             let picture_profile_fk = await Picture_Profile.getPicId(filename, path);
             picture_profile_fk = picture_profile_fk[0][0].picture_id;
-            let update = new UpdateWithPic(picture_profile_fk, bio, req.session.email);
+            let update = new UpdateWithPic(picture_profile_fk, bio, id);
             update = await update.update();
         }
         else if(bio.length == 0)
@@ -188,14 +190,15 @@ exports.update = async (req, res, next) => {
             pic = await pic.save();
             let picture_profile_fk = await Picture_Profile.getPicId(filename, path);
             picture_profile_fk = picture_profile_fk[0][0].picture_id;
-            let update = new UpdateWithPicNoBio(picture_profile_fk, req.session.email);
+            let update = new UpdateWithPicNoBio(picture_profile_fk, id);
             update = await update.update();
         }
         else{
-            let update = new UpdateBio(bio, req.session.email);
+            let update = new UpdateBio(bio, id);
             update = await update.update();
         }
-        res.send({ message: 'User Updated' });
+
+            res.redirect(`../users/profilePage/${id}`);
     }
     catch (error) {
         next(error);

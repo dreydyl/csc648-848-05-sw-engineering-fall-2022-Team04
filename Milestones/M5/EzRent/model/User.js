@@ -290,7 +290,10 @@ class Register {
         return 0;
 
     }
-    
+    static getUserbyEmail(email) {
+        let sql = `SELECT reg_user_id, role FROM RegisteredUser WHERE email = '${email}';`;
+        return db.execute(sql);
+    }
     static checkIfProfileWithPic(id){
         let sql = `SELECT * FROM Picture WHERE poster_fk = ${id};`
         return db.execute(sql);
@@ -354,10 +357,10 @@ class Landlord {
 }
 
 class UpdateWithPic {
-    constructor(profile_picture_fk, bio, email) {
+    constructor(profile_picture_fk, bio, id) {
         this.profile_picture_fk = profile_picture_fk;
         this.bio = bio;
-        this.email = email;
+        this.id = id;
     }
 
     update() {
@@ -366,7 +369,7 @@ class UpdateWithPic {
             SET 
                 profile_picture_fk = ${this.profile_picture_fk},
                 bio = '${this.bio}'
-            WHERE email = '${this.email}';`;
+            WHERE reg_user_id = ${this.id};`;
         return db.execute(sql);
     }
 }
@@ -374,9 +377,9 @@ class UpdateWithPic {
 
 
 class UpdateWithPicNoBio {
-    constructor(profile_picture_fk, email) {
+    constructor(profile_picture_fk, id) {
         this.profile_picture_fk = profile_picture_fk;
-        this.email = email;
+        this.id = id;
     }
 
     update() {
@@ -384,15 +387,15 @@ class UpdateWithPicNoBio {
             UPDATE RegisteredUser
             SET 
                 profile_picture_fk = ${this.profile_picture_fk}
-            WHERE email = '${this.email}';`;
+                WHERE reg_user_id = ${this.id};`;
         return db.execute(sql);
     }
 }
 
 class UpdateBio {
-    constructor(bio, email) {
+    constructor(bio, id) {
         this.bio = bio.replace(`'`,`\\'`);
-        this.email = email;
+        this.id = id;
     }
 
     update() {
@@ -400,7 +403,7 @@ class UpdateBio {
             UPDATE RegisteredUser
             SET 
                 bio = '${this.bio}'
-            WHERE reg_user_id = 19;`;
+            WHERE reg_user_id = ${this.id};`;
         return db.execute(sql);
     }
 }
