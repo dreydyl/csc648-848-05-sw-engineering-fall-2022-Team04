@@ -5,6 +5,7 @@ var sessions = require('express-session');
 const Picture = require('../model/Picture');
 const Register = User.Register;
 const UpdateWithPic = User.UpdateWithPic;
+const UpdateWithPicNoBio = User.UpdateWithPicNoBio;
 const UpdateBio = User.UpdateBio;
 const Review = ReviewModel.Review;
 const Rating = User.Rating;
@@ -81,7 +82,7 @@ exports.createUser = async (req, res, next) => {
             register = await register.save();
             req.flash('success', 'You successfully registered');
             //login automatically
-            res.redirect("home");
+            res.redirect("main");
             //res.render("main", {error: req.flash('success')});
         }
     }
@@ -170,7 +171,7 @@ exports.update = async (req, res, next) => {
         
         let bio = req.body;
         bio = bio.bio;
-        if(req.file != undefined)
+        if(req.file != undefined && bio.length != 0)
         {
             let { filename, path } = req.file;
             let pic = new Picture_Profile(filename, path);
@@ -178,6 +179,16 @@ exports.update = async (req, res, next) => {
             let picture_profile_fk = await Picture_Profile.getPicId(filename, path);
             picture_profile_fk = picture_profile_fk[0][0].picture_id;
             let update = new UpdateWithPic(picture_profile_fk, bio, req.session.email);
+            update = await update.update();
+        }
+        else if(bio.length == 0)
+        {
+            let { filename, path } = req.file;
+            let pic = new Picture_Profile(filename, path);
+            pic = await pic.save();
+            let picture_profile_fk = await Picture_Profile.getPicId(filename, path);
+            picture_profile_fk = picture_profile_fk[0][0].picture_id;
+            let update = new UpdateWithPicNoBio(picture_profile_fk, req.session.email);
             update = await update.update();
         }
         else{

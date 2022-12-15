@@ -372,6 +372,23 @@ class UpdateWithPic {
 }
 
 
+
+class UpdateWithPicNoBio {
+    constructor(profile_picture_fk, email) {
+        this.profile_picture_fk = profile_picture_fk;
+        this.email = email;
+    }
+
+    update() {
+        let sql = `
+            UPDATE RegisteredUser
+            SET 
+                profile_picture_fk = ${this.profile_picture_fk}
+            WHERE email = '${this.email}';`;
+        return db.execute(sql);
+    }
+}
+
 class UpdateBio {
     constructor(bio, email) {
         this.bio = bio;
@@ -460,4 +477,4 @@ class Rating {
         return db.execute(sql);
     }
 }
-module.exports = { Register, UpdateWithPic, UpdateBio, Review, Rating, Landlord, RegisteredUser };
+module.exports = { Register, UpdateWithPic, UpdateWithPicNoBio, UpdateBio, Review, Rating, Landlord, RegisteredUser };
