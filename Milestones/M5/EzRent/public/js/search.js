@@ -63,38 +63,40 @@ searchText.addEventListener("keypress", function(event) {
 });
 
 
-function executeSearch() {
+function executeSearch(event) {
+    event.preventDefault();
     let searchTerm = document.getElementById("search-text").value;
     if (!searchTerm) {
-        location.replace('/');
+        location.assign('/');
         return;
     }
-    let searchURL = `/listings/search?search=${searchTerm}`;
+    let searchURL = `/listings/search?search=${encodeURIComponent(searchTerm)}`;
     //searchURL = `/listings/search-test`;
 
-    location.replace(searchURL);
+    location.assign(searchURL);
 }
 
-function executeLandlordSearch() {
+function executeLandlordSearch(event) {
+    event.preventDefault();
     let searchTerm = document.getElementById("search-text").value;
     if (!searchTerm) {
-        location.replace('/');
+        location.assign('/');
         return;
     }
-    let searchURL = `/users/search?search=${searchTerm}`;
+    let searchURL = `/users/search?search=${encodeURIComponent(searchTerm)}`;
 
-    location.replace(searchURL);
+    location.assign(searchURL);
 }
 
 // const sb = document.getElementById('search-select');
 
-searchButton.onclick = (event) => {
-    event.preventDefault;
+searchButton.addEventListener('click', (event) => {
+    event.preventDefault();
     if (currentOption == "listings") {
-        executeSearch();
+        executeSearch(event);
     } else if (currentOption == "landlords") {
-        executeLandlordSearch();
+        executeLandlordSearch(event);
     } else {
-        location.replace('/');
+        location.assign('/');
     }
-}
+})

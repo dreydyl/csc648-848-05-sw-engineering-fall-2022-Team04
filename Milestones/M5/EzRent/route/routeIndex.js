@@ -263,7 +263,14 @@ router.get("/landlord", async (req, res, next) => {
     res.render("landlordPage", { title: "EZRent Landlord" });
 });
 
-router.get("/help", async (req, res, next) => {
+router.get("/editProfile", (req, res, next) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
+    res.render("editProfile", { title: "EZRent Edit Profile" });
+});
+
+router.get("/help", (req, res, next) => {
     if (req.session.admin) {
         res.locals.logged = true;
         await userControllers.getProfileByEmail(req.session.email)
