@@ -517,8 +517,9 @@ footer p {
 .filters_header {
     color: black;
     font-family: inherit;
-    font-size: inherit;
-    margin-top: 90px;
+    font-style: normal;
+    font-size: 1.5rem;
+    margin-top: 85px;
 }
 
 .container:hover {
