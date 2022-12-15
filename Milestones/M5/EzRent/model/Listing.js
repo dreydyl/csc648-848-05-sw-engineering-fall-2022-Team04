@@ -23,8 +23,17 @@ class Register {
         let yyyy = d.getFullYear();
         let mm = d.getMonth() + 1 ;
         let dd = d.getDay();
+        var doubleDigit = function(time) {
+            if(time < 10) {
+                time = "0"+time;
+            }
+            return time;
+        }
+        let hour = doubleDigit(d.getHours());
+        let min = doubleDigit(d.getMinutes());
+        let sec = doubleDigit(d.getSeconds());
 
-        let createdAtDate = `${yyyy}-${mm}-${dd }`; 
+        let createdAtDate = `${yyyy}-${mm}-${dd} ${hour}:${min}:${sec}`;
 
         let sql = `
         INSERT INTO listing(
