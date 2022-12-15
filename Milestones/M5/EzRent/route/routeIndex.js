@@ -238,7 +238,14 @@ router.get("/register", async (req, res, next) => {
             res.locals.profileId = id[0][0].reg_user_id;
         });
     }
-    res.render("registration", { title: "EZRent New Account" });
+    res.render("registration", { title: "EZRent Register" });
+});
+
+router.get("/termsAndConditions", (req, res, next) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
+    res.render("termsAndConditions", { title: "EZRent Terms and Conditions" });
 });
 
 router.get("/renter", async (req, res, next) => {
@@ -304,7 +311,7 @@ router.get('/about', async (req, res) => {
             res.locals.profileId = id[0][0].reg_user_id;
         });
     }
-    res.render('about/about', { title: "EZRent Search" });
+    res.render('about/about', { title: "EZRent About Us" });
 });
 
 router.get('/devAbout', async (req, res) => {

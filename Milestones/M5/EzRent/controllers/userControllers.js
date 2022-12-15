@@ -221,8 +221,8 @@ exports.createReview = async (req, res, next) => {
         let review = new Review(reg_user_id, rating, title, description, type, landlordId);
         console.log("REVIEW: "+JSON.stringify(review));
         review = await review.save();
-        res.status(201).json({ message: "Review created " });
-        // res.redirect(`/users/profilePage/${landlordId}`);
+        // res.status(201).json({ message: "Review created " });
+        res.redirect(`/users/profilePage/${landlordId}`);
     }
     catch (error) {
         next(error);
