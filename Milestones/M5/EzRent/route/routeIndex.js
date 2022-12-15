@@ -274,11 +274,7 @@ router.get("/editProfile", async (req, res, next) => {
     res.render("editProfile", { title: "EZRent Edit Profile" });
 });
 
-<<<<<<< HEAD
 router.get("/help",async (req, res, next) => {
-=======
-router.get("/help", async (req, res, next) => {
->>>>>>> backend3
     if (req.session.admin) {
         res.locals.logged = true;
          userControllers.getProfileByEmail(req.session.email)

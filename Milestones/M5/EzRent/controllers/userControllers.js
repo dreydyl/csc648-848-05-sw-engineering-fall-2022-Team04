@@ -80,16 +80,9 @@ exports.createUser = async (req, res, next) => {
         }
         else {
             register = await register.save();
-<<<<<<< HEAD
             req.flash("success", 'Account registered !');
 
             res.render("loginpage", {success: req.flash('success')});
-=======
-            req.flash('success', 'You successfully registered');
-            //login automatically
-            res.redirect("..");
-            //res.render("main", {error: req.flash('success')});
->>>>>>> backend3
         }
     }
     catch (error) {
