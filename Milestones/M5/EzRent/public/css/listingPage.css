@@ -29,9 +29,13 @@
 }
 
 .listing-wrapper {
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     flex-direction: row;
     margin-top: 2rem;
+    
+    
 }
 
 .listing-page-left {
@@ -43,12 +47,11 @@
    
     font-size: 25px;
     font-weight: 600;
-    position: relative;
-    top:4px;
-    transform: translateX(-50%);
+    margin-left: -10vw;
+    
     font-style: oblique;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    margin-left: 7vw;
+  
  
    
 
@@ -75,24 +78,25 @@
 .listing-info {
     display: flex;
     flex-direction: row;
-    position: relative;
+    position: absolute;
 
 }
 
 .over-rating{
     position: absolute;
-    top:15vw;
+    top:18vh;
     left:4vw;
  
  
   transform: translateX(-50%);
+  display: flex;
 
 
 }
 .basic-price{
     position: absolute;
-    left: 45vw;
-    top:0.5vw;
+    left: 55vw;
+    top:1.2vh;
     margin-top: 1px;
    
    
@@ -105,13 +109,15 @@
 
 }
 .basic-bed{
-    position: relative;
+    position: absolute;
     margin-top:15%;
-    right:63%;
+    right:13%;
+    top:10vh;
 
-    font-size: 20px;
+    font-size: 25px;
     letter-spacing: 1px;
     margin-left: 12vw;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 
 }
 /* .basic-bath{
@@ -133,10 +139,11 @@
     
 }
 .description{
-    position: relative;
+    position: absolute;
     left: 62%;
-   top:80px;
+   top:10vh;
    margin-bottom: 60px;
+   
    
     transform: translateX(-50%);
     font-size: 25px;
@@ -147,9 +154,9 @@
 }
 .description-bio{
     font-size: 20px;
-    position: relative;
+    position: absolute;
     left: 62%;
-    margin-top:10%;
+    margin-top:20vh;
    
     transform: translateX(-50%);
     letter-spacing: 2px;
@@ -163,7 +170,7 @@
 
 .listing-info-right {
     margin-left: auto;
-    position: fixed;
+    position: absolute;
 }
 
 .listing-page-right {

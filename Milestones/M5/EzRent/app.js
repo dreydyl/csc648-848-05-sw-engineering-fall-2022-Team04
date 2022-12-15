@@ -51,10 +51,11 @@ app.use(express.static('model'));
 
 app.use(flash());
 
-app.use((req, res, next)=>{
-    app.locals.success = req.flash('error')
-    next();
-  });
+// app.use((req, res, next)=>{
+//     app.locals.success = req.flash('error')
+//     next();
+//   });
+
 // Global Error Handler. Important function params must start with err
 app.use((err, req, res, next) => {
     console.log(err.stack);

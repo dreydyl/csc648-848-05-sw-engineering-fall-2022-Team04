@@ -67,30 +67,27 @@
             {{/each}}
         </div>
 
-        <div class ="result">
+        {{!-- <div class ="result">
         Search results for  {{searchTerm}}
 
-        </div>
-    </div>
-</div>
+        </div> --}}
 
-<<<<<<< HEAD
- 
-    
-=======
+
 {{#if message}}
 <p id="search-message">{{message}}</p>
 <div class="result">
     Suggested Results
 </div>
 {{else}}
+
 <div class="result">
-    Search results for
-</div>
-<div class="actual" id="search-term">
-    {{searchTerm}}
+    Search results for {{searchTerm}}
 </div>
 {{/if}}
 
->>>>>>> 1140b2c3ea53cc1939e13a0d440e1cd7b2509ce4
+
+    </div>
+</div>
+
+
 <script type="module" src="/public/js/listingResults.js"></script>

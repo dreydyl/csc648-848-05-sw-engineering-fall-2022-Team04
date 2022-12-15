@@ -484,10 +484,10 @@ footer p {
 }
 
 .result{
-   position: relative;
+   position: absolute;
 
-    bottom: 37%;
-    left: 1%;
+    bottom: 85%;
+    leftt: 30%;
     letter-spacing: 2px;
     color: rgb(83, 131, 104);
     font-size: 35px;
@@ -529,7 +529,11 @@ footer p {
 }
 #search-message{
     position: relative;
-    top:5%;
+    bottom:85%;
+    font-style: oblique;
+    font-size: 1.5vw;
+    color:#3c885b;
+
 }
 
 #search_results_cards {
@@ -1241,21 +1245,51 @@ h2 {
     color: #295b3d;
 }
 
-<<<<<<< HEAD
+
 .flash-message {
     position: absolute;
     left: 50%;
-    top: 5%;
+    top: 8%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    visibility: visible;
+    text-align: center;
+    
+    
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: oblique;
+    font-size: 2.5vw;
+    
+    
+    height:5vh;
+
+    color: rgb(114, 21, 21);
+
+  }
+  .flash-messagee {
+    position: absolute;
+    left: 50%;
+    top: 8%;
     transform: translate(-50%,0);
     z-index: 9999;
     visibility: visible;
+    text-align: center;
+    
+    
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: oblique;
+    font-size: 2.5vw;
+    
+    
+    height:5vh;
+
+    color:#247464;
 
   }
 
   /* .flash-message div{
     text-align: center;
   }  */
-=======
 /* .edit-profile-form {
     display: flex;
     flex-direction: column;
@@ -1365,4 +1399,3 @@ h2 {
   }
 
   
->>>>>>> 1140b2c3ea53cc1939e13a0d440e1cd7b2509ce4
