@@ -290,7 +290,11 @@ class Register {
         return 0;
 
     }
-
+    
+    static checkIfProfileWithPic(id){
+        let sql = `SELECT * FROM Picture WHERE poster_fk = ${id};`
+        return db.execute(sql);
+    }
     static checkEmail(email) {
         let sql = `SELECT email FROM RegisteredUser WHERE email = '${email}';`;
         return db.execute(sql);
@@ -350,9 +354,9 @@ class Landlord {
 }
 
 class Update {
-    constructor(bio, picture, email) {
+    constructor(profile_picture_fk, bio, email) {
+        this.profile_picture_fk = profile_picture_fk;
         this.bio = bio;
-        this.picture = picture;
         this.email = email;
     }
 
@@ -360,9 +364,9 @@ class Update {
         let sql = `
             UPDATE RegisteredUser
             SET 
-                bio = '${this.bio}',
-                picture = '${this.picture}'
-            WHERE email = ${this.email};`;
+                profile_picture_fk = ${this.profile_picture_fk},
+                bio = '${this.bio}'
+            WHERE email = '${this.email}';`;
         return db.execute(sql);
     }
 }

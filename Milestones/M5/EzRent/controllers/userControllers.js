@@ -2,12 +2,14 @@ const User = require('../model/User');
 const ReviewModel = require('../model/Review');
 const Listing = require('../model/Listing');
 var sessions = require('express-session');
+const Picture = require('../model/Picture');
 const Register = User.Register;
 const Update = User.Update;
 const Review = ReviewModel.Review;
 const Rating = User.Rating;
 const Landlord = User.Landlord;
 const RegisteredUser = User.RegisteredUser;
+const Picture_Profile = Picture.Picture_Profile;
 const bcrypt = require("bcrypt");
 var validator = require("email-validator");
 var geoip = require('geoip-lite');
@@ -57,8 +59,8 @@ exports.createUser = async (req, res, next) => {
 
         if (count[0] != 0) {
             req.flash("error", 'Email already exist');
-            
-            res.render("registration", {error: req.flash('error')});
+
+            res.render("registration", { error: req.flash('error') });
         }
         else if (!validator.validate(email)) {
             req.flash("error", 'Incorrect Email format');
@@ -166,7 +168,15 @@ exports.logout = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
     try {
-        let { name, img } = req.file.pic;
+        let bio = req.body;
+        bio = bio.bio;
+        let { filename, path } = req.file;
+        let pic = new Picture_Profile(filename, path);
+        pic = await pic.save();
+        let picture_profile_fk = await Picture_Profile.getPicId(filename, path);
+        picture_profile_fk = picture_profile_fk[0][0].picture_id;
+        console.log(picture_profile_fk);
+        let update = new Update(picture_profile_fk, bio, req.session.email);
         update = await update.update();
         res.send({ message: 'User Updated' });
     }
@@ -196,6 +206,7 @@ exports.createReview = async (req, res, next) => {
 exports.getUserProfile = async (req, res, next) => {
     try {
         let id = req.params.id;
+
         let profile = await RegisteredUser.getRegisteredUser(id);
         console.log("profile controllers: " + JSON.stringify(profile));
         res.locals.profile = profile;
@@ -226,6 +237,7 @@ exports.getUserProfile = async (req, res, next) => {
             //not allowed
         }
     }
+
     catch (error) {
         console.log(error);
     }

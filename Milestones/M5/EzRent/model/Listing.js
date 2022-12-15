@@ -75,8 +75,8 @@ class Register {
         return db.execute(sql);
     }
 
-    static getListingId(reg_user_id, street_num){
-        let sql = `SELECT * FROM listing WHERE landlord_fk = ${reg_user_id} AND street_number = ${street_num};`
+    static getListingId(reg_user_id, street_num, street_name, zipcode){
+        let sql = `SELECT * FROM listing WHERE landlord_fk = ${reg_user_id} AND street_number = ${street_num} AND street = ${street_name} AND zipcode = ${zipcode};`
         return db.execute(sql);
     }
     static getListingById(listing_id)
