@@ -1,5 +1,4 @@
 <div class="open-body">
-    {{!-- <img src="images\pic1.jpg" class="background"> --}}
 
     <div class="Overbox">
         <form class="form-registration" name="form1" method="post" action="/users/signup">
@@ -12,8 +11,9 @@
                 <input type="text" name="lastName" placeholder="Last name" id="registerlastname" required>
                 <input type="email" name="email" placeholder="E-mail address" id="registeremail" required>
                 <input type="password" name="password" placeholder="Password" id="registerpassword" required>
-                <input type="password" name="confirmPassword" placeholder="Confirm password" id="registerconfirmpassword" required>
-                
+                <input type="password" name="confirmPassword" placeholder="Confirm password"
+                    id="registerconfirmpassword" required>
+
                 <div class="checkbox">
                     <input type="checkbox" name="role" id="checkbox_1" value="landlord">
                     <label for="checkbox_1" value="landlord" class="txt-registration">Register as a Landlord
@@ -22,14 +22,15 @@
 
                 <div class="checkbox">
                     <input type="checkbox" id="checkbox_1">
-                    <label for="checkbox_1" class="txt-registration">I have read and agree with <a href="login"
-                            class="bud-registration">Terms & Privacy</a>
+                    <label for="checkbox_1" class="txt-registration">I have read and agree with <a
+                            href="/termsAndConditions" class="bud-registration">Terms & Conditions</a>
                         </p></label>
                 </div>
 
 
             </div>
-            <input type="submit" onclick="validate()" class="submit-btn-registration" id="submit-btn-registration" value= "Sign Up">
+            <input type="submit" onclick="validate()" class="submit-btn-registration" id="submit-btn-registration"
+                value="Sign Up">
             {{!-- <a class="submit-btn-registration" href="/">Sign up</a> --}}
             {{!-- <input type="submit" name="" value="Sign Up" class="submit-btn-registration" href="/"> --}}
             <div class=toRegisterr>
@@ -148,3 +149,4 @@
             color: black;
         }
     </style>
+</div>

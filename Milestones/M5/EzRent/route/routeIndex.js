@@ -248,6 +248,13 @@ router.get("/register", (req, res, next) => {
     res.render("registration", { title: "EZRent New Account" });
 });
 
+router.get("/termsAndConditions", (req, res, next) => {
+    if (req.session.admin) {
+        res.locals.logged = true;
+    }
+    res.render("termsAndConditions", { title: "EZRent New Account" });
+});
+
 router.get("/renter", (req, res, next) => {
     if (req.session.admin) {
         res.locals.logged = true;
