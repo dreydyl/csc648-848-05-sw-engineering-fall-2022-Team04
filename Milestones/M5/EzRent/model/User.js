@@ -151,9 +151,10 @@ class RegisteredUser {
 
     static async getRegisteredUser(id) {
         let profile = {};
-        let userSQL = `SELECT reg_user_id AS 'id', first_name AS 'firstName', last_name AS 'lastName',
-            email, phone, bio, role
+        let userSQL = `SELECT reg_user_id AS 'id', first_name AS 'firstName', last_name AS 'lastName', email, phone, bio, role, img_path AS 'profilePic'
             FROM RegisteredUser
+            LEFT JOIN Picture
+            ON RegisteredUser.profile_picture_fk = Picture.picture_id
             WHERE reg_user_id = ${id};`
         await db.execute(userSQL).then(result => {
             profile.user = result[0][0];
@@ -290,7 +291,14 @@ class Register {
         return 0;
 
     }
-
+    static getUserbyEmail(email) {
+        let sql = `SELECT reg_user_id, role FROM RegisteredUser WHERE email = '${email}';`;
+        return db.execute(sql);
+    }
+    static checkIfProfileWithPic(id){
+        let sql = `SELECT * FROM Picture WHERE poster_fk = ${id};`
+        return db.execute(sql);
+    }
     static checkEmail(email) {
         let sql = `SELECT email FROM RegisteredUser WHERE email = '${email}';`;
         return db.execute(sql);
@@ -320,7 +328,7 @@ class Landlord {
 
     static getFeaturedLandlords() {
         let sql = `SELECT reg_user_id AS 'landlordId', first_name AS 'firstName', last_name AS 'lastName', bio, rating,
-            file_name AS 'profilePicture'
+            img_path AS 'profilePicture'
             FROM RegisteredUser
             JOIN Landlord
             ON RegisteredUser.reg_user_id = Landlord.reg_user_fk
@@ -331,7 +339,7 @@ class Landlord {
         return db.execute(sql);
     }
 
-    static search(searchTerm) {
+    static async search(searchTerm) {
         let results = [];
         let splitSearch = searchTerm.split(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~ ]/);
         for(const searchItem of splitSearch) {
@@ -349,20 +357,54 @@ class Landlord {
     }
 }
 
-class Update {
-    constructor(bio, picture, email) {
+class UpdateWithPic {
+    constructor(profile_picture_fk, bio, id) {
+        this.profile_picture_fk = profile_picture_fk;
         this.bio = bio;
-        this.picture = picture;
-        this.email = email;
+        this.id = id;
     }
 
     update() {
         let sql = `
             UPDATE RegisteredUser
             SET 
-                bio = '${this.bio}',
-                picture = '${this.picture}'
-            WHERE email = ${this.email};`;
+                profile_picture_fk = ${this.profile_picture_fk},
+                bio = '${this.bio}'
+            WHERE reg_user_id = ${this.id};`;
+        return db.execute(sql);
+    }
+}
+
+
+
+class UpdateWithPicNoBio {
+    constructor(profile_picture_fk, id) {
+        this.profile_picture_fk = profile_picture_fk;
+        this.id = id;
+    }
+
+    update() {
+        let sql = `
+            UPDATE RegisteredUser
+            SET 
+                profile_picture_fk = ${this.profile_picture_fk}
+                WHERE reg_user_id = ${this.id};`;
+        return db.execute(sql);
+    }
+}
+
+class UpdateBio {
+    constructor(bio, id) {
+        this.bio = bio.replace(`'`,`\\'`);
+        this.id = id;
+    }
+
+    update() {
+        let sql = `
+            UPDATE RegisteredUser
+            SET 
+                bio = '${this.bio}'
+            WHERE reg_user_id = ${this.id};`;
         return db.execute(sql);
     }
 }
@@ -439,4 +481,4 @@ class Rating {
         return db.execute(sql);
     }
 }
-module.exports = { Register, Update, Review, Rating, Landlord, RegisteredUser };
+module.exports = { Register, UpdateWithPic, UpdateWithPicNoBio, UpdateBio, Review, Rating, Landlord, RegisteredUser };

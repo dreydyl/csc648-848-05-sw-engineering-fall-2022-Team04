@@ -40,4 +40,25 @@ class Picture_Listing {
     }
 }
 
-module.exports = { Register, Picture_Listing};
+class Picture_Profile {
+    constructor(name, img){
+        this.name = name;
+        this.img = img;
+    }
+    save()
+    {
+        let sql = `
+            INSERT INTO Picture (file_name, img_path)
+            VALUE (
+                '${this.name}',
+                '${this.img}'
+            )
+        `
+        return db.execute(sql);
+    }
+    static getPicId(filename, img_path){
+        let sql = `SELECT picture_id FROM Picture Where file_name = '${filename}' AND img_path = '${img_path}';`
+        return db.execute(sql);
+    }
+}
+module.exports = { Register, Picture_Listing, Picture_Profile};

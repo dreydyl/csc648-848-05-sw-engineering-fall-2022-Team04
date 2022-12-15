@@ -1,12 +1,17 @@
 const User = require('../model/User');
 const ReviewModel = require('../model/Review');
 const Listing = require('../model/Listing');
+var sessions = require('express-session');
+const Picture = require('../model/Picture');
 const Register = User.Register;
-const Update = User.Update;
+const UpdateWithPic = User.UpdateWithPic;
+const UpdateWithPicNoBio = User.UpdateWithPicNoBio;
+const UpdateBio = User.UpdateBio;
 const Review = ReviewModel.Review;
 const Rating = User.Rating;
 const Landlord = User.Landlord;
 const RegisteredUser = User.RegisteredUser;
+const Picture_Profile = Picture.Picture_Profile;
 const bcrypt = require("bcrypt");
 var validator = require("email-validator");
 var geoip = require('geoip-lite');
@@ -39,7 +44,10 @@ const checkPassword = (password) => {
 //         return emailChecker.test(email);
 // }
 
-
+const emailValidator = (email) =>{
+    let emailChecker = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            return emailChecker.test(email);
+}
 exports.createUser = async (req, res, next) => {
     try {
         console.log("REGISTER");
@@ -53,23 +61,35 @@ exports.createUser = async (req, res, next) => {
 
         if (count[0] != 0) {
             req.flash("error", 'Email already exist');
-            
-            res.render("registration", {error: req.flash('error')});
+
+            res.render("registration", { error: req.flash('error') });
         }
         else if (!validator.validate(email)) {
             req.flash("error", 'Incorrect Email format');
             
             res.render("registration", {error: req.flash('error')});
-        } else if (confirmPassword != password || !checkPassword(password)) {
-            req.flash("error", 'Incorrect Password');
+        } else if (confirmPassword != password ) {
+            req.flash("error", 'password does not match');
+            
+            res.render("registration", {error: req.flash('error')});
+        }
+        else if (!checkPassword(password)){
+            req.flash("error", 'Password does not meet requirments!');
             
             res.render("registration", {error: req.flash('error')});
         }
         else {
             register = await register.save();
+<<<<<<< HEAD
             req.flash("success", 'Account registered !');
 
             res.render("loginpage", {success: req.flash('success')});
+=======
+            req.flash('success', 'You successfully registered');
+            //login automatically
+            res.redirect("..");
+            //res.render("main", {error: req.flash('success')});
+>>>>>>> backend3
         }
     }
     catch (error) {
@@ -93,13 +113,6 @@ exports.postReview = async (req, res, next) => {
         next(error);
     }
 }
-
-exports.demoLogin = async (req, res, next) => {
-    let { password, email } = req.body;
-    //start session with email
-
-}
-
 exports.getProfileByEmail = async (email) => {
     try {
         return Review.getUserbyEmail(email);
@@ -111,16 +124,12 @@ exports.getProfileByEmail = async (email) => {
 
 exports.login = async (req, res, next) => {
     try {
-
-        // let id = req.params.id;
-        // let profile = await RegisteredUser.getRegisteredUser(id);
-
-        // let role = profile.role;
-
         let { password, email } = req.body;
         let count = await Register.checkEmail(email);
         if (count[0].length == 0) {
-            res.status(404).json({ message: "User Not Found" });
+            req.flash("error", 'email is not registered');
+            res.render("loginpage", {error: req.flash('error')});
+            
         }
         else {
             const hashedpassword = await Register.getPassword(email);
@@ -136,26 +145,14 @@ exports.login = async (req, res, next) => {
                 else {
 
                     req.session.email = email;
-                    // req.session.role = role;
                     req.session.admin = true;
-
-                    // res.cookie("logged", req.session.admin, {expires: new Date(Date.now() + 900000), httpOnly: false});
-                    // res.locals.logged = true;
-
                     console.log(req.session);
                     console.log("---------> Login Successful");
-                    // res.locals.logged = true;
+                   
                     res.redirect('/');
                 }
-                // res.send(`Hey there, welcome <a href=\'logout'>click to logout</a>`);
+                
             }
-            // console.log(sc.decrypt(stringObj));
-            // if (password == sc.decrypt(stringObj)) {
-            //     console.log("---------> Login Successful")
-            //     // res.send(`${email} is logged in!`);
-            //     res.send(`Hey there, welcome <a href=\'users/logout'>click to logout</a>`);
-
-            // }
             else {
                 console.log("---------> Password Incorrect")
                 res.send("Password incorrect!")
@@ -177,9 +174,37 @@ exports.logout = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
     try {
-        let { name, img } = req.file.pic;
-        update = await update.update();
-        res.send({ message: 'User Updated' });
+        
+        let bio = req.body;
+        bio = bio.bio;
+        let user = await Register.getUserbyEmail(req.session.email);
+        let id = user[0][0].reg_user_id;
+        if(req.file != undefined && bio.length != 0)
+        {
+            let { filename, path } = req.file;
+            let pic = new Picture_Profile(filename, path);
+            pic = await pic.save();
+            let picture_profile_fk = await Picture_Profile.getPicId(filename, path);
+            picture_profile_fk = picture_profile_fk[0][0].picture_id;
+            let update = new UpdateWithPic(picture_profile_fk, bio, id);
+            update = await update.update();
+        }
+        else if(bio.length == 0)
+        {
+            let { filename, path } = req.file;
+            let pic = new Picture_Profile(filename, path);
+            pic = await pic.save();
+            let picture_profile_fk = await Picture_Profile.getPicId(filename, path);
+            picture_profile_fk = picture_profile_fk[0][0].picture_id;
+            let update = new UpdateWithPicNoBio(picture_profile_fk, id);
+            update = await update.update();
+        }
+        else{
+            let update = new UpdateBio(bio, id);
+            update = await update.update();
+        }
+
+            res.redirect(`../users/profilePage/${id}`);
     }
     catch (error) {
         next(error);
@@ -189,14 +214,22 @@ exports.update = async (req, res, next) => {
 exports.createReview = async (req, res, next) => {
     try {
         let { rating, title, description, type, landlordId } = req.body;
-        console.log(JSON.stringify(req.body));
+        console.log("REQ.BODY: "+JSON.stringify(req.body));
         let reg_user_id = await Review.getUserbyEmail(req.session.email);
+        if(reg_user_id === undefined) {
+            //user must be logged in
+            req.flash('error','You must be logged in to post a review');
+            res.redirect(`/users/profilePage/${landlordId}`);
+        }
         reg_user_id = reg_user_id[0];
         reg_user_id = reg_user_id[0].reg_user_id;
+        //validation
+        //check if has required fields
         let review = new Review(reg_user_id, rating, title, description, type, landlordId);
+        console.log("REVIEW: "+JSON.stringify(review));
         review = await review.save();
-        // res.status(201).json({ message: "Review created " });
-        res.render(`/profilePage/${landlordId}`);
+        res.status(201).json({ message: "Review created " });
+        // res.redirect(`/users/profilePage/${landlordId}`);
     }
     catch (error) {
         next(error);
@@ -207,8 +240,13 @@ exports.createReview = async (req, res, next) => {
 exports.getUserProfile = async (req, res, next) => {
     try {
         let id = req.params.id;
+        console.log("ID: "+id);
+
         let profile = await RegisteredUser.getRegisteredUser(id);
         console.log("profile controllers: " + JSON.stringify(profile));
+        if(profile.user.profilePic == null) {
+            profile.user.profilePic = 'public/images/profile/default.jpeg';
+        }
         res.locals.profile = profile;
         if (profile.user.role == 'landlord') {
             if (req.session.admin) {
@@ -217,12 +255,12 @@ exports.getUserProfile = async (req, res, next) => {
                 result = result[0][0].reg_user_id;
                 res.locals.profileId = result;
                 if (result == id) {
-                    res.render("profilePage", { title: "EZRent", style: "main" });
+                    res.render("profilePage", { title: "EZRent" });
                 } else {
-                    res.render("publicLandlordProfilePage", { title: "EZRent", style: "main" });
+                    res.render("publicLandlordProfilePage", { title: "EZRent" });
                 }
             } else {
-                res.render("publicLandlordProfilePage", { title: "EZRent", style: "main" });
+                res.render("publicLandlordProfilePage", { title: "EZRent" });
             }
         } else {
             if (req.session.admin) {
@@ -230,13 +268,14 @@ exports.getUserProfile = async (req, res, next) => {
                 let result = await Review.getUserbyEmail(req.session.email);
                 result = result[0][0].reg_user_id;
                 res.locals.profileId = result;
-                res.render("userProfilePage", { title: "EZRent", style: "main" });
+                res.render("userProfilePage", { title: "EZRent"});
             } else {
-                res.render("/");
+                res.render("main", { title: "EZRent", style: "main" });
             }
             //not allowed
         }
     }
+
     catch (error) {
         console.log(error);
     }
@@ -264,6 +303,11 @@ exports.getFeaturedLandlords = async (req, res, next) => {
         let city = 'San Francisco';
         let landlords = await Landlord.getFeaturedLandlords(city);
         landlords = landlords[0];
+        for(let landlord of landlords) {
+            if(landlord.profilePicture == null) {
+                landlord.profilePicture = '/public/images/profile/default.jpeg';
+            }
+        }
         console.log("controllers: " + landlords);
         return landlords;
     }
@@ -335,27 +379,7 @@ exports.searchLandlords = async (req, res, next) => {
         res.render('error', { title: "EZRent " });
     } else {
         try {
-            //let results = await Listing.search(search);
-            let results = {
-                "landlord1": {
-                    "name": "Sarah Therrien",
-                    "rating": 5,
-                    "bio": "I own multiple houses in the city. I've been faithfully serving tenants for 30 years.",
-                    "img": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
-                },
-                "landlord2": {
-                    "name": "George Stew",
-                    "rating": 5,
-                    "bio": "I own a condo downtown. I would love to meet you.",
-                    "img": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
-                },
-                "landlord3": {
-                    "name": "Nick James",
-                    "rating": 5,
-                    "bio": "I let my reviews speak for themselves.",
-                    "img": "https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1023&q=80"
-                }
-            };
+            let results = await Landlord.search(search);
             if (results) {
                 res.locals.results = results;
                 res.render('landlordResults', { title: "EZRent " + search, header: "Results" });

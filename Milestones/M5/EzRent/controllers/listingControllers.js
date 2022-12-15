@@ -47,7 +47,7 @@ exports.createNewListing = async (req, res, next) => {
         listing = await listing.save();
         let pic = new Register(filename, path);
         pic = await pic.save();
-        let getListingId = await Listing.getListingId(userId, street_num);
+        let getListingId = await Listing.getListingId(userId, street_num, street_name, zipcode);
         let listingId = getListingId[0][0].listing_id;
         let getPicId = await Picture_Listing.getPic(filename);
         let picId = getPicId[0][0].picture_id;
@@ -69,7 +69,11 @@ exports.getListing = async (req, res, next) => {
     try {
         let id = req.params.id;
         let listing = await Listing.getListingById(id);
-        console.log("Controller listing: "+JSON.stringify(listing,null,2));
+        console.log("controllers listing: "+JSON.stringify(listing));
+        if(listing.pictures.length <= 0) {
+            listing.pictures[0] = {};
+            listing.pictures[0].imgPath = 'public/images/listings/images.png';
+        }
         res.locals.listing = listing;
         if (req.session.admin) {
             res.locals.logged = true;
@@ -77,8 +81,10 @@ exports.getListing = async (req, res, next) => {
             result = result[0][0].reg_user_id;
             res.locals.profileId = result;
         }
+        console.log("controllers: "+JSON.stringify(listing));
         res.render("listingPage", { title: "EZRent Listing", style: "listingPage" });
-    } catch (error) {
+    }
+    catch (error) {
         console.log(error);
         next(error);
     }

@@ -8,11 +8,10 @@ var flash = require('connect-flash');
 var bodyParser=require('body-parser');
 const port = 8080;
 var bodyParser = require('body-parser')
-
 const path = require('path');
-
 var handlebars = require('express-handlebars');
 const exp = require('constants');
+
 app.use(express.json());
 // parse application/x-www-form-urlencoded 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -20,6 +19,11 @@ app.use(cookieParser());
 // parse application/json 
 app.use(bodyParser.json())
 app.use(flash());
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+
 // Create session
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
@@ -28,13 +32,10 @@ app.use(sessions({
     cookie: { maxAge: oneDay },
     resave: false 
 }));
+
 app.set('view engine', 'handlebars');
 app.set("views", `${__dirname}/views`);
 app.use(express.static(`${__dirname}/public`));
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json());
 
 app.use("/public", express.static(path.join(__dirname, 'public')));
 app.use('/', require("./route/routeIndex"));

@@ -7,10 +7,10 @@ document.getElementById("leave-review-button").onclick = () => {
 // }
 
 let sendReviewButton = document.getElementById("post-review-submit-button");
-sendReviewButton.onclick = () => {
-    document.getElementById("textarea").value = "";
-    document.getElementById("myForm").style.display = "none";
-}
+// sendReviewButton.onclick = () => {
+//     // document.getElementById("textarea").value = "";
+//     document.getElementById("myForm").style.display = "none";
+// }
 
 document.getElementById("profile-page-listings").onclick = () => {
     location.replace("/listingpage");
