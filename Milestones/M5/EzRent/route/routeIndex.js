@@ -245,14 +245,14 @@ router.get("/register", (req, res, next) => {
     if (req.session.admin) {
         res.locals.logged = true;
     }
-    res.render("registration", { title: "EZRent New Account" });
+    res.render("registration", { title: "EZRent Register" });
 });
 
 router.get("/termsAndConditions", (req, res, next) => {
     if (req.session.admin) {
         res.locals.logged = true;
     }
-    res.render("termsAndConditions", { title: "EZRent New Account" });
+    res.render("termsAndConditions", { title: "EZRent Terms and Conditions" });
 });
 
 router.get("/renter", (req, res, next) => {
@@ -294,7 +294,7 @@ router.get('/about', (req, res) => {
     if (req.session.admin) {
         res.locals.logged = true;
     }
-    res.render('about/about', { title: "EZRent Search" });
+    res.render('about/about', { title: "EZRent About Us" });
 });
 
 router.get('/devAbout', (req, res) => {
