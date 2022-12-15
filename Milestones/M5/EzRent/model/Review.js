@@ -62,6 +62,7 @@ class Review {
                     ${reviewId},
                     ${this.referenceId}
                 );`;
+            console.log("SQL: "+typeSQL);
             console.log("EXECUTE: "+JSON.stringify(await db.execute(typeSQL)));
         }
     }

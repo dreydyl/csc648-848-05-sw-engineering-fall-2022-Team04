@@ -7,21 +7,21 @@
     {{/each}}
     <div class="listing-wrapper">
         <div class="listing-page-left">
-                <div class="listing-info-left">
-                    <div class="address">
-                        {{listing.property.address}}
-                    </div>
-                    <div class="basic-price">
-                        ${{listing.property.price}}
-                    </div>
-                    <div class="basic-bed">
-                        Bedrooms: {{listing.property.beds}}</br>
-                        Bathrooms: {{listing.property.baths}}
-                    </div>
-                    <div class="over-rating">
-                        {{> rating listing.property.listingRating}}
-                    </div>
+            <div class="listing-info-left">
+                <div class="address">
+                    {{listing.property.address}}
                 </div>
+                <div class="basic-price">
+                    ${{listing.property.price}}
+                </div>
+                <div class="basic-bed">
+                    Bedrooms: {{listing.property.beds}}</br>
+                    Bathrooms: {{listing.property.baths}}
+                </div>
+                <div class="over-rating">
+                    {{> rating listing.property.listingRating}}
+                </div>
+            </div>
 
             <div class="desc">
                 <div class="description">
@@ -65,14 +65,27 @@
     <div class="reviews-section">
         <button class="profile-page-button" id="leave-review-button">Leave a Review</button>
         <div class="form-popup" id="myForm">
-            <form class="form-container" method="post" action="/listings/review"
+            <form class="review-form" method="post" action="/listings/review"
                 enctype="application/x-www-form-urlencoded">
-                <h1 class="review-header">Leave a Review</h1>
-                <input type="number" name="rating" value="Enter rating. 1-5" required>
-                <input type="text" name="title" placeholder="Title">
-                <textarea name="description" placeholder="Enter a review..."></textarea>
-                <input type="text" name="listingId" style="display: none;" value="{{listing.property.listingId}}"></input>
-                <input type="submit" id="post-review-submit-button" value="POST">
+                <button type="button" id="close-button" class="close-button">x</button>
+                <h2 class="edit-profile-title">Leave a Review</h2>
+                <div class="review-rating-container">
+                    <label for="rating">Rate this Landlord (1 - 5):</label>
+                    <input class="review-title" id="review-title" type="number" name="rating" value="Enter rating. 1-5"
+                        required>
+                </div>
+                <div class="review-title-container">
+                    <label for="bio">Title:</label>
+                    <input class="review-title" id="review-title" type="text" name="title" placeholder="Title">
+                </div>
+                <div class="review-desc-container">
+                    <label for="desc">Description:</label>
+                    <textarea class="review-desc" id="review-title" name="description"
+                        placeholder="Enter a review..."></textarea>
+                    <input type="text" name="listingId" style="display: none;"
+                        value="{{listing.property.listingId}}"></input>
+                </div>
+                <input class="edit-profile-submit" id="post-review-submit-button" type="submit" value="Post">
             </form>
         </div>
         <header class="profile-page-box-header">
@@ -84,6 +97,5 @@
             {{/each}}
         </div>
     </div>
-</div>
 </div>
 <script type="module" src="/public/js/listingPage.js"></script>
