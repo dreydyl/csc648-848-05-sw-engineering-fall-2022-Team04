@@ -81,7 +81,7 @@ exports.createUser = async (req, res, next) => {
             register = await register.save();
             req.flash('success', 'You successfully registered');
             //login automatically
-            res.redirect("/");
+            res.redirect("home");
             //res.render("main", {error: req.flash('success')});
         }
     }
@@ -120,10 +120,8 @@ exports.login = async (req, res, next) => {
         let { password, email } = req.body;
         let count = await Register.checkEmail(email);
         if (count[0].length == 0) {
-            req.flash('error', 'can not login!');
-            req.sessions.save(err => {
-            res.redirect("loginpage");
-            });
+            req.flash("error", 'email is not registered');
+            res.render("loginpage", {error: req.flash('error')});
             
         }
         else {
