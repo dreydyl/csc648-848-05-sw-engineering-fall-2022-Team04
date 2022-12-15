@@ -69,6 +69,11 @@ exports.getListing = async (req, res, next) => {
     try {
         let id = req.params.id;
         let listing = await Listing.getListingById(id);
+        console.log("controllers listing: "+JSON.stringify(listing));
+        if(listing.pictures.length <= 0) {
+            listing.pictures[0] = {};
+            listing.pictures[0].imgPath = 'public/images/listings/images.png';
+        }
         res.locals.listing = listing;
         if (req.session.admin) {
             res.locals.logged = true;
