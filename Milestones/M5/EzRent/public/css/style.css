@@ -463,17 +463,21 @@ input[type="search"]:focus {
 }
 
 footer {
+    display: flex;
     border-top: solid #3C885B;
     color: #3C885B;
     text-align: center;
+    padding: 15px;
+    justify-content: center;
+    align-self: center;
     margin-top: auto;
-
+    width: 80%;
 }
 
 footer p {
-    padding-bottom: 10px;
     margin: 0;
     font-size: 20px;
+    padding: 0 2rem;
 }
 
 .about-link {
@@ -1399,3 +1403,23 @@ h2 {
   }
 
   
+
+  .termsAndConditions {
+    text-align: center;
+    font-family: inherit;
+    width: 80%;
+    margin: auto;
+    margin-top: 80px;
+  }
+
+  .termsAndConditions h1 {
+    color: black;
+    font-family: inherit;
+    font-size: 2.5rem;
+  }
+
+  .termsAndConditions h2 {
+    color: black;
+    font-family: inherit;
+    font-size: 2.1rem;
+  }
