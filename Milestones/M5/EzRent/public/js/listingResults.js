@@ -1,7 +1,8 @@
 var searchTerm = document.getElementById("search-term").innerHTML;
 
-document.getElementById("apply-filters-button").onclick = () => {
+document.getElementById("apply-filters-button").addEventListener('click', () => {
     
+    console.log("HERE");
     let minPrice = document.getElementById("min-price").value;
     let maxPrice = document.getElementById("max-price").value;
     let rating = document.getElementById("rating-filter").value;
@@ -56,5 +57,5 @@ document.getElementById("apply-filters-button").onclick = () => {
     console.log("Search url"+searchURL);
 
     location.replace(searchURL);
-}
+});
 
