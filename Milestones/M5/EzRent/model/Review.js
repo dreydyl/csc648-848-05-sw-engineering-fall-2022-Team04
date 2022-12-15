@@ -28,7 +28,6 @@ class Review {
         let sec = doubleDigit(d.getSeconds());
 
         let createdAtDate = `${yyyy}-${mm}-${dd} ${hour}:${min}:${sec}`;
-        createdAtDate = createdAtDate.toMysqlFormat(); //return MySQL Datetime format
         let reviewSQL = `
             INSERT INTO Review (author_fk, rating, title, description, time_created)
             VALUE(
@@ -46,7 +45,7 @@ class Review {
             reviewId = reviewId[0];
             let typeSQL = `
                 INSERT INTO ListingReview (review_fk, listing_fk)
-                VALUE(
+                VALUES(
                     ${reviewId},
                     ${this.referenceId}
                 )`;
@@ -59,7 +58,7 @@ class Review {
             console.log("REVIEW ID 2: "+JSON.stringify(reviewId));
             let typeSQL = `
                 INSERT INTO LandlordReview (review_fk, landlord_fk)
-                VALUE(
+                VALUES(
                     ${reviewId},
                     ${this.referenceId}
                 );`;
