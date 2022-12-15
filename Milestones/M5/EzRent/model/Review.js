@@ -22,14 +22,14 @@ class Review {
         let sec = d.getSeconds();
 
         let createdAtDate = `${yyyy}-${mm}-${dd} ${hour}:${min}:${sec}`;
-
+        createdAtDate = createdAtDate.toMysqlFormat(); //return MySQL Datetime format
         let reviewSQL = `
             INSERT INTO Review (author_fk, rating, title, description, time_created)
             VALUE(
                 ${this.reg_user_id},
-                ${this.rating},
-                ${this.title},
-                ${this.description},
+                '${this.rating}',
+                '${this.title}',
+                '${this.description}',
                 ${createdAtDate}
             );`;
         db.execute(reviewSQL);
