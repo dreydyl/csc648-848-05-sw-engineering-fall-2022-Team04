@@ -3,10 +3,9 @@
 <div class="form-popup" id="myForm">
     <form class="form-container" method="post" action="/users/review">
         <h1 class="review-header">Leave a Review</h1>
-        {{!-- {{> rating 5}} --}}
         <input type="number" name="rating" value="Enter rating. 1-5" required>
         <input type="text" name="title" placeholder="Title">
-        <input type="text" name="description" id="textarea" class="text" cols="50" rows="20" placeholder="Enter a review..."></input>
+        <textarea name="description" placeholder="Enter a review..."></textarea>
         <input type="text" name="type" style="display: none;" value="landlord"></input>
         <input type="text" name="landlordId" style="display: none;" value="{{profile.user.id}}"></input>
         <input type="submit" id="post-review-submit-button" value="POST">

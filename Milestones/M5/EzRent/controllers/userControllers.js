@@ -82,7 +82,7 @@ exports.createUser = async (req, res, next) => {
             register = await register.save();
             req.flash('success', 'You successfully registered');
             //login automatically
-            res.redirect("main");
+            res.redirect("..");
             //res.render("main", {error: req.flash('success')});
         }
     }
@@ -205,7 +205,7 @@ exports.update = async (req, res, next) => {
 exports.createReview = async (req, res, next) => {
     try {
         let { rating, title, description, type, landlordId } = req.body;
-        console.log(JSON.stringify(req.body));
+        console.log("REQ.BODY: "+JSON.stringify(req.body));
         let reg_user_id = await Review.getUserbyEmail(req.session.email);
         if(reg_user_id === undefined) {
             //user must be logged in
@@ -217,9 +217,10 @@ exports.createReview = async (req, res, next) => {
         //validation
         //check if has required fields
         let review = new Review(reg_user_id, rating, title, description, type, landlordId);
+        console.log("REVIEW: "+JSON.stringify(review));
         review = await review.save();
-        // res.status(201).json({ message: "Review created " });
-        res.redirect(`/users/profilePage/${landlordId}`);
+        res.status(201).json({ message: "Review created " });
+        // res.redirect(`/users/profilePage/${landlordId}`);
     }
     catch (error) {
         next(error);
@@ -230,6 +231,7 @@ exports.createReview = async (req, res, next) => {
 exports.getUserProfile = async (req, res, next) => {
     try {
         let id = req.params.id;
+        console.log("ID: "+id);
 
         let profile = await RegisteredUser.getRegisteredUser(id);
         console.log("profile controllers: " + JSON.stringify(profile));
