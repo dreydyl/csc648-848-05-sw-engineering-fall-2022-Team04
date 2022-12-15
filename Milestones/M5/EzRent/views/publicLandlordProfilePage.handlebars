@@ -64,7 +64,12 @@
             {{log this}}
             <a class="profile-page-listings" id="profile-page-listings" href="/listings/{{listingId}}">
                 <div class="profile-page-listing">
-                    <img class="profile-page-listing-img" src="images/picture_1666042712023.jpeg">
+                    <img class="profile-page-listing-img" 
+                    {{#if thumbnail}} 
+                    src="/{{thumbnail}}" 
+                    {{else}}
+                    src="/public/images/listings/images.png" 
+                    {{/if}}>
                     <div class="profile-page-listing-desc">
                         <p>{{beds}} Bedrooms</p>
                         <p>{{baths}} Bathrooms</p>

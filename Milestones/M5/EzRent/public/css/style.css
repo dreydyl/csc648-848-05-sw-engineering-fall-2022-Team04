@@ -99,10 +99,6 @@ body {
     text-align: left;
 }
 
-#search-message {
-    margin-top: 100px;
-}
-
 .dropdown {
     display: flex;
     flex-direction: row;
@@ -497,8 +493,6 @@ footer p {
     font-weight: 600;
     font-family: inherit;
     /* font-style: oblique; */
-
-
 }
 
 
@@ -533,13 +527,11 @@ footer p {
     width: 100%;
 }
 
-#search-message {
-    position: relative;
-    bottom: 85%;
-    font-style: oblique;
-    font-size: 1.5vw;
-    color: #3c885b;
-
+.renter-review-name {
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 300px;
+    margin: 10px 15px;
 }
 
 #search_results_cards {
@@ -559,6 +551,7 @@ footer p {
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.315);
     margin-bottom: 120px;
     margin-left: 30px;
+    border: solid black;
 }
 
 .listing-container:hover {
@@ -571,6 +564,7 @@ footer p {
     display: flex;
     align-items: center;
     padding: 0 10px 0 10px;
+    border: solid black;
 }
 
 .listing-card-profile-img {
@@ -1005,14 +999,6 @@ h2 {
 .review-rating {
     margin-top: 5px;
     margin-bottom: 20px;
-}
-
-.review-title {
-    margin: 10px 5px;
-}
-
-.review-desc {
-    margin: 10px 5px;
 }
 
 .profile-page-review h2 {
@@ -1483,19 +1469,33 @@ h2 {
 }
 
 .review-desc {
+    margin: 10px 15px;
+    font-family: inherit;
+    font-style: normal;
+}
+
+.review-title {
+    margin: 10px 15px;
+    font-family: inherit;
+    font-style: normal;
+}
+
+.post-review-title {
+    width: 95%;
+    height: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+.post-review-desc {
     width: 95%;
     height: 6rem;
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 5px;
     resize: none;
-}
-
-.review-title {
-    width: 95%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
 }
 
 .close-button {

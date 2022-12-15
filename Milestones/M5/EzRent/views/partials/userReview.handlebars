@@ -1,8 +1,12 @@
-<div class="user-profile-page-review">
-    <p>
-        {{title}}
+<div class="profile-page-review">
+    <div class="renter-review-name">
         {{renter}}
-        {{rating}}
+    </div>
+    <div class="review-rating">
+        {{> rating rating}}
+    </div>
+    <h2 class="review-title">{{title}}</h2>
+    <p class="review-desc">
         {{description}}
     </p>
 </div>

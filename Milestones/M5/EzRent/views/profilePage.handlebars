@@ -3,9 +3,9 @@
     <div class="profile-img-info-bio">
         <div class="profile-page-img-info">
             <div class="profile-page-img-section">
-                <img class="profile-page-img"
-                    {{!-- src="https://i0.wp.com/evanstonroundtable.com/wp-content/uploads/2022/05/Lushina-scaled-e1652827479814.jpg?fit=1200%2C900&ssl=1" --}}
-                    src="/{{profile.user.profilePic}}" alt="/public/images/profile/default.jpeg">
+                <img class="profile-page-img" {{!--
+                    src="https://i0.wp.com/evanstonroundtable.com/wp-content/uploads/2022/05/Lushina-scaled-e1652827479814.jpg?fit=1200%2C900&ssl=1"
+                    --}} src="/{{profile.user.profilePic}}" alt="/public/images/profile/default.jpeg">
             </div>
             <div class="profile-page-info">
                 <p class="profile-page-person-name">{{profile.user.firstName}} {{profile.user.lastName}}</p>
@@ -25,7 +25,8 @@
     </div>
     <div class="profile-page-buttons-section">
         {{!-- <button class="profile-page-button" id="post-review-button">Leave a Review</button> --}}
-        <button class="profile-page-button" id="edit-profile-button" onclick="location.replace('/editProfile')">Edit Profile</button>
+        <button class="profile-page-button" id="edit-profile-button" onclick="location.replace('/editProfile')">Edit
+            Profile</button>
         <button class="profile-page-button" onclick="location.replace('/postListingPage')">Post a Listing</button>
         {{!-- <div class="form-popup" id="reviewForm">
             <form class="form-container" method="post" action="" id="leave-a-review-form">
@@ -56,7 +57,11 @@
             {{log this}}
             <a class="profile-page-listings" id="profile-page-listings" href="/listings/{{listingId}}">
                 <div class="profile-page-listing">
-                    <img class="profile-page-listing-img" src="images/picture_1666042712023.jpeg">
+                    <img class="profile-page-listing-img" 
+                    {{#if thumbnail}} 
+                    src="/{{thumbnail}}" 
+                    {{else}}
+                    src="/public/images/listings/images.png" {{/if}}>
                     <div class="profile-page-listing-desc">
                         <p>{{beds}} Bedrooms</p>
                         <p>{{baths}} Bathrooms</p>

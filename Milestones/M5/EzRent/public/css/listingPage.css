@@ -240,19 +240,40 @@
 }
 
 .review-desc {
+    margin: 10px 15px;
+    font-family: inherit;
+    font-style: normal;
+}
+
+.review-title {
+    margin: 10px 15px;
+    font-family: inherit;
+    font-style: normal;
+}
+
+.renter-review-name {
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 300px;
+    margin: 10px 15px;
+}
+
+.post-review-title {
+    width: 95%;
+    height: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+.post-review-desc {
     width: 95%;
     height: 6rem;
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 5px;
     resize: none;
-}
-
-.review-title {
-    width: 95%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
 }
 
 .close-button {

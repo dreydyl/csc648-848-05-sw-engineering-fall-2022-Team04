@@ -40,7 +40,13 @@
             <div class="landlord-info" id="landlord-info">
                 <div id="landlord-id" style="position: fixed; display: none;">{{listing.property.landlordId}}</div>
                 <div class="landlord-profile">
-                    <img class="landlord-image" src={{listing.property.profile}}></img>
+                    <img class="landlord-image" 
+                    {{#if listing.property.profile}} 
+                    src={{listing.property.profile}}
+                    {{else}}
+                    src="/public/images/profile/default.jpeg"
+                    {{/if}}
+                    ></img>
                     <div class="landlord-text">
                         <div class="landlord-name">
                             {{listing.property.landlordName}}
@@ -71,16 +77,16 @@
                 <h2 class="edit-profile-title">Leave a Review</h2>
                 <div class="review-rating-container">
                     <label for="rating">Rate this Landlord (1 - 5):</label>
-                    <input class="review-title" id="review-title" type="number" name="rating" value="Enter rating. 1-5"
+                    <input class="post-review-title" id="review-title" type="number" name="rating" value="Enter rating. 1-5"
                         required>
                 </div>
                 <div class="review-title-container">
                     <label for="bio">Title:</label>
-                    <input class="review-title" id="review-title" type="text" name="title" placeholder="Title">
+                    <input class="post-review-title" id="review-title" type="text" name="title" placeholder="Title">
                 </div>
                 <div class="review-desc-container">
                     <label for="desc">Description:</label>
-                    <textarea class="review-desc" id="review-title" name="description"
+                    <textarea class="post-review-desc" id="review-title" name="description"
                         placeholder="Enter a review..."></textarea>
                     <input type="text" name="listingId" style="display: none;"
                         value="{{listing.property.listingId}}"></input>
