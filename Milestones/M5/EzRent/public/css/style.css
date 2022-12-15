@@ -487,19 +487,18 @@ footer p {
     padding-left: 5px;
 }
 
-.result{
-   position: absolute;
-
-    bottom: 85%;
-    leftt: 30%;
+.result {
+    /* position: absolute; */
+    /* margin-top: 150px; */
+    margin: 75px 20px;
     letter-spacing: 2px;
     color: rgb(83, 131, 104);
     font-size: 35px;
     font-weight: 600;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
-    font-style: oblique;
-  
-    
+    font-family: inherit;
+    /* font-style: oblique; */
+
+
 }
 
 
@@ -511,6 +510,7 @@ footer p {
 #search_results_filters {
     border-right: solid black;
     width: fit-content;
+    height: 600px;
     margin-left: 10px;
 }
 
@@ -531,12 +531,13 @@ footer p {
 #search_results_card_section {
     width: 100%;
 }
-#search-message{
+
+#search-message {
     position: relative;
-    bottom:85%;
+    bottom: 85%;
     font-style: oblique;
     font-size: 1.5vw;
-    color:#3c885b;
+    color: #3c885b;
 
 }
 
@@ -808,7 +809,7 @@ h1 {
     color: #EAEFF2;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-style: oblique;
-    
+
 }
 
 h2 {
@@ -821,7 +822,7 @@ h2 {
     color: rgb(83, 131, 104);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-style: oblique;
-   
+
 
 }
 
@@ -1277,40 +1278,41 @@ h2 {
     z-index: 9999;
     visibility: visible;
     text-align: center;
-    
-    
+
+
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-style: oblique;
     font-size: 2.5vw;
-    
-    
-    height:5vh;
+
+
+    height: 5vh;
 
     color: rgb(114, 21, 21);
 
-  }
-  .flash-messagee {
+}
+
+.flash-messagee {
     position: absolute;
     left: 50%;
     top: 8%;
-    transform: translate(-50%,0);
+    transform: translate(-50%, 0);
     z-index: 9999;
     visibility: visible;
     text-align: center;
-    
-    
+
+
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-style: oblique;
     font-size: 2.5vw;
-    
-    
-    height:5vh;
 
-    color:#247464;
 
-  }
+    height: 5vh;
 
-  /* .flash-message div{
+    color: #247464;
+
+}
+
+/* .flash-message div{
     text-align: center;
   }  */
 /* .edit-profile-form {
@@ -1357,55 +1359,56 @@ h2 {
     align-items: center;
     justify-content: center;
     margin-top: 100px;
-  }
-  
-  .edit-profile-form {
+}
+
+.edit-profile-form {
     display: flex;
     flex-direction: column;
     width: 50%;
     padding: 2rem;
     background-color: #fafafa;
-    border: 1px solid #3C885B;;
+    border: 1px solid #3C885B;
+    ;
     border-radius: 5px;
-  }
-  
-  .edit-profile-title {
+}
+
+.edit-profile-title {
     text-align: center;
     margin-bottom: 2rem;
     font-family: inherit;
-  }
-  
-  .edit-profile-image-container,
-  .edit-profile-bio-container {
+}
+
+.edit-profile-image-container,
+.edit-profile-bio-container {
     margin-bottom: 1rem;
-  }
-  
-  .edit-profile-image-container label,
-  .edit-profile-bio-container label {
+}
+
+.edit-profile-image-container label,
+.edit-profile-bio-container label {
     display: block;
     margin-bottom: 0.5rem;
     font-size: 1.2rem;
     color: #333;
     font-family: inherit;
-  }
-  
-  .edit-profile-image {
+}
+
+.edit-profile-image {
     width: 100%;
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 5px;
-  }
-  
-  .edit-profile-bio {
+}
+
+.edit-profile-bio {
     width: 100%;
     height: 6rem;
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 5px;
     resize: none;
-  }
-  
-  .edit-profile-submit {
+}
+
+.edit-profile-submit {
     display: block;
     margin: 0 auto;
     padding: 0.75rem 1rem;
@@ -1415,30 +1418,30 @@ h2 {
     color: #fff;
     font-size: 0.9rem;
     cursor: pointer;
-  }
-  
-  .edit-profile-submit:hover {
+}
+
+.edit-profile-submit:hover {
     background-color: #295b3d;
-  }
+}
 
-  
 
-  .termsAndConditions {
+
+.termsAndConditions {
     text-align: center;
     font-family: inherit;
     width: 80%;
     margin: auto;
     margin-top: 80px;
-  }
+}
 
-  .termsAndConditions h1 {
+.termsAndConditions h1 {
     color: black;
     font-family: inherit;
     font-size: 2.5rem;
-  }
+}
 
-  .termsAndConditions h2 {
+.termsAndConditions h2 {
     color: black;
     font-family: inherit;
     font-size: 2.1rem;
-  }
+}

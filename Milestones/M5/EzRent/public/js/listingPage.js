@@ -1,4 +1,4 @@
 
 document.getElementById("landlord-info").onclick = () => {
-    location.replace("/landlordprofilepage")
+    location.replace("/landlord")
 }

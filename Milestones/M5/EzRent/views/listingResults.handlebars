@@ -57,33 +57,30 @@
         </form>
     </div>
     <div id="search_results_card_section">
-        <h1 class="listing-results-header">
+        {{!-- <h1 class="listing-results-header">
             Listings </br>
             <p id="search-term">{{searchTerm}}</p>
-        </h1>
+        </h1> --}}
+        {{#if message}}
+        <p id="search-message">{{message}}</p>
+        <div class="result">
+            Suggested Results:
+        </div>
+        {{else}}
+        <div class="result">
+            Search results for "{{searchTerm}}":
+        </div>
+        {{/if}}
         <div id="search_results_cards">
             {{#each results}}
             {{> listingCard this}}
             {{/each}}
         </div>
 
-        {{!-- <div class ="result">
-        Search results for  {{searchTerm}}
+        {{!-- <div class="result">
+            Search results for {{searchTerm}}
 
         </div> --}}
-
-
-{{#if message}}
-<p id="search-message">{{message}}</p>
-<div class="result">
-    Suggested Results
-</div>
-{{else}}
-
-<div class="result">
-    Search results for {{searchTerm}}
-</div>
-{{/if}}
 
 
     </div>

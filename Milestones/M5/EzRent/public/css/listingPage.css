@@ -88,6 +88,7 @@
     display: block;
     margin-top: 100px;
     width: fit-content;
+    max-width: 85vh;
     height: 65vh;
     object-fit: contain;
     border-radius: 5px;

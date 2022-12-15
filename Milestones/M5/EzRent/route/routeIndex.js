@@ -267,7 +267,7 @@ router.get("/landlord", async (req, res, next) => {
             res.locals.profileId = id[0][0].reg_user_id;
         });
     }
-    res.render("landlordPage", { title: "EZRent Landlord" });
+    res.render("publicLandlordProfilePage", { title: "EZRent Landlord" });
 });
 
 router.get("/editProfile", async (req, res, next) => {
