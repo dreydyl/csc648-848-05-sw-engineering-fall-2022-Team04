@@ -43,5 +43,7 @@ router.get("/:id", isLoggedIn, listingControllers.getListing, async (req, res, n
     res.render("listingPage", { title: "EZRent Listing", style: "listingPage" });
 });
 
+router.route("/review").post(listingControllers.createReview);
+
 
 module.exports = router;

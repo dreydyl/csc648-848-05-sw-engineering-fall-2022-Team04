@@ -15,6 +15,7 @@ const Picture_Profile = Picture.Picture_Profile;
 const bcrypt = require("bcrypt");
 var validator = require("email-validator");
 var geoip = require('geoip-lite');
+const e = require('express');
 
 
 // exports.getAllUsers =  async  (req, res, next ) => {
@@ -208,21 +209,23 @@ exports.createReview = async (req, res, next) => {
     try {
         let { rating, title, description, type, landlordId } = req.body;
         console.log("REQ.BODY: "+JSON.stringify(req.body));
-        let reg_user_id = await Review.getUserbyEmail(req.session.email);
-        if(reg_user_id === undefined) {
+        console.log("Session "+req.session.admin);
+        if(!req.session.admin) {
             //user must be logged in
             req.flash('error','You must be logged in to post a review');
+            res.render(`loginpage`, {error: req.flash('error')});
+        } else {
+            let reg_user_id = await Review.getUserbyEmail(req.session.email);
+            reg_user_id = reg_user_id[0];
+            reg_user_id = reg_user_id[0].reg_user_id;
+            //validation
+            //check if has required fields
+            let review = new Review(reg_user_id, rating, title, description, type, landlordId);
+            console.log("REVIEW: "+JSON.stringify(review));
+            review = await review.save();
+            // res.status(201).json({ message: "Review created " });
             res.redirect(`/users/profilePage/${landlordId}`);
         }
-        reg_user_id = reg_user_id[0];
-        reg_user_id = reg_user_id[0].reg_user_id;
-        //validation
-        //check if has required fields
-        let review = new Review(reg_user_id, rating, title, description, type, landlordId);
-        console.log("REVIEW: "+JSON.stringify(review));
-        review = await review.save();
-        // res.status(201).json({ message: "Review created " });
-        res.redirect(`/users/profilePage/${landlordId}`);
     }
     catch (error) {
         next(error);
