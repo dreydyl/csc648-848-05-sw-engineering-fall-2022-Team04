@@ -4,7 +4,8 @@ const Listing = require('../model/Listing');
 var sessions = require('express-session');
 const Picture = require('../model/Picture');
 const Register = User.Register;
-const Update = User.Update;
+const UpdateWithPic = User.UpdateWithPic;
+const UpdateBio = User.UpdateBio;
 const Review = ReviewModel.Review;
 const Rating = User.Rating;
 const Landlord = User.Landlord;
@@ -168,16 +169,23 @@ exports.logout = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
     try {
+        
         let bio = req.body;
         bio = bio.bio;
-        let { filename, path } = req.file;
-        let pic = new Picture_Profile(filename, path);
-        pic = await pic.save();
-        let picture_profile_fk = await Picture_Profile.getPicId(filename, path);
-        picture_profile_fk = picture_profile_fk[0][0].picture_id;
-        console.log(picture_profile_fk);
-        let update = new Update(picture_profile_fk, bio, req.session.email);
-        update = await update.update();
+        if(req.file != undefined)
+        {
+            let { filename, path } = req.file;
+            let pic = new Picture_Profile(filename, path);
+            pic = await pic.save();
+            let picture_profile_fk = await Picture_Profile.getPicId(filename, path);
+            picture_profile_fk = picture_profile_fk[0][0].picture_id;
+            let update = new UpdateWithPic(picture_profile_fk, bio, req.session.email);
+            update = await update.update();
+        }
+        else{
+            let update = new UpdateBio(bio, req.session.email);
+            update = await update.update();
+        }
         res.send({ message: 'User Updated' });
     }
     catch (error) {

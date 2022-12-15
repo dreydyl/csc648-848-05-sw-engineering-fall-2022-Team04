@@ -353,7 +353,7 @@ class Landlord {
     }
 }
 
-class Update {
+class UpdateWithPic {
     constructor(profile_picture_fk, bio, email) {
         this.profile_picture_fk = profile_picture_fk;
         this.bio = bio;
@@ -365,6 +365,23 @@ class Update {
             UPDATE RegisteredUser
             SET 
                 profile_picture_fk = ${this.profile_picture_fk},
+                bio = '${this.bio}'
+            WHERE email = '${this.email}';`;
+        return db.execute(sql);
+    }
+}
+
+
+class UpdateBio {
+    constructor(bio, email) {
+        this.bio = bio;
+        this.email = email;
+    }
+
+    update() {
+        let sql = `
+            UPDATE RegisteredUser
+            SET 
                 bio = '${this.bio}'
             WHERE email = '${this.email}';`;
         return db.execute(sql);
@@ -443,4 +460,4 @@ class Rating {
         return db.execute(sql);
     }
 }
-module.exports = { Register, Update, Review, Rating, Landlord, RegisteredUser };
+module.exports = { Register, UpdateWithPic, UpdateBio, Review, Rating, Landlord, RegisteredUser };
