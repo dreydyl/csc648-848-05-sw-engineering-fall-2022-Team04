@@ -152,14 +152,14 @@ class Register {
                 });
             } else {
                 searchSQL = searchBase +
-                    ` WHERE Listing.zip_code LIKE '%${searchItem}%'
+                    ` WHERE Listing.zip_code = ${searchItem}
                     ${filtersSQL}
                     ${sortSQL};`;
                 await db.execute(searchSQL).then(result => {
                     response.results = response.results.concat(result[0]);
                 });
                 searchSQL = searchBase +
-                    `WHERE Listing.street_number LIKE '%${searchItem}%'
+                    ` WHERE Listing.street_number = ${searchItem}
                     ${filtersSQL}
                     ${sortSQL};`;
                 await db.execute(searchSQL).then(result => {
