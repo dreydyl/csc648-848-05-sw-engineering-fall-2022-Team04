@@ -1,9 +1,16 @@
-<div class="bad-review">
+<div class="bad-review" id="bad-review">
+    {{log this}}
+    <div id="bad-landlord-id" style="display: none; position: fixed;">{{landlordId}}</div>
     <div>
         <div class="bad-review-author">
             <img class="bad-review-profile"
-                src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"></img>
-            <p>{{author}}</p>
+                {{#if profile}}
+                src="/{{profile}}"
+                {{else}}
+                src="/public/images/profile/default.jpeg"
+                {{/if}}
+                ></img>
+            <p>{{renter}}</p>
         </div>
         <div class="description" id="bad-review-description">
             <div class="bad-review-text-box">
@@ -20,6 +27,18 @@
         </div>
     </div>
     <div class="bad-review-pictures">
-        <img class="bad-review-picture" src="images/picture_1666042712023.jpeg"></img>
+        <img class="bad-review-picture"
+            {{#if thumbnail}}
+            src="/{{thumbnail}}"
+            {{else}}
+            src="/public/images/listings/images.png"
+            {{/if}}
+            ></img>
     </div>
 </div>
+<script>
+let landlordId = document.getElementById("bad-landlord-id").innerHTML;
+document.getElementById("bad-review").onclick = () => {
+    location.assign(`/users/profilePage/${landlordId}`);
+}
+</script>

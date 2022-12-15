@@ -48,6 +48,7 @@ router.get("/", async (req, res, next) => {
     await userControllers.getBadReview()
     .then(review => {
         res.locals.badReview = review;
+        console.log("bad review "+JSON.stringify(review));
     })
     let badReview = {
         "author": "Jerry Boxberger",
