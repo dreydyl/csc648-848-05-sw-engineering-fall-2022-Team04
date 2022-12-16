@@ -5,8 +5,8 @@ function createPool() {
     const pool = mysql.createPool({
       host: 'database-csc648-team4.cwpgbxyiuu7u.us-west-1.rds.amazonaws.com',
       port: 3306,
-      user: 'root',
-      password: 'password',
+      user: 'team4_db_admin',
+      password: 'Csc648-team4',
       database: 'EZRentDB',
       connectionLimit: 10,
       waitForConnections: true,
