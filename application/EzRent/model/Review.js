@@ -13,57 +13,62 @@ class Review {
     }
 
     async save() {
-        let d = new Date();
-        let yyyy = d.getFullYear();
-        let mm = d.getMonth() + 1;
-        let dd = d.getDay();
-        var doubleDigit = function(time) {
-            if(time < 10) {
-                time = "0"+time;
+        try{
+            let d = new Date();
+            let yyyy = d.getFullYear();
+            let mm = d.getMonth() + 1;
+            let dd = d.getDay();
+            var doubleDigit = function(time) {
+                if(time < 10) {
+                    time = "0"+time;
+                }
+                return time;
             }
-            return time;
-        }
-        let hour = doubleDigit(d.getHours());
-        let min = doubleDigit(d.getMinutes());
-        let sec = doubleDigit(d.getSeconds());
-
-        let createdAtDate = `${yyyy}-${mm}-${dd} ${hour}:${min}:${sec}`;
-        let reviewSQL = `
-            INSERT INTO Review (author_fk, rating, title, description, time_created)
-            VALUE(
-                ${this.reg_user_id},
-                ${this.rating},
-                '${this.title}',
-                '${this.description}',
-                '${createdAtDate}'
-            );`;
-        console.log("SQL: "+reviewSQL);
-        await db.execute(reviewSQL);
-        if(this.type == 'listing') {
-            let idSQL = `SELECT LAST_INSERT_ID() AS 'lastId';`
-            let reviewId = await db.execute(idSQL);
-            reviewId = reviewId[0][0].lastId;
-            let typeSQL = `
-                INSERT INTO ListingReview (review_fk, listing_fk)
-                VALUES(
-                    ${reviewId},
-                    ${this.referenceId}
-                )`;
-            await db.execute(typeSQL);
-        } else {
-            let idSQL = `SELECT LAST_INSERT_ID() AS 'lastId';`
-            let reviewId = await db.execute(idSQL);
-            console.log("REVIEW ID: "+JSON.stringify(reviewId));
-            reviewId = reviewId[0][0].lastId;
-            console.log("REVIEW ID 2: "+JSON.stringify(reviewId));
-            let typeSQL = `
-                INSERT INTO LandlordReview (review_fk, landlord_fk)
-                VALUES(
-                    ${reviewId},
-                    ${this.referenceId}
+            let hour = doubleDigit(d.getHours());
+            let min = doubleDigit(d.getMinutes());
+            let sec = doubleDigit(d.getSeconds());
+    
+            let createdAtDate = `${yyyy}-${mm}-${dd} ${hour}:${min}:${sec}`;
+            let reviewSQL = `
+                INSERT INTO Review (author_fk, rating, title, description, time_created)
+                VALUE(
+                    ${this.reg_user_id},
+                    ${this.rating},
+                    '${this.title.replace('\'','\\\'')}',
+                    '${this.description.replace('\'','\\\'')}',
+                    '${createdAtDate}'
                 );`;
-            console.log("SQL: "+typeSQL);
-            console.log("EXECUTE: "+JSON.stringify(await db.execute(typeSQL)));
+            console.log("SQL: "+reviewSQL);
+            await db.execute(reviewSQL);
+            if(this.type == 'listing') {
+                let idSQL = `SELECT LAST_INSERT_ID() AS 'lastId';`
+                let reviewId = await db.execute(idSQL);
+                reviewId = reviewId[0][0].lastId;
+                let typeSQL = `
+                    INSERT INTO ListingReview (review_fk, listing_fk)
+                    VALUES(
+                        ${reviewId},
+                        ${this.referenceId}
+                    )`;
+                await db.execute(typeSQL);
+            } else {
+                let idSQL = `SELECT LAST_INSERT_ID() AS 'lastId';`
+                let reviewId = await db.execute(idSQL);
+                console.log("REVIEW ID: "+JSON.stringify(reviewId));
+                reviewId = reviewId[0][0].lastId;
+                console.log("REVIEW ID 2: "+JSON.stringify(reviewId));
+                let typeSQL = `
+                    INSERT INTO LandlordReview (review_fk, landlord_fk)
+                    VALUES(
+                        ${reviewId},
+                        ${this.referenceId}
+                    );`;
+                console.log("SQL: "+typeSQL);
+                console.log("EXECUTE: "+JSON.stringify(await db.execute(typeSQL)));
+            }
+        }
+        catch(error) {
+            next(error);
         }
     }
 

@@ -1,6 +1,7 @@
 const Listing = require('../model/Listing');
 const Picture = require('../model/Picture');
 const ReviewModel = require('../model/Review');
+const userControllers = require('../controllers/userControllers');
 const Review = ReviewModel.Review;
 const Register = Picture.Register;
 const Picture_Listing = Picture.Picture_Listing;
@@ -27,6 +28,14 @@ exports.getAllListings = async (req, res, next) => {
 }
 
 exports.createNewListing = async (req, res, next) => {
+    if(!req.session.admin) {
+        req.flash('error','You must be logged in to create a listing');
+        res.render(`loginpage`,{error:req.flash('error')});
+    }
+    let count = await Listing.checkEmail(req.session.email);
+    let userId = count[0][0].reg_user_id;
+    let landlord_id = userId;
+    let { street_num, street_name, city, state, zipcode, description, bed, bath, price } = req.body;
     try {
         let { filename, path } = req.file;
         // let { landlord_id, street_num, street_name, city, state, zipcode, description, bed, bath, price, file_name, rating } = req.params;
@@ -38,10 +47,6 @@ exports.createNewListing = async (req, res, next) => {
         // let fileUploaded = req.file.path;
         // let fileAsThumbnail = `thumbnail-${req.file.filename}`;
         // let destinationOfThumbnail = req.file.destination + "/" + fileAsThumbnail;
-        let count = await Listing.checkEmail(req.session.email);
-        let userId = count[0][0].reg_user_id;
-        let landlord_id = userId;
-        let { street_num, street_name, city, state, zipcode, description, bed, bath, price } = req.body;
         let listing = new Listing(landlord_id, street_num, street_name, city, state, zipcode, description, bed, bath, price);
 
         listing = await listing.save();
@@ -60,14 +65,23 @@ exports.createNewListing = async (req, res, next) => {
         req.flash('success', 'Listing was successfully created');
         res.redirect(`/users/profilePage/${landlord_id}`);
     } catch (error) {
-        console.log(error);
-        next(error);
+        req.flash('error','Listing was unable to be created. Please try again');
+        userControllers.getHomePage(req, res, next);
+        // if (req.session.admin) {
+        //     res.locals.logged = true;
+        //     let result = await Review.getUserbyEmail(req.session.email);
+        //     result = result[0][0].reg_user_id;
+        //     res.locals.profileId = result;
+        //     res.render(`main`,{error:req.flash('error')});
+        // } else {
+        //     res.render(`main`,{error:req.flash('error')});
+        // }
     }
 }
 
 exports.createReview = async (req, res, next) => {
+    let { rating, title, description, listingId } = req.body;
     try {
-        let { rating, title, description, listingId } = req.body;
         console.log("REQ.BODY: "+JSON.stringify(req.body));
         console.log("Session "+req.session.admin);
         if(!req.session.admin) {
@@ -87,8 +101,18 @@ exports.createReview = async (req, res, next) => {
             res.redirect(`/listings/${listingId}`);
         }
     }
-    catch (error) {
-        next(error);
+    catch(error) {
+        req.flash('error','Your review was unable to be posted. Please try again');
+        userControllers.getHomePage(req, res, next);
+        // if (req.session.admin) {
+        //     res.locals.logged = true;
+        //     let result = await Review.getUserbyEmail(req.session.email);
+        //     result = result[0][0].reg_user_id;
+        //     res.locals.profileId = result;
+        //     res.render(`main`,{error:req.flash('error')});
+        // } else {
+        //     res.render(`main`,{error:req.flash('error')});
+        // }
     }
 
 }

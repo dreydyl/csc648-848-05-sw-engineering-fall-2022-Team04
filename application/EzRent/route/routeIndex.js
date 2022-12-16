@@ -11,60 +11,8 @@ router.get("/", userControllers.getFeaturedLandlords, (req, res, next) => {
 });
 */
 
-router.get("/", async (req, res, next) => {
-    
-    let hooks = {
-        "welcome": {
-            name: "welcome",
-            hook: "Rule to the Renters."
-        },
-        "listing": {
-            name: "listing",
-            hook: "Find the perfect home."
-        },
-        "landlord": {
-            name: "landlord",
-            hook: "Meet the top landlords in your area."
-        },
-        "review": {
-            name: "review",
-            hook: "Avoid bad landlord experiences."
-        },
-        "signup": {
-            name: "signup",
-            hook: "Join us. Make renting homes EZ."
-        },
-    };
-    // res.locals.landlords = userControllers.getFeaturedLandlords();
-    // console.log("index: "+res.locals.landlords);
-    await userControllers.getFeaturedLandlords()
-    .then(landlords => {
-        res.locals.landlords = landlords;
-        console.log("index: "+landlords);
-    })
-    .catch(error => {
-        console.log(error);
-    });
-    await userControllers.getBadReview()
-    .then(review => {
-        res.locals.badReview = review;
-        console.log("bad review "+JSON.stringify(review));
-    })
-    let badReview = {
-        "author": "Jerry Boxberger",
-        "rating": 1,
-        "title": "Horrendous. No compassion",
-        "description": `I have a sick mother. This landlord raised my rent 3 times in the last 14 months because of the "economy".`
-    }
-    res.locals.hooks = hooks;
-    if (req.session.admin) {
-        res.locals.logged = true;
-        await userControllers.getProfileByEmail(req.session.email)
-        .then(id => {
-            res.locals.profileId = id[0][0].reg_user_id;
-        });
-    }
-    res.render("main", { title: "EZRent Home", style: "main"});
+router.get("/", userControllers.getHomePage, async (req, res, next) => {
+    console.log("Home");
 });
 
 /* Frontend Tests */

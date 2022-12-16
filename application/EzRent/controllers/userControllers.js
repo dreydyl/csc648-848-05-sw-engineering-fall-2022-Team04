@@ -45,6 +45,64 @@ const checkPassword = (password) => {
 //         return emailChecker.test(email);
 // }
 
+const getHomePage = async (req, res, next) => {
+
+    let hooks = {
+        "welcome": {
+            name: "welcome",
+            hook: "Rule to the Renters."
+        },
+        "listing": {
+            name: "listing",
+            hook: "Find the perfect home."
+        },
+        "landlord": {
+            name: "landlord",
+            hook: "Meet the top landlords in your area."
+        },
+        "review": {
+            name: "review",
+            hook: "Avoid bad landlord experiences."
+        },
+        "signup": {
+            name: "signup",
+            hook: "Join us. Make renting homes EZ."
+        },
+    };
+    // res.locals.landlords = userControllers.getFeaturedLandlords();
+    // console.log("index: "+res.locals.landlords);
+    await getFeaturedLandlords()
+    .then(landlords => {
+        res.locals.landlords = landlords;
+        console.log("index: "+landlords);
+    })
+    .catch(error => {
+        console.log(error);
+    });
+    await getBadReview()
+    .then(review => {
+        res.locals.badReview = review;
+        console.log("bad review "+JSON.stringify(review));
+    })
+    let badReview = {
+        "author": "Jerry Boxberger",
+        "rating": 1,
+        "title": "Horrendous. No compassion",
+        "description": `I have a sick mother. This landlord raised my rent 3 times in the last 14 months because of the "economy".`
+    }
+    res.locals.hooks = hooks;
+    if (req.session.admin) {
+        res.locals.logged = true;
+        await getProfileByEmail(req.session.email)
+        .then(id => {
+            res.locals.profileId = id[0][0].reg_user_id;
+        });
+    }
+    res.render("main", { title: "EZRent Home", style: "main"});
+}
+
+exports.getHomePage = getHomePage;
+
 const emailValidator = (email) =>{
     let emailChecker = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
             return emailChecker.test(email);
@@ -107,7 +165,7 @@ exports.postReview = async (req, res, next) => {
         next(error);
     }
 }
-exports.getProfileByEmail = async (email) => {
+const getProfileByEmail = async (email) => {
     try {
         return Review.getUserbyEmail(email);
     }
@@ -115,6 +173,8 @@ exports.getProfileByEmail = async (email) => {
         console.log(err);
     }
 }
+
+exports.getProfileByEmail = getProfileByEmail;
 
 exports.login = async (req, res, next) => {
     try {
@@ -201,13 +261,23 @@ exports.update = async (req, res, next) => {
             res.redirect(`../users/profilePage/${id}`);
     }
     catch (error) {
-        next(error);
+        req.flash('error','Your profile was unable to be updated. Please try again');
+        getHomePage(req, res, next);
+        // if (req.session.admin) {
+        //     res.locals.logged = true;
+        //     let result = await Review.getUserbyEmail(req.session.email);
+        //     result = result[0][0].reg_user_id;
+        //     res.locals.profileId = result;
+        //     res.render(`main`,{error:req.flash('error')});
+        // } else {
+        //     res.render(`main`,{error:req.flash('error')});
+        // }
     }
 }
 
 exports.createReview = async (req, res, next) => {
+    let { rating, title, description, type, landlordId } = req.body;
     try {
-        let { rating, title, description, type, landlordId } = req.body;
         console.log("REQ.BODY: "+JSON.stringify(req.body));
         console.log("Session "+req.session.admin);
         if(!req.session.admin) {
@@ -227,8 +297,18 @@ exports.createReview = async (req, res, next) => {
             res.redirect(`/users/profilePage/${landlordId}`);
         }
     }
-    catch (error) {
-        next(error);
+    catch(error) {
+        req.flash('error','Your review was unable to be posted. Please try again');
+        getHomePage(req, res, next);
+        // if (req.session.admin) {
+        //     res.locals.logged = true;
+        //     let result = await Review.getUserbyEmail(req.session.email);
+        //     result = result[0][0].reg_user_id;
+        //     res.locals.profileId = result;
+        //     res.render(`main`,{error:req.flash('error')});
+        // } else {
+        //     res.render(`main`,{error:req.flash('error')});
+        // }
     }
 
 }
@@ -291,7 +371,7 @@ exports.getLandlordList = async (req, res, next) => {
     }
 }
 
-exports.getFeaturedLandlords = async (req, res, next) => {
+const getFeaturedLandlords = async (req, res, next) => {
     try {
         // let ip = req.ip;
         // var geo = geoip.lookup(ip);
@@ -312,7 +392,7 @@ exports.getFeaturedLandlords = async (req, res, next) => {
     }
 }
 
-exports.getBadReview = async (req, res, next) => {
+const getBadReview = async (req, res, next) => {
     try {
         //TODO await Landlord.getFeaturedLandlords();
         // mment out when implement Model

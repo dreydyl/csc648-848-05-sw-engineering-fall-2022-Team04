@@ -19,53 +19,58 @@ class Register {
     }
 
     save() {
-        let d = new Date();
-        let yyyy = d.getFullYear();
-        let mm = d.getMonth() + 1 ;
-        let dd = d.getDay();
-        var doubleDigit = function(time) {
-            if(time < 10) {
-                time = "0"+time;
+        try{
+            let d = new Date();
+            let yyyy = d.getFullYear();
+            let mm = d.getMonth() + 1 ;
+            let dd = d.getDay();
+            var doubleDigit = function(time) {
+                if(time < 10) {
+                    time = "0"+time;
+                }
+                return time;
             }
-            return time;
+            let hour = doubleDigit(d.getHours());
+            let min = doubleDigit(d.getMinutes());
+            let sec = doubleDigit(d.getSeconds());
+    
+            let createdAtDate = `${yyyy}-${mm}-${dd} ${hour}:${min}:${sec}`;
+    
+            let sql = `
+            INSERT INTO listing(
+                landlord_fk,
+                street_number, 
+                street, 
+                city, 
+                state, 
+                zip_code, 
+                description,
+                beds, 
+                baths,
+                price, 
+                time_created
+                
+            )
+            VALUES (
+                '${this.landlord_id}',
+                '${this.street_num}',
+                '${this.street_name}',
+                '${this.city}',
+                '${this.state}',
+                '${this.zipcode}',
+                '${this.description}',
+                '${this.bed}',
+                '${this.bath}',
+                '${this.price}',
+                '${createdAtDate}'
+            )
+            `;
+    
+            return db.execute(sql);  
         }
-        let hour = doubleDigit(d.getHours());
-        let min = doubleDigit(d.getMinutes());
-        let sec = doubleDigit(d.getSeconds());
-
-        let createdAtDate = `${yyyy}-${mm}-${dd} ${hour}:${min}:${sec}`;
-
-        let sql = `
-        INSERT INTO listing(
-            landlord_fk,
-            street_number, 
-            street, 
-            city, 
-            state, 
-            zip_code, 
-            description,
-            beds, 
-            baths,
-            price, 
-            time_created
-            
-        )
-        VALUES (
-            '${this.landlord_id}',
-            '${this.street_num}',
-            '${this.street_name}',
-            '${this.city}',
-            '${this.state}',
-            '${this.zipcode}',
-            '${this.description}',
-            '${this.bed}',
-            '${this.bath}',
-            '${this.price}',
-            '${createdAtDate}'
-        )
-        `;
-
-        return db.execute(sql);  
+        catch(error) {
+            next(error);
+        }
  
     }
 
