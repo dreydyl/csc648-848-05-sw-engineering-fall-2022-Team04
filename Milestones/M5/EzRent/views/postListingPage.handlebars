@@ -1,168 +1,14 @@
-<style>
-    {
-            {
-            !-- .form-postlisting {
-                position: absolute;
-                margin-left: auto;
-                margin-right: auto;
-                margin-top: 15vh;
-                left: 0;
-                right: 0;
-                display: grid;
-                grid-template-columns: 1fr, 1fr;
-                grid-gap: -100px;
-                width: 60vw;
-                height: 140vh;
-                border: 10px solid #444;
-                border-radius: 50px;
-            }
-
-            --
-        }
-    }
-
-
-    /* Add styles to the form container 
-    .form-postlisting {
-        border-radius: 50px;
-        max-width: 600px;
-        max-height: 600px;
-        width: 60%;
-        height: 100%;
-        padding: 30px;
-        background-color: #444;
-    }*/
-    .upload-image {
-        display: flex;
-        flex-direction: column;
-        margin-top: 15px;
-    }
-
-    .form-wrapper {
-        position: relative;
-        height: 170vh;
-        width: 100vw;
-        margin: auto;
-    }
-
-    .image-form {
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: -10vh;
-        height: 30vh;
-        width: 50vw;
-        border: 3px dashed rgb(0, 0, 0);
-    }
-
-    .image-form:hover {
-        background: #d2d2d2;
-        color: #black;
-    }
-
-    .image-form p {
-        position: absolute;
-        text-align: center;
-        line-height: 15px;
-        width: 50vw;
-        color: #black;
-        font-family: montserrat;
-    }
-
-    .image-form input {
-        position: absolute;
-        outline: none;
-        opacity: 0;
-        width: inherit;
-        height: inherit;
-    }
-
-    .btn {
-        margin: 0;
-        color: #black;
-        background: #white;
-        margin-top: 1vh;
-        margin-left: auto;
-        margin-right: auto;
-        width: 45vw;
-        height: 6vh;
-        border-radius: 4px;
-        transition: all .4s ease;
-        outline: none;
-        cursor: pointer;
-    }
-
-    .btn:hover {
-        background: #80B494;
-        color: #black;
-    }
-
-    .btn:active {
-        border: 0;
-    }
-
-    .title {
-        color: black;
-        text-align: center;
-    }
-
-    .input1 {
-        margin-left: 5px;
-        font-family: montserrat;
-        padding: .5em;
-        height: 2vh;
-        width: 69%;
-        border: 3px solid var(#444);
-        border-radius: 7px;
-    }
-
-    .input1[required]:placeholder-shown {
-        border-color: #80B494;
-    }
-
-    body {
-        text-align: center;
-    }
-
-    .btn {
-        border-radius: 7px;
-        color: black;
-        padding: 10px 25px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-    }
-
-    .btn {
-        transition-duration: 0.4s;
-    }
-
-    .btn:hover {
-        background-color: #80B494;
-        color: black;
-    }
-
-    .Post-one {
-        display: flex;
-        margin-left: 40px;
-    }
-
-    .Label-btn {
-        margin-top: 2px;
-        width: 10vw;
-        height: 0vh;
-    }
-</style>
-
-<form method="post" action="/listings/" enctype="multipart/form-data">
+<form class="post-listing-form" method="post" action="/listings/" enctype="multipart/form-data">
 
     <div class="form-wrapper">
         <div class="form-postlisting">
             {{!-- <form action=""> --}}
                 <h1 class="title" style="font-family:Montserrat" style="text-align:center">Post Listing</h1>
-                <div class="upload-image">
-                        <input name="pic" type="file">
-                        {{!-- <p>Drag your Image files here or click in this area.</p> --}}
+                
+                <div class="Post-one">
+                    <p for="street_num" class="Label-btn"><b>Listing Image</b></p>
+                    <input name="pic" type="file">
+                    {{!-- <p>Drag your Image files here or click in this area.</p> --}}
                     {{!-- <button type="submit">Upload</button> --}}
                 </div>
 
@@ -201,7 +47,7 @@
                 </div>
                 <div class="Post-one">
                     <p for="description" class="Label-btn"><b>Description</b></p>
-                    <textarea placeholder="Enter Description" name="description" ></textarea>
+                    <textarea placeholder="Enter Description" name="description"></textarea>
                 </div>
                 <div class="Post-button">
                     <button id="Post-button" type="submit" class="btn">Post</button>
@@ -216,6 +62,103 @@
 
 </form>
 
+<style>
+    .post-listing-form {
+        width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 100px;
+        margin-bottom: 40px;
+        background-color: #f8f8f8;
+        padding: 20px;
+        border-radius: 10px;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+
+    .form-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .form-postlisting {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .title {
+        font-size: 40px;
+        margin-bottom: 20px;
+        text-align: center;
+        color: black;
+        font-family: inherit;
+        font-style: normal;
+        font-weight: 400px;
+    }
+
+    .upload-image {
+        margin-bottom: 10px;
+    }
+
+    .upload-image input[type="file"] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .Post-one {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .Post-one .Label-btn {
+        margin-bottom: 5px;
+    }
+
+    .Post-one input[type="text"],
+     .Post-one input[type="file"],
+    .Post-one textarea {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .Post-one textarea {
+        height: 100px;
+        resize: none;
+    }
+
+    .Post-button {
+        text-align: center;
+    }
+
+    .Post-button button {
+        width: 30%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .Post-button button:hover {
+        background-color: #45a049;
+    }
+</style>
+
 
 <script>
     $(document).ready(function () {
@@ -224,5 +167,3 @@
         });
     });
 </script>
-
-</html>
