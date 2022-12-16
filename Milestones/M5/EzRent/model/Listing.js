@@ -70,7 +70,7 @@ class Register {
     }
 
     static checkEmail(email) {
-        let sql = `SELECT reg_user_id, email FROM registeredUser WHERE email = '${email}';`;
+        let sql = `SELECT reg_user_id, email FROM RegisteredUser WHERE email = '${email}';`;
         return db.execute(sql);
     }
     
