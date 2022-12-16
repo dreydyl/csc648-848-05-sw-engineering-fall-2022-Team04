@@ -28,7 +28,7 @@ exports.getAllListings = async (req, res, next) => {
 
 exports.createNewListing = async (req, res, next) => {
     try {
-        let { filename, path } = req.file.pic;
+        let { filename, path } = req.file;
         // let { landlord_id, street_num, street_name, city, state, zipcode, description, bed, bath, price, file_name, rating } = req.params;
         // let listing = new Listing(landlord_id, street_num, street_name, city, state, zipcode, description, bed, bath, price, file_name, rating);
 

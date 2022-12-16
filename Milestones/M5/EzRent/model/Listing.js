@@ -36,7 +36,7 @@ class Register {
         let createdAtDate = `${yyyy}-${mm}-${dd} ${hour}:${min}:${sec}`;
 
         let sql = `
-        INSERT INTO listing(
+        INSERT INTO Listing(
             landlord_fk,
             street_number, 
             street, 
@@ -85,7 +85,7 @@ class Register {
     }
 
     static getListingId(reg_user_id, street_num, street_name, zipcode){
-        let sql = `SELECT * FROM listing WHERE landlord_fk = ${reg_user_id} AND street_number = ${street_num} AND street = '${street_name}' AND zip_code = ${zipcode};`
+        let sql = `SELECT * FROM Listing WHERE landlord_fk = ${reg_user_id} AND street_number = ${street_num} AND street = '${street_name}' AND zip_code = ${zipcode};`
         return db.execute(sql);
     }
     static getListingById(listing_id)
@@ -186,25 +186,25 @@ class Register {
     }
 
     static getListByZipcode(zipcode) {
-        let sql = `SELECT * FROM listing WHERE zip_code LIKE '${zipcode}' OR street_number LIKE '${zipcode}';`;
+        let sql = `SELECT * FROM Listing WHERE zip_code LIKE '${zipcode}' OR street_number LIKE '${zipcode}';`;
 
         return db.execute(sql); 
     }
 
     static getListByCity(city) {
-        let sql = `SELECT * FROM listing WHERE city LIKE '%${city}%' OR street LIKE '%${city}%';`;
+        let sql = `SELECT * FROM Listing WHERE city LIKE '%${city}%' OR street LIKE '%${city}%';`;
         
         return db.execute(sql); 
     }
 
     static getListByAddress(city) {
-        let sql = `SELECT * FROM listing WHERE address LIKE '%${city}%';`;
+        let sql = `SELECT * FROM Listing WHERE address LIKE '%${city}%';`;
         
         return db.execute(sql); 
     }
 
     static findAll() {
-        let sql = `SELECT * FROM listing WHERE listing_id BETWEEN '0' AND '7';`;
+        let sql = `SELECT * FROM Listing WHERE listing_id BETWEEN '0' AND '7';`;
 
         return db.execute(sql); 
     }

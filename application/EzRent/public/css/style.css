@@ -1264,35 +1264,33 @@ h2 {
 .flash-message {
     position: absolute;
     left: 50%;
-    top: 8%;
+    top: 13%;
     transform: translate(-50%, -50%);
     z-index: 9999;
     visibility: visible;
     text-align: center;
-
-
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: inherit;
     font-style: oblique;
     font-size: 2.5vw;
-
+    padding: 10px;
 
     height: 5vh;
 
-    color: rgb(114, 21, 21);
+    color: rgb(99, 19, 19);
 
 }
 
 .flash-messagee {
     position: absolute;
     left: 50%;
-    top: 8%;
+    top: 13%;
     transform: translate(-50%, 0);
     z-index: 9999;
     visibility: visible;
     text-align: center;
 
 
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: inherit;
     font-style: oblique;
     font-size: 2.5vw;
 
