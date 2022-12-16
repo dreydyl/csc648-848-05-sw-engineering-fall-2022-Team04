@@ -5,7 +5,11 @@ function createPool() {
     const pool = mysql.createPool({
       host: 'database-csc648-team4.cwpgbxyiuu7u.us-west-1.rds.amazonaws.com',
       port: 3306,
+<<<<<<< Updated upstream
       user: 'team4_db_admin',
+=======
+      user: 'root',
+>>>>>>> Stashed changes
       password: 'Csc648-team4',
       database: 'EZRentDB',
       connectionLimit: 10,
